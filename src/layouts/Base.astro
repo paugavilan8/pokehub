@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import SiteSearch from '../components/SiteSearch.astro';
 import { ROUTES, SITE_NAME, OG_LOCALE, ui, type Lang, type RouteKey } from '../i18n/ui';
 
 interface Props {
@@ -24,9 +25,9 @@ const canonical = abs(paths[lang]);
 const fullTitle = route === 'home' && !customPaths ? title : `${title} | ${SITE_NAME}`;
 const ogImage = abs(`/og-${lang}.png`);
 const nav: { key: RouteKey; label: string }[] = [
-  { key: 'home', label: t.nav.sets },
-  { key: 'calc', label: t.nav.calculator },
-  { key: 'guide', label: t.nav.guide },
+  { key: 'home', label: t.nav.setsShort },
+  { key: 'calc', label: t.nav.calculatorShort },
+  { key: 'guide', label: t.nav.guideShort },
 ];
 ---
 <!doctype html>
@@ -63,15 +64,18 @@ const nav: { key: RouteKey; label: string }[] = [
     <a class="skip" href="#main">{t.skip}</a>
     <header class="site-header">
       <div class="container bar">
-        <a class="brand" href={ROUTES.home[lang]}>Poke<span>Hub</span></a>
+        <a class="brand" href={ROUTES.home[lang]} aria-label={`${SITE_NAME}, ${t.nav.sets}`}>
+          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="currentColor"/><path fill="#d0262b" d="M22 14h13a12 12 0 0 1 0 24h-6v12h-7zm7 6v12h6a6 6 0 0 0 0-12z"/></svg>
+          <span class="wm">{SITE_NAME}</span>
+        </a>
+        <div class="search-slot"><SiteSearch lang={lang} /></div>
         <nav aria-label={lang === 'es' ? 'Principal' : 'Main'}>
-          <ul>
-            {nav.map((n) => (
-              <li><a href={ROUTES[n.key][lang]} aria-current={n.key === active ? 'page' : undefined}>{n.label}</a></li>
-            ))}
-          </ul>
+          {nav.map((n) => <a href={ROUTES[n.key][lang]} aria-current={n.key === active ? 'page' : undefined}>{n.label}</a>)}
         </nav>
-        <a class="lang" href={paths[other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>{other.toUpperCase()}</a>
+        <div class="langs" role="group" aria-label={lang === 'es' ? 'Idioma' : 'Language'}>
+          <span aria-current="true">{lang.toUpperCase()}</span>
+          <a href={paths[other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>{other.toUpperCase()}</a>
+        </div>
       </div>
     </header>
     <main id="main">
@@ -81,7 +85,7 @@ const nav: { key: RouteKey; label: string }[] = [
     <footer class="site-footer">
       <div class="container foot">
         <div class="foot-top">
-          <p class="brand-foot">Poke<span>Hub</span></p>
+          <p class="brand-foot">{SITE_NAME}</p>
           <ul class="foot-links">
             <li><a href={ROUTES.sources[lang]}>{t.nav.sources}</a></li>
             <li><a href={ROUTES.legal[lang]}>{t.footer.legal}</a></li>
@@ -98,35 +102,36 @@ const nav: { key: RouteKey; label: string }[] = [
 </html>
 
 <style>
-  .site-header { background: var(--surface); border-bottom: 1px solid var(--border); }
-  .bar { display: flex; align-items: stretch; gap: 28px; min-height: 60px; }
-  .brand { display: flex; align-items: center; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
-  .brand span, .brand-foot span { color: var(--accent); }
-  nav { display: flex; overflow-x: auto; scrollbar-width: none; }
-  nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
-  nav li { display: flex; }
-  nav a {
-    display: flex; align-items: center; padding: 0 12px; white-space: nowrap;
-    color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
-    border-bottom: 2px solid transparent; margin-bottom: -1px;
-  }
+  .site-header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 40; }
+  .bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 12px 28px; min-height: 64px; }
+  .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; }
+  .mark { width: 28px; height: 28px; color: var(--text); }
+  .wm { font-weight: 800; font-stretch: 125%; font-size: 1.15rem; letter-spacing: -0.03em; }
+  .search-slot { display: flex; justify-content: center; }
+  nav { display: flex; gap: 22px; }
+  nav a { color: var(--text-muted); text-decoration: none; font-size: 0.93rem; font-weight: 500; white-space: nowrap; }
   nav a:hover { color: var(--text); }
-  nav a[aria-current='page'] { color: var(--text); border-bottom-color: var(--accent); }
-  .lang {
-    margin-left: auto; align-self: center; font-family: var(--mono); font-size: 0.82rem; font-weight: 600;
-    color: var(--text-muted); text-decoration: none; padding: 5px 9px; border: 1px solid var(--border); border-radius: 6px;
+  nav a[aria-current='page'] { color: var(--text); font-weight: 700; }
+  .langs { display: flex; align-items: center; gap: 2px; font-size: 0.8rem; font-weight: 650; letter-spacing: 0.04em; }
+  .langs > * { padding: 4px 6px; border-radius: 5px; }
+  .langs span { color: var(--text); background: var(--surface-2); }
+  .langs a { color: var(--text-muted); text-decoration: none; }
+  .langs a:hover { color: var(--text); }
+  @media (max-width: 900px) {
+    .bar { grid-template-columns: auto 1fr auto; padding-block: 10px; gap: 10px 16px; }
+    .search-slot { grid-column: 1 / -1; grid-row: 2; }
+    .search-slot :global(.site-search) { max-width: none; }
+    nav { justify-self: end; gap: 16px; }
   }
-  .lang:hover { color: var(--text); border-color: var(--border-strong); }
-  @media (max-width: 640px) {
-    .bar { flex-wrap: wrap; gap: 0 12px; }
-    .brand { min-height: 52px; }
-    nav { order: 3; width: 100%; margin-inline: -12px; border-top: 1px solid var(--border); }
-    nav a { padding: 12px; }
+  @media (max-width: 560px) {
+    .bar { grid-template-columns: auto 1fr; }
+    nav { grid-column: 1 / -1; grid-row: 3; justify-self: start; gap: 18px; padding-top: 2px; }
+    .langs { justify-self: end; grid-row: 1; grid-column: 2; }
   }
   .site-footer { margin-top: 80px; border-top: 1px solid var(--border); background: var(--surface); padding-block: 28px 36px; font-size: 0.85rem; color: var(--text-muted); }
   .foot p { max-width: 95ch; margin-bottom: 0.6em; }
   .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 24px; margin-bottom: 12px; }
-  .brand-foot { font-weight: 700; color: var(--text); font-size: 1rem; margin: 0 !important; }
+  .brand-foot { font-weight: 800; font-stretch: 125%; letter-spacing: -0.03em; color: var(--text); font-size: 1rem; margin: 0 !important; }
   .foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
   .foot-links a { color: var(--text-muted); }
   .foot-links a:hover { color: var(--text); }

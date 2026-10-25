@@ -1,0 +1,159 @@
+---
+import Icon from './Icon.astro';
+import { ROUTES, LOCALE, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = {
+  es: { label: 'Buscar carta o set', placeholder: 'Buscar carta o set', loading: 'Cargando...', none: 'Sin resultados', sets: 'Sets', cards: 'Cartas' },
+  en: { label: 'Search cards or sets', placeholder: 'Search cards or sets', loading: 'Loading...', none: 'No results', sets: 'Sets', cards: 'Cards' },
+}[lang];
+const config = { setsBase: ROUTES.sets[lang], locale: LOCALE[lang], t };
+---
+<div class="site-search" data-search-root data-config={JSON.stringify(config)}>
+  <label class="field">
+    <Icon name="magnifying-glass" />
+    <span class="sr">{t.label}</span>
+    <input
+      type="search" placeholder={t.placeholder} autocomplete="off" spellcheck="false"
+      role="combobox" aria-expanded="false" aria-controls="search-results" aria-autocomplete="list" data-q
+    />
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <div class="results" id="search-results" role="listbox" hidden data-results></div>
+</div>
+
+<style>
+  .site-search { position: relative; width: 100%; max-width: 460px; }
+  .field { display: flex; align-items: center; gap: 8px; height: 40px; padding: 0 10px 0 12px; border-radius: 8px; background: var(--surface-2); border: 1px solid transparent; }
+  .field:focus-within { background: var(--surface); border-color: var(--border-strong); }
+  .field :global(svg) { width: 17px; height: 17px; color: var(--text-muted); flex: none; }
+  input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 0.95rem; color: var(--text); }
+  input::placeholder { color: var(--text-muted); }
+  input::-webkit-search-cancel-button { display: none; }
+  kbd { font: inherit; font-size: 0.72rem; color: var(--text-muted); border: 1px solid var(--border-strong); border-radius: 4px; padding: 0 6px; line-height: 18px; }
+  .field:focus-within kbd { display: none; }
+  @media (hover: none), (max-width: 900px) { kbd { display: none; } }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .results {
+    position: absolute; z-index: 50; top: calc(100% + 6px); left: 0; right: 0; max-height: min(70vh, 520px); overflow-y: auto;
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 12px 32px rgb(20 24 32 / 0.14); padding: 6px;
+  }
+  .results :global(.grp) { font-size: 0.72rem; font-weight: 650; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); padding: 8px 8px 4px; margin: 0; }
+  .results :global(a) { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 10px; padding: 6px 8px; border-radius: 6px; color: var(--text); text-decoration: none; }
+  .results :global(a[aria-selected='true']), .results :global(a:hover) { background: var(--surface-2); }
+  .results :global(.th) { width: 36px; height: 50px; border-radius: 3px; background: var(--surface-2); object-fit: cover; }
+  .results :global(.th.logo) { height: 28px; object-fit: contain; background: none; }
+  .results :global(.nm) { font-weight: 600; font-size: 0.92rem; line-height: 1.25; }
+  .results :global(.sub) { display: block; font-weight: 400; font-size: 0.8rem; color: var(--text-muted); }
+  .results :global(.pr) { font-weight: 650; font-size: 0.92rem; white-space: nowrap; }
+  .results :global(.msg) { padding: 12px 8px; margin: 0; color: var(--text-muted); font-size: 0.9rem; }
+</style>
+
+<script>
+  type Index = { assets: string; sets: [string, string, string | null, string | null][]; cards: [number, string, string, string, string | null, number, string | null][] };
+  const root = document.querySelector<HTMLElement>('[data-search-root]');
+  if (root) {
+    const cfg = JSON.parse(root.dataset.config!);
+    const input = root.querySelector<HTMLInputElement>('[data-q]')!;
+    const box = root.querySelector<HTMLElement>('[data-results]')!;
+    const money = new Intl.NumberFormat(cfg.locale, { style: 'currency', currency: 'EUR' });
+    const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    let index: Index | null = null;
+    let loading: Promise<void> | null = null;
+    let active = -1;
+
+    const load = () => (loading ??= fetch('/search-index.json').then((r) => r.json()).then((d) => { index = d; }).catch(() => { loading = null; }));
+    const open = (on: boolean) => { box.hidden = !on; input.setAttribute('aria-expanded', String(on)); };
+    const el = (tag: string, cls?: string, text?: string) => {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    };
+    const img = (src: string | null, cls: string) => {
+      const i = el('img', cls) as HTMLImageElement;
+      if (src) i.src = src;
+      i.alt = '';
+      i.loading = 'lazy';
+      i.onerror = () => (i.style.visibility = 'hidden');
+      return i;
+    };
+
+    function render() {
+      const q = norm(input.value.trim());
+      active = -1;
+      if (!q) return open(false);
+      open(true);
+      if (!index) {
+        box.replaceChildren(el('p', 'msg', cfg.t.loading));
+        load().then(render);
+        return;
+      }
+      const tokens = q.split(/\s+/);
+      const sets = index.sets
+        .map((s, i) => ({ s, i }))
+        .filter(({ s }) => tokens.every((tk) => norm(s[1]).includes(tk)))
+        .slice(0, 3);
+      const cards = index.cards
+        .filter((c) => {
+          const hay = norm(`${c[2]} ${index!.sets[c[0]][1]} ${c[3]}`);
+          return tokens.every((tk) => hay.includes(tk));
+        })
+        .sort((a, b) => b[5] - a[5])
+        .slice(0, 8);
+      const nodes: Node[] = [];
+      if (sets.length) {
+        nodes.push(el('p', 'grp', cfg.t.sets));
+        for (const { s } of sets) {
+          const a = el('a') as HTMLAnchorElement;
+          a.href = `${cfg.setsBase}${s[0]}/`;
+          a.setAttribute('role', 'option');
+          const nm = el('span', 'nm', s[1]);
+          a.append(img(s[2] ? `${index.assets}${s[2]}.webp` : null, 'th logo'), nm, el('span', 'pr', ''));
+          nodes.push(a);
+        }
+      }
+      if (cards.length) {
+        nodes.push(el('p', 'grp', cfg.t.cards));
+        for (const c of cards) {
+          const set = index.sets[c[0]];
+          const a = el('a') as HTMLAnchorElement;
+          a.href = `${cfg.setsBase}${set[0]}/#c-${c[1]}`;
+          a.setAttribute('role', 'option');
+          const nm = el('span', 'nm', c[2]);
+          nm.append(el('span', 'sub', `${set[1]} · ${c[3]}${c[4] ? ` · ${c[4]}` : ''}`));
+          a.append(img(c[6] ? `${index.assets}${c[6]}/low.webp` : null, 'th'), nm, el('span', 'pr', money.format(c[5])));
+          nodes.push(a);
+        }
+      }
+      if (!nodes.length) nodes.push(el('p', 'msg', cfg.t.none));
+      box.replaceChildren(...nodes);
+    }
+
+    function move(d: number) {
+      const items = [...box.querySelectorAll<HTMLAnchorElement>('a')];
+      if (!items.length) return;
+      active = (active + d + items.length) % items.length;
+      items.forEach((a, i) => a.setAttribute('aria-selected', String(i === active)));
+      items[active].scrollIntoView({ block: 'nearest' });
+    }
+
+    input.addEventListener('focus', () => { load(); if (input.value) render(); });
+    input.addEventListener('input', render);
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); move(1); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); move(-1); }
+      else if (e.key === 'Enter') {
+        const items = box.querySelectorAll<HTMLAnchorElement>('a');
+        const target = items[active] ?? items[0];
+        if (target) location.href = target.href;
+      } else if (e.key === 'Escape') { open(false); input.blur(); }
+    });
+    document.addEventListener('click', (e) => { if (!root.contains(e.target as Node)) open(false); });
+    document.addEventListener('keydown', (e) => {
+      const t = e.target as HTMLElement;
+      if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test(t.tagName) && !t.isContentEditable) { e.preventDefault(); input.focus(); }
+    });
+  }
+</script>

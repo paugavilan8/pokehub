@@ -34,7 +34,7 @@ export function countryName(code: string, lang: Lang) {
 export const ui = {
   es: {
     skip: 'Saltar al contenido',
-    nav: { calculator: 'Calculadora de aduanas', sets: 'Precios de sets', guide: 'Guía de importación', sources: 'Reglas y fuentes' },
+    nav: { calculator: 'Calculadora de aduanas', sets: 'Precios de sets', guide: 'Guía de importación', sources: 'Reglas y fuentes', setsShort: 'Sets', calculatorShort: 'Aduanas', guideShort: 'Guía' },
     langSwitch: 'English',
     langSwitchLabel: 'Read this page in English',
     footer: {
@@ -100,7 +100,7 @@ export const ui = {
   },
   en: {
     skip: 'Skip to content',
-    nav: { calculator: 'Import calculator', sets: 'Set prices', guide: 'Import guide', sources: 'Rules and sources' },
+    nav: { calculator: 'Import calculator', sets: 'Set prices', guide: 'Import guide', sources: 'Rules and sources', setsShort: 'Sets', calculatorShort: 'Import tax', guideShort: 'Guide' },
     langSwitch: 'Español',
     langSwitchLabel: 'Leer esta página en español',
     footer: {

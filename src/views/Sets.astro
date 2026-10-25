@@ -20,7 +20,7 @@ const c = {
     description: 'Precio de sobres y cajas de cada expansión de Pokémon TCG en Cardmarket, sus cartas más caras y si sale a cuenta abrir sobres. Actualizado cada día.',
     h1: 'Precios por set',
     updated: pricesDate ? `Actualizado el ${pricesDate} · Cardmarket` : 'Precios de Cardmarket',
-    search: 'Buscar set', packFrom: 'Sobre desde', packTrend: 'Tendencia sobre', box: 'Caja', ret: 'Recuperas',
+    search: 'Filtrar sets', packFrom: 'Sobre desde', packTrend: 'Tendencia sobre', box: 'Caja', ret: 'Recuperas',
     open: 'Ver cartas', close: 'Ocultar cartas',
     th: ['', 'N.º', 'Carta', 'Rareza', 'Desde', 'Tendencia', ''],
     all: (n: number) => `Ver el set completo (${n} cartas), sellado y valor esperado`,
@@ -34,7 +34,7 @@ const c = {
     description: 'Cardmarket prices for packs and boxes of every Pokémon TCG set, their most valuable cards and whether opening packs pays off. Updated daily.',
     h1: 'Prices by set',
     updated: pricesDate ? `Updated ${pricesDate} · Cardmarket` : 'Cardmarket prices',
-    search: 'Search sets', packFrom: 'Pack from', packTrend: 'Pack trend', box: 'Box', ret: 'You get back',
+    search: 'Filter sets', packFrom: 'Pack from', packTrend: 'Pack trend', box: 'Box', ret: 'You get back',
     open: 'Show cards', close: 'Hide cards',
     th: ['', 'No.', 'Card', 'Rarity', 'From', 'Trend', ''],
     all: (n: number) => `See the full set (${n} cards), sealed product and expected value`,
@@ -54,14 +54,6 @@ const c = {
 
     {sets.length === 0 ? <p class="callout">{c.empty}</p> : (
       <>
-        <div class="toolbar">
-          <label class="search">
-            <Icon name="magnifying-glass" />
-            <span class="sr">{c.search}</span>
-            <input type="search" placeholder={c.search} data-search autocomplete="off" />
-          </label>
-        </div>
-        <p class="no-results" data-no-results hidden>{c.noResults}</p>
 
         <ul class="sets" data-sets>
           {sets.map((s, i) => {
@@ -134,13 +126,7 @@ const c = {
   .ph { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; margin-bottom: 20px; }
   .ph h1 { margin: 0; }
   .updated { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
-  .toolbar { margin-bottom: 16px; }
-  .search { display: flex; align-items: center; gap: 8px; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0 12px; }
-  .search:focus-within { border-color: var(--border-strong); }
-  .search :global(svg) { width: 18px; height: 18px; color: var(--text-muted); flex: none; }
-  .search input { border: 0; outline: 0; background: transparent; font: inherit; color: var(--text); padding: 11px 0; width: 100%; }
   .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-  .no-results { color: var(--text-muted); }
 
   .sets { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
   .set { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); overflow: hidden; }
@@ -218,18 +204,6 @@ const c = {
       const open = btn.getAttribute('aria-expanded') !== 'true';
       btn.setAttribute('aria-expanded', String(open));
       panel.hidden = !open;
-    });
-    const search = document.querySelector<HTMLInputElement>('[data-search]');
-    const none = document.querySelector<HTMLElement>('[data-no-results]')!;
-    search?.addEventListener('input', () => {
-      const q = search.value.trim().toLowerCase();
-      let shown = 0;
-      for (const li of list.querySelectorAll<HTMLElement>('.set')) {
-        const match = !q || li.dataset.name!.includes(q);
-        li.hidden = !match;
-        if (match) shown++;
-      }
-      none.hidden = shown > 0;
     });
   }
 </script>

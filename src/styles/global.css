@@ -1,11 +1,9 @@
-@import '@fontsource-variable/ibm-plex-sans';
-@import '@fontsource/ibm-plex-mono/400.css';
-@import '@fontsource/ibm-plex-mono/500.css';
-@import '@fontsource/ibm-plex-mono/600.css';
+@import '@fontsource-variable/archivo/wdth.css';
 
 /*
   Estilo sobrio, de herramienta de datos: fondo gris muy claro, paneles blancos con borde fino,
-  un solo acento (rojo) y cifras en monoespaciada. Las imágenes de cartas ponen el color.
+  un solo acento (rojo) y Archivo para todo: ancha y gruesa en titulares, normal en texto y con cifras tabulares.
+  Las imágenes de cartas ponen el color.
   Radios: controles 8px, paneles 12px.
 */
 :root {
@@ -31,9 +29,10 @@
   --shadow: 0 1px 2px rgb(20 24 32 / 0.05);
   --radius-control: 8px;
   --radius-panel: 12px;
-  --font: 'IBM Plex Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
   --display: var(--font);
-  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+  /* Las cifras usan la misma fuente con números tabulares (alineados en columnas). */
+  --mono: var(--font);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -67,18 +66,19 @@ html { -webkit-text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--bg); color: var(--text);
   font-family: var(--font); font-size: 1rem; line-height: 1.55;
+  font-variant-numeric: tabular-nums;
   -webkit-font-smoothing: antialiased;
 }
 img, svg { display: block; max-width: 100%; }
 a { color: var(--link); text-underline-offset: 0.2em; }
 a:hover { color: var(--link-hover); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-h1, h2, h3 { line-height: 1.2; letter-spacing: -0.01em; margin: 0 0 0.5em; font-weight: 650; text-wrap: balance; }
-h1 { font-size: clamp(1.7rem, 3.4vw, 2.2rem); }
+h1, h2, h3 { line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 0.5em; font-weight: 750; font-stretch: 115%; text-wrap: balance; }
+h1 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); font-weight: 800; font-stretch: 120%; letter-spacing: -0.025em; }
 h2 { font-size: clamp(1.3rem, 2.4vw, 1.6rem); }
-h3 { font-size: 1.08rem; }
+h3 { font-size: 1.08rem; font-stretch: 105%; }
 p { margin: 0 0 1em; text-wrap: pretty; }
-.num, .mono { font-family: var(--mono); font-variant-numeric: tabular-nums; }
+.num, .mono { font-variant-numeric: tabular-nums; }
 
 .container { width: 100%; max-width: 1140px; margin-inline: auto; padding-inline: 16px; }
 @media (min-width: 768px) { .container { padding-inline: 28px; } }
@@ -102,7 +102,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; white-space: nowrap;
-  font: inherit; font-weight: 600; font-size: 0.95rem; padding: 10px 16px; border-radius: var(--radius-control);
+  font: inherit; font-weight: 650; font-size: 0.95rem; padding: 10px 16px; border-radius: var(--radius-control);
   border: 1px solid transparent; cursor: pointer; text-decoration: none;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
@@ -121,7 +121,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .badge.pending, .badge.secondary { background: var(--warn-bg); color: var(--warn-text); }
 
 /* Etiquetas de rareza (texto corto, como en las webs de precios) */
-.rar { display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 500; letter-spacing: 0.02em; color: var(--text-muted); white-space: nowrap; }
+.rar { display: inline-block; font-size: 0.72rem; font-weight: 650; font-stretch: 90%; letter-spacing: 0.06em; color: var(--text-muted); white-space: nowrap; }
 .rar.sir, .rar.mhr { color: var(--accent); }
 
 @media (prefers-reduced-motion: reduce) {

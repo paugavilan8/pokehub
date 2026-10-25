@@ -206,7 +206,7 @@ const cmLang = lang;
           <thead><tr>{c.cols.map((h, i) => <th class={i >= 3 ? 'n' : ''}>{h}</th>)}</tr></thead>
           <tbody>
             {[...set.cards].sort((a, b) => (b.price.trend ?? -1) - (a.price.trend ?? -1)).map((x) => (
-              <tr data-r={normRarity(x.rarity)} data-hit={isHit(x) ? '1' : '0'} data-p={x.price.trend ?? -1} data-n={x.num} hidden={!isHit(x)}>
+              <tr id={`c-${x.id}`} data-r={normRarity(x.rarity)} data-hit={isHit(x) ? '1' : '0'} data-p={x.price.trend ?? -1} data-n={x.num} hidden={!isHit(x)}>
                 <td class="muted">{x.num}</td>
                 <td>{x.name}</td>
                 <td><span class={`rar ${rarityTone(x.rarity)}`} title={rarityLabel(x.rarity, lang)}>{rarityShort(x.rarity)}</span></td>
@@ -269,6 +269,8 @@ const cmLang = lang;
   table.data .n { text-align: right; font-family: var(--mono); font-variant-numeric: tabular-nums; }
   table.data thead th.n { font-family: var(--font); }
   table.data tr[hidden] { display: none; }
+  table.data tr.flash td { background: var(--accent-soft); }
+  table.data tr { scroll-margin-top: 140px; }
 
   .hits { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
   .hit { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--text); height: 100%; }
@@ -305,5 +307,13 @@ const cmLang = lang;
     };
     filter.addEventListener('change', apply);
     sort.addEventListener('change', apply);
+
+    // Enlace directo a una carta (desde el buscador): mostrarla aunque no sea un hit y resaltarla.
+    const target = location.hash.startsWith('#c-') ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+    if (target instanceof HTMLTableRowElement) {
+      if (target.hidden) { filter.value = ''; apply(); }
+      target.classList.add('flash');
+      target.scrollIntoView({ block: 'center' });
+    }
   }
 </script>
