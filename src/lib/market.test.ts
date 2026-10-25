@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  appendHistory, expansionOf, expectedValue, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
+  appendHistory, baseName, expansionOf, expectedValue, matchByName, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
   type CmProduct, type MarketCard, type SetPullRates,
 } from './market';
 
@@ -70,6 +70,39 @@ describe('expansionOf', () => {
     ]);
     expect(expansionOf([1, 2, 3, null, 99], singles)).toBe(6096);
     expect(expansionOf([], singles)).toBeNull();
+  });
+});
+
+describe('matchByName', () => {
+  const mk = (id: string, num: string, name: string, cmId: number | null = null) => ({ ...card(id, 'Rare', null), num, name, cmId });
+  const singles: CmProduct[] = [
+    { idProduct: 10, name: 'Dark Charizard [Nail Flick | Continuous Fireball]', idExpansion: 7 },
+    { idProduct: 11, name: 'Dark Charizard [Nail Flick | Continuous Fireball]', idExpansion: 7 },
+    { idProduct: 12, name: 'Pikachu [Thundershock]', idExpansion: 7 },
+    { idProduct: 13, name: 'Pikachu [Thundershock]', idExpansion: 8 },
+    { idProduct: 14, name: 'Mew [Psywave]', idExpansion: 7 },
+    { idProduct: 15, name: 'Mew [Psywave]', idExpansion: 7 },
+  ];
+  it('quita los ataques y los acentos del nombre de Cardmarket', () => {
+    expect(baseName('Pokémon Center [Heal]')).toBe('pokemon center');
+  });
+  it('empareja por nombre dentro de la expansión y, si se repite, por orden', () => {
+    const cards = [mk('a', '21', 'Dark Charizard'), mk('b', '4', 'Dark Charizard'), mk('c', '50', 'Pikachu', 12), mk('d', '9', 'Mew')];
+    expect(matchByName(cards, 7, singles)).toBe(7);
+    expect(cards.map((c) => c.cmId)).toEqual([11, 10, 12, null]);
+  });
+  it('separa las cartas que TCGdex junta con el mismo id', () => {
+    const cards = [mk('a', '4', 'Dark Charizard', 10), mk('b', '21', 'Dark Charizard', 10), mk('c', '9', 'Mew', 14), mk('d', '90', 'Mew', 14), mk('e', '1', 'Raro', 30), mk('f', '2', 'Raro', 30)];
+    matchByName(cards, 7, singles);
+    expect(cards.map((c) => c.cmId)).toEqual([10, 11, 14, 15, 30, null]);
+  });
+  it('averigua la expansión si ninguna carta tiene id', () => {
+    const cards = ['Dark Charizard', 'Pikachu', 'Mew', 'Mew', 'Dark Charizard'].map((n, i) => mk(String(i), String(i + 1), n));
+    const many = [...singles, ...['A', 'B', 'C'].map((n, i) => ({ idProduct: 20 + i, name: n, idExpansion: 7 }))];
+    cards.push(...['A', 'B', 'C'].map((n, i) => mk(n, String(10 + i), n)));
+    expect(matchByName(cards, null, many)).toBe(7);
+    expect(cards[1].cmId).toBe(12);
+    expect(matchByName([mk('x', '1', 'Nada')], null, singles)).toBeNull();
   });
 });
 

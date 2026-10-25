@@ -1,6 +1,8 @@
 ---
 import '../styles/global.css';
 import SiteSearch from '../components/SiteSearch.astro';
+import MegaNav from '../components/MegaNav.astro';
+import Icon from '../components/Icon.astro';
 import { ROUTES, SITE_NAME, OG_LOCALE, ui, type Lang, type RouteKey } from '../i18n/ui';
 
 interface Props {
@@ -24,13 +26,7 @@ const abs = (path: string) => new URL(path, site).href;
 const canonical = abs(paths[lang]);
 const fullTitle = route === 'home' && !customPaths ? title : `${title} | ${SITE_NAME}`;
 const ogImage = abs(`/og-${lang}.png`);
-const nav: { key: RouteKey; label: string }[] = [
-  { key: 'home', label: t.nav.setsShort },
-  { key: 'pokemon', label: t.nav.pokemonShort },
-  { key: 'alerts', label: t.nav.alertsShort },
-  { key: 'calc', label: t.nav.calculatorShort },
-  { key: 'guide', label: t.nav.guideShort },
-];
+const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { open: 'Open menu', close: 'Close menu' };
 ---
 <!doctype html>
 <html lang={lang}>
@@ -56,6 +52,7 @@ const nav: { key: RouteKey; label: string }[] = [
     <meta property="og:locale:alternate" content={OG_LOCALE[other]} />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="/brand/logo.webp" media="(prefers-color-scheme: light)" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#181b20" media="(prefers-color-scheme: dark)" />
@@ -66,19 +63,22 @@ const nav: { key: RouteKey; label: string }[] = [
     <a class="skip" href="#main">{t.skip}</a>
     <header class="site-header">
       <div class="container bar">
-        <a class="brand" href={ROUTES.home[lang]} aria-label={`${SITE_NAME}, ${t.nav.sets}`}>
-          <svg class="mark" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="currentColor"/><path fill="#d0262b" d="M22 14h13a12 12 0 0 1 0 24h-6v12h-7zm7 6v12h6a6 6 0 0 0 0-12z"/></svg>
-          <span class="wm">{SITE_NAME}</span>
+        <button type="button" class="menu-btn" aria-expanded="false" aria-label={menu.open} data-open={menu.open} data-close={menu.close} data-menu>
+          <Icon name="list" class="i-open" /><Icon name="x" class="i-close" />
+        </button>
+        <a class="brand" href={ROUTES.home[lang]}>
+          <picture>
+            <source srcset="/brand/logo-dark.webp" media="(prefers-color-scheme: dark)" />
+            <img src="/brand/logo.webp" alt={SITE_NAME} width="460" height="168" />
+          </picture>
         </a>
         <div class="search-slot"><SiteSearch lang={lang} /></div>
-        <nav aria-label={lang === 'es' ? 'Principal' : 'Main'}>
-          {nav.map((n) => <a href={ROUTES[n.key][lang]} aria-current={n.key === active ? 'page' : undefined}>{n.label}</a>)}
-        </nav>
         <div class="langs" role="group" aria-label={lang === 'es' ? 'Idioma' : 'Language'}>
           <span aria-current="true">{lang.toUpperCase()}</span>
           <a href={paths[other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>{other.toUpperCase()}</a>
         </div>
       </div>
+      <MegaNav lang={lang} active={active} />
     </header>
     <main id="main">
       <slot name="hero" />
@@ -104,31 +104,30 @@ const nav: { key: RouteKey; label: string }[] = [
 </html>
 
 <style>
-  .site-header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 40; }
-  .bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 12px 28px; min-height: 64px; }
-  .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; }
-  .mark { width: 28px; height: 28px; color: var(--text); }
-  .wm { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; }
+  .site-header { background: var(--surface); position: sticky; top: 0; z-index: 40; box-shadow: 0 1px 0 var(--border); }
+  .bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: 12px 32px; min-height: 72px; }
+  .brand { display: block; line-height: 0; }
+  .brand img { height: 50px; width: auto; }
   .search-slot { display: flex; justify-content: center; }
-  nav { display: flex; gap: 22px; }
-  nav a { color: var(--text-muted); text-decoration: none; font-size: 0.93rem; font-weight: 500; white-space: nowrap; }
-  nav a:hover { color: var(--text); }
-  nav a[aria-current='page'] { color: var(--text); font-weight: 700; }
+  .search-slot :global(.site-search) { max-width: 620px; }
+  .menu-btn { display: none; }
   .langs { display: flex; align-items: center; gap: 2px; font-size: 0.8rem; font-weight: 650; letter-spacing: 0.04em; }
   .langs > * { padding: 4px 6px; border-radius: 5px; }
   .langs span { color: var(--text); background: var(--surface-2); }
   .langs a { color: var(--text-muted); text-decoration: none; }
   .langs a:hover { color: var(--text); }
-  @media (max-width: 900px) {
-    .bar { grid-template-columns: auto 1fr auto; padding-block: 10px; gap: 10px 16px; }
+  @media (max-width: 760px) {
+    .bar { grid-template-columns: auto auto 1fr auto; gap: 10px 12px; min-height: 0; padding-block: 8px 10px; }
+    .menu-btn { all: unset; box-sizing: border-box; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; color: var(--text); margin-left: -8px; }
+    .menu-btn:hover { background: var(--surface-2); }
+    .menu-btn:focus-visible { outline: 2px solid var(--focus); }
+    .menu-btn :global(svg) { width: 24px; height: 24px; }
+    .menu-btn :global(.i-close), .menu-btn[aria-expanded='true'] :global(.i-open) { display: none; }
+    .menu-btn[aria-expanded='true'] :global(.i-close) { display: block; }
+    .brand img { height: 40px; }
+    .langs { grid-column: 4; justify-self: end; }
     .search-slot { grid-column: 1 / -1; grid-row: 2; }
     .search-slot :global(.site-search) { max-width: none; }
-    nav { justify-self: end; gap: 16px; }
-  }
-  @media (max-width: 560px) {
-    .bar { grid-template-columns: auto 1fr; }
-    nav { grid-column: 1 / -1; grid-row: 3; justify-self: start; gap: 18px; padding-top: 2px; }
-    .langs { justify-self: end; grid-row: 1; grid-column: 2; }
   }
   .site-footer { margin-top: 80px; border-top: 1px solid var(--border); background: var(--surface); padding-block: 28px 36px; font-size: 0.85rem; color: var(--text-muted); }
   .foot p { max-width: 95ch; margin-bottom: 0.6em; }

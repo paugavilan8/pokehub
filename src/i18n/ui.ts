@@ -1,8 +1,8 @@
 export type Lang = 'es' | 'en';
 export const LANGS: Lang[] = ['es', 'en'];
 
-/** Nombre de trabajo. Cambiar aquí cuando se decida el definitivo. */
-export const SITE_NAME = 'PokeHub';
+/** Nombre de la web (el logo está en public/brand, generado con scripts/make-logo.mjs). */
+export const SITE_NAME = 'PullRadar';
 
 export const ROUTES = {
   home: { es: '/', en: '/en/' },
@@ -10,7 +10,7 @@ export const ROUTES = {
   pokemon: { es: '/pokemon/', en: '/en/pokemon/' },
   alerts: { es: '/avisos/', en: '/en/alerts/' },
   alertsStatus: { es: '/avisos/estado/', en: '/en/alerts/status/' },
-  /** Prefijo de las páginas de cada set (la lista de sets es la portada). */
+  /** Todas las expansiones; también es el prefijo de la página de cada set. */
   sets: { es: '/expansiones/', en: '/en/sets/' },
   guide: { es: '/guia-aduanas-cartas-pokemon/', en: '/en/pokemon-card-import-tax-eu/' },
   sources: { es: '/reglas-y-fuentes/', en: '/en/rules-and-sources/' },

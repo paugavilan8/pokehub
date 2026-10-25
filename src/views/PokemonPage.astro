@@ -21,7 +21,7 @@ const n = pokemon.cards.length;
 const c = {
   es: {
     title: `Cartas de ${name}: precios de todas sus cartas Pokémon TCG`,
-    description: `Todas las cartas de ${name} en las expansiones recientes de Pokémon TCG con su precio en Cardmarket. La más cara: ${top?.card.name} (${fmt(top?.card.price.trend)}).`,
+    description: `Todas las cartas de ${name} de todas las expansiones de Pokémon TCG con su precio en Cardmarket. La más cara: ${top?.card.name} (${fmt(top?.card.price.trend)}).`,
     back: 'Todos los Pokémon',
     dex: `Número ${pokemon.dex} de la Pokédex${other !== name ? `. En inglés se llama ${other}` : ''}.`,
     lead: `${name} aparece en ${n} ${n === 1 ? 'carta' : 'cartas'} de ${sets} ${sets === 1 ? 'expansión' : 'expansiones'}. La más cara es ${top?.card.name}, de ${top?.summary.set.name}, a ${fmt(top?.card.price.trend)}. Tener una de cada costaría unos ${fmt(pokemon.total)} en Cardmarket.`,
@@ -30,7 +30,7 @@ const c = {
   },
   en: {
     title: `${name} cards: prices for every Pokémon TCG card`,
-    description: `Every ${name} card from recent Pokémon TCG sets with its Cardmarket price. Most valuable: ${top?.card.name} (${fmt(top?.card.price.trend)}).`,
+    description: `Every ${name} card from every Pokémon TCG set with its Cardmarket price. Most valuable: ${top?.card.name} (${fmt(top?.card.price.trend)}).`,
     back: 'All Pokémon',
     dex: `Pokédex number ${pokemon.dex}${other !== name ? `. In Spanish it is called ${other}` : ''}.`,
     lead: `${name} appears on ${n} ${n === 1 ? 'card' : 'cards'} across ${sets} ${sets === 1 ? 'set' : 'sets'}. The most valuable is ${top?.card.name} from ${top?.summary.set.name}, at ${fmt(top?.card.price.trend)}. Owning one of each would cost about ${fmt(pokemon.total)} on Cardmarket.`,

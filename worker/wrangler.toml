@@ -1,5 +1,5 @@
 # Avisos de stock por correo. Ver worker/README.md para crearlo en tu cuenta de Cloudflare.
-name = "pokehub-alerts"
+name = "pullradar-alerts"
 main = "src/index.ts"
 compatibility_date = "2026-10-01"
 
@@ -9,17 +9,17 @@ crons = ["*/5 * * * *"]
 
 [[d1_databases]]
 binding = "DB"
-database_name = "pokehub-alerts"
-# Pon aquí el id que devuelve `npx wrangler d1 create pokehub-alerts`.
+database_name = "pullradar-alerts"
+# Pon aquí el id que devuelve `npx wrangler d1 create pullradar-alerts`.
 database_id = "00000000-0000-0000-0000-000000000000"
 
 [vars]
 # Dirección pública de la web (sin barra final) y desde qué dominios se acepta el formulario.
-SITE_URL = "https://pokehub.pages.dev"
-ALLOWED_ORIGINS = "https://pokehub.pages.dev,http://localhost:4321"
+SITE_URL = "https://pullradar.pages.dev"
+ALLOWED_ORIGINS = "https://pullradar.pages.dev,http://localhost:4321"
 # Remitente de los correos. El dominio tiene que estar verificado en Resend.
-MAIL_FROM = "PokeHub <avisos@example.com>"
+MAIL_FROM = "PullRadar <avisos@example.com>"
 # Dirección pública de este worker (para los enlaces de confirmar y darse de baja en los correos).
-WORKER_URL = "https://pokehub-alerts.example.workers.dev"
+WORKER_URL = "https://pullradar-alerts.example.workers.dev"
 
 # Secreto (no va en este fichero): npx wrangler secret put RESEND_API_KEY

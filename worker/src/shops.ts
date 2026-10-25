@@ -37,7 +37,7 @@ export interface ShopProduct {
   lang: ProductLang;
 }
 
-export const USER_AGENT = 'PokeHubStockBot/0.1 (+avisos de stock para coleccionistas; contacto en la web)';
+export const USER_AGENT = 'PullRadarStockBot/0.1 (+avisos de stock para coleccionistas; contacto en la web)';
 const MAX_PAGES = 12;
 
 type Fetch = (url: string, init?: RequestInit) => Promise<Response>;

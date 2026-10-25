@@ -16,8 +16,8 @@ Desde la raíz del repo:
 
 ```sh
 npx wrangler login
-npx wrangler d1 create pokehub-alerts                 # copia el database_id en worker/wrangler.toml
-npx wrangler d1 execute pokehub-alerts --remote --file=worker/schema.sql --config worker/wrangler.toml
+npx wrangler d1 create pullradar-alerts                 # copia el database_id en worker/wrangler.toml
+npx wrangler d1 execute pullradar-alerts --remote --file=worker/schema.sql --config worker/wrangler.toml
 ```
 
 Correo con [Resend](https://resend.com) (plan gratuito: 100 correos al día, 3.000 al mes):

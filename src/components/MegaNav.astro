@@ -1,0 +1,306 @@
+---
+// Barra de navegación con desplegables grandes (como las tiendas de cartas): expansiones, Pokémon y aduanas.
+// En escritorio se abren al pasar el ratón o al pulsar; en móvil, el botón de menú los muestra en acordeón.
+import Icon from './Icon.astro';
+import { allPokemon, allSets, pokemonName, seriesName, setsBySeries } from '../lib/market-data';
+import { cardImage } from '../lib/market';
+import { ROUTES, LOCALE, type Lang, type RouteKey } from '../i18n/ui';
+
+interface Props { lang: Lang; active: RouteKey }
+const { lang, active } = Astro.props;
+const sets = allSets();
+// Las expansiones con sobres (sin promos ni colecciones sueltas), como en el menú de las tiendas.
+const main = sets.filter((s) => s.pack);
+const latest = main.slice(0, 12);
+const featured = main[0];
+const series = setsBySeries();
+/** Los más buscados, por número de Pokédex. */
+const POPULAR = [6, 25, 197, 151, 94, 249, 384, 150, 133, 658, 700, 448];
+const pokemon = allPokemon();
+const popular = POPULAR.map((dex) => pokemon.find((p) => p.dex === dex)).filter((p) => p != null);
+/** Para la miniatura, su carta más cara desde Espada y Escudo (las ilustraciones modernas lucen más en el menú). */
+const thumbOf = (p: (typeof popular)[number]) =>
+  (p.cards.find((x) => (x.summary.set.releaseDate ?? '') >= '2019-11' && x.card.image) ?? p.cards.find((x) => x.card.image))?.card;
+const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' });
+const setUrl = (slug: string) => `${ROUTES.sets[lang]}${slug}/`;
+
+const t = {
+  es: {
+    main: 'Principal', menu: 'Menú', close: 'Cerrar menú',
+    sets: 'Expansiones', latest: 'Últimas expansiones', bySeries: 'Por serie', all: (n: number) => `Todas las expansiones (${n})`,
+    newest: 'Última expansión', seePrices: 'Ver precios del set', packFrom: (p: string) => `Sobres desde ${p}`,
+    pokemon: 'Pokémon', popular: 'Los más buscados', allPokemon: (n: number) => `Todos los Pokémon (${n})`, cards: (n: number) => `${n} cartas`,
+    alerts: 'Avisos de stock', import: 'Aduanas',
+    tools: [
+      { route: 'calc', icon: 'calculator', title: 'Calculadora de aduanas', text: 'Lo que pagas de verdad al comprar fuera de la UE.' },
+      { route: 'guide', icon: 'book-open', title: 'Guía de importación', text: 'IVA, derechos y tasas, con ejemplos reales.' },
+      { route: 'sources', icon: 'scales', title: 'Reglas y fuentes', text: 'De dónde sale cada cifra y cuándo la revisamos.' },
+    ],
+  },
+  en: {
+    main: 'Main', menu: 'Menu', close: 'Close menu',
+    sets: 'Sets', latest: 'Latest sets', bySeries: 'By series', all: (n: number) => `All sets (${n})`,
+    newest: 'Latest set', seePrices: 'See set prices', packFrom: (p: string) => `Packs from ${p}`,
+    pokemon: 'Pokémon', popular: 'Most searched', allPokemon: (n: number) => `All Pokémon (${n})`, cards: (n: number) => `${n} cards`,
+    alerts: 'Stock alerts', import: 'Import tax',
+    tools: [
+      { route: 'calc', icon: 'calculator', title: 'Import calculator', text: 'What you really pay when buying from outside the EU.' },
+      { route: 'guide', icon: 'book-open', title: 'Import guide', text: 'VAT, duty and fees, with real examples.' },
+      { route: 'sources', icon: 'scales', title: 'Rules and sources', text: 'Where every figure comes from and when we checked it.' },
+    ],
+  },
+}[lang];
+const setsActive = active === 'home' || active === 'sets';
+const importActive = active === 'calc' || active === 'guide' || active === 'sources';
+const featuredPack = featured?.pack?.price.low ?? featured?.pack?.price.trend;
+---
+<nav class="mainnav" aria-label={t.main} data-nav>
+  <div class="container navbar">
+    <ul class="items" role="list">
+      <li class="item" data-item>
+        <button type="button" class="trigger" aria-expanded="false" aria-controls="mega-sets" data-trigger data-active={setsActive || undefined}>
+          {t.sets}<Icon name="caret-down" />
+        </button>
+        <div class="panel" id="mega-sets" hidden data-panel>
+          <div class="mega mega-sets">
+            <div class="col col-latest">
+              <p class="col-title">{t.latest}</p>
+              <ul class="set-list" role="list">
+                {latest.map((s) => (
+                  <li><a href={setUrl(s.slug)}>{s.set.name}</a></li>
+                ))}
+              </ul>
+            </div>
+            <div class="col col-series">
+              <p class="col-title">{t.bySeries}</p>
+              <ul class="series-list" role="list">
+                {series.map((g) => (
+                  <li><a href={`${ROUTES.sets[lang]}#${g.slug}`}>{seriesName(g.name, lang)} <span class="count">{g.sets.length}</span></a></li>
+                ))}
+              </ul>
+            </div>
+            {featured && (
+              <div class="col col-feature">
+                <a class="feature" href={setUrl(featured.slug)}>
+                  <span class="feature-art">
+                    {featured.hits[0]?.image && <img class="feature-bg" src={cardImage(featured.hits[0].image, 'high')} alt="" loading="lazy" decoding="async" />}
+                    {featured.set.logo && <img class="feature-logo" src={`${featured.set.logo}.webp`} alt="" loading="lazy" decoding="async" />}
+                  </span>
+                  <span class="feature-kicker">{t.newest}</span>
+                  <span class="feature-name">{featured.set.name}</span>
+                  {featuredPack != null && <span class="feature-sub">{t.packFrom(money.format(featuredPack))}</span>}
+                </a>
+                <a class="btn-solid" href={setUrl(featured.slug)}>{t.seePrices}</a>
+                <a class="btn-line" href={ROUTES.sets[lang]}><Icon name="cards" />{t.all(sets.length)}</a>
+              </div>
+            )}
+          </div>
+        </div>
+      </li>
+
+      <li class="item" data-item>
+        <button type="button" class="trigger" aria-expanded="false" aria-controls="mega-pokemon" data-trigger data-active={active === 'pokemon' || undefined}>
+          {t.pokemon}<Icon name="caret-down" />
+        </button>
+        <div class="panel" id="mega-pokemon" hidden data-panel>
+          <div class="mega mega-pokemon">
+            <p class="col-title">{t.popular}</p>
+            <ul class="poke-grid" role="list">
+              {popular.map((p) => {
+                const top = thumbOf(p);
+                return (
+                  <li><a href={`${ROUTES.pokemon[lang]}${p.slug}/`}>
+                    <span class="poke-scan">{top?.image && <img src={cardImage(top.image)} alt="" loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
+                    <span class="poke-name">{pokemonName(p, lang)}</span>
+                    <span class="poke-sub">{t.cards(p.cards.length)}</span>
+                  </a></li>
+                );
+              })}
+            </ul>
+            <a class="more" href={ROUTES.pokemon[lang]}>{t.allPokemon(pokemon.length)} <Icon name="arrow-right" /></a>
+          </div>
+        </div>
+      </li>
+
+      <li class="item">
+        <a class="trigger" href={ROUTES.alerts[lang]} aria-current={active === 'alerts' || active === 'alertsStatus' ? 'page' : undefined}>{t.alerts}</a>
+      </li>
+
+      <li class="item item-rel" data-item>
+        <button type="button" class="trigger" aria-expanded="false" aria-controls="mega-import" data-trigger data-active={importActive || undefined}>
+          {t.import}<Icon name="caret-down" />
+        </button>
+        <div class="panel panel-narrow" id="mega-import" hidden data-panel>
+          <ul class="mega mega-tools" role="list">
+            {t.tools.map((tool) => (
+              <li><a href={ROUTES[tool.route as RouteKey][lang]}>
+                <span class="tool-icon"><Icon name={tool.icon} /></span>
+                <span><span class="tool-title">{tool.title}</span><span class="tool-text">{tool.text}</span></span>
+              </a></li>
+            ))}
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+  .mainnav { background: var(--nav-bg); color: var(--nav-text); position: relative; }
+  .navbar { position: relative; }
+  .items { list-style: none; margin: 0; padding: 0; display: flex; gap: 4px; }
+  .trigger {
+    all: unset; box-sizing: border-box; cursor: pointer; display: inline-flex; align-items: center; gap: 6px;
+    height: 48px; padding: 0 16px; font-weight: 600; font-size: 0.97rem; color: var(--nav-text); white-space: nowrap;
+    border-radius: 8px 8px 0 0; text-decoration: none;
+  }
+  .trigger :global(svg) { width: 14px; height: 14px; transition: transform 0.2s var(--ease); }
+  .trigger:hover { background: var(--nav-hover); color: var(--nav-text); }
+  .trigger:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+  .trigger[aria-expanded='true'] { background: var(--surface); color: var(--text); }
+  .trigger[aria-expanded='true'] :global(svg) { transform: rotate(180deg); }
+  .trigger[data-active], .trigger[aria-current='page'] { box-shadow: inset 0 -3px 0 var(--accent); }
+  .trigger[aria-expanded='true'][data-active] { box-shadow: none; }
+
+  .panel {
+    position: absolute; z-index: 45; top: 100%; left: 28px; right: 28px;
+    background: var(--surface); color: var(--text); border: 1px solid var(--border); border-top: 0;
+    border-radius: 0 0 12px 12px; box-shadow: 0 18px 40px rgb(15 17 22 / 0.18);
+  }
+  .item-rel { position: relative; }
+  .panel-narrow { left: 0; right: auto; width: 440px; }
+  .mega { padding: 22px 24px 24px; }
+  .col-title { margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-weight: 700; font-size: 1rem; }
+  .mega a { color: var(--text); text-decoration: none; }
+  .mega a:hover { color: var(--accent); }
+
+  .mega-sets { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.8fr) 250px; gap: 28px; }
+  .set-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; }
+  .set-list a { display: block; padding: 5px 0; font-size: 0.92rem; font-weight: 500; line-height: 1.25; }
+  .series-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; }
+  .series-list a { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; font-size: 0.92rem; font-weight: 500; }
+  .count { color: var(--text-muted); font-size: 0.82rem; font-weight: 400; }
+  .col-feature { display: flex; flex-direction: column; gap: 10px; border-left: 1px solid var(--border); padding-left: 24px; }
+  .feature { display: flex; flex-direction: column; gap: 2px; }
+  .feature-art { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 10; border-radius: 10px; overflow: hidden; background: #1b1e24; margin-bottom: 8px; }
+  .feature-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; filter: saturate(1.1); transform: scale(1.15); }
+  .feature-art::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgb(10 12 16 / 0.05), rgb(10 12 16 / 0.55)); }
+  .feature-logo { position: relative; z-index: 1; max-width: 78%; max-height: 62%; object-fit: contain; filter: drop-shadow(0 4px 10px rgb(0 0 0 / 0.5)); }
+  .feature-kicker { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+  .feature-name { font-weight: 700; font-size: 1.05rem; }
+  .feature-sub { font-size: 0.88rem; color: var(--text-muted); }
+  .btn-solid, .btn-line { white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 8px; height: 40px; border-radius: 8px; font-weight: 650; font-size: 0.92rem; }
+  .mega .btn-solid { background: var(--accent); color: var(--on-accent); }
+  .mega .btn-solid:hover { background: var(--accent-hover); color: var(--on-accent); }
+  .mega .btn-line { border: 1px solid var(--border-strong); }
+  .btn-line :global(svg) { width: 17px; height: 17px; }
+
+  .poke-grid { list-style: none; margin: 4px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 16px 14px; }
+  .poke-grid a { display: flex; flex-direction: column; gap: 2px; }
+  .poke-scan { display: block; aspect-ratio: 245 / 342; border-radius: 6px; overflow: hidden; background: var(--surface-2); margin-bottom: 6px; box-shadow: 0 2px 6px rgb(20 24 32 / 0.16); transition: transform 0.2s var(--ease); }
+  .poke-grid a:hover .poke-scan { transform: translateY(-3px); }
+  .poke-scan img { width: 100%; height: 100%; object-fit: cover; }
+  .poke-name { font-weight: 650; font-size: 0.92rem; }
+  .poke-sub { font-size: 0.8rem; color: var(--text-muted); }
+  .more { display: inline-flex; align-items: center; gap: 6px; margin-top: 18px; font-weight: 650; }
+  .mega .more { color: var(--link); }
+  .more :global(svg) { width: 16px; height: 16px; }
+
+  .mega-tools { list-style: none; margin: 0; padding: 12px; display: grid; gap: 2px; }
+  .mega-tools a { display: flex; gap: 14px; align-items: flex-start; padding: 12px; border-radius: 8px; }
+  .mega-tools a:hover { background: var(--surface-2); color: var(--text); }
+  .tool-icon { width: 38px; height: 38px; flex: none; border-radius: 9px; display: grid; place-items: center; background: var(--accent-soft); color: var(--accent); }
+  .tool-icon :global(svg) { width: 20px; height: 20px; }
+  .tool-title { display: block; font-weight: 650; }
+  .tool-text { display: block; font-size: 0.86rem; color: var(--text-muted); line-height: 1.4; }
+
+  @media (max-width: 1000px) {
+    .mega-sets { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+    .col-feature { display: none; }
+    .poke-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  /* Móvil: la barra se oculta y el botón de menú la abre como lista con acordeones. */
+  @media (max-width: 760px) {
+    .mainnav { display: none; }
+    :global(.site-header[data-menu-open]) .mainnav { display: block; max-height: calc(100dvh - 120px); overflow-y: auto; background: var(--surface); color: var(--text); border-top: 1px solid var(--border); }
+    .navbar { padding-inline: 0; }
+    .items { flex-direction: column; gap: 0; }
+    .item { border-bottom: 1px solid var(--border); }
+    .trigger { width: 100%; height: 54px; padding: 0 16px; justify-content: space-between; color: var(--text); border-radius: 0; font-size: 1.02rem; }
+    .trigger:hover { background: var(--surface-2); color: var(--text); }
+    .trigger[data-active], .trigger[aria-current='page'] { box-shadow: inset 3px 0 0 var(--accent); }
+    .trigger[aria-expanded='true'] { background: var(--surface-2); }
+    .item-rel { position: static; }
+    .panel, .panel-narrow { position: static; width: 100%; border: 0; border-radius: 0; box-shadow: none; }
+    .mega { padding: 8px 16px 18px; }
+    .mega-sets { grid-template-columns: 1fr; gap: 18px; }
+    .set-list, .series-list { grid-template-columns: 1fr 1fr; }
+    .poke-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
+    .mega-tools { padding: 4px 4px 10px; }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]');
+  if (nav) {
+    const triggers = [...nav.querySelectorAll<HTMLButtonElement>('[data-trigger]')];
+    const desktop = window.matchMedia('(min-width: 761px)');
+    const hover = window.matchMedia('(hover: hover)');
+    let timer: number | undefined;
+
+    const panelOf = (btn: HTMLButtonElement) => document.getElementById(btn.getAttribute('aria-controls')!)!;
+    const setOpen = (btn: HTMLButtonElement, open: boolean) => {
+      btn.setAttribute('aria-expanded', String(open));
+      panelOf(btn).hidden = !open;
+    };
+    const closeAll = (except?: HTMLButtonElement) => triggers.forEach((b) => b !== except && setOpen(b, false));
+
+    for (const btn of triggers) {
+      const item = btn.closest<HTMLElement>('[data-item]')!;
+      btn.addEventListener('click', () => {
+        const open = btn.getAttribute('aria-expanded') !== 'true';
+        if (desktop.matches) closeAll(btn);
+        setOpen(btn, open);
+      });
+      // En escritorio con ratón se abre al pasar por encima, con un pequeño margen para no parpadear al cruzar.
+      item.addEventListener('pointerenter', (e) => {
+        if (!desktop.matches || !hover.matches || e.pointerType !== 'mouse') return;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => { closeAll(btn); setOpen(btn, true); }, 90);
+      });
+      item.addEventListener('pointerleave', (e) => {
+        if (!desktop.matches || !hover.matches || e.pointerType !== 'mouse') return;
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => setOpen(btn, false), 160);
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      const open = triggers.find((b) => b.getAttribute('aria-expanded') === 'true');
+      if (open) { setOpen(open, false); open.focus(); }
+    });
+    document.addEventListener('click', (e) => {
+      if (desktop.matches && !nav.contains(e.target as Node)) closeAll();
+    });
+    nav.addEventListener('focusout', (e) => {
+      if (desktop.matches && !nav.contains(e.relatedTarget as Node)) closeAll();
+    });
+
+    // Botón de menú del móvil (está en la cabecera, fuera de la barra).
+    const header = nav.closest<HTMLElement>('.site-header');
+    const menuBtn = header?.querySelector<HTMLButtonElement>('[data-menu]');
+    menuBtn?.addEventListener('click', () => {
+      const open = !header!.hasAttribute('data-menu-open');
+      header!.toggleAttribute('data-menu-open', open);
+      menuBtn.setAttribute('aria-expanded', String(open));
+      menuBtn.setAttribute('aria-label', open ? menuBtn.dataset.close! : menuBtn.dataset.open!);
+    });
+    desktop.addEventListener('change', () => {
+      closeAll();
+      header?.removeAttribute('data-menu-open');
+      menuBtn?.setAttribute('aria-expanded', 'false');
+    });
+  }
+</script>

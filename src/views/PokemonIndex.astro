@@ -13,18 +13,18 @@ const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.s
 const c = {
   es: {
     title: 'Cartas Pokémon por Pokémon: precios de cada una',
-    description: 'Busca tu Pokémon y mira todas sus cartas de las expansiones recientes con su precio en Cardmarket: Charizard, Pikachu, Umbreon, Mewtwo y cientos más.',
+    description: 'Busca tu Pokémon y mira todas sus cartas de todas las expansiones con su precio en Cardmarket: Charizard, Pikachu, Umbreon, Mewtwo y cientos más.',
     h1: 'Pokémon',
-    lede: `Elige un Pokémon y verás todas sus cartas de las expansiones recientes, de la más cara a la más barata.${pricesDate ? ` Precios de Cardmarket del ${pricesDate}.` : ''}`,
+    lede: `Elige un Pokémon y verás todas sus cartas, de Base Set a hoy, de la más cara a la más barata.${pricesDate ? ` Precios de Cardmarket del ${pricesDate}.` : ''}`,
     filter: 'Buscar Pokémon', sort: 'Ordenar', byValue: 'Carta más cara', byDex: 'Número de Pokédex', byName: 'Nombre', byCount: 'Número de cartas',
     line: (n: number, price: string) => `${n} ${n === 1 ? 'carta' : 'cartas'}, la mejor a ${price}`,
     none: 'Ningún Pokémon coincide.',
   },
   en: {
     title: 'Pokémon cards by Pokémon: every card and its price',
-    description: 'Find your Pokémon and see all its cards from recent sets with Cardmarket prices: Charizard, Pikachu, Umbreon, Mewtwo and hundreds more.',
+    description: 'Find your Pokémon and see all its cards from every set with Cardmarket prices: Charizard, Pikachu, Umbreon, Mewtwo and hundreds more.',
     h1: 'Pokémon',
-    lede: `Pick a Pokémon to see all its cards from recent sets, most valuable first.${pricesDate ? ` Cardmarket prices from ${pricesDate}.` : ''}`,
+    lede: `Pick a Pokémon to see all its cards, from Base Set to today, most valuable first.${pricesDate ? ` Cardmarket prices from ${pricesDate}.` : ''}`,
     filter: 'Search Pokémon', sort: 'Sort', byValue: 'Most valuable card', byDex: 'Pokédex number', byName: 'Name', byCount: 'Number of cards',
     line: (n: number, price: string) => `${n} ${n === 1 ? 'card' : 'cards'}, best at ${price}`,
     none: 'No Pokémon matches.',

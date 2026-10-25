@@ -18,17 +18,25 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import {
-  appendHistory, expansionOf, guideDate, pickSealed, priceFromGuide,
+  appendHistory, expansionOf, guideDate, matchByName, pickSealed, priceFromGuide,
   type CmGuide, type CmProduct, type MarketCard, type MarketIndex, type MarketSet, type PriceHistory,
 } from '../src/lib/market.ts';
 
 const TCGDEX = 'https://api.tcgdex.net/v2';
 const CM = 'https://downloads.s3.cardmarket.com/productCatalog';
-const SERIES = ['me', 'sv'];
+/** Series de TCGdex con cartas físicas a la venta (fuera TCG Pocket, kits de entrenador y cartas jumbo). */
+const SERIES = ['me', 'sv', 'swsh', 'sm', 'xy', 'bw', 'col', 'hgss', 'pl', 'dp', 'pop', 'ex', 'ecard', 'lc', 'neo', 'gym', 'base', 'mc'];
+/** Subsets que TCGdex separa pero que salen en los mismos sobres: se unen a su expansión, como hace Cardmarket. */
+const PARENT: Record<string, string> = {
+  '30th-c': '30th', 'swsh9tg': 'swsh9', 'swsh10tg': 'swsh10', 'swsh11tg': 'swsh11', 'swsh12tg': 'swsh12',
+  'swsh12.5gg': 'swsh12.5', 'swsh4.5sv': 'swsh4.5', 'sma': 'sm115', 'cel25cc': 'cel25', 'exu': 'ex10',
+};
+/** Sets sin interés de precio (energías básicas). */
+const SKIP = new Set(['sve', 'mee']);
 /** Sets publicados hace menos de esto se vuelven a pedir enteros a TCGdex (cartas nuevas, ids que cambian). */
 const REFRESH_DAYS = 90;
 const OUT = new URL('../src/data/market/', import.meta.url);
-const HEADERS = { 'User-Agent': 'PokeHub/0.1 (calculadora y precios para coleccionistas)' };
+const HEADERS = { 'User-Agent': 'PullRadar/0.1 (calculadora y precios para coleccionistas)' };
 
 async function get<T>(url: string, attempts = 4): Promise<T | null> {
   for (let i = 0; i < attempts; i++) {
@@ -71,7 +79,10 @@ async function readJson<T>(file: URL): Promise<T | null> {
   return existsSync(file) ? (JSON.parse(await readFile(file, 'utf8')) as T) : null;
 }
 
-async function catalogOf(brief: DexSetBrief, previous: MarketSet | null): Promise<MarketSet | null> {
+/** `previous` es el fichero guardado de la expansión (la madre, en un subset); se usan solo las cartas de este set. */
+async function catalogOf(brief: DexSetBrief, saved: MarketSet | null): Promise<MarketSet | null> {
+  const mine = saved?.cards.filter((c) => c.id.startsWith(`${brief.id}-`)) ?? [];
+  const previous = saved && mine.length ? { ...saved, cards: mine } : null;
   const set = await get<DexSet>(`${TCGDEX}/en/sets/${brief.id}`);
   if (!set?.cards?.length) return null;
   const recent = !set.releaseDate || Date.now() - new Date(set.releaseDate).getTime() < REFRESH_DAYS * 864e5;
@@ -104,15 +115,24 @@ async function main() {
   const briefs: DexSetBrief[] = [];
   for (const serie of SERIES) {
     const s = await get<{ sets: DexSetBrief[] }>(`${TCGDEX}/en/series/${serie}`);
-    briefs.push(...(s?.sets ?? []));
+    briefs.push(...(s?.sets ?? []).filter((b) => !SKIP.has(b.id)));
   }
   console.log(`TCGdex: ${briefs.length} sets`);
 
   const sets: MarketSet[] = [];
+  const children: MarketSet[] = [];
   for (const b of briefs) {
-    const previous = await readJson<MarketSet>(new URL(`sets/${b.id}.json`, OUT));
-    const set = await catalogOf(b, previous);
-    if (set) sets.push(set);
+    const saved = await readJson<MarketSet>(new URL(`sets/${PARENT[b.id] ?? b.id}.json`, OUT));
+    const set = await catalogOf(b, saved);
+    if (set) (PARENT[b.id] ? children : sets).push(set);
+    process.stdout.write('.');
+  }
+  process.stdout.write('\n');
+  for (const child of children) {
+    const parent = sets.find((s) => s.id === PARENT[child.id]);
+    if (!parent) continue;
+    parent.cards.push(...child.cards);
+    parent.totalCount += child.totalCount;
   }
 
   // 2. Guía de precios y catálogo de Cardmarket. Si fallan, se quedan los precios de TCGdex (copia de la misma guía
@@ -131,11 +151,12 @@ async function main() {
     const guideById = new Map(guide.priceGuides.map((g) => [g.idProduct, g]));
     const singlesById = new Map(singles.products.map((p) => [p.idProduct, p]));
     for (const set of sets) {
+      const known = expansionOf(set.cards.map((c) => c.cmId), singlesById);
+      set.cmExpansion = matchByName(set.cards, known, singles.products);
       for (const card of set.cards) {
         const g = card.cmId ? guideById.get(card.cmId) : undefined;
         if (g) card.price = priceFromGuide(g);
       }
-      set.cmExpansion = expansionOf(set.cards.map((c) => c.cmId), singlesById);
       set.sealed = pickSealed(nonsingles.products, guideById, set.cmExpansion);
     }
     historyDay = guide.createdAt.slice(0, 10);

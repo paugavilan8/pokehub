@@ -34,6 +34,10 @@
   /* Las cifras usan la misma fuente con números tabulares (alineados en columnas). */
   --mono: var(--font);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Barra de navegación: oscura en los dos temas, como en las tiendas de cartas. */
+  --nav-bg: #16181d;
+  --nav-text: #ffffff;
+  --nav-hover: #2a2e36;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -58,6 +62,8 @@
     --warn-text: #f6d27d;
     --focus: #8fb0ff;
     --shadow: none;
+    --nav-bg: #0b0c0f;
+    --nav-hover: #22262d;
   }
 }
 

@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // Dominio pendiente de decidir: se define con SITE_URL al desplegar.
-const site = process.env.SITE_URL ?? 'https://pokehub.pages.dev';
+const site = process.env.SITE_URL ?? 'https://pullradar.pages.dev';
 
 export default defineConfig({
   site,

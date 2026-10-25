@@ -1,0 +1,117 @@
+---
+// Todas las expansiones, agrupadas por serie (de Megaevolución a Base Set).
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { allSets, marketIndex, seriesName, setsBySeries } from '../lib/market-data';
+import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const groups = setsBySeries();
+const total = allSets();
+const cards = total.reduce((n, s) => n + s.set.cards.length, 0);
+const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' });
+const num = new Intl.NumberFormat(LOCALE[lang]);
+const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
+const year = (d: string | null) => (d ? d.slice(0, 4) : '');
+const c = {
+  es: {
+    title: 'Todas las expansiones de Pokémon TCG con precios',
+    description: `Las ${total.length} expansiones de Pokémon TCG, de Base Set a las más nuevas, con el precio de sus sobres y de sus ${num.format(cards)} cartas en Cardmarket.`,
+    h1: 'Todas las expansiones',
+    lede: `${total.length} expansiones y ${num.format(cards)} cartas, de 1999 a hoy.${pricesDate ? ` Precios de Cardmarket del ${pricesDate}.` : ''}`,
+    filter: 'Buscar expansión', jump: 'Ir a la serie', none: 'Ninguna expansión coincide.',
+    pack: (p: string) => `Sobre ${p}`, top: (p: string) => `Carta top ${p}`, cards: (n: number) => `${n} cartas`,
+  },
+  en: {
+    title: 'Every Pokémon TCG set with prices',
+    description: `All ${total.length} Pokémon TCG sets, from Base Set to the newest, with Cardmarket prices for their packs and their ${num.format(cards)} cards.`,
+    h1: 'All sets',
+    lede: `${total.length} sets and ${num.format(cards)} cards, from 1999 to today.${pricesDate ? ` Cardmarket prices from ${pricesDate}.` : ''}`,
+    filter: 'Search sets', jump: 'Jump to series', none: 'No set matches.',
+    pack: (p: string) => `Pack ${p}`, top: (p: string) => `Top card ${p}`, cards: (n: number) => `${n} cards`,
+  },
+}[lang];
+---
+<Base lang={lang} route="sets" title={c.title} description={c.description}>
+  <PageHero slot="hero" title={c.h1} lede={c.lede} />
+  <div class="container">
+    <div class="tools">
+      <label class="search"><span class="sr">{c.filter}</span><input type="search" placeholder={c.filter} autocomplete="off" data-filter /></label>
+      <nav class="chips" aria-label={c.jump}>
+        {groups.map((g) => <a href={`#${g.slug}`}>{seriesName(g.name, lang)}</a>)}
+      </nav>
+    </div>
+    <p class="none" hidden data-none>{c.none}</p>
+
+    {groups.map((g) => (
+      <section class="serie" id={g.slug} data-serie>
+        <h2>{seriesName(g.name, lang)} <span class="years">{year(g.sets.at(-1)!.set.releaseDate)}{g.sets.length > 1 && year(g.sets[0].set.releaseDate) !== year(g.sets.at(-1)!.set.releaseDate) ? `–${year(g.sets[0].set.releaseDate)}` : ''}</span></h2>
+        <ul class="grid" role="list">
+          {g.sets.map((s) => {
+            const pack = s.pack?.price.low ?? s.pack?.price.trend;
+            const top = s.hits[0]?.price.trend;
+            return (
+              <li data-name={s.set.name.toLowerCase()}>
+                <a href={`${ROUTES.sets[lang]}${s.slug}/`}>
+                  <span class="logo">
+                    {s.set.logo && <img src={`${s.set.logo}.webp`} alt="" loading="lazy" decoding="async" onerror="this.remove()" />}
+                    <span class="logo-text">{s.set.name}</span>
+                  </span>
+                  <span class="name">{s.set.name}</span>
+                  <span class="meta">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''}{s.set.releaseDate ? ', ' : ''}{c.cards(s.set.cards.length)}</span>
+                  <span class="price">{pack != null ? c.pack(money.format(pack)) : top != null ? c.top(money.format(top)) : ''}</span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+  </div>
+</Base>
+
+<style>
+  .tools { display: flex; flex-direction: column; gap: 14px; margin-bottom: 8px; }
+  .search input { width: 100%; max-width: 420px; height: 44px; padding: 0 14px; border: 1px solid var(--border-strong); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips a { padding: 6px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--text); text-decoration: none; font-size: 0.88rem; font-weight: 550; }
+  .chips a:hover { border-color: var(--border-strong); background: var(--surface-2); }
+  .serie { margin-top: 36px; scroll-margin-top: 140px; }
+  .serie h2 { display: flex; align-items: baseline; gap: 10px; }
+  .years { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); }
+  .grid { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
+  .grid a { display: flex; flex-direction: column; gap: 2px; height: 100%; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; color: var(--text); text-decoration: none; transition: border-color 0.15s, transform 0.2s var(--ease); }
+  .grid a:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+  .logo { height: 64px; display: grid; place-items: center; margin-bottom: 10px; }
+  .logo img { max-height: 64px; max-width: 90%; object-fit: contain; }
+  .logo img + .logo-text { display: none; }
+  .logo-text { font-weight: 800; color: var(--text-muted); text-align: center; line-height: 1.1; }
+  .name { font-weight: 650; line-height: 1.25; }
+  .meta { font-size: 0.8rem; color: var(--text-muted); }
+  .price { margin-top: auto; padding-top: 6px; font-size: 0.88rem; font-weight: 650; }
+  .none { color: var(--text-muted); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  @media (max-width: 560px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .grid a { padding: 10px; } .logo { height: 48px; } .logo img { max-height: 48px; } }
+</style>
+
+<script>
+  const input = document.querySelector<HTMLInputElement>('[data-filter]');
+  const series = [...document.querySelectorAll<HTMLElement>('[data-serie]')];
+  const none = document.querySelector<HTMLElement>('[data-none]')!;
+  input?.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0;
+    for (const s of series) {
+      let inSerie = 0;
+      for (const li of s.querySelectorAll<HTMLElement>('li[data-name]')) {
+        const ok = !q || li.dataset.name!.includes(q);
+        li.hidden = !ok;
+        if (ok) inSerie++;
+      }
+      s.hidden = inSerie === 0;
+      shown += inSerie;
+    }
+    none.hidden = shown > 0;
+  });
+</script>

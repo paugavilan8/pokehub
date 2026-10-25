@@ -26,7 +26,7 @@ function layout(body: string, footer: string) {
   return `<!doctype html><html><body style="margin:0;background:#f6f7f9;font-family:Arial,Helvetica,sans-serif;color:#15171c">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr><td align="center" style="padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border:1px solid #e3e6eb;border-radius:12px">
-<tr><td style="padding:24px 28px 8px;font-size:20px;font-weight:bold">PokeHub</td></tr>
+<tr><td style="padding:24px 28px 8px;font-size:20px;font-weight:bold">PullRadar</td></tr>
 <tr><td style="padding:8px 28px 24px;font-size:15px;line-height:1.55">${body}</td></tr>
 </table>
 <p style="max-width:560px;font-size:12px;line-height:1.5;color:#5f6672;margin:14px auto 0">${footer}</p>
@@ -43,8 +43,8 @@ const T = {
     restockIntro: 'Hay stock de nuevo de lo que nos pediste que vigiláramos. Suele agotarse rápido:',
     at: 'en',
     buy: 'Ver en la tienda',
-    restockNote: 'Comprobamos las tiendas cada pocos minutos, pero el stock puede haberse agotado otra vez cuando leas esto. PokeHub no vende nada ni cobra comisión por este aviso.',
-    footer: (unsub: string) => `Recibes este correo porque te suscribiste a avisos de stock en PokeHub. <a href="${unsub}" style="color:#5f6672">Darme de baja de todos los avisos</a>.`,
+    restockNote: 'Comprobamos las tiendas cada pocos minutos, pero el stock puede haberse agotado otra vez cuando leas esto. PullRadar no vende nada ni cobra comisión por este aviso.',
+    footer: (unsub: string) => `Recibes este correo porque te suscribiste a avisos de stock en PullRadar. <a href="${unsub}" style="color:#5f6672">Darme de baja de todos los avisos</a>.`,
   },
   en: {
     confirmSubject: 'Confirm your stock alert',
@@ -55,8 +55,8 @@ const T = {
     restockIntro: 'Something you asked us to watch is back in stock. It usually sells out fast:',
     at: 'at',
     buy: 'View in shop',
-    restockNote: 'We check shops every few minutes, but stock may have sold out again by the time you read this. PokeHub sells nothing and earns no commission from this alert.',
-    footer: (unsub: string) => `You get this email because you signed up for stock alerts on PokeHub. <a href="${unsub}" style="color:#5f6672">Unsubscribe from all alerts</a>.`,
+    restockNote: 'We check shops every few minutes, but stock may have sold out again by the time you read this. PullRadar sells nothing and earns no commission from this alert.',
+    footer: (unsub: string) => `You get this email because you signed up for stock alerts on PullRadar. <a href="${unsub}" style="color:#5f6672">Unsubscribe from all alerts</a>.`,
   },
 };
 

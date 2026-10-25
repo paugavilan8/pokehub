@@ -32,8 +32,8 @@ const t = {
               {i === 0 && <p class="eyebrow">{t.newest}</p>}
               {s.set.logo
                 ? <img class="logo" src={`${s.set.logo}.webp`} alt={s.set.name} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
-                : <p class="name-fallback">{s.set.name}</p>}
-              <h2 class="name">{s.set.name}</h2>
+                : <h2 class="name-fallback">{s.set.name}</h2>}
+              {s.set.logo && <h2 class="name">{s.set.name}</h2>}
               <p class="date">{t.released(s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : '', s.set.totalCount)}</p>
               <p class="facts">{t.facts(
                 s.pack?.price.trend != null ? money.format(s.pack.price.trend) : null,

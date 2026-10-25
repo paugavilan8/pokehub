@@ -1,19 +1,7 @@
 {
  "pricesDate": "2026-10-25T00:47:18.000Z",
- "generatedAt": "2026-10-25T19:57:49.454Z",
+ "generatedAt": "2026-10-25T22:56:47.514Z",
  "sets": [
-  {
-   "id": "30th-c",
-   "name": "30th Classic Collection",
-   "serie": "Mega Evolution",
-   "releaseDate": "2026-09-16",
-   "logo": null,
-   "symbol": null,
-   "officialCount": 0,
-   "totalCount": 30,
-   "cmExpansion": null,
-   "sealed": []
-  },
   {
    "id": "30th",
    "name": "30th Celebration",
@@ -22,9 +10,46 @@
    "logo": null,
    "symbol": null,
    "officialCount": 128,
-   "totalCount": 158,
-   "cmExpansion": null,
-   "sealed": []
+   "totalCount": 188,
+   "cmExpansion": 6601,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 890360,
+     "name": "30th Celebration Booster",
+     "price": {
+      "trend": 10.22,
+      "low": 8.29,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 895551,
+     "name": "30th Celebration Elite Trainer Box",
+     "price": {
+      "trend": 130.15,
+      "low": 95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 895561,
+     "name": "30th Celebration Booster Bundle",
+     "price": {
+      "trend": 67.96,
+      "low": 43.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
   },
   {
    "id": "me05",
@@ -393,18 +418,6 @@
    ]
   },
   {
-   "id": "mee",
-   "name": "Mega Evolution Energy",
-   "serie": "Mega Evolution",
-   "releaseDate": "2025-09-25",
-   "logo": null,
-   "symbol": null,
-   "officialCount": 8,
-   "totalCount": 8,
-   "cmExpansion": 6324,
-   "sealed": []
-  },
-  {
    "id": "sv10.5w",
    "name": "White Flare",
    "serie": "Scarlet & Violet",
@@ -666,6 +679,31 @@
      "price": {
       "trend": 77.42,
       "low": 40,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2024sv",
+   "name": "McDonald's Collection 2024",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2024-12-04",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 15,
+   "totalCount": 15,
+   "cmExpansion": 5978,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 802822,
+     "name": "McDonald's Dragon Discovery Booster",
+     "price": {
+      "trend": 4.02,
+      "low": 1.2,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1187,6 +1225,31 @@
    ]
   },
   {
+   "id": "2023sv",
+   "name": "McDonald's Collection 2023",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2023-08-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 15,
+   "totalCount": 15,
+   "cmExpansion": 5430,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 725417,
+     "name": "McDonald's Match Battle 2023 Booster",
+     "price": {
+      "trend": 3.66,
+      "low": 1.25,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv02",
    "name": "Paldea Evolved",
    "serie": "Scarlet & Violet",
@@ -1260,18 +1323,6 @@
    "sealed": []
   },
   {
-   "id": "sve",
-   "name": "Scarlet & Violet Energy",
-   "serie": "Scarlet & Violet",
-   "releaseDate": "2023-03-31",
-   "logo": null,
-   "symbol": null,
-   "officialCount": 24,
-   "totalCount": 24,
-   "cmExpansion": 5224,
-   "sealed": []
-  },
-  {
    "id": "sv01",
    "name": "Scarlet & Violet",
    "serie": "Scarlet & Violet",
@@ -1325,6 +1376,4815 @@
      "price": {
       "trend": 99.64,
       "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh12.5",
+   "name": "Crown Zenith",
+   "serie": "Sword & Shield",
+   "releaseDate": "2023-01-20",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh12.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh12.5/symbol",
+   "officialCount": 159,
+   "totalCount": 230,
+   "cmExpansion": 5201,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 683006,
+     "name": "Crown Zenith Booster",
+     "price": {
+      "trend": 23.91,
+      "low": 13.19,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 683009,
+     "name": "Crown Zenith Elite Trainer Box",
+     "price": {
+      "trend": 267.28,
+      "low": 197.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 800418,
+     "name": "Crown Zenith Booster Bundle",
+     "price": {
+      "trend": 293.48,
+      "low": 270,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh12",
+   "name": "Silver Tempest",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-11-11",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh12/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh12/symbol",
+   "officialCount": 195,
+   "totalCount": 245,
+   "cmExpansion": 5142,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 672323,
+     "name": "Silver Tempest Booster",
+     "price": {
+      "trend": 10.54,
+      "low": 4.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 672333,
+     "name": "Silver Tempest Booster Box",
+     "price": {
+      "trend": 385.06,
+      "low": 185,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 672338,
+     "name": "Silver Tempest Elite Trainer Box",
+     "price": {
+      "trend": 141.84,
+      "low": 120,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 672334,
+     "name": "Silver Tempest Booster Bundle",
+     "price": {
+      "trend": 200.04,
+      "low": 89.98,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh11",
+   "name": "Lost Origin",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-09-09",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh11/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh11/symbol",
+   "officialCount": 196,
+   "totalCount": 247,
+   "cmExpansion": 5093,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 665527,
+     "name": "Lost Origin Booster",
+     "price": {
+      "trend": 11.8,
+      "low": 7.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 665526,
+     "name": "Lost Origin Booster Box",
+     "price": {
+      "trend": 464.62,
+      "low": 199,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 666150,
+     "name": "Lost Origin Elite Trainer Box",
+     "price": {
+      "trend": 204.8,
+      "low": 179,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 666176,
+     "name": "Lost Origin Booster Bundle",
+     "price": {
+      "trend": 181.86,
+      "low": 150,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2022swsh",
+   "name": "McDonald's Collection 2022",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2022-08-03",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 15,
+   "totalCount": 15,
+   "cmExpansion": 5135,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 670465,
+     "name": "McDonald's Match Battle 2022 Booster",
+     "price": {
+      "trend": 3.21,
+      "low": 1.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh10.5",
+   "name": "Pokémon GO",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-07-01",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh10.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh10.5/symbol",
+   "officialCount": 78,
+   "totalCount": 88,
+   "cmExpansion": 5051,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 653699,
+     "name": "Pokémon GO Booster",
+     "price": {
+      "trend": 10.89,
+      "low": 7.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 653700,
+     "name": "Pokémon GO Elite Trainer Box",
+     "price": {
+      "trend": 126.1,
+      "low": 100,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh10",
+   "name": "Astral Radiance",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-05-27",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh10/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh10/symbol",
+   "officialCount": 189,
+   "totalCount": 246,
+   "cmExpansion": 4979,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 611350,
+     "name": "Astral Radiance Booster",
+     "price": {
+      "trend": 8.39,
+      "low": 5.4,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 611352,
+     "name": "Astral Radiance Booster Box",
+     "price": {
+      "trend": 311.1,
+      "low": 200,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 611359,
+     "name": "Astral Radiance Elite Trainer Box",
+     "price": {
+      "trend": 124.69,
+      "low": 90,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh9",
+   "name": "Brilliant Stars",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-02-25",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh9/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh9/symbol",
+   "officialCount": 172,
+   "totalCount": 216,
+   "cmExpansion": 4434,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 583513,
+     "name": "Brilliant Stars Booster",
+     "price": {
+      "trend": 10.49,
+      "low": 5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 583512,
+     "name": "Brilliant Stars Booster Box",
+     "price": {
+      "trend": 472.42,
+      "low": 315,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 583510,
+     "name": "Brilliant Stars Elite Trainer Box",
+     "price": {
+      "trend": 276.39,
+      "low": 148,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh8",
+   "name": "Fusion Strike",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-11-12",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh8/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh8/symbol",
+   "officialCount": 264,
+   "totalCount": 284,
+   "cmExpansion": 4382,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 574591,
+     "name": "Fusion Strike Booster",
+     "price": {
+      "trend": 12.72,
+      "low": 9.85,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 574592,
+     "name": "Fusion Strike Booster Box",
+     "price": {
+      "trend": 747.07,
+      "low": 499,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 574593,
+     "name": "Fusion Strike Elite Trainer Box",
+     "price": {
+      "trend": 293.92,
+      "low": 240,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "cel25",
+   "name": "Celebrations",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-10-08",
+   "logo": "https://assets.tcgdex.net/en/swsh/cel25/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/cel25/symbol",
+   "officialCount": 25,
+   "totalCount": 50,
+   "cmExpansion": 4347,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 570888,
+     "name": "Celebrations Booster",
+     "price": {
+      "trend": 25.03,
+      "low": 22,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 570895,
+     "name": "Celebrations Elite Trainer Box",
+     "price": {
+      "trend": 340.16,
+      "low": 260,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh7",
+   "name": "Evolving Skies",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-08-27",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh7/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh7/symbol",
+   "officialCount": 203,
+   "totalCount": 237,
+   "cmExpansion": 4328,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 568764,
+     "name": "Evolving Skies Booster",
+     "price": {
+      "trend": 38.17,
+      "low": 16.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 568765,
+     "name": "Evolving Skies Booster Box",
+     "price": {
+      "trend": 1715.99,
+      "low": 995,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh6",
+   "name": "Chilling Reign",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-06-18",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh6/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh6/symbol",
+   "officialCount": 198,
+   "totalCount": 233,
+   "cmExpansion": 4174,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 557969,
+     "name": "Chilling Reign Booster",
+     "price": {
+      "trend": 8.36,
+      "low": 6,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 557968,
+     "name": "Chilling Reign Booster Box",
+     "price": {
+      "trend": 378.19,
+      "low": 279,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 557971,
+     "name": "Chilling Reign Ice Rider Calyrex Elite Trainer Box",
+     "price": {
+      "trend": 135.19,
+      "low": 96.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh5",
+   "name": "Battle Styles",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-03-19",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh5/symbol",
+   "officialCount": 163,
+   "totalCount": 183,
+   "cmExpansion": 3675,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 527435,
+     "name": "Battle Styles Booster",
+     "price": {
+      "trend": 7.68,
+      "low": 5.8,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 527430,
+     "name": "Battle Styles Booster Box",
+     "price": {
+      "trend": 256.99,
+      "low": 229.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh4.5",
+   "name": "Shining Fates",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-02-19",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh4.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh4.5/symbol",
+   "officialCount": 72,
+   "totalCount": 195,
+   "cmExpansion": 3630,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 526125,
+     "name": "Shining Fates Booster",
+     "price": {
+      "trend": 13.32,
+      "low": 7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 526120,
+     "name": "Shining Fates Elite Trainer Box",
+     "price": {
+      "trend": 143.34,
+      "low": 99.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2021swsh",
+   "name": "McDonald's Collection 2021",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2021-02-09",
+   "logo": null,
+   "symbol": "https://assets.tcgdex.net/univ/mc/2021swsh/symbol",
+   "officialCount": 25,
+   "totalCount": 25,
+   "cmExpansion": 3738,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550931,
+     "name": "McDonald's Collection 25th Anniversary Booster",
+     "price": {
+      "trend": 8,
+      "low": 3.39,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh4",
+   "name": "Vivid Voltage",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-11-13",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh4/symbol",
+   "officialCount": 185,
+   "totalCount": 203,
+   "cmExpansion": 3484,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 494514,
+     "name": "Vivid Voltage Booster",
+     "price": {
+      "trend": 9.03,
+      "low": 5.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 494509,
+     "name": "Vivid Voltage Booster Box",
+     "price": {
+      "trend": 248.82,
+      "low": 149.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 494499,
+     "name": "Vivid Voltage Elite Trainer Box",
+     "price": {
+      "trend": 124.28,
+      "low": 100,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh3.5",
+   "name": "Champion's Path",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-09-25",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh3.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh3.5/symbol",
+   "officialCount": 73,
+   "totalCount": 80,
+   "cmExpansion": 3419,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 488309,
+     "name": "Champion’s Path Booster",
+     "price": {
+      "trend": 15.79,
+      "low": 11.84,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 488304,
+     "name": "Champion’s Path Elite Trainer Box",
+     "price": {
+      "trend": 195.52,
+      "low": 138,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "fut2020",
+   "name": "Pokémon Futsal 2020",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-09-11",
+   "logo": "https://assets.tcgdex.net/en/swsh/fut2020/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/fut2020/symbol",
+   "officialCount": 5,
+   "totalCount": 5,
+   "cmExpansion": 3510,
+   "sealed": []
+  },
+  {
+   "id": "swsh3",
+   "name": "Darkness Ablaze",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-08-14",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh3/symbol",
+   "officialCount": 189,
+   "totalCount": 201,
+   "cmExpansion": 3199,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 462244,
+     "name": "Darkness Ablaze Booster",
+     "price": {
+      "trend": 8.17,
+      "low": 6.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 462239,
+     "name": "Darkness Ablaze Booster Box",
+     "price": {
+      "trend": 383.77,
+      "low": 310,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 462229,
+     "name": "Darkness Ablaze Elite Trainer Box",
+     "price": {
+      "trend": 100.31,
+      "low": 88,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh2",
+   "name": "Rebel Clash",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-05-01",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh2/symbol",
+   "officialCount": 192,
+   "totalCount": 209,
+   "cmExpansion": 3143,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 453278,
+     "name": "Rebel Clash Booster",
+     "price": {
+      "trend": 10.76,
+      "low": 5.75,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 453273,
+     "name": "Rebel Clash Booster Box",
+     "price": {
+      "trend": 537.74,
+      "low": 398,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 453283,
+     "name": "Rebel Clash Elite Trainer Box",
+     "price": {
+      "trend": 297.95,
+      "low": 200,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swsh1",
+   "name": "Sword & Shield",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-02-07",
+   "logo": "https://assets.tcgdex.net/en/swsh/swsh1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swsh1/symbol",
+   "officialCount": 202,
+   "totalCount": 216,
+   "cmExpansion": 2921,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 427151,
+     "name": "Sword & Shield Booster",
+     "price": {
+      "trend": 10.16,
+      "low": 6,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 427146,
+     "name": "Sword & Shield Booster Box",
+     "price": {
+      "trend": 469.93,
+      "low": 315,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "swshp",
+   "name": "SWSH Black Star Promos",
+   "serie": "Sword & Shield",
+   "releaseDate": "2019-11-15",
+   "logo": "https://assets.tcgdex.net/en/swsh/swshp/logo",
+   "symbol": "https://assets.tcgdex.net/univ/swsh/swshp/symbol",
+   "officialCount": 307,
+   "totalCount": 307,
+   "cmExpansion": 2916,
+   "sealed": []
+  },
+  {
+   "id": "sm12",
+   "name": "Cosmic Eclipse",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-11-01",
+   "logo": "https://assets.tcgdex.net/en/sm/sm12/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm12/symbol",
+   "officialCount": 236,
+   "totalCount": 271,
+   "cmExpansion": 2644,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 398444,
+     "name": "Cosmic Eclipse Booster",
+     "price": {
+      "trend": 52.36,
+      "low": 24.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 398439,
+     "name": "Cosmic Eclipse Booster Box",
+     "price": {
+      "trend": 3943.54,
+      "low": 1400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 398434,
+     "name": "Cosmic Eclipse Elite Trainer Box",
+     "price": {
+      "trend": 912.95,
+      "low": 724.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2019sm",
+   "name": "McDonald's Collection 2019",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2019-10-15",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 2829,
+   "sealed": []
+  },
+  {
+   "id": "sm115",
+   "name": "Hidden Fates",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-08-23",
+   "logo": "https://assets.tcgdex.net/en/sm/sm115/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm115/symbol",
+   "officialCount": 68,
+   "totalCount": 163,
+   "cmExpansion": 2514,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 381201,
+     "name": "Hidden Fates Booster",
+     "price": {
+      "trend": 32.44,
+      "low": 27.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 381198,
+     "name": "Hidden Fates Elite Trainer Box",
+     "price": {
+      "trend": 376.67,
+      "low": 300,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm11",
+   "name": "Unified Minds",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-08-02",
+   "logo": "https://assets.tcgdex.net/en/sm/sm11/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm11/symbol",
+   "officialCount": 236,
+   "totalCount": 258,
+   "cmExpansion": 2487,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 377490,
+     "name": "Unified Minds Booster",
+     "price": {
+      "trend": 51.4,
+      "low": 20,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 377487,
+     "name": "Unified Minds Booster Box",
+     "price": {
+      "trend": 2928.95,
+      "low": 1999.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 377493,
+     "name": "Unified Minds Elite Trainer Box",
+     "price": {
+      "trend": 1663.54,
+      "low": 500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm10",
+   "name": "Unbroken Bonds",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-05-03",
+   "logo": "https://assets.tcgdex.net/en/sm/sm10/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm10/symbol",
+   "officialCount": 214,
+   "totalCount": 234,
+   "cmExpansion": 2437,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 370621,
+     "name": "Unbroken Bonds Booster",
+     "price": {
+      "trend": 101.19,
+      "low": 41,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 370620,
+     "name": "Unbroken Bonds Booster Box",
+     "price": {
+      "trend": 2803.27,
+      "low": 1300,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 370619,
+     "name": "Unbroken Bonds Elite Trainer Box",
+     "price": {
+      "trend": 1127.61,
+      "low": 490,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "det1",
+   "name": "Detective Pikachu",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-03-29",
+   "logo": "https://assets.tcgdex.net/en/sm/det1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/det1/symbol",
+   "officialCount": 18,
+   "totalCount": 18,
+   "cmExpansion": 2438,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 370625,
+     "name": "Detective Pikachu Booster",
+     "price": {
+      "trend": 27.19,
+      "low": 13.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm9",
+   "name": "Team Up",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-01-31",
+   "logo": "https://assets.tcgdex.net/en/sm/sm9/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm9/symbol",
+   "officialCount": 181,
+   "totalCount": 196,
+   "cmExpansion": 2407,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 366887,
+     "name": "Team Up Booster",
+     "price": {
+      "trend": 138.04,
+      "low": 49.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 366886,
+     "name": "Team Up Booster Box",
+     "price": {
+      "trend": 5579.72,
+      "low": 1850,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 366885,
+     "name": "Team Up Elite Trainer Box",
+     "price": {
+      "trend": 2478.96,
+      "low": 599,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm8",
+   "name": "Lost Thunder",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-11-02",
+   "logo": "https://assets.tcgdex.net/en/sm/sm8/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm8/symbol",
+   "officialCount": 214,
+   "totalCount": 236,
+   "cmExpansion": 2370,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 363268,
+     "name": "Lost Thunder Booster",
+     "price": {
+      "trend": 49.96,
+      "low": 18,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 363267,
+     "name": "Lost Thunder Booster Box",
+     "price": {
+      "trend": 1831.63,
+      "low": 625,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 363266,
+     "name": "Lost Thunder Elite Trainer Box",
+     "price": {
+      "trend": 605.21,
+      "low": 449.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2018sm",
+   "name": "McDonald's Collection 2018",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2018-10-19",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 2404,
+   "sealed": []
+  },
+  {
+   "id": "sm7.5",
+   "name": "Dragon Majesty",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-09-07",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 70,
+   "totalCount": 78,
+   "cmExpansion": 2351,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 361541,
+     "name": "Dragon Majesty Booster",
+     "price": {
+      "trend": 46.94,
+      "low": 14.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 361540,
+     "name": "Dragon Majesty Elite Trainer Box",
+     "price": {
+      "trend": 1010.48,
+      "low": 560,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm7",
+   "name": "Celestial Storm",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-08-03",
+   "logo": "https://assets.tcgdex.net/en/sm/sm7/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm7/symbol",
+   "officialCount": 168,
+   "totalCount": 183,
+   "cmExpansion": 2320,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 357064,
+     "name": "Celestial Storm Booster",
+     "price": {
+      "trend": 34.19,
+      "low": 15.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 357063,
+     "name": "Celestial Storm Booster Box",
+     "price": {
+      "trend": 1988.94,
+      "low": 550,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 357062,
+     "name": "Celestial Storm Elite Trainer Box",
+     "price": {
+      "trend": 1360.3,
+      "low": 529.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm6",
+   "name": "Forbidden Light",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-05-04",
+   "logo": "https://assets.tcgdex.net/en/sm/sm6/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm6/symbol",
+   "officialCount": 131,
+   "totalCount": 146,
+   "cmExpansion": 2075,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 316136,
+     "name": "Forbidden Light Booster",
+     "price": {
+      "trend": 26.51,
+      "low": 17,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 316135,
+     "name": "Forbidden Light Booster Box",
+     "price": {
+      "trend": 2137.5,
+      "low": 1150,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 316134,
+     "name": "Forbidden Light Elite Trainer Box",
+     "price": {
+      "trend": 776.39,
+      "low": 450,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm5",
+   "name": "Ultra Prism",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-02-02",
+   "logo": "https://assets.tcgdex.net/en/sm/sm5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm5/symbol",
+   "officialCount": 156,
+   "totalCount": 173,
+   "cmExpansion": 2065,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 315122,
+     "name": "Ultra Prism Booster",
+     "price": {
+      "trend": 26.99,
+      "low": 14,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 315121,
+     "name": "Ultra Prism Booster Box",
+     "price": {
+      "trend": 1975.59,
+      "low": 1000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm4",
+   "name": "Crimson Invasion",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-11-03",
+   "logo": "https://assets.tcgdex.net/en/sm/sm4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm4/symbol",
+   "officialCount": 111,
+   "totalCount": 125,
+   "cmExpansion": 1843,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 301170,
+     "name": "Crimson Invasion Booster",
+     "price": {
+      "trend": 19.02,
+      "low": 7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 301169,
+     "name": "Crimson Invasion Booster Box",
+     "price": {
+      "trend": 532.5,
+      "low": 330,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 301168,
+     "name": "Crimson Invasion Elite Trainer Box",
+     "price": {
+      "trend": 271.97,
+      "low": 230,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm3.5",
+   "name": "Shining Legends",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-10-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 73,
+   "totalCount": 78,
+   "cmExpansion": 1842,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 301163,
+     "name": "Shining Legends Booster",
+     "price": {
+      "trend": 72.82,
+      "low": 24.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 301162,
+     "name": "Shining Legends Elite Trainer Box",
+     "price": {
+      "trend": 895.8,
+      "low": 400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sm3",
+   "name": "Burning Shadows",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-08-04",
+   "logo": "https://assets.tcgdex.net/en/sm/sm3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm3/symbol",
+   "officialCount": 147,
+   "totalCount": 169,
+   "cmExpansion": 1824,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 298777,
+     "name": "Burning Shadows Booster",
+     "price": {
+      "trend": 24.15,
+      "low": 12.8,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 298776,
+     "name": "Burning Shadows Booster Box",
+     "price": {
+      "trend": 850.97,
+      "low": 479.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 298775,
+     "name": "Burning Shadows Elite Trainer Box",
+     "price": {
+      "trend": 408.87,
+      "low": 350,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2017sm",
+   "name": "McDonald's Collection 2017",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2017-08-03",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 1845,
+   "sealed": []
+  },
+  {
+   "id": "sm2",
+   "name": "Guardians Rising",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-05-05",
+   "logo": "https://assets.tcgdex.net/en/sm/sm2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm2/symbol",
+   "officialCount": 145,
+   "totalCount": 169,
+   "cmExpansion": 1800,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 296851,
+     "name": "Guardians Rising Booster",
+     "price": {
+      "trend": 15.7,
+      "low": 7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 296850,
+     "name": "Guardians Rising Booster Box",
+     "price": {
+      "trend": 1255.23,
+      "low": 500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 296849,
+     "name": "Guardians Rising Elite Trainer Box",
+     "price": {
+      "trend": 537.59,
+      "low": 420,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "smp",
+   "name": "SM Black Star Promos",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-02-03",
+   "logo": "https://assets.tcgdex.net/en/sm/smp/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/smp/symbol",
+   "officialCount": 248,
+   "totalCount": 248,
+   "cmExpansion": 1757,
+   "sealed": []
+  },
+  {
+   "id": "sm1",
+   "name": "Sun & Moon",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-02-03",
+   "logo": "https://assets.tcgdex.net/en/sm/sm1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sm/sm1/symbol",
+   "officialCount": 149,
+   "totalCount": 172,
+   "cmExpansion": 1745,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 294125,
+     "name": "Sun & Moon Booster",
+     "price": {
+      "trend": 17.63,
+      "low": 11.98,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 294124,
+     "name": "Sun & Moon Booster Box",
+     "price": {
+      "trend": 921.6,
+      "low": 500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy12",
+   "name": "Evolutions",
+   "serie": "XY",
+   "releaseDate": "2016-11-02",
+   "logo": "https://assets.tcgdex.net/en/xy/xy12/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy12/symbol",
+   "officialCount": 108,
+   "totalCount": 113,
+   "cmExpansion": 1742,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 293335,
+     "name": "Evolutions Booster",
+     "price": {
+      "trend": 60.9,
+      "low": 49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 293332,
+     "name": "Evolutions Booster Box",
+     "price": {
+      "trend": 2461.99,
+      "low": 2500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2016xy",
+   "name": "McDonald's Collection 2016",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2016-08-20",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 1752,
+   "sealed": []
+  },
+  {
+   "id": "xy11",
+   "name": "Steam Siege",
+   "serie": "XY",
+   "releaseDate": "2016-08-03",
+   "logo": "https://assets.tcgdex.net/en/xy/xy11/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy11/symbol",
+   "officialCount": 114,
+   "totalCount": 116,
+   "cmExpansion": 1716,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 290087,
+     "name": "Steam Siege Booster",
+     "price": {
+      "trend": 31.1,
+      "low": 26.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 290088,
+     "name": "Steam Siege Booster Box",
+     "price": {
+      "trend": 1584.19,
+      "low": 1850,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 290089,
+     "name": "Steam Siege Elite Trainer Box",
+     "price": {
+      "trend": 1698.08,
+      "low": 3300,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy10",
+   "name": "Fates Collide",
+   "serie": "XY",
+   "releaseDate": "2016-05-02",
+   "logo": "https://assets.tcgdex.net/en/xy/xy10/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy10/symbol",
+   "officialCount": 124,
+   "totalCount": 129,
+   "cmExpansion": 1706,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 289046,
+     "name": "Fates Collide Booster",
+     "price": {
+      "trend": 332.57,
+      "low": 45,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 289045,
+     "name": "Fates Collide Booster Box",
+     "price": {
+      "trend": 2798.78,
+      "low": 3000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 289044,
+     "name": "Fates Collide Elite Trainer Box",
+     "price": {
+      "trend": 883.45,
+      "low": 999,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "g1",
+   "name": "Generations",
+   "serie": "XY",
+   "releaseDate": "2016-02-22",
+   "logo": "https://assets.tcgdex.net/en/xy/g1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/g1/symbol",
+   "officialCount": 83,
+   "totalCount": 117,
+   "cmExpansion": 1693,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 293301,
+     "name": "Generations Booster",
+     "price": {
+      "trend": 327.09,
+      "low": 130,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 293302,
+     "name": "Generations Elite Trainer Box",
+     "price": {
+      "trend": 3010.94,
+      "low": 4000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy9",
+   "name": "BREAKpoint",
+   "serie": "XY",
+   "releaseDate": "2016-02-03",
+   "logo": "https://assets.tcgdex.net/en/xy/xy9/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy9/symbol",
+   "officialCount": 122,
+   "totalCount": 126,
+   "cmExpansion": 1687,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 287243,
+     "name": "BREAKpoint Booster",
+     "price": {
+      "trend": 74.22,
+      "low": 20,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 287244,
+     "name": "BREAKpoint Booster Box",
+     "price": {
+      "trend": 2919.18,
+      "low": 2600,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 287836,
+     "name": "BREAKpoint Elite Trainer Box",
+     "price": {
+      "trend": 1190.6,
+      "low": 899,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2015xy",
+   "name": "McDonald's Collection 2015",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2015-11-27",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 1741,
+   "sealed": []
+  },
+  {
+   "id": "xy8",
+   "name": "BREAKthrough",
+   "serie": "XY",
+   "releaseDate": "2015-11-04",
+   "logo": "https://assets.tcgdex.net/en/xy/xy8/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy8/symbol",
+   "officialCount": 162,
+   "totalCount": 165,
+   "cmExpansion": 1678,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 285574,
+     "name": "BREAKthrough Booster",
+     "price": {
+      "trend": 64.64,
+      "low": 22.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 285575,
+     "name": "BREAKthrough Booster Box",
+     "price": {
+      "trend": 2814.86,
+      "low": 2499,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy7",
+   "name": "Ancient Origins",
+   "serie": "XY",
+   "releaseDate": "2015-08-12",
+   "logo": "https://assets.tcgdex.net/en/xy/xy7/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy7/symbol",
+   "officialCount": 98,
+   "totalCount": 101,
+   "cmExpansion": 1660,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 283942,
+     "name": "Ancient Origins Booster",
+     "price": {
+      "trend": 93.29,
+      "low": 70,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 283943,
+     "name": "Ancient Origins Booster Box",
+     "price": {
+      "trend": 3561.3,
+      "low": 2000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 286947,
+     "name": "Ancient Origins Elite Trainer Box",
+     "price": {
+      "trend": 2163.36,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy6",
+   "name": "Roaring Skies",
+   "serie": "XY",
+   "releaseDate": "2015-05-06",
+   "logo": "https://assets.tcgdex.net/en/xy/xy6/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy6/symbol",
+   "officialCount": 108,
+   "totalCount": 112,
+   "cmExpansion": 1649,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282787,
+     "name": "Roaring Skies Booster",
+     "price": {
+      "trend": 111.38,
+      "low": 32,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 282788,
+     "name": "Roaring Skies Booster Box",
+     "price": {
+      "trend": 4264.01,
+      "low": 4900,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 286952,
+     "name": "Roaring Skies Elite Trainer Box",
+     "price": {
+      "trend": 1256.76,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dc1",
+   "name": "Double Crisis",
+   "serie": "XY",
+   "releaseDate": "2015-03-25",
+   "logo": "https://assets.tcgdex.net/en/xy/dc1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/dc1/symbol",
+   "officialCount": 34,
+   "totalCount": 34,
+   "cmExpansion": 1648,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282553,
+     "name": "Double Crisis Booster",
+     "price": {
+      "trend": 493.03,
+      "low": 169.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy5",
+   "name": "Primal Clash",
+   "serie": "XY",
+   "releaseDate": "2015-02-04",
+   "logo": "https://assets.tcgdex.net/en/xy/xy5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy5/symbol",
+   "officialCount": 160,
+   "totalCount": 164,
+   "cmExpansion": 1585,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271884,
+     "name": "Primal Clash Booster",
+     "price": {
+      "trend": 108.55,
+      "low": 79.98,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271945,
+     "name": "Primal Clash Booster Box",
+     "price": {
+      "trend": 3230.96,
+      "low": 4600,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy4",
+   "name": "Phantom Forces",
+   "serie": "XY",
+   "releaseDate": "2014-11-05",
+   "logo": "https://assets.tcgdex.net/en/xy/xy4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy4/symbol",
+   "officialCount": 119,
+   "totalCount": 124,
+   "cmExpansion": 1521,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271439,
+     "name": "Phantom Forces Booster",
+     "price": {
+      "trend": 270.03,
+      "low": 150,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271440,
+     "name": "Phantom Forces Booster Box",
+     "price": {
+      "trend": 2239.24,
+      "low": 100000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 286949,
+     "name": "Phantom Forces Elite Trainer Box",
+     "price": {
+      "trend": 3351.11,
+      "low": 15000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy3",
+   "name": "Furious Fists",
+   "serie": "XY",
+   "releaseDate": "2014-08-13",
+   "logo": "https://assets.tcgdex.net/en/xy/xy3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy3/symbol",
+   "officialCount": 111,
+   "totalCount": 114,
+   "cmExpansion": 1584,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271863,
+     "name": "Furious Fists Booster",
+     "price": {
+      "trend": 96.92,
+      "low": 44.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271944,
+     "name": "Furious Fists Booster Box",
+     "price": {
+      "trend": 2338.6,
+      "low": 6400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 286948,
+     "name": "Furious Fists Elite Trainer Box",
+     "price": {
+      "trend": 3645.37,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2014xy",
+   "name": "McDonald's Collection 2014",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2014-05-23",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 1625,
+   "sealed": []
+  },
+  {
+   "id": "xy2",
+   "name": "Flashfire",
+   "serie": "XY",
+   "releaseDate": "2014-05-07",
+   "logo": "https://assets.tcgdex.net/en/xy/xy2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy2/symbol",
+   "officialCount": 106,
+   "totalCount": 110,
+   "cmExpansion": 1583,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271862,
+     "name": "Flashfire Booster",
+     "price": {
+      "trend": 77.26,
+      "low": 23,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271943,
+     "name": "Flashfire Booster Box",
+     "price": {
+      "trend": 4742.92,
+      "low": 18000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xya",
+   "name": "Yellow A Alternate",
+   "serie": "XY",
+   "releaseDate": "2014-02-05",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 6,
+   "totalCount": 6,
+   "cmExpansion": null,
+   "sealed": []
+  },
+  {
+   "id": "xy1",
+   "name": "XY",
+   "serie": "XY",
+   "releaseDate": "2014-02-05",
+   "logo": "https://assets.tcgdex.net/en/xy/xy1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy1/symbol",
+   "officialCount": 146,
+   "totalCount": 146,
+   "cmExpansion": 1582,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271861,
+     "name": "XY Booster",
+     "price": {
+      "trend": 57.04,
+      "low": 27.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271942,
+     "name": "XY Booster Box",
+     "price": {
+      "trend": 3160.01,
+      "low": 5400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xy0",
+   "name": "Kalos Starter Set",
+   "serie": "XY",
+   "releaseDate": "2013-11-08",
+   "logo": "https://assets.tcgdex.net/en/xy/xy0/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xy0/symbol",
+   "officialCount": 39,
+   "totalCount": 39,
+   "cmExpansion": 1637,
+   "sealed": []
+  },
+  {
+   "id": "bw11",
+   "name": "Legendary Treasures",
+   "serie": "Black & White",
+   "releaseDate": "2013-11-06",
+   "logo": "https://assets.tcgdex.net/en/bw/bw11/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw11/symbol",
+   "officialCount": 113,
+   "totalCount": 140,
+   "cmExpansion": 1581,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271829,
+     "name": "Legendary Treasures Booster",
+     "price": {
+      "trend": 584.54,
+      "low": 350,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271895,
+     "name": "Legendary Treasures Booster Box",
+     "price": {
+      "trend": 5523.14,
+      "low": 50000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "xyp",
+   "name": "XY Black Star Promos",
+   "serie": "XY",
+   "releaseDate": "2013-10-12",
+   "logo": "https://assets.tcgdex.net/en/xy/xyp/logo",
+   "symbol": "https://assets.tcgdex.net/univ/xy/xyp/symbol",
+   "officialCount": 211,
+   "totalCount": 216,
+   "cmExpansion": 1612,
+   "sealed": []
+  },
+  {
+   "id": "bw10",
+   "name": "Plasma Blast",
+   "serie": "Black & White",
+   "releaseDate": "2013-08-14",
+   "logo": "https://assets.tcgdex.net/en/bw/bw10/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw10/symbol",
+   "officialCount": 101,
+   "totalCount": 105,
+   "cmExpansion": 1580,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271832,
+     "name": "Plasma Blast Booster",
+     "price": {
+      "trend": 183.79,
+      "low": 65,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271898,
+     "name": "Plasma Blast Booster Box",
+     "price": {
+      "trend": 4349.24,
+      "low": 4250,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 286950,
+     "name": "Plasma Blast Elite Trainer Box",
+     "price": {
+      "trend": 844.73,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bw9",
+   "name": "Plasma Freeze",
+   "serie": "Black & White",
+   "releaseDate": "2013-05-08",
+   "logo": "https://assets.tcgdex.net/en/bw/bw9/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw9/symbol",
+   "officialCount": 116,
+   "totalCount": 122,
+   "cmExpansion": 1579,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271880,
+     "name": "Plasma Freeze Booster",
+     "price": {
+      "trend": 238.47,
+      "low": 66,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271946,
+     "name": "Plasma Freeze Booster Box",
+     "price": {
+      "trend": 8628.81,
+      "low": 54999.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bw8",
+   "name": "Plasma Storm",
+   "serie": "Black & White",
+   "releaseDate": "2013-02-06",
+   "logo": "https://assets.tcgdex.net/en/bw/bw8/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw8/symbol",
+   "officialCount": 135,
+   "totalCount": 138,
+   "cmExpansion": 1578,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271866,
+     "name": "Plasma Storm Booster",
+     "price": {
+      "trend": 435.03,
+      "low": 100,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271899,
+     "name": "Plasma Storm Booster Box",
+     "price": {
+      "trend": 121.34,
+      "low": 35000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 286951,
+     "name": "Plasma Storm Elite Trainer Box",
+     "price": {
+      "trend": 2036.21,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bw7",
+   "name": "Boundaries Crossed",
+   "serie": "Black & White",
+   "releaseDate": "2012-11-07",
+   "logo": "https://assets.tcgdex.net/en/bw/bw7/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw7/symbol",
+   "officialCount": 149,
+   "totalCount": 153,
+   "cmExpansion": 1577,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271881,
+     "name": "Boundaries Crossed Booster",
+     "price": {
+      "trend": 142.56,
+      "low": 39.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271886,
+     "name": "Boundaries Crossed Booster Box",
+     "price": {
+      "trend": 1929.73,
+      "low": 4500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dv1",
+   "name": "Dragon Vault",
+   "serie": "Black & White",
+   "releaseDate": "2012-10-05",
+   "logo": "https://assets.tcgdex.net/en/bw/dv1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/dv1/symbol",
+   "officialCount": 20,
+   "totalCount": 21,
+   "cmExpansion": 1636,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 463754,
+     "name": "Dragon Vault Booster",
+     "price": {
+      "trend": 121.71,
+      "low": 53.7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bw6",
+   "name": "Dragons Exalted",
+   "serie": "Black & White",
+   "releaseDate": "2012-08-15",
+   "logo": "https://assets.tcgdex.net/en/bw/bw6/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw6/symbol",
+   "officialCount": 124,
+   "totalCount": 128,
+   "cmExpansion": 1576,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271827,
+     "name": "Dragons Exalted Booster",
+     "price": {
+      "trend": 449.29,
+      "low": 84.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271893,
+     "name": "Dragons Exalted Booster Box",
+     "price": {
+      "trend": 346.43,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2012bw",
+   "name": "McDonald's Collection 2012",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2012-06-15",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 1624,
+   "sealed": []
+  },
+  {
+   "id": "bw5",
+   "name": "Dark Explorers",
+   "serie": "Black & White",
+   "releaseDate": "2012-05-09",
+   "logo": "https://assets.tcgdex.net/en/bw/bw5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw5/symbol",
+   "officialCount": 108,
+   "totalCount": 111,
+   "cmExpansion": 1575,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271826,
+     "name": "Dark Explorers Booster",
+     "price": {
+      "trend": 166.58,
+      "low": 49.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271892,
+     "name": "Dark Explorers Booster Box",
+     "price": {
+      "trend": 3999.95,
+      "low": 20000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bw4",
+   "name": "Next Destinies",
+   "serie": "Black & White",
+   "releaseDate": "2012-02-08",
+   "logo": "https://assets.tcgdex.net/en/bw/bw4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw4/symbol",
+   "officialCount": 99,
+   "totalCount": 103,
+   "cmExpansion": 1574,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271830,
+     "name": "Next Destinies Booster",
+     "price": {
+      "trend": 178.05,
+      "low": 49.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271896,
+     "name": "Next Destinies Booster Box",
+     "price": {
+      "trend": 1876.75,
+      "low": 39999.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bw3",
+   "name": "Noble Victories",
+   "serie": "Black & White",
+   "releaseDate": "2011-11-16",
+   "logo": "https://assets.tcgdex.net/en/bw/bw3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw3/symbol",
+   "officialCount": 101,
+   "totalCount": 102,
+   "cmExpansion": 1573,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271831,
+     "name": "Noble Victories Booster",
+     "price": {
+      "trend": 130.35,
+      "low": 37,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271897,
+     "name": "Noble Victories Booster Box",
+     "price": {
+      "trend": 4182.03,
+      "low": 13000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bw2",
+   "name": "Emerging Powers",
+   "serie": "Black & White",
+   "releaseDate": "2011-08-31",
+   "logo": "https://assets.tcgdex.net/en/bw/bw2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw2/symbol",
+   "officialCount": 98,
+   "totalCount": 98,
+   "cmExpansion": 1572,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271828,
+     "name": "Emerging Powers Booster",
+     "price": {
+      "trend": 155.19,
+      "low": 42.87,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271894,
+     "name": "Emerging Powers Booster Box",
+     "price": {
+      "trend": 3365.08,
+      "low": 2500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "2011bw",
+   "name": "McDonald's Collection 2011",
+   "serie": "McDonald's Collection",
+   "releaseDate": "2011-06-17",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 12,
+   "totalCount": 12,
+   "cmExpansion": 1623,
+   "sealed": []
+  },
+  {
+   "id": "bwp",
+   "name": "BW Black Star Promos",
+   "serie": "Black & White",
+   "releaseDate": "2011-04-26",
+   "logo": "https://assets.tcgdex.net/en/bw/bwp/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bwp/symbol",
+   "officialCount": 101,
+   "totalCount": 101,
+   "cmExpansion": 1611,
+   "sealed": []
+  },
+  {
+   "id": "bw1",
+   "name": "Black & White",
+   "serie": "Black & White",
+   "releaseDate": "2011-04-25",
+   "logo": "https://assets.tcgdex.net/en/bw/bw1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/bw/bw1/symbol",
+   "officialCount": 114,
+   "totalCount": 115,
+   "cmExpansion": 1571,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271825,
+     "name": "Black & White Booster",
+     "price": {
+      "trend": 95.27,
+      "low": 44.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271891,
+     "name": "Black & White Booster Box",
+     "price": {
+      "trend": 1757.92,
+      "low": 6000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "col1",
+   "name": "Call of Legends",
+   "serie": "Call of Legends",
+   "releaseDate": "2011-02-09",
+   "logo": "https://assets.tcgdex.net/en/col/col1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/col/col1/symbol",
+   "officialCount": 95,
+   "totalCount": 106,
+   "cmExpansion": 1570,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271882,
+     "name": "Call of Legends Booster",
+     "price": {
+      "trend": 744.14,
+      "low": 255,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271887,
+     "name": "Call of Legends Booster Box",
+     "price": {
+      "trend": 9991.63,
+      "low": 20000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "hgss4",
+   "name": "Triumphant",
+   "serie": "HeartGold & SoulSilver",
+   "releaseDate": "2010-11-03",
+   "logo": "https://assets.tcgdex.net/en/hgss/hgss4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/hgss/hgss4/symbol",
+   "officialCount": 102,
+   "totalCount": 103,
+   "cmExpansion": 1569,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271851,
+     "name": "Triumphant Booster",
+     "price": {
+      "trend": 241.58,
+      "low": 88,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271927,
+     "name": "Triumphant Booster Box",
+     "price": {
+      "trend": 3820.32,
+      "low": 10000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "hgss3",
+   "name": "Undaunted",
+   "serie": "HeartGold & SoulSilver",
+   "releaseDate": "2010-08-18",
+   "logo": "https://assets.tcgdex.net/en/hgss/hgss3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/hgss/hgss3/symbol",
+   "officialCount": 90,
+   "totalCount": 91,
+   "cmExpansion": 1568,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271875,
+     "name": "Undaunted Booster",
+     "price": {
+      "trend": 208.68,
+      "low": 119.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271928,
+     "name": "Undaunted Booster Box",
+     "price": {
+      "trend": 3955.13,
+      "low": 5500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "hgss2",
+   "name": "Unleashed",
+   "serie": "HeartGold & SoulSilver",
+   "releaseDate": "2010-05-12",
+   "logo": "https://assets.tcgdex.net/en/hgss/hgss2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/hgss/hgss2/symbol",
+   "officialCount": 95,
+   "totalCount": 96,
+   "cmExpansion": 1567,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271852,
+     "name": "Unleashed Booster",
+     "price": {
+      "trend": 212.39,
+      "low": 88.69,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271929,
+     "name": "Unleashed Booster Box",
+     "price": {
+      "trend": 2201.32,
+      "low": 15000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "hgssp",
+   "name": "HGSS Black Star Promos",
+   "serie": "HeartGold & SoulSilver",
+   "releaseDate": "2010-02-11",
+   "logo": "https://assets.tcgdex.net/en/hgss/hgssp/logo",
+   "symbol": "https://assets.tcgdex.net/univ/hgss/hgssp/symbol",
+   "officialCount": 25,
+   "totalCount": 25,
+   "cmExpansion": 1610,
+   "sealed": []
+  },
+  {
+   "id": "hgss1",
+   "name": "HeartGold SoulSilver",
+   "serie": "HeartGold & SoulSilver",
+   "releaseDate": "2010-02-10",
+   "logo": "https://assets.tcgdex.net/en/hgss/hgss1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/hgss/hgss1/symbol",
+   "officialCount": 123,
+   "totalCount": 124,
+   "cmExpansion": 1566,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271878,
+     "name": "HeartGold & SoulSilver Booster",
+     "price": {
+      "trend": 700.38,
+      "low": 124.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271930,
+     "name": "HeartGold & SoulSilver Booster Box",
+     "price": {
+      "trend": 4329.4,
+      "low": 15000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ru1",
+   "name": "Pokémon Rumble",
+   "serie": "Platinum",
+   "releaseDate": "2009-12-02",
+   "logo": "https://assets.tcgdex.net/en/pl/ru1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pl/ru1/symbol",
+   "officialCount": 16,
+   "totalCount": 16,
+   "cmExpansion": 1634,
+   "sealed": []
+  },
+  {
+   "id": "pl4",
+   "name": "Arceus",
+   "serie": "Platinum",
+   "releaseDate": "2009-11-04",
+   "logo": "https://assets.tcgdex.net/en/pl/pl4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pl/pl4/symbol",
+   "officialCount": 99,
+   "totalCount": 111,
+   "cmExpansion": 1565,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271858,
+     "name": "Arceus Booster",
+     "price": {
+      "trend": 304.93,
+      "low": 125,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271937,
+     "name": "Arceus Booster Box",
+     "price": {
+      "trend": 2842.27,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pl3",
+   "name": "Supreme Victors",
+   "serie": "Platinum",
+   "releaseDate": "2009-08-19",
+   "logo": "https://assets.tcgdex.net/en/pl/pl3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pl/pl3/symbol",
+   "officialCount": 147,
+   "totalCount": 153,
+   "cmExpansion": 1564,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271859,
+     "name": "Supreme Victors Booster",
+     "price": {
+      "trend": 430.65,
+      "low": 130,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271939,
+     "name": "Supreme Victors Booster Box",
+     "price": {
+      "trend": 8046.96,
+      "low": 15000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pl2",
+   "name": "Rising Rivals",
+   "serie": "Platinum",
+   "releaseDate": "2009-05-16",
+   "logo": "https://assets.tcgdex.net/en/pl/pl2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pl/pl2/symbol",
+   "officialCount": 111,
+   "totalCount": 120,
+   "cmExpansion": 1563,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271879,
+     "name": "Rising Rivals Booster",
+     "price": {
+      "trend": 197.86,
+      "low": 120,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271938,
+     "name": "Rising Rivals Booster Box",
+     "price": {
+      "trend": 2466.28,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop9",
+   "name": "POP Series 9",
+   "serie": "POP",
+   "releaseDate": "2009-03-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop9/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop9/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1621,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282569,
+     "name": "POP Series 9 Booster",
+     "price": {
+      "trend": 39.88,
+      "low": 29,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pl1",
+   "name": "Platinum",
+   "serie": "Platinum",
+   "releaseDate": "2009-02-11",
+   "logo": "https://assets.tcgdex.net/en/pl/pl1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pl/pl1/symbol",
+   "officialCount": 127,
+   "totalCount": 133,
+   "cmExpansion": 1562,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271857,
+     "name": "Platinum Booster",
+     "price": {
+      "trend": 249.14,
+      "low": 170,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271936,
+     "name": "Platinum Booster Box",
+     "price": {
+      "trend": 627.1,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dp7",
+   "name": "Stormfront",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2008-11-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dp7/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dp7/symbol",
+   "officialCount": 100,
+   "totalCount": 106,
+   "cmExpansion": 1561,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271867,
+     "name": "Stormfront Booster",
+     "price": {
+      "trend": 239.93,
+      "low": 250,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271906,
+     "name": "Stormfront Booster Box",
+     "price": {
+      "trend": 1500,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop8",
+   "name": "POP Series 8",
+   "serie": "POP",
+   "releaseDate": "2008-09-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop8/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop8/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1620,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282568,
+     "name": "POP Series 8 Booster",
+     "price": {
+      "trend": 33.48,
+      "low": 27.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dp6",
+   "name": "Legends Awakened",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2008-08-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dp6/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dp6/symbol",
+   "officialCount": 146,
+   "totalCount": 146,
+   "cmExpansion": 1560,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271835,
+     "name": "Legends Awakened Booster",
+     "price": {
+      "trend": 284.95,
+      "low": 180,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271902,
+     "name": "Legends Awakened Booster Box",
+     "price": {
+      "trend": null,
+      "low": 16000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dp5",
+   "name": "Majestic Dawn",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2008-05-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dp5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dp5/symbol",
+   "officialCount": 100,
+   "totalCount": 100,
+   "cmExpansion": 1559,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271836,
+     "name": "Majestic Dawn Booster",
+     "price": {
+      "trend": 426.83,
+      "low": 264.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271903,
+     "name": "Majestic Dawn Booster Box",
+     "price": {
+      "trend": null,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop7",
+   "name": "POP Series 7",
+   "serie": "POP",
+   "releaseDate": "2008-03-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop7/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop7/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1619,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282567,
+     "name": "POP Series 7 Booster",
+     "price": {
+      "trend": 39.87,
+      "low": 33,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dp4",
+   "name": "Great Encounters",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2008-02-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dp4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dp4/symbol",
+   "officialCount": 106,
+   "totalCount": 106,
+   "cmExpansion": 1558,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271834,
+     "name": "Great Encounters Booster",
+     "price": {
+      "trend": 217.81,
+      "low": 199.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271901,
+     "name": "Great Encounters Booster Box",
+     "price": {
+      "trend": 1497.06,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dp3",
+   "name": "Secret Wonders",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2007-11-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dp3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dp3/symbol",
+   "officialCount": 132,
+   "totalCount": 132,
+   "cmExpansion": 1557,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271838,
+     "name": "Secret Wonders Booster",
+     "price": {
+      "trend": 488.6,
+      "low": 449,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271905,
+     "name": "Secret Wonders Booster Box",
+     "price": {
+      "trend": 5455.23,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop6",
+   "name": "POP Series 6",
+   "serie": "POP",
+   "releaseDate": "2007-09-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop6/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop6/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1618,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282566,
+     "name": "POP Series 6 Booster",
+     "price": {
+      "trend": 71.09,
+      "low": 70,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dp2",
+   "name": "Mysterious Treasures",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2007-08-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dp2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dp2/symbol",
+   "officialCount": 123,
+   "totalCount": 124,
+   "cmExpansion": 1556,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271837,
+     "name": "Mysterious Treasures Booster",
+     "price": {
+      "trend": 310.99,
+      "low": 249,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271904,
+     "name": "Mysterious Treasures Booster Box",
+     "price": {
+      "trend": 911.66,
+      "low": 1400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dp1",
+   "name": "Diamond & Pearl",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2007-05-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dp1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dp1/symbol",
+   "officialCount": 130,
+   "totalCount": 130,
+   "cmExpansion": 1555,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271833,
+     "name": "Diamond & Pearl Booster",
+     "price": {
+      "trend": 222.31,
+      "low": 300,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271900,
+     "name": "Diamond & Pearl Booster Box",
+     "price": {
+      "trend": 746.8,
+      "low": 20000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "dpp",
+   "name": "DP Black Star Promos",
+   "serie": "Diamond & Pearl",
+   "releaseDate": "2007-05-01",
+   "logo": "https://assets.tcgdex.net/en/dp/dpp/logo",
+   "symbol": "https://assets.tcgdex.net/univ/dp/dpp/symbol",
+   "officialCount": 56,
+   "totalCount": 56,
+   "cmExpansion": 1609,
+   "sealed": []
+  },
+  {
+   "id": "pop5",
+   "name": "POP Series 5",
+   "serie": "POP",
+   "releaseDate": "2007-03-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop5/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1617,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282565,
+     "name": "POP Series 5 Booster",
+     "price": {
+      "trend": 1595.62,
+      "low": 2200,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex16",
+   "name": "Power Keepers",
+   "serie": "EX",
+   "releaseDate": "2007-02-17",
+   "logo": "https://assets.tcgdex.net/en/ex/ex16/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex16/symbol",
+   "officialCount": 108,
+   "totalCount": 108,
+   "cmExpansion": 1554,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271847,
+     "name": "EX Power Keepers Booster",
+     "price": {
+      "trend": 1492.28,
+      "low": 990,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271917,
+     "name": "EX Power Keepers Booster Box",
+     "price": {
+      "trend": 4118.28,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex15",
+   "name": "Dragon Frontiers",
+   "serie": "EX",
+   "releaseDate": "2006-11-08",
+   "logo": "https://assets.tcgdex.net/en/ex/ex15/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex15/symbol",
+   "officialCount": 101,
+   "totalCount": 101,
+   "cmExpansion": 1553,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271883,
+     "name": "EX Dragon Frontiers Booster",
+     "price": {
+      "trend": 1536.51,
+      "low": 2199,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271911,
+     "name": "EX Dragon Frontiers Booster Box",
+     "price": {
+      "trend": 40,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex14",
+   "name": "Crystal Guardians",
+   "serie": "EX",
+   "releaseDate": "2006-08-30",
+   "logo": "https://assets.tcgdex.net/en/ex/ex14/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex14/symbol",
+   "officialCount": 100,
+   "totalCount": 100,
+   "cmExpansion": 1552,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271839,
+     "name": "EX Crystal Guardians Booster",
+     "price": {
+      "trend": 807.6,
+      "low": 810,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271907,
+     "name": "EX Crystal Guardians Booster Box",
+     "price": {
+      "trend": null,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop4",
+   "name": "POP Series 4",
+   "serie": "POP",
+   "releaseDate": "2006-08-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop4/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1616,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282564,
+     "name": "POP Series 4 Booster",
+     "price": {
+      "trend": 121.4,
+      "low": 139,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex13",
+   "name": "Holon Phantoms",
+   "serie": "EX",
+   "releaseDate": "2006-05-03",
+   "logo": "https://assets.tcgdex.net/en/ex/ex13/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex13/symbol",
+   "officialCount": 110,
+   "totalCount": 111,
+   "cmExpansion": 1551,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271846,
+     "name": "EX Holon Phantoms Booster",
+     "price": {
+      "trend": 1799.3,
+      "low": 849.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271915,
+     "name": "EX Holon Phantoms Booster Box",
+     "price": {
+      "trend": 2709.45,
+      "low": 25000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop3",
+   "name": "POP Series 3",
+   "serie": "POP",
+   "releaseDate": "2006-04-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop3/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1615,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282563,
+     "name": "POP Series 3 Booster",
+     "price": {
+      "trend": 90.32,
+      "low": 27.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex12",
+   "name": "Legend Maker",
+   "serie": "EX",
+   "releaseDate": "2006-02-13",
+   "logo": "https://assets.tcgdex.net/en/ex/ex12/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex12/symbol",
+   "officialCount": 92,
+   "totalCount": 93,
+   "cmExpansion": 1550,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271868,
+     "name": "EX Legend Maker Booster",
+     "price": {
+      "trend": 392.28,
+      "low": 80,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271916,
+     "name": "EX Legend Maker Booster Box",
+     "price": {
+      "trend": 3067.31,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex11",
+   "name": "Delta Species",
+   "serie": "EX",
+   "releaseDate": "2005-10-31",
+   "logo": "https://assets.tcgdex.net/en/ex/ex11/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex11/symbol",
+   "officialCount": 113,
+   "totalCount": 114,
+   "cmExpansion": 1549,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271840,
+     "name": "EX Delta Species Booster",
+     "price": {
+      "trend": 1284.84,
+      "low": 800,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271908,
+     "name": "EX Delta Species Booster Box",
+     "price": {
+      "trend": 274.04,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex10",
+   "name": "Unseen Forces",
+   "serie": "EX",
+   "releaseDate": "2005-08-22",
+   "logo": "https://assets.tcgdex.net/en/ex/ex10/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex10/symbol",
+   "officialCount": 115,
+   "totalCount": 145,
+   "cmExpansion": 1548,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271870,
+     "name": "EX Unseen Forces Booster",
+     "price": {
+      "trend": 606.31,
+      "low": 999,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271922,
+     "name": "EX Unseen Forces Booster Box",
+     "price": {
+      "trend": null,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop2",
+   "name": "POP Series 2",
+   "serie": "POP",
+   "releaseDate": "2005-08-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop2/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1614,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282562,
+     "name": "POP Series 2 Booster",
+     "price": {
+      "trend": 83.14,
+      "low": 39.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex9",
+   "name": "Emerald",
+   "serie": "EX",
+   "releaseDate": "2005-05-09",
+   "logo": "https://assets.tcgdex.net/en/ex/ex9/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex9/symbol",
+   "officialCount": 106,
+   "totalCount": 107,
+   "cmExpansion": 1547,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271843,
+     "name": "EX Emerald Booster",
+     "price": {
+      "trend": 572.79,
+      "low": 370,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271912,
+     "name": "EX Emerald Booster Box",
+     "price": {
+      "trend": 0.02,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex8",
+   "name": "Deoxys",
+   "serie": "EX",
+   "releaseDate": "2005-02-01",
+   "logo": "https://assets.tcgdex.net/en/ex/ex8/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex8/symbol",
+   "officialCount": 107,
+   "totalCount": 108,
+   "cmExpansion": 1546,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271841,
+     "name": "EX Deoxys Booster",
+     "price": {
+      "trend": 1473.32,
+      "low": 499.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271909,
+     "name": "EX Deoxys Booster Box",
+     "price": {
+      "trend": 1468.22,
+      "low": 25000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex7",
+   "name": "Team Rocket Returns",
+   "serie": "EX",
+   "releaseDate": "2004-11-01",
+   "logo": "https://assets.tcgdex.net/en/ex/ex7/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex7/symbol",
+   "officialCount": 109,
+   "totalCount": 111,
+   "cmExpansion": 1545,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271869,
+     "name": "EX Team Rocket Returns Booster",
+     "price": {
+      "trend": 2479.53,
+      "low": 4990,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271921,
+     "name": "EX Team Rocket Returns Booster Box",
+     "price": {
+      "trend": 0.02,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "pop1",
+   "name": "POP Series 1",
+   "serie": "POP",
+   "releaseDate": "2004-09-01",
+   "logo": "https://assets.tcgdex.net/en/pop/pop1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/pop1/symbol",
+   "officialCount": 17,
+   "totalCount": 17,
+   "cmExpansion": 1613,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 282561,
+     "name": "POP Series 1 Booster",
+     "price": {
+      "trend": 98.27,
+      "low": 39.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex6",
+   "name": "FireRed & LeafGreen",
+   "serie": "EX",
+   "releaseDate": "2004-09-01",
+   "logo": "https://assets.tcgdex.net/en/ex/ex6/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex6/symbol",
+   "officialCount": 112,
+   "totalCount": 116,
+   "cmExpansion": 1544,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271844,
+     "name": "EX FireRed & LeafGreen Booster",
+     "price": {
+      "trend": 1203.73,
+      "low": 900,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271913,
+     "name": "EX FireRed & LeafGreen Booster Box",
+     "price": {
+      "trend": null,
+      "low": 50000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex5.5",
+   "name": "Poké Card Creator Pack",
+   "serie": "EX",
+   "releaseDate": "2004-07-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 5,
+   "totalCount": 5,
+   "cmExpansion": 4505,
+   "sealed": []
+  },
+  {
+   "id": "ex5",
+   "name": "Hidden Legends",
+   "serie": "EX",
+   "releaseDate": "2004-06-01",
+   "logo": "https://assets.tcgdex.net/en/ex/ex5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex5/symbol",
+   "officialCount": 101,
+   "totalCount": 102,
+   "cmExpansion": 1543,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271845,
+     "name": "EX Hidden Legends Booster",
+     "price": {
+      "trend": 248.3,
+      "low": 295,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271914,
+     "name": "EX Hidden Legends Booster Box",
+     "price": {
+      "trend": 15263.96,
+      "low": 20000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex4",
+   "name": "Team Magma vs Team Aqua",
+   "serie": "EX",
+   "releaseDate": "2004-03-01",
+   "logo": "https://assets.tcgdex.net/en/ex/ex4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex4/symbol",
+   "officialCount": 95,
+   "totalCount": 97,
+   "cmExpansion": 1540,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271885,
+     "name": "EX Sandstorm Booster",
+     "price": {
+      "trend": 482.22,
+      "low": 400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271919,
+     "name": "EX Sandstorm Booster Box",
+     "price": {
+      "trend": 14656.89,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex3",
+   "name": "Dragon",
+   "serie": "EX",
+   "releaseDate": "2003-11-24",
+   "logo": "https://assets.tcgdex.net/en/ex/ex3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex3/symbol",
+   "officialCount": 97,
+   "totalCount": 100,
+   "cmExpansion": 1541,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271842,
+     "name": "EX Dragon Booster",
+     "price": {
+      "trend": 523.61,
+      "low": 489.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271910,
+     "name": "EX Dragon Booster Box",
+     "price": {
+      "trend": 85,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "np",
+   "name": "Nintendo Black Star Promos",
+   "serie": "POP",
+   "releaseDate": "2003-10-01",
+   "logo": "https://assets.tcgdex.net/en/pop/np/logo",
+   "symbol": "https://assets.tcgdex.net/univ/pop/np/symbol",
+   "officialCount": 40,
+   "totalCount": 40,
+   "cmExpansion": 1608,
+   "sealed": []
+  },
+  {
+   "id": "ex2",
+   "name": "Sandstorm",
+   "serie": "EX",
+   "releaseDate": "2003-09-18",
+   "logo": "https://assets.tcgdex.net/en/ex/ex2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex2/symbol",
+   "officialCount": 100,
+   "totalCount": 100,
+   "cmExpansion": 1540,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271885,
+     "name": "EX Sandstorm Booster",
+     "price": {
+      "trend": 482.22,
+      "low": 400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271919,
+     "name": "EX Sandstorm Booster Box",
+     "price": {
+      "trend": 14656.89,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ex1",
+   "name": "Ruby & Sapphire",
+   "serie": "EX",
+   "releaseDate": "2003-07-01",
+   "logo": "https://assets.tcgdex.net/en/ex/ex1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ex/ex1/symbol",
+   "officialCount": 109,
+   "totalCount": 109,
+   "cmExpansion": 1539,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271848,
+     "name": "EX Ruby & Sapphire Booster",
+     "price": {
+      "trend": 379.14,
+      "low": 239,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271918,
+     "name": "EX Ruby & Sapphire Booster Box",
+     "price": {
+      "trend": 3623.09,
+      "low": 25000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ecard3",
+   "name": "Skyridge",
+   "serie": "E-Card",
+   "releaseDate": "2003-05-12",
+   "logo": "https://assets.tcgdex.net/en/ecard/ecard3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ecard/ecard3/symbol",
+   "officialCount": 144,
+   "totalCount": 182,
+   "cmExpansion": 1538,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271860,
+     "name": "Skyridge Booster",
+     "price": {
+      "trend": 2282.7,
+      "low": 3500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271940,
+     "name": "Skyridge Booster Box",
+     "price": {
+      "trend": 96995.81,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ecard2",
+   "name": "Aquapolis",
+   "serie": "E-Card",
+   "releaseDate": "2003-01-15",
+   "logo": "https://assets.tcgdex.net/en/ecard/ecard2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ecard/ecard2/symbol",
+   "officialCount": 147,
+   "totalCount": 186,
+   "cmExpansion": 1537,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271864,
+     "name": "Aquapolis Booster",
+     "price": {
+      "trend": 987.1,
+      "low": 949,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271889,
+     "name": "Aquapolis Booster Box",
+     "price": {
+      "trend": 907.23,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "bog",
+   "name": "Best of game",
+   "serie": "E-Card",
+   "releaseDate": "2002-12-01",
+   "logo": null,
+   "symbol": "https://assets.tcgdex.net/univ/ecard/bog/symbol",
+   "officialCount": 9,
+   "totalCount": 9,
+   "cmExpansion": 1605,
+   "sealed": []
+  },
+  {
+   "id": "ecard1",
+   "name": "Expedition Base Set",
+   "serie": "E-Card",
+   "releaseDate": "2002-09-15",
+   "logo": "https://assets.tcgdex.net/en/ecard/ecard1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/ecard/ecard1/symbol",
+   "officialCount": 165,
+   "totalCount": 165,
+   "cmExpansion": 1536,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271871,
+     "name": "Expedition Base Set Booster",
+     "price": {
+      "trend": 1023.16,
+      "low": 1499,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271923,
+     "name": "Expedition Base Set Booster Box",
+     "price": {
+      "trend": 100,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "lc",
+   "name": "Legendary Collection",
+   "serie": "Legendary Collection",
+   "releaseDate": "2002-05-24",
+   "logo": "https://assets.tcgdex.net/en/lc/lc/logo",
+   "symbol": "https://assets.tcgdex.net/univ/lc/lc/symbol",
+   "officialCount": 110,
+   "totalCount": 110,
+   "cmExpansion": 1535,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271853,
+     "name": "Legendary Collection Booster",
+     "price": {
+      "trend": 2082.27,
+      "low": 9900,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271888,
+     "name": "Legendary Collection Booster Box",
+     "price": {
+      "trend": 24261,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "neo4",
+   "name": "Neo Destiny",
+   "serie": "Neo",
+   "releaseDate": "2002-02-28",
+   "logo": "https://assets.tcgdex.net/en/neo/neo4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/neo/neo4/symbol",
+   "officialCount": 105,
+   "totalCount": 113,
+   "cmExpansion": 1534,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271854,
+     "name": "Neo Destiny Booster",
+     "price": {
+      "trend": 1027.3,
+      "low": 1000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271932,
+     "name": "Neo Destiny Booster Box",
+     "price": {
+      "trend": 99.99,
+      "low": 49999,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "neo3",
+   "name": "Neo Revelation",
+   "serie": "Neo",
+   "releaseDate": "2001-09-21",
+   "logo": "https://assets.tcgdex.net/en/neo/neo3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/neo/neo3/symbol",
+   "officialCount": 64,
+   "totalCount": 66,
+   "cmExpansion": 1533,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271856,
+     "name": "Neo Revelation Booster",
+     "price": {
+      "trend": 533.71,
+      "low": 700,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271935,
+     "name": "Neo Revelation Booster Box",
+     "price": {
+      "trend": 2620.82,
+      "low": 40000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "si1",
+   "name": "Southern Islands",
+   "serie": "Neo",
+   "releaseDate": "2001-07-31",
+   "logo": "https://assets.tcgdex.net/en/neo/si1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/neo/si1/symbol",
+   "officialCount": 18,
+   "totalCount": 18,
+   "cmExpansion": 1633,
+   "sealed": []
+  },
+  {
+   "id": "neo2",
+   "name": "Neo Discovery",
+   "serie": "Neo",
+   "releaseDate": "2001-06-01",
+   "logo": "https://assets.tcgdex.net/en/neo/neo2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/neo/neo2/symbol",
+   "officialCount": 75,
+   "totalCount": 75,
+   "cmExpansion": 1532,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271876,
+     "name": "Neo Discovery Booster",
+     "price": {
+      "trend": 652.96,
+      "low": 490,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271933,
+     "name": "Neo Discovery Booster Box",
+     "price": {
+      "trend": 99.99,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "neo1",
+   "name": "Neo Genesis",
+   "serie": "Neo",
+   "releaseDate": "2000-12-16",
+   "logo": "https://assets.tcgdex.net/en/neo/neo1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/neo/neo1/symbol",
+   "officialCount": 111,
+   "totalCount": 111,
+   "cmExpansion": 1531,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271855,
+     "name": "Neo Genesis Booster",
+     "price": {
+      "trend": 511.17,
+      "low": 799,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271934,
+     "name": "Neo Genesis Booster Box",
+     "price": {
+      "trend": 8812.38,
+      "low": 65000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "gym2",
+   "name": "Gym Challenge",
+   "serie": "Gym",
+   "releaseDate": "2000-10-16",
+   "logo": "https://assets.tcgdex.net/en/gym/gym2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/gym/gym2/symbol",
+   "officialCount": 132,
+   "totalCount": 132,
+   "cmExpansion": 1530,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271850,
+     "name": "Gym Challenge Booster",
+     "price": {
+      "trend": 480.22,
+      "low": 499.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271925,
+     "name": "Gym Challenge Booster Box",
+     "price": {
+      "trend": 7975.02,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "gym1",
+   "name": "Gym Heroes",
+   "serie": "Gym",
+   "releaseDate": "2000-08-14",
+   "logo": "https://assets.tcgdex.net/en/gym/gym1/logo",
+   "symbol": "https://assets.tcgdex.net/univ/gym/gym1/symbol",
+   "officialCount": 132,
+   "totalCount": 132,
+   "cmExpansion": 1529,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271872,
+     "name": "Gym Heroes Booster",
+     "price": {
+      "trend": 328.17,
+      "low": 310,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271926,
+     "name": "Gym Heroes Booster Box",
+     "price": {
+      "trend": 8238.31,
+      "low": 22000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "base5",
+   "name": "Team Rocket",
+   "serie": "Base",
+   "releaseDate": "2000-04-24",
+   "logo": "https://assets.tcgdex.net/en/base/base5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/base/base5/symbol",
+   "officialCount": 82,
+   "totalCount": 83,
+   "cmExpansion": 1528,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271874,
+     "name": "Team Rocket Booster",
+     "price": {
+      "trend": 510.24,
+      "low": 399.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271941,
+     "name": "Team Rocket Booster Box",
+     "price": {
+      "trend": 8780,
+      "low": 26990.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "base4",
+   "name": "Base Set 2",
+   "serie": "Base",
+   "releaseDate": "2000-02-24",
+   "logo": "https://assets.tcgdex.net/en/base/base4/logo",
+   "symbol": "https://assets.tcgdex.net/univ/base/base4/symbol",
+   "officialCount": 130,
+   "totalCount": 130,
+   "cmExpansion": 1527,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271865,
+     "name": "Base Set 2 Booster",
+     "price": {
+      "trend": 416.26,
+      "low": 400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271890,
+     "name": "Base Set 2 Booster Box",
+     "price": {
+      "trend": 10826.39,
+      "low": 25000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "base3",
+   "name": "Fossil",
+   "serie": "Base",
+   "releaseDate": "1999-10-10",
+   "logo": "https://assets.tcgdex.net/en/base/base3/logo",
+   "symbol": "https://assets.tcgdex.net/univ/base/base3/symbol",
+   "officialCount": 62,
+   "totalCount": 62,
+   "cmExpansion": 1526,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271849,
+     "name": "Fossil Booster",
+     "price": {
+      "trend": 387.5,
+      "low": 300,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271924,
+     "name": "Fossil Booster Box",
+     "price": {
+      "trend": 9431.9,
+      "low": 28900,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "basep",
+   "name": "Wizards Black Star Promos",
+   "serie": "Base",
+   "releaseDate": "1999-07-01",
+   "logo": "https://assets.tcgdex.net/en/base/basep/logo",
+   "symbol": "https://assets.tcgdex.net/univ/base/basep/symbol",
+   "officialCount": 53,
+   "totalCount": 53,
+   "cmExpansion": 1607,
+   "sealed": []
+  },
+  {
+   "id": "base2",
+   "name": "Jungle",
+   "serie": "Base",
+   "releaseDate": "1999-06-16",
+   "logo": "https://assets.tcgdex.net/en/base/base2/logo",
+   "symbol": "https://assets.tcgdex.net/univ/base/base2/symbol",
+   "officialCount": 64,
+   "totalCount": 64,
+   "cmExpansion": 1525,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271873,
+     "name": "Jungle Booster",
+     "price": {
+      "trend": 312.65,
+      "low": 260,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271931,
+     "name": "Jungle Booster Box",
+     "price": {
+      "trend": 10111.7,
+      "low": 29000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "base1",
+   "name": "Base Set",
+   "serie": "Base",
+   "releaseDate": "1999-01-09",
+   "logo": "https://assets.tcgdex.net/en/base/base1/logo",
+   "symbol": null,
+   "officialCount": 102,
+   "totalCount": 102,
+   "cmExpansion": 1523,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 271823,
+     "name": "Base Set Booster",
+     "price": {
+      "trend": 836.85,
+      "low": 320,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 271824,
+     "name": "Base Set Booster Box",
+     "price": {
+      "trend": 19020.98,
+      "low": 15000,
       "avg30": null,
       "avg7": null,
       "avg1": null

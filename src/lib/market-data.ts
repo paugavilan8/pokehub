@@ -30,12 +30,15 @@ export interface SetSummary {
   hits: MarketCard[];
 }
 
+let setsCache: SetSummary[] | null = null;
+
+/** Todas las expansiones con alguna carta con precio, de la más reciente a la más antigua. */
 export function allSets(): SetSummary[] {
+  if (setsCache) return setsCache;
   const sets = Object.values(setFiles)
-    // Solo expansiones con sobres a la venta: fuera promos, energías y sets sin precios todavía.
-    .filter((s) => s.cards?.length && s.sealed?.some((x) => x.kind === 'pack'))
-    .sort((a, b) => (b.releaseDate ?? '').localeCompare(a.releaseDate ?? ''));
-  return sets.map((set) => {
+    .filter((s) => s.cards?.some((c) => c.price.trend != null))
+    .sort((a, b) => (b.releaseDate ?? '').localeCompare(a.releaseDate ?? '') || a.name.localeCompare(b.name));
+  setsCache = sets.map((set) => {
     const rates = findPullRates(set.name, RATES);
     return {
       set,
@@ -47,6 +50,32 @@ export function allSets(): SetSummary[] {
       hits: topHits(set.cards, 12),
     };
   });
+  return setsCache;
+}
+
+/** Nombre de cada serie en español (las de TCGdex vienen en inglés). */
+const SERIES_ES: Record<string, string> = {
+  'Mega Evolution': 'Megaevolución', 'Scarlet & Violet': 'Escarlata y Púrpura', 'Sword & Shield': 'Espada y Escudo',
+  'Sun & Moon': 'Sol y Luna', 'Black & White': 'Negro y Blanco', 'Platinum': 'Platino', 'Diamond & Pearl': 'Diamante y Perla',
+  "McDonald's Collection": "Colección McDonald's",
+};
+
+export function seriesName(serie: string, lang: 'es' | 'en') {
+  return lang === 'es' ? SERIES_ES[serie] ?? serie : serie;
+}
+
+export interface SeriesGroup { name: string; slug: string; sets: SetSummary[] }
+
+/** Expansiones agrupadas por serie, de la serie más nueva a la más antigua (las colecciones de McDonald's, al final). */
+export function setsBySeries(): SeriesGroup[] {
+  const groups = new Map<string, SeriesGroup>();
+  for (const s of allSets()) {
+    const name = s.set.serie || 'Other';
+    if (!groups.has(name)) groups.set(name, { name, slug: slugify(name), sets: [] });
+    groups.get(name)!.sets.push(s);
+  }
+  const start = (g: SeriesGroup) => (g.name.startsWith('McDonald') ? '' : g.sets.at(-1)?.set.releaseDate ?? '');
+  return [...groups.values()].sort((a, b) => start(b).localeCompare(start(a)));
 }
 
 export const RARITY_ES: Record<string, string> = {
@@ -54,6 +83,12 @@ export const RARITY_ES: Record<string, string> = {
   'illustration rare': 'Ilustración rara', 'special illustration rare': 'Ilustración especial rara',
   'hyper rare': 'Hiper rara', 'mega hyper rare': 'Mega hiper rara', 'ace spec rare': 'AS TÁCTICO rara',
   'shiny rare': 'Variocolor rara', 'shiny ultra rare': 'Variocolor ultra rara', 'black white rare': 'Rara blanca y negra',
+  'secret rare': 'Secreta rara', 'holo rare': 'Rara holo', 'rare holo': 'Rara holo', 'holo rare v': 'Rara holo V',
+  'holo rare vmax': 'Rara holo VMAX', 'holo rare vstar': 'Rara holo ASTRO', 'rare holo lv.x': 'Rara holo NV.X',
+  'rare prime': 'Rara PRIME', 'legend': 'LEYENDA', 'promo': 'Promo', 'amazing rare': 'Rara asombrosa',
+  'radiant rare': 'Rara radiante', 'shiny rare v': 'Variocolor rara V', 'shiny rare vmax': 'Variocolor rara VMAX',
+  'full art trainer': 'Entrenador arte completo', 'classic collection': 'Colección clásica', 'pikachu rare': 'Rara Pikachu',
+  'futuristic rare': 'Rara futurista', 'none': '-',
 };
 
 export function rarityLabel(r: string | null, lang: 'es' | 'en') {
@@ -65,6 +100,10 @@ const SHORT: Record<string, string> = {
   'common': 'C', 'uncommon': 'U', 'rare': 'R', 'double rare': 'DR', 'ultra rare': 'UR', 'illustration rare': 'IR',
   'special illustration rare': 'SIR', 'hyper rare': 'HR', 'mega hyper rare': 'MHR', 'ace spec rare': 'ACE',
   'shiny rare': 'SR', 'shiny ultra rare': 'SSR', 'black white rare': 'BWR',
+  'secret rare': 'SCR', 'holo rare': 'RH', 'rare holo': 'RH', 'holo rare v': 'V', 'holo rare vmax': 'VMAX',
+  'holo rare vstar': 'VSTAR', 'rare holo lv.x': 'LV.X', 'rare prime': 'PRIME', 'legend': 'LEGEND', 'promo': 'PR',
+  'amazing rare': 'AR', 'radiant rare': 'RR', 'shiny rare v': 'SV', 'shiny rare vmax': 'SV', 'full art trainer': 'FA',
+  'classic collection': 'CC', 'pikachu rare': 'PR', 'futuristic rare': 'FR', 'none': '-',
 };
 
 /** Abreviatura de la rareza, como la usan los coleccionistas (SIR, IR, HR...). */
@@ -77,7 +116,7 @@ export function rarityTone(r: string | null) {
   const k = (r ?? '').trim().toLowerCase();
   if (k.includes('mega hyper')) return 'mhr';
   if (k.includes('special illustration')) return 'sir';
-  if (k.includes('hyper')) return 'hr';
+  if (k.includes('hyper') || k === 'secret rare' || k === 'amazing rare') return 'hr';
   if (k.includes('illustration')) return 'ir';
   if (k.includes('ultra')) return 'ur';
   if (k.includes('double')) return 'dr';

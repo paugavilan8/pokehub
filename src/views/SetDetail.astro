@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import CardDrawer from '../components/CardDrawer.astro';
 import PackSim from '../components/PackSim.astro';
 import PriceChart from '../components/PriceChart.astro';
-import { historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary } from '../lib/market-data';
+import { historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary, seriesName } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit, normRarity, type SealedItem } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
@@ -95,12 +95,12 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
 ---
 <Base lang={lang} route="sets" active="home" paths={paths} title={c.title} description={c.description}>
   <section slot="hero" class="container set-hero">
-    <a class="back" href={ROUTES.home[lang]}><Icon name="arrow-left" /> {c.back}</a>
+    <a class="back" href={ROUTES.sets[lang]}><Icon name="arrow-left" /> {c.back}</a>
     <div class="hero-grid">
       <div>
         {set.logo && <img class="logo" src={`${set.logo}.webp`} alt="" decoding="async" onerror="this.remove()" />}
         <h1>{set.name}</h1>
-        <p class="meta">{c.released(set.serie, set.releaseDate ? formatDate(set.releaseDate, lang) : '', set.totalCount)}</p>
+        <p class="meta">{c.released(seriesName(set.serie, lang), set.releaseDate ? formatDate(set.releaseDate, lang) : '', set.totalCount)}</p>
         <p class="small">{c.prices}</p>
       </div>
       <div class="hero-hits" aria-hidden="true">

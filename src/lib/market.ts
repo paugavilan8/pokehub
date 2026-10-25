@@ -129,6 +129,68 @@ export function expansionOf(cmIds: (number | null)[], singlesById: Map<number, C
   return best;
 }
 
+/** Nombre de carta comparable entre TCGdex y Cardmarket (Cardmarket añade los ataques entre corchetes). */
+export function baseName(name: string) {
+  return name.replace(/\s*\[.*$/, '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[’`]/g, "'").toLowerCase().trim();
+}
+
+/**
+ * Da id de Cardmarket a las cartas que TCGdex trae sin él, buscando por nombre en la expansión de Cardmarket del set.
+ * Si la expansión no se conoce (ninguna carta tiene id), se elige la que más nombres del set comparte. Cuando hay
+ * varias cartas con el mismo nombre se emparejan por orden (número de carta frente a id de producto), y solo si
+ * hay tantos productos libres como cartas; si no, la carta se queda sin precio antes que con uno equivocado.
+ * TCGdex a veces da el mismo id a varias cartas (la normal y su versión arte completo): se vuelven a emparejar, y si
+ * no se puede, el id se queda solo en la de número más bajo. Devuelve la expansión usada.
+ */
+export function matchByName(cards: MarketCard[], expansion: number | null, singles: CmProduct[]): number | null {
+  const byNum = (a: MarketCard, b: MarketCard) => a.num.localeCompare(b.num, 'en', { numeric: true });
+  const shared = new Map<number, MarketCard[]>();
+  for (const c of cards) if (c.cmId != null) shared.set(c.cmId, [...(shared.get(c.cmId) ?? []), c]);
+  const fallback = new Map<MarketCard, number>();
+  for (const [id, group] of shared) {
+    if (group.length < 2) continue;
+    fallback.set(group.sort(byNum)[0], id);
+    for (const c of group) c.cmId = null;
+  }
+  const missing = cards.filter((c) => c.cmId == null);
+  if (!missing.length) return expansion;
+  if (expansion == null) {
+    const names = new Set(cards.map((c) => baseName(c.name)));
+    const hits = new Map<number, Set<string>>();
+    for (const p of singles) {
+      const n = baseName(p.name);
+      if (p.idExpansion == null || !names.has(n)) continue;
+      if (!hits.has(p.idExpansion)) hits.set(p.idExpansion, new Set());
+      hits.get(p.idExpansion)!.add(n);
+    }
+    let max = 0;
+    for (const [exp, found] of hits) if (found.size > max) [expansion, max] = [exp, found.size];
+    if (max < Math.max(5, names.size / 2)) { restore(cards, fallback); return null; }
+  }
+  const used = new Set(cards.map((c) => c.cmId).filter((id) => id != null));
+  const free = new Map<string, CmProduct[]>();
+  for (const p of singles) {
+    if (p.idExpansion !== expansion || used.has(p.idProduct)) continue;
+    const n = baseName(p.name);
+    free.set(n, [...(free.get(n) ?? []), p]);
+  }
+  const groups = new Map<string, MarketCard[]>();
+  for (const c of missing) groups.set(baseName(c.name), [...(groups.get(baseName(c.name)) ?? []), c]);
+  for (const [name, group] of groups) {
+    const products = free.get(name) ?? [];
+    if (products.length !== group.length) continue;
+    products.sort((a, b) => a.idProduct - b.idProduct);
+    group.sort(byNum).forEach((c, i) => { c.cmId = products[i].idProduct; });
+  }
+  restore(cards, fallback);
+  return expansion;
+}
+
+function restore(cards: MarketCard[], fallback: Map<MarketCard, number>) {
+  const taken = new Set(cards.map((c) => c.cmId));
+  for (const [c, id] of fallback) if (c.cmId == null && !taken.has(id)) c.cmId = id;
+}
+
 /**
  * Tipo de producto sellado según el nombre de Cardmarket ("Destined Rivals Booster Box"). Se descartan cajas de 18,
  * sobres con fundas, cajas cerradas (case), displays de bundles y las ETB de Pokémon Center.

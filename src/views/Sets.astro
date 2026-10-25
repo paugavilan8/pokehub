@@ -16,13 +16,19 @@ const pct = (n: number) => `${Math.round(n)}${lang === 'es' ? ' %' : '%'}`;
 const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
 const base = ROUTES.sets[lang];
 
-// Las cartas más caras ahora mismo, de todos los sets.
+// En la portada, las expansiones más recientes; el resto, en la página de todas las expansiones.
+const LATEST = 12;
+const withPacks = sets.filter((s) => s.pack);
+const shown = withPacks.slice(0, LATEST);
+// Las cartas más caras ahora mismo, de todos los sets. Solo las que tienen ofertas y cuya tendencia no se dispara frente
+// al precio más bajo: en cartas antiguas con pocas ventas, una sola venta graduada infla la tendencia de Cardmarket.
 const allCards = sets.flatMap((s) => s.set.cards.map((card) => ({ card, s })));
-const topCards = allCards.filter((x) => x.card.price.trend != null).sort((a, b) => b.card.price.trend! - a.card.price.trend!).slice(0, 12);
+const reliable = (p: { trend: number | null; low: number | null }) => p.trend != null && p.low != null && p.trend <= p.low * 15;
+const topCards = allCards.filter((x) => reliable(x.card.price)).sort((a, b) => b.card.price.trend! - a.card.price.trend!).slice(0, 12);
 // Las que más suben: media de 7 días frente a la de 30, solo cartas de 10 € o más para evitar ruido.
 const movers = allCards
   .map((x) => ({ ...x, wk: weekChange(x.card.price) }))
-  .filter((x) => x.wk != null && (x.card.price.trend ?? 0) >= 10)
+  .filter((x) => x.wk != null && (x.card.price.trend ?? 0) >= 10 && reliable(x.card.price))
   .sort((a, b) => b.wk! - a.wk!);
 const risers = movers.slice(0, 6);
 const fallers = movers.slice(-6).reverse();
@@ -31,7 +37,7 @@ const c = {
   es: {
     title: 'Precios de expansiones Pokémon TCG: sobres, cajas y cartas',
     description: 'Precio de sobres y cajas de cada expansión de Pokémon TCG en Cardmarket, sus cartas más caras y si sale a cuenta abrir sobres. Actualizado cada día.',
-    h1: 'Precios por set',
+    h1: 'Últimas expansiones', allSets: (n: number) => `Ver las ${n} expansiones, de Base Set a hoy`,
     topTitle: 'Las cartas más caras ahora', moversTitle: 'Movimientos de la semana', up: 'Suben', down: 'Bajan',
     moversNote: 'Media de 7 días frente a la de 30 días en Cardmarket. Cartas de 10 € o más.',
     updated: pricesDate ? `Precios de Cardmarket actualizados el ${pricesDate}` : 'Precios de Cardmarket',
@@ -47,7 +53,7 @@ const c = {
   en: {
     title: 'Pokémon TCG set prices: packs, boxes and cards',
     description: 'Cardmarket prices for packs and boxes of every Pokémon TCG set, their most valuable cards and whether opening packs pays off. Updated daily.',
-    h1: 'Prices by set',
+    h1: 'Latest sets', allSets: (n: number) => `See all ${n} sets, from Base Set to today`,
     topTitle: 'The most valuable cards right now', moversTitle: 'This week\'s movers', up: 'Rising', down: 'Falling',
     moversNote: '7-day average against the 30-day average on Cardmarket. Cards worth €10 or more.',
     updated: pricesDate ? `Cardmarket prices updated ${pricesDate}` : 'Cardmarket prices',
@@ -63,7 +69,7 @@ const c = {
 }[lang];
 ---
 <Base lang={lang} route="home" title={c.title} description={c.description}>
-  {sets.length > 0 && <HeroCarousel slot="hero" lang={lang} slides={sets.slice(0, 5)} />}
+  {sets.length > 0 && <HeroCarousel slot="hero" lang={lang} slides={withPacks.slice(0, 5)} />}
 
   {sets.length > 0 && (
     <div class="container">
@@ -116,7 +122,7 @@ const c = {
       <>
 
         <ul class="sets" data-sets>
-          {sets.map((s, i) => {
+          {shown.map((s, i) => {
             const hits = [...s.set.cards].filter(isHit).sort((a, b) => (b.price.trend ?? -1) - (a.price.trend ?? -1));
             const ret = s.ev && s.pack?.price.trend ? (s.ev.perPack.trend / s.pack.price.trend) * 100 : null;
             const panel = `set-${s.set.id.replace(/\W/g, '-')}`;
@@ -175,6 +181,7 @@ const c = {
             );
           })}
         </ul>
+        <a class="all-sets" href={base}>{c.allSets(sets.length)} <Icon name="arrow-right" /></a>
         <p class="disclosure">{c.disclosure}</p>
       </>
     )}
@@ -279,6 +286,9 @@ const c = {
   .ext::after { content: '↗'; }
   .full { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-weight: 650; }
   .full :global(svg) { width: 16px; height: 16px; }
+  .all-sets { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; padding: 14px; border: 1px solid var(--border-strong); border-radius: var(--radius-panel); background: var(--surface); font-weight: 650; text-decoration: none; }
+  .all-sets:hover { background: var(--surface-2); }
+  .all-sets :global(svg) { width: 18px; height: 18px; }
   .disclosure { margin-top: 18px; font-size: 0.82rem; color: var(--text-muted); }
 
 </style>
