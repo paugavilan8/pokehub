@@ -1,0 +1,10 @@
+---
+import View from '../../views/SetDetail.astro';
+import { allSets, type SetSummary } from '../../lib/market-data';
+
+export function getStaticPaths() {
+  return allSets().map((summary) => ({ params: { slug: summary.slug }, props: { summary } }));
+}
+const { summary } = Astro.props as { summary: SetSummary };
+---
+<View lang="es" summary={summary} />

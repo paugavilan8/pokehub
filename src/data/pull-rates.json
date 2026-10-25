@@ -1,0 +1,72 @@
+{
+  "lastReviewed": "2026-10-25",
+  "note": "Probabilidad por sobre de sacar una carta de cada rareza, en sobres ingleses. The Pokémon Company no publica tasas oficiales: son estudios de aperturas grandes (kind: study) o estimaciones de la comunidad (community). Las rarezas usan los nombres en inglés de TCGdex. 'approx' marca tasas que la fuente da solo como '1 de N sobres' redondeado. Revisar con la fuente antes de cambiar nada.",
+  "sets": [
+    {
+      "set": "Destined Rivals",
+      "packsPerBox": 36,
+      "rates": [
+        { "rarity": "Double rare", "perPack": 0.1983 },
+        { "rarity": "Ultra Rare", "perPack": 0.0639 },
+        { "rarity": "Illustration rare", "perPack": 0.0833, "approx": true },
+        { "rarity": "Special illustration rare", "perPack": 0.0106 },
+        { "rarity": "Hyper rare", "perPack": 0.0067 }
+      ],
+      "source": {
+        "title": "TCGplayer: Pokémon TCG Destined Rivals Pull Rates",
+        "url": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Destined-Rivals-Pull-Rates/43ba832e-44c9-45a4-ae2e-594df2defdda/",
+        "packs": 8000,
+        "kind": "study"
+      },
+      "reviewed": "2026-10-25"
+    },
+    {
+      "set": "Phantasmal Flames",
+      "packsPerBox": 36,
+      "rates": [
+        { "rarity": "Illustration rare", "perPack": 0.1097 },
+        { "rarity": "Special illustration rare", "perPack": 0.0125 },
+        { "rarity": "Mega Hyper Rare", "perPack": 0.0008 }
+      ],
+      "source": {
+        "title": "TCGplayer: Pokémon TCG Phantasmal Flames Pull Rates",
+        "url": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Phantasmal-Flames-Pull-Rates/9abae60d-b7fb-448f-874e-176f78d6a6ca/",
+        "packs": 5000,
+        "kind": "study"
+      },
+      "reviewed": "2026-10-25"
+    },
+    {
+      "set": "Pitch Black",
+      "packsPerBox": 36,
+      "rates": [
+        { "rarity": "Double rare", "perPack": 0.2102 },
+        { "rarity": "Illustration rare", "perPack": 0.1111, "approx": true },
+        { "rarity": "Ultra Rare", "perPack": 0.0833, "approx": true },
+        { "rarity": "Special illustration rare", "perPack": 0.0125, "approx": true },
+        { "rarity": "Mega Hyper Rare", "perPack": 0.0009 }
+      ],
+      "source": {
+        "title": "TCGplayer: Pokémon TCG Pitch Black Pull Rates",
+        "url": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Pitch-Black-Pull-Rates/069a5fda-2d1f-44a1-97de-b6dcdc5abfb8/",
+        "packs": 4000,
+        "kind": "study"
+      },
+      "reviewed": "2026-10-25"
+    },
+    {
+      "set": "Ascended Heroes",
+      "packsPerBox": null,
+      "rates": [
+        { "rarity": "Special illustration rare", "perPack": 0.0144 }
+      ],
+      "source": {
+        "title": "TCGplayer: Pokémon TCG Ascended Heroes Pull Rates",
+        "url": "https://www.tcgplayer.com/content/article/Pok%C3%A9mon-TCG-Ascended-Heroes-Pull-Rates/60143d94-88a7-42ce-8e73-babd7b3fabd6/",
+        "packs": 2000,
+        "kind": "study"
+      },
+      "reviewed": "2026-10-25"
+    }
+  ]
+}

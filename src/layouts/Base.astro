@@ -11,17 +11,21 @@ interface Props {
   description: string;
   jsonLd?: Record<string, unknown>;
   noindex?: boolean;
+  /** Rutas de cada idioma para páginas dinámicas (por defecto, las de `route`). */
+  paths?: Record<Lang, string>;
 }
-const { lang, route, title, description, jsonLd, noindex = false } = Astro.props;
+const { lang, route, title, description, jsonLd, noindex = false, paths: customPaths } = Astro.props;
+const paths = customPaths ?? ROUTES[route];
 const t = ui[lang];
 const other: Lang = lang === 'es' ? 'en' : 'es';
 const site = Astro.site!;
 const abs = (path: string) => new URL(path, site).href;
-const canonical = abs(ROUTES[route][lang]);
+const canonical = abs(paths[lang]);
 const fullTitle = route === 'home' ? title : `${title} | ${SITE_NAME}`;
 const ogImage = abs(`/og-${lang}.png`);
 const nav: { key: RouteKey; label: string }[] = [
   { key: 'home', label: t.nav.calculator },
+  { key: 'sets', label: t.nav.sets },
   { key: 'guide', label: t.nav.guide },
   { key: 'sources', label: t.nav.sources },
 ];
@@ -35,9 +39,9 @@ const nav: { key: RouteKey; label: string }[] = [
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
-    <link rel="alternate" hreflang="es" href={abs(ROUTES[route].es)} />
-    <link rel="alternate" hreflang="en" href={abs(ROUTES[route].en)} />
-    <link rel="alternate" hreflang="x-default" href={abs(ROUTES[route].es)} />
+    <link rel="alternate" hreflang="es" href={abs(paths.es)} />
+    <link rel="alternate" hreflang="en" href={abs(paths.en)} />
+    <link rel="alternate" hreflang="x-default" href={abs(paths.es)} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={title} />
@@ -72,7 +76,7 @@ const nav: { key: RouteKey; label: string }[] = [
               ))}
             </ul>
           </nav>
-          <a class="lang" href={ROUTES[route][other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>
+          <a class="lang" href={paths[other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>
             <Icon name="translate" />{t.langSwitch}
           </a>
         </div>

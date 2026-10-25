@@ -36,6 +36,14 @@ src/
 scripts/make-images.mjs    genera og-es.png, og-en.png y apple-touch-icon.png
 ```
 
+## Expansiones y precios
+
+- `scripts/fetch-market.ts` descarga cada día el catálogo de TCGdex (sets, cartas, rareza, imagen e id de Cardmarket) y la guía de precios y el catálogo públicos de Cardmarket. Escribe `src/data/market/` y la web se vuelve a construir.
+- `.github/workflows/market-data.yml` lo ejecuta cada día a las 04:37 UTC (Cardmarket publica la guía de madrugada) y sube los cambios. También se puede lanzar a mano desde la pestaña Actions.
+- Valor esperado: `src/data/pull-rates.json` (tasas por rareza, con fuente y fecha). Solo se calcula para los sets que tienen tasas.
+- Condiciones de Cardmarket para sus precios: decir claramente que son suyos (lo hacemos en cada página) y usar su marca solo desde su kit oficial. No tienen programa de afiliados.
+- Primera ejecución: `node scripts/fetch-market.ts` (Node 22.18 o superior). Necesita acceso a `api.tcgdex.net` y `downloads.s3.cardmarket.com`.
+
 ## Comandos
 
 ```sh

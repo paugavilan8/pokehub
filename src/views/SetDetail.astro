@@ -1,0 +1,315 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { marketIndex, PACKS, rarityLabel, rarityTone, type SetSummary } from '../lib/market-data';
+import { cardImage, cardmarketUrl, isHit, normRarity, type SealedItem } from '../lib/market';
+import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang; summary: SetSummary }
+const { lang, summary } = Astro.props;
+const { set, pack, box, rates, ev, hits } = summary;
+const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' });
+const fmt = (n: number | null | undefined) => (n == null ? '-' : money.format(n));
+const pctN = (n: number) => `${Math.round(n)}${lang === 'es' ? ' %' : '%'}`;
+const oneIn = (p: number) => Math.round(1 / p).toLocaleString(LOCALE[lang]);
+const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
+const paths = { es: `${ROUTES.sets.es}${summary.slug}/`, en: `${ROUTES.sets.en}${summary.slug}/` };
+
+const c = {
+  es: {
+    title: `${set.name}: precios, cartas top y valor del sobre`,
+    description: `Precio de sobres, cajas y ETB de ${set.name} en Cardmarket, sus cartas más caras y cuánto valen de media los hits de un sobre.`,
+    back: 'Todas las expansiones', cards: 'cartas', prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
+    sealedTitle: 'Producto sellado',
+    kinds: { pack: 'Sobre', box: 'Caja de 36 sobres', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 sobres)' } as Record<SealedItem['kind'], string>,
+    from: 'desde', perPack: 'por sobre', see: 'Ver en Cardmarket', noSealed: 'No hemos encontrado producto sellado de este set en Cardmarket.',
+    evTitle: '¿Sale a cuenta abrir sobres?',
+    evPack: 'Valor medio de los hits de un sobre', evVs: 'Precio del sobre', evBox: 'Valor medio de los hits de una caja', evBoxVs: 'Precio de la caja',
+    ret: (n: string) => `De media recuperas el ${n} de lo que pagas, si vendes cada carta a su precio de tendencia.`,
+    range: 'Rango: con el precio más bajo publicado y con la tendencia.',
+    th: ['Rareza', 'Probabilidad', 'Cartas', 'Precio medio', 'Aporta por sobre'],
+    oneIn: (n: string) => `1 de cada ${n} sobres`,
+    missing: 'Rarezas con tasa conocida pero sin precio en Cardmarket:',
+    caveat: 'Solo cuenta los hits con tasa conocida, no las cartas comunes ni la experiencia de abrir. Supone que todas las cartas de una rareza salen igual de a menudo. Vender tiene comisiones y no siempre se vende a la tendencia.',
+    source: 'Tasas de aparición:', packs: (n: string) => `estudio de más de ${n} sobres`,
+    noRates: 'Todavía no tenemos tasas de aparición fiables para este set, así que no calculamos el valor esperado.',
+    hitsTitle: 'Las cartas más caras',
+    specific: (n: string) => `Esta carta: 1 de cada ${n} sobres`,
+    allTitle: 'Todas las cartas', filter: 'Rareza', all: 'Todas', onlyHits: 'Solo hits', sort: 'Ordenar', byPrice: 'Precio', byNum: 'Número',
+    cols: ['N.º', 'Carta', 'Rareza', 'Tendencia', 'Desde', ''],
+    disclosure: 'Los precios son de Cardmarket (guía de precios pública, una media de todos los idiomas de cada carta). Pueden variar respecto a lo que ves en la web en este momento.',
+  },
+  en: {
+    title: `${set.name}: prices, chase cards and pack value`,
+    description: `Cardmarket prices for ${set.name} packs, boxes and ETBs, its most valuable cards and what the hits in a pack are worth on average.`,
+    back: 'All sets', cards: 'cards', prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
+    sealedTitle: 'Sealed product',
+    kinds: { pack: 'Booster pack', box: 'Booster box (36 packs)', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 packs)' } as Record<SealedItem['kind'], string>,
+    from: 'from', perPack: 'per pack', see: 'View on Cardmarket', noSealed: 'We found no sealed product for this set on Cardmarket.',
+    evTitle: 'Does opening packs pay off?',
+    evPack: 'Average value of the hits in a pack', evVs: 'Pack price', evBox: 'Average value of the hits in a box', evBoxVs: 'Box price',
+    ret: (n: string) => `On average you get back ${n} of what you pay, if you sell every card at its trend price.`,
+    range: 'Range: using the lowest listed price and the trend price.',
+    th: ['Rarity', 'Odds', 'Cards', 'Average price', 'Value per pack'],
+    oneIn: (n: string) => `1 in ${n} packs`,
+    missing: 'Rarities with known odds but no Cardmarket price:',
+    caveat: 'Counts only hits with known odds, not common cards or the fun of opening. Assumes every card in a rarity is equally likely. Selling has fees and cards do not always sell at trend.',
+    source: 'Pull rates:', packs: (n: string) => `study of more than ${n} packs`,
+    noRates: 'We do not have reliable pull rates for this set yet, so we do not calculate expected value.',
+    hitsTitle: 'The most valuable cards',
+    specific: (n: string) => `This card: 1 in ${n} packs`,
+    allTitle: 'All cards', filter: 'Rarity', all: 'All', onlyHits: 'Hits only', sort: 'Sort', byPrice: 'Price', byNum: 'Number',
+    cols: ['No.', 'Card', 'Rarity', 'Trend', 'From', ''],
+    disclosure: 'Prices are Cardmarket\'s (public price guide, an average across all languages of each card). They may differ from what the site shows right now.',
+  },
+}[lang];
+
+const rateOf = (r: string | null) => rates?.rates.find((x) => normRarity(x.rarity) === normRarity(r));
+const countOf = (r: string | null) => set.cards.filter((x) => normRarity(x.rarity) === normRarity(r)).length;
+const specificOdds = (r: string | null) => {
+  const rate = rateOf(r);
+  const n = countOf(r);
+  return rate && n ? rate.perPack / n : null;
+};
+const rarities = [...new Set(set.cards.map((x) => x.rarity).filter(Boolean))] as string[];
+const packRet = ev && pack?.price.trend ? (ev.perPack.trend / pack.price.trend) * 100 : null;
+const boxRet = ev?.perBox && box?.price.trend ? (ev.perBox.trend / box.price.trend) * 100 : null;
+const cmLang = lang;
+---
+<Base lang={lang} route="sets" paths={paths} title={c.title} description={c.description}>
+  <section slot="hero" class="container set-hero">
+    <a class="back" href={ROUTES.sets[lang]}><Icon name="arrow-left" /> {c.back}</a>
+    <div class="hero-grid">
+      <div>
+        {set.logo && <img class="logo" src={`${set.logo}.webp`} alt="" decoding="async" onerror="this.remove()" />}
+        <h1>{set.name}</h1>
+        <p class="meta">{set.serie} · {set.releaseDate ? formatDate(set.releaseDate, lang) : ''} · {set.totalCount} {c.cards}</p>
+        <p class="small">{c.prices}</p>
+      </div>
+      <div class="hero-hits" aria-hidden="true">
+        {hits.slice(0, 3).map((h, i) => h.image && <img class={`hh hh-${i}`} src={cardImage(h.image)} alt="" decoding="async" onerror="this.remove()" />)}
+      </div>
+    </div>
+  </section>
+
+  <div class="container">
+    <section class="block" aria-labelledby="sealed-title">
+      <h2 id="sealed-title">{c.sealedTitle}</h2>
+      {set.sealed.length === 0 && <p class="muted">{c.noSealed}</p>}
+      <ul class="sealed">
+        {set.sealed.map((s) => (
+          <li class={`tile k-${s.kind}`}>
+            <p class="kind">{c.kinds[s.kind]}</p>
+            <p class="price">{fmt(s.price.trend)}</p>
+            <p class="sub muted">
+              {s.price.low != null && <>{c.from}{' '}{fmt(s.price.low)}</>}
+              {s.kind !== 'pack' && s.price.trend != null && <><br />≈ {fmt(s.price.trend / PACKS[s.kind])}{' '}{c.perPack}</>}
+            </p>
+            <a class="cm" href={cardmarketUrl(cmLang, s.idProduct)} rel="noopener" target="_blank">{c.see} <Icon name="arrow-up-right" /></a>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="block ev" aria-labelledby="ev-title">
+      <h2 id="ev-title">{c.evTitle}</h2>
+      {!ev && <p class="muted">{c.noRates}</p>}
+      {ev && (
+        <>
+          <div class="ev-compare">
+            <div class="ev-stat main">
+              <p class="label">{c.evPack}</p>
+              <p class="big">{fmt(ev.perPack.low)} - {fmt(ev.perPack.trend)}</p>
+            </div>
+            <div class="ev-stat">
+              <p class="label">{c.evVs}</p>
+              <p class="big">{fmt(pack?.price.trend)}</p>
+            </div>
+            {ev.perBox && box && (
+              <>
+                <div class="ev-stat main">
+                  <p class="label">{c.evBox}</p>
+                  <p class="big">{fmt(ev.perBox.low)} - {fmt(ev.perBox.trend)}</p>
+                </div>
+                <div class="ev-stat">
+                  <p class="label">{c.evBoxVs}</p>
+                  <p class="big">{fmt(box.price.trend)}</p>
+                </div>
+              </>
+            )}
+          </div>
+          {packRet != null && <p class="verdict">{c.ret(pctN(packRet))}{boxRet != null && ` (${lang === 'es' ? 'caja' : 'box'}: ${pctN(boxRet)})`}</p>}
+          <p class="muted small">{c.range}</p>
+          <div class="table-wrap">
+            <table class="data">
+              <thead><tr>{c.th.map((h, i) => <th class={i > 0 ? 'n' : ''}>{h}</th>)}</tr></thead>
+              <tbody>
+                {ev.lines.map((l) => (
+                  <tr>
+                    <td><span class={`rar ${rarityTone(l.rarity)}`}>{rarityLabel(l.rarity, lang)}</span></td>
+                    <td class="n">{c.oneIn(oneIn(l.perPack))}</td>
+                    <td class="n">{l.cards}</td>
+                    <td class="n">{fmt(l.avgTrend)}</td>
+                    <td class="n">{fmt(l.evLow)} - {fmt(l.evTrend)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          {ev.missing.length > 0 && <p class="muted small">{c.missing} {ev.missing.map((m) => rarityLabel(m, lang)).join(', ')}.</p>}
+          <p class="muted small">{c.caveat}</p>
+          {rates && <p class="muted small">{c.source} <a href={rates.source.url} rel="noopener" target="_blank">{rates.source.title}</a>{rates.source.packs && ` (${c.packs(rates.source.packs.toLocaleString(LOCALE[lang]))})`}.</p>}
+        </>
+      )}
+    </section>
+
+    <section class="block" aria-labelledby="hits-title">
+      <h2 id="hits-title">{c.hitsTitle}</h2>
+      <ol class="hits">
+        {hits.map((h, i) => {
+          const odds = specificOdds(h.rarity);
+          return (
+            <li>
+              <a class="hit" href={cardmarketUrl(cmLang, h.cmId, h.name)} rel="noopener" target="_blank">
+                <span class="rank">{i + 1}</span>
+                <span class="img-wrap">{h.image && <img src={cardImage(h.image)} alt={h.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
+                <span class="h-name">{h.name}</span>
+                <span class={`rar ${rarityTone(h.rarity)}`}>{rarityLabel(h.rarity, lang)}</span>
+                <span class="h-price">{fmt(h.price.trend)}</span>
+                {odds && <span class="h-odds">{c.specific(oneIn(odds))}</span>}
+              </a>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+
+    <section class="block" aria-labelledby="all-title" data-cards>
+      <h2 id="all-title">{c.allTitle}</h2>
+      <div class="controls">
+        <label>{c.filter}
+          <select data-filter>
+            <option value="hits" selected>{c.onlyHits}</option>
+            <option value="">{c.all}</option>
+            {rarities.map((r) => <option value={normRarity(r)}>{rarityLabel(r, lang)}</option>)}
+          </select>
+        </label>
+        <label>{c.sort}
+          <select data-sort>
+            <option value="price">{c.byPrice}</option>
+            <option value="num">{c.byNum}</option>
+          </select>
+        </label>
+      </div>
+      <div class="table-wrap">
+        <table class="data cards">
+          <thead><tr>{c.cols.map((h, i) => <th class={i >= 3 ? 'n' : ''}>{h}</th>)}</tr></thead>
+          <tbody>
+            {[...set.cards].sort((a, b) => (b.price.trend ?? -1) - (a.price.trend ?? -1)).map((x) => (
+              <tr data-r={normRarity(x.rarity)} data-hit={isHit(x) ? '1' : '0'} data-p={x.price.trend ?? -1} data-n={x.num} hidden={!isHit(x)}>
+                <td class="muted">{x.num}</td>
+                <td>{x.name}</td>
+                <td><span class={`rar ${rarityTone(x.rarity)}`}>{rarityLabel(x.rarity, lang)}</span></td>
+                <td class="n">{fmt(x.price.trend)}</td>
+                <td class="n muted">{fmt(x.price.low)}</td>
+                <td class="n"><a href={cardmarketUrl(cmLang, x.cmId, x.name)} rel="noopener" target="_blank" aria-label={`${c.see}: ${x.name}`}><Icon name="arrow-up-right" /></a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="muted small">{c.disclosure}</p>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .set-hero { padding-block: 12px 48px; }
+  .back { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 0.92rem; text-decoration: none; opacity: 0.85; }
+  .back :global(svg) { width: 16px; height: 16px; }
+  .hero-grid { display: grid; gap: 24px; align-items: center; margin-top: 18px; }
+  @media (min-width: 860px) { .hero-grid { grid-template-columns: 1fr 380px; } }
+  .logo { max-height: 120px; max-width: 320px; object-fit: contain; margin-bottom: 14px; filter: drop-shadow(0 8px 16px rgb(0 0 0 / 0.4)); }
+  .meta { color: var(--night-muted); font-weight: 550; margin-bottom: 6px; }
+  .small { font-size: 0.9rem; }
+  .set-hero .small { color: var(--night-muted); }
+  .hero-hits { position: relative; height: 260px; display: none; }
+  @media (min-width: 860px) { .hero-hits { display: block; } }
+  .hh { position: absolute; width: 170px; border-radius: 8px; box-shadow: 0 18px 40px rgb(0 0 0 / 0.5); }
+  .hh-0 { left: 105px; top: 0; z-index: 3; }
+  .hh-1 { left: 0; top: 34px; transform: rotate(-10deg); z-index: 2; }
+  .hh-2 { right: 0; top: 34px; transform: rotate(10deg); z-index: 1; }
+
+  .block { margin-top: 56px; }
+  .block h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+  .sealed { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+  .tile { border-radius: var(--radius-panel); padding: 20px; display: flex; flex-direction: column; }
+  .k-pack { background: var(--t-electric); } .k-box { background: var(--t-fire); } .k-etb { background: var(--t-psychic); } .k-bundle { background: var(--t-water); }
+  .kind { font-weight: 700; margin: 0 0 4px; }
+  .price { font-family: var(--display); font-size: clamp(1.5rem, 5vw, 2rem); font-weight: 800; letter-spacing: -0.03em; margin: 0; font-variant-numeric: tabular-nums; }
+  .sub { font-size: 0.88rem; margin: 2px 0 12px; }
+  .cm { margin-top: auto; display: inline-flex; align-items: center; gap: 4px; font-weight: 650; font-size: 0.92rem; }
+  .cm :global(svg), td :global(svg) { width: 15px; height: 15px; }
+
+  .ev-compare { display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); }
+  @media (min-width: 960px) { .ev-compare { grid-template-columns: repeat(4, 1fr); } }
+  .ev-stat { border-radius: var(--radius-panel); padding: 18px 20px; background: var(--surface); border: 1px solid var(--border); }
+  .ev-stat.main { background: linear-gradient(160deg, var(--night), var(--night-2)); color: var(--night-text); border: 0; }
+  .ev-stat .label { margin: 0; font-size: 0.88rem; font-weight: 600; opacity: 0.85; }
+  .ev-stat .big { margin: 4px 0 0; font-family: var(--display); font-size: clamp(1.1rem, 3.6vw, 1.6rem); font-weight: 800; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+  .ev-stat.main .big { color: var(--sun); }
+  .verdict { font-weight: 650; font-size: 1.08rem; margin: 18px 0 4px; }
+
+  .table-wrap { overflow-x: auto; margin: 12px 0; background: var(--surface); border-radius: var(--radius-panel); box-shadow: var(--shadow); }
+  table.data { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+  table.data th, table.data td { text-align: left; padding: 10px 14px; white-space: nowrap; }
+  table.cards td:nth-child(2) { white-space: normal; min-width: 160px; }
+  table.data thead th { font-weight: 700; border-bottom: 1px solid var(--border-strong); font-size: 0.85rem; }
+  table.data tbody tr + tr td { border-top: 1px solid var(--border); }
+  table.data .n { text-align: right; font-variant-numeric: tabular-nums; }
+  table.data tr[hidden] { display: none; }
+
+  .rar { display: inline-block; font-size: 0.75rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--surface-2); color: var(--text-muted); white-space: nowrap; }
+  .rar.sir { background: linear-gradient(90deg, #ffe08a, #ffc0d9, #b9d8ff); color: #3a2a00; }
+  .rar.mhr { background: linear-gradient(90deg, #ff9a7a, #ffcf5c); color: #3a1200; }
+  .rar.hr { background: #ffe9a6; color: #5a4100; }
+  .rar.ir { background: #cdeee6; color: #0f5142; }
+  .rar.ur { background: #e3d9ff; color: #3d2a80; }
+  .rar.dr { background: #d8e6ff; color: #1d3a7a; }
+
+  .hits { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+  .hit { position: relative; display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: var(--text); background: var(--surface); border-radius: 16px; padding: 10px 10px 14px; box-shadow: var(--shadow); height: 100%; transition: transform 0.2s var(--ease); }
+  .hit:hover { transform: translateY(-3px); color: var(--text); }
+  .rank { position: absolute; top: 4px; left: 4px; z-index: 1; background: var(--night); color: var(--sun); font-weight: 800; font-family: var(--display); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font-size: 0.9rem; }
+  .img-wrap { aspect-ratio: 245 / 342; border-radius: 8px; background: var(--surface-2); overflow: hidden; display: block; }
+  .img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+  .h-name { font-weight: 650; font-size: 0.92rem; line-height: 1.3; }
+  .hit .rar { align-self: flex-start; }
+  .h-price { font-family: var(--display); font-weight: 800; font-size: 1.25rem; color: var(--ember); font-variant-numeric: tabular-nums; }
+  .h-odds { font-size: 0.78rem; color: var(--text-muted); }
+
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; }
+  .controls label { display: flex; flex-direction: column; gap: 4px; font-weight: 650; font-size: 0.85rem; }
+  .controls select { font: inherit; font-weight: 500; padding: 9px 12px; border-radius: 10px; border: 1.5px solid var(--border); background: var(--surface); color: var(--text); min-width: 170px; min-height: 44px; }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-cards]');
+  if (root) {
+    const filter = root.querySelector<HTMLSelectElement>('[data-filter]')!;
+    const sort = root.querySelector<HTMLSelectElement>('[data-sort]')!;
+    const tbody = root.querySelector('tbody')!;
+    const rows = [...tbody.querySelectorAll<HTMLTableRowElement>('tr')];
+    const apply = () => {
+      const f = filter.value;
+      for (const r of rows) r.hidden = !(f === '' || (f === 'hits' ? r.dataset.hit === '1' : r.dataset.r === f));
+      const byNum = sort.value === 'num';
+      rows.sort((a, b) => byNum
+        ? a.dataset.n!.localeCompare(b.dataset.n!, undefined, { numeric: true })
+        : Number(b.dataset.p) - Number(a.dataset.p));
+      tbody.append(...rows);
+    };
+    filter.addEventListener('change', apply);
+    sort.addEventListener('change', apply);
+  }
+</script>

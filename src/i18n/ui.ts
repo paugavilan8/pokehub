@@ -6,6 +6,7 @@ export const SITE_NAME = 'PokeHub';
 
 export const ROUTES = {
   home: { es: '/', en: '/en/' },
+  sets: { es: '/expansiones/', en: '/en/sets/' },
   guide: { es: '/guia-aduanas-cartas-pokemon/', en: '/en/pokemon-card-import-tax-eu/' },
   sources: { es: '/reglas-y-fuentes/', en: '/en/rules-and-sources/' },
   legal: { es: '/aviso-legal/', en: '/en/legal-notice/' },
@@ -31,7 +32,7 @@ export function countryName(code: string, lang: Lang) {
 export const ui = {
   es: {
     skip: 'Saltar al contenido',
-    nav: { calculator: 'Calculadora', guide: 'Guía de aduanas', sources: 'Reglas y fuentes' },
+    nav: { calculator: 'Calculadora', sets: 'Expansiones', guide: 'Guía de aduanas', sources: 'Fuentes' },
     langSwitch: 'English',
     langSwitchLabel: 'Read this page in English',
     footer: {
@@ -98,7 +99,7 @@ export const ui = {
   },
   en: {
     skip: 'Skip to content',
-    nav: { calculator: 'Calculator', guide: 'Import guide', sources: 'Rules and sources' },
+    nav: { calculator: 'Calculator', sets: 'Sets', guide: 'Import guide', sources: 'Sources' },
     langSwitch: 'Español',
     langSwitchLabel: 'Leer esta página en español',
     footer: {

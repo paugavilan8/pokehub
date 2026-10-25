@@ -1,0 +1,105 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { allSets, marketIndex } from '../lib/market-data';
+import { cardImage } from '../lib/market';
+import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const sets = allSets();
+const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' });
+const fmt = (n: number | null | undefined) => (n == null ? '-' : money.format(n));
+const pct = (n: number) => `${Math.round(n)}${lang === 'es' ? ' %' : '%'}`;
+const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
+const base = ROUTES.sets[lang];
+
+const c = {
+  es: {
+    title: 'Expansiones Pokémon TCG: precios y valor de cada sobre',
+    description: 'Todas las expansiones recientes de Pokémon TCG con el precio de sobres, cajas y ETB en Cardmarket, sus cartas más caras y si sale a cuenta abrir sobres.',
+    h1: 'Expansiones y precios',
+    lede: 'Precio de sobres y cajas, las cartas más buscadas de cada set y cuánto valen de media los hits de un sobre.',
+    prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}. Se actualizan cada día.` : 'Precios de Cardmarket, actualizados cada día.',
+    pack: 'Sobre', box: 'Caja', ev: 'Hits por sobre', topHit: 'Carta top', open: 'Ver expansión',
+    ret: 'recuperas', empty: 'Todavía no hay datos de precios. Se cargan con la próxima actualización diaria.',
+  },
+  en: {
+    title: 'Pokémon TCG sets: prices and value per pack',
+    description: 'Every recent Pokémon TCG set with Cardmarket prices for packs, boxes and ETBs, its most valuable cards and whether opening packs pays off.',
+    h1: 'Sets and prices',
+    lede: 'Pack and box prices, the chase cards of every set, and what the hits in a pack are worth on average.',
+    prices: pricesDate ? `Cardmarket prices from ${pricesDate}. Updated daily.` : 'Cardmarket prices, updated daily.',
+    pack: 'Pack', box: 'Box', ev: 'Hits per pack', topHit: 'Top card', open: 'View set',
+    ret: 'you get back', empty: 'No price data yet. It loads with the next daily update.',
+  },
+}[lang];
+---
+<Base lang={lang} route="sets" title={c.title} description={c.description}>
+  <PageHero slot="hero" title={c.h1} lede={c.lede} art="meowth">
+    <p class="small">{c.prices}</p>
+  </PageHero>
+
+  <div class="container">
+    {sets.length === 0 && <p class="callout">{c.empty}</p>}
+    <ul class="grid">
+      {sets.map((s) => {
+        const top = s.hits[0];
+        const packPrice = s.pack?.price.trend ?? null;
+        const ret = s.ev && packPrice ? (s.ev.perPack.trend / packPrice) * 100 : null;
+        return (
+          <li class="set">
+            <a class="set-link" href={`${base}${s.slug}/`} aria-label={`${c.open}: ${s.set.name}`}></a>
+            <div class={`set-top serie-${s.set.serie.startsWith('Mega') ? 'me' : 'sv'}`}>
+              {s.set.logo && <img class="logo" src={`${s.set.logo}.webp`} alt="" loading="lazy" decoding="async" onerror="this.remove()" />}
+              {top?.image && <img class="hit" src={cardImage(top.image)} alt="" loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}
+            </div>
+            <div class="set-body">
+              <h2>{s.set.name}</h2>
+              <p class="meta muted">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''} · {s.set.serie}</p>
+              <dl class="stats">
+                <div><dt>{c.pack}</dt><dd>{fmt(packPrice)}</dd></div>
+                <div><dt>{c.box}</dt><dd>{fmt(s.box?.price.trend)}</dd></div>
+                {s.ev && <div class="ev-cell"><dt>{c.ev}{ret != null && <span class="ret">{c.ret} {pct(ret)}</span>}</dt><dd>{fmt(s.ev.perPack.trend)}</dd></div>}
+              </dl>
+              {top && <p class="top"><span class="muted">{c.topHit}:</span> {top.name} <strong>{fmt(top.price.trend)}</strong></p>}
+              <span class="more">{c.open} <Icon name="arrow-right" /></span>
+            </div>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .small { font-size: 0.9rem; }
+  .grid { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 22px; }
+  @media (min-width: 680px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1040px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  .set { position: relative; background: var(--surface); border-radius: var(--radius-panel); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s var(--ease); }
+  .set:hover { transform: translateY(-3px); }
+  .set-link { position: absolute; inset: 0; z-index: 2; border-radius: inherit; }
+  .set-link:focus-visible { outline-offset: -3px; }
+  .set-top { position: relative; height: 170px; overflow: hidden; display: grid; place-items: center start; padding: 18px 22px; }
+  .serie-me { background: radial-gradient(circle at 80% 20%, rgb(255 201 60 / 0.5), transparent 60%), linear-gradient(135deg, #2b1d6e, #6a2bb0); }
+  .serie-sv { background: radial-gradient(circle at 80% 20%, rgb(255 140 90 / 0.45), transparent 60%), linear-gradient(135deg, #8a1c2b, #d4512f); }
+  .logo { max-width: 58%; max-height: 110px; object-fit: contain; filter: drop-shadow(0 6px 12px rgb(0 0 0 / 0.35)); position: relative; z-index: 1; }
+  .hit { position: absolute; right: 16px; top: 26px; width: 118px; height: auto; border-radius: 6px; transform: rotate(7deg); box-shadow: 0 14px 30px rgb(0 0 0 / 0.45); }
+  .set-body { padding: 18px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .set-body h2 { font-size: 1.35rem; margin-bottom: 2px; }
+  .meta { font-size: 0.88rem; margin-bottom: 14px; }
+  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 14px; }
+  .stats .ev-cell { grid-column: 1 / -1; background: var(--night); color: var(--night-text); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .stats .ev-cell dt { color: var(--night-muted); }
+  .stats .ev-cell dd { color: var(--sun); }
+  .stats div { background: var(--surface-2); border-radius: 12px; padding: 8px 10px; }
+  .stats dt { font-size: 0.75rem; font-weight: 650; color: var(--text-muted); }
+  .stats dd { margin: 0; font-family: var(--display); font-weight: 750; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  .ret { display: block; font-size: 0.75rem; font-weight: 550; margin-top: 2px; }
+  .top { font-size: 0.92rem; margin-bottom: 12px; }
+  .top strong { color: var(--ember); font-variant-numeric: tabular-nums; }
+  .more { margin-top: auto; display: inline-flex; gap: 6px; align-items: center; font-weight: 650; color: var(--link); }
+  .more :global(svg) { width: 16px; height: 16px; }
+</style>

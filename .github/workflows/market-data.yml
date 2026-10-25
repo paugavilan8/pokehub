@@ -1,0 +1,41 @@
+name: Precios diarios
+
+# Descarga la guía de precios de Cardmarket (se publica de madrugada) y el catálogo de TCGdex,
+# y sube los cambios. Cloudflare Pages vuelve a construir la web con cada push a main.
+on:
+  schedule:
+    - cron: '37 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: market-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: node scripts/fetch-market.ts
+      - run: npm test
+      - run: npm run build
+      - name: Subir datos si han cambiado
+        run: |
+          git config user.name "pokehub-bot"
+          git config user.email "pokehub-bot@users.noreply.github.com"
+          git add src/data/market
+          if git diff --cached --quiet; then
+            echo "Sin cambios"
+          else
+            git commit -m "Precios de Cardmarket del $(date -u +%Y-%m-%d)"
+            git push
+          fi
