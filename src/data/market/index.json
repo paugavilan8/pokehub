@@ -1,6 +1,6 @@
 {
  "pricesDate": "2026-10-25T00:47:18.000Z",
- "generatedAt": "2026-10-25T19:27:38.103Z",
+ "generatedAt": "2026-10-25T19:42:32.462Z",
  "sets": [
   {
    "id": "30th-c",
@@ -44,7 +44,9 @@
      "price": {
       "trend": 5,
       "low": 3.45,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -54,7 +56,9 @@
      "price": {
       "trend": 178.05,
       "low": 140,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -64,7 +68,9 @@
      "price": {
       "trend": 68.28,
       "low": 48.5,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -74,7 +80,9 @@
      "price": {
       "trend": 39.22,
       "low": 26.5,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -97,7 +105,9 @@
      "price": {
       "trend": 5.06,
       "low": 3.45,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -107,7 +117,9 @@
      "price": {
       "trend": 185.67,
       "low": 120,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -117,7 +129,9 @@
      "price": {
       "trend": 61.18,
       "low": 42,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -127,7 +141,9 @@
      "price": {
       "trend": 37.92,
       "low": 25,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -150,7 +166,9 @@
      "price": {
       "trend": 4.94,
       "low": 3,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -160,7 +178,9 @@
      "price": {
       "trend": 174.82,
       "low": 129,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -170,7 +190,9 @@
      "price": {
       "trend": 59.06,
       "low": 39.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -180,7 +202,9 @@
      "price": {
       "trend": 38.2,
       "low": 24.95,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -203,7 +227,9 @@
      "price": {
       "trend": 12.74,
       "low": 5,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -213,7 +239,9 @@
      "price": {
       "trend": 121.61,
       "low": 65,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -223,7 +251,9 @@
      "price": {
       "trend": 72.61,
       "low": 41.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -246,7 +276,9 @@
      "price": {
       "trend": 6.85,
       "low": 4.75,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -256,7 +288,9 @@
      "price": {
       "trend": 295.02,
       "low": 155,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -266,7 +300,9 @@
      "price": {
       "trend": 91.61,
       "low": 59.99,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -276,7 +312,9 @@
      "price": {
       "trend": 58.81,
       "low": 35,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -311,7 +349,9 @@
      "price": {
       "trend": 6.13,
       "low": 4,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -321,7 +361,9 @@
      "price": {
       "trend": 324.05,
       "low": 259.99,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -331,7 +373,9 @@
      "price": {
       "trend": 93.3,
       "low": 59,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -341,7 +385,9 @@
      "price": {
       "trend": 51.45,
       "low": 34.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -376,7 +422,9 @@
      "price": {
       "trend": 12.57,
       "low": 7,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -386,7 +434,9 @@
      "price": {
       "trend": 103.56,
       "low": 58.98,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -396,7 +446,9 @@
      "price": {
       "trend": 73,
       "low": 37,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -419,7 +471,9 @@
      "price": {
       "trend": 12.72,
       "low": 6.2,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -429,7 +483,9 @@
      "price": {
       "trend": 110.61,
       "low": 58,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -439,7 +495,9 @@
      "price": {
       "trend": 70.57,
       "low": 40,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -462,7 +520,9 @@
      "price": {
       "trend": 7.38,
       "low": 4,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -472,7 +532,9 @@
      "price": {
       "trend": 294.14,
       "low": 175,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -482,7 +544,9 @@
      "price": {
       "trend": 114.51,
       "low": 105,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -492,7 +556,9 @@
      "price": {
       "trend": 69.66,
       "low": 50,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -515,7 +581,9 @@
      "price": {
       "trend": 5.79,
       "low": 3.89,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -525,7 +593,9 @@
      "price": {
       "trend": 186.53,
       "low": 134,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -535,7 +605,9 @@
      "price": {
       "trend": 83.66,
       "low": 54,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -545,7 +617,9 @@
      "price": {
       "trend": 44.18,
       "low": 35,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -568,7 +642,9 @@
      "price": {
       "trend": 12.22,
       "low": 6.5,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -578,7 +654,9 @@
      "price": {
       "trend": 146.67,
       "low": 80.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -588,7 +666,9 @@
      "price": {
       "trend": 77.42,
       "low": 40,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -611,7 +691,9 @@
      "price": {
       "trend": 7.37,
       "low": 4,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -621,7 +703,9 @@
      "price": {
       "trend": 250.51,
       "low": 144.95,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -631,7 +715,9 @@
      "price": {
       "trend": 134.43,
       "low": 95,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -641,7 +727,9 @@
      "price": {
       "trend": 54.86,
       "low": 34.95,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -664,7 +752,9 @@
      "price": {
       "trend": 7,
       "low": 3.95,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -674,7 +764,9 @@
      "price": {
       "trend": 247.82,
       "low": 149.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -684,7 +776,9 @@
      "price": {
       "trend": 99.38,
       "low": 59,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -694,7 +788,9 @@
      "price": {
       "trend": 67.46,
       "low": 40,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -717,7 +813,9 @@
      "price": {
       "trend": 7.69,
       "low": 3.5,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -727,7 +825,9 @@
      "price": {
       "trend": 68.26,
       "low": 46,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -750,7 +850,9 @@
      "price": {
       "trend": 7.31,
       "low": 4,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -760,7 +862,9 @@
      "price": {
       "trend": 250.85,
       "low": 175,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -770,7 +874,9 @@
      "price": {
       "trend": 70.17,
       "low": 39.99,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -780,7 +886,9 @@
      "price": {
       "trend": 47.52,
       "low": 34.95,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -803,7 +911,9 @@
      "price": {
       "trend": 6.63,
       "low": 3.49,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -813,7 +923,9 @@
      "price": {
       "trend": 248,
       "low": 149.95,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -823,7 +935,9 @@
      "price": {
       "trend": 103.15,
       "low": 55.99,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -833,7 +947,9 @@
      "price": {
       "trend": 58.15,
       "low": 34,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -856,7 +972,9 @@
      "price": {
       "trend": 18.53,
       "low": 9.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -866,7 +984,9 @@
      "price": {
       "trend": 201.37,
       "low": 110,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -876,7 +996,9 @@
      "price": {
       "trend": 115.29,
       "low": 60,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -899,7 +1021,9 @@
      "price": {
       "trend": 5.77,
       "low": 3.85,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -909,7 +1033,9 @@
      "price": {
       "trend": 215.5,
       "low": 84.99,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -919,7 +1045,9 @@
      "price": {
       "trend": 101.59,
       "low": 65,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -929,7 +1057,9 @@
      "price": {
       "trend": 42.56,
       "low": 35,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -964,7 +1094,9 @@
      "price": {
       "trend": 24.85,
       "low": 16.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -974,7 +1106,9 @@
      "price": {
       "trend": 387.63,
       "low": 330,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -984,7 +1118,9 @@
      "price": {
       "trend": 132.19,
       "low": 84.99,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -1007,7 +1143,9 @@
      "price": {
       "trend": 6.83,
       "low": 4.27,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1017,7 +1155,9 @@
      "price": {
       "trend": 220.84,
       "low": 175,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1027,7 +1167,9 @@
      "price": {
       "trend": 225.63,
       "low": 144.99,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1037,7 +1179,9 @@
      "price": {
       "trend": 145.77,
       "low": 150,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -1060,7 +1204,9 @@
      "price": {
       "trend": 6.34,
       "low": 3.4,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1070,7 +1216,9 @@
      "price": {
       "trend": 273.44,
       "low": 158,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1080,7 +1228,9 @@
      "price": {
       "trend": 155.23,
       "low": 90,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1090,7 +1240,9 @@
      "price": {
       "trend": 130.64,
       "low": null,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]
@@ -1137,7 +1289,9 @@
      "price": {
       "trend": 6.56,
       "low": 3.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1147,7 +1301,9 @@
      "price": {
       "trend": 205.5,
       "low": 145,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1157,7 +1313,9 @@
      "price": {
       "trend": 106.32,
       "low": 69.9,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     },
     {
@@ -1167,7 +1325,9 @@
      "price": {
       "trend": 99.64,
       "low": null,
-      "avg30": null
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
      }
     }
    ]

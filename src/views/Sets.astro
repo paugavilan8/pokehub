@@ -1,8 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import CardDrawer from '../components/CardDrawer.astro';
+import HeroCarousel from '../components/HeroCarousel.astro';
 import { allSets, marketIndex, rarityLabel, rarityShort, rarityTone } from '../lib/market-data';
-import { cardImage, cardmarketUrl, isHit } from '../lib/market';
+import { cardImage, cardmarketUrl, isHit, weekChange } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
 interface Props { lang: Lang }
@@ -14,17 +16,30 @@ const pct = (n: number) => `${Math.round(n)}${lang === 'es' ? ' %' : '%'}`;
 const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
 const base = ROUTES.sets[lang];
 
+// Las cartas más caras ahora mismo, de todos los sets.
+const allCards = sets.flatMap((s) => s.set.cards.map((card) => ({ card, s })));
+const topCards = allCards.filter((x) => x.card.price.trend != null).sort((a, b) => b.card.price.trend! - a.card.price.trend!).slice(0, 12);
+// Las que más suben: media de 7 días frente a la de 30, solo cartas de 10 € o más para evitar ruido.
+const movers = allCards
+  .map((x) => ({ ...x, wk: weekChange(x.card.price) }))
+  .filter((x) => x.wk != null && (x.card.price.trend ?? 0) >= 10)
+  .sort((a, b) => b.wk! - a.wk!);
+const risers = movers.slice(0, 6);
+const fallers = movers.slice(-6).reverse();
+
 const c = {
   es: {
     title: 'Precios de expansiones Pokémon TCG: sobres, cajas y cartas',
     description: 'Precio de sobres y cajas de cada expansión de Pokémon TCG en Cardmarket, sus cartas más caras y si sale a cuenta abrir sobres. Actualizado cada día.',
     h1: 'Precios por set',
+    topTitle: 'Las cartas más caras ahora', moversTitle: 'Movimientos de la semana', up: 'Suben', down: 'Bajan',
+    moversNote: 'Media de 7 días frente a la de 30 días en Cardmarket. Cartas de 10 € o más.',
     updated: pricesDate ? `Actualizado el ${pricesDate} · Cardmarket` : 'Precios de Cardmarket',
     search: 'Filtrar sets', packFrom: 'Sobre desde', packTrend: 'Tendencia sobre', box: 'Caja', ret: 'Recuperas',
     open: 'Ver cartas', close: 'Ocultar cartas',
     th: ['', 'N.º', 'Carta', 'Rareza', 'Desde', 'Tendencia', ''],
     all: (n: number) => `Ver el set completo (${n} cartas), sellado y valor esperado`,
-    see: 'Ver en Cardmarket', hitsOnly: 'Se muestran las cartas especiales, de la más cara a la más barata.',
+    see: 'Ver en Cardmarket', hitsOnly: 'Las 15 cartas más caras del set. Pulsa una para ver su ficha.',
     noResults: 'Ningún set coincide con la búsqueda.',
     empty: 'Todavía no hay datos de precios. Se cargan con la próxima actualización diaria.',
     disclosure: 'Precios de Cardmarket (guía de precios pública, media de todos los idiomas). Imágenes de TCGdex.',
@@ -33,12 +48,14 @@ const c = {
     title: 'Pokémon TCG set prices: packs, boxes and cards',
     description: 'Cardmarket prices for packs and boxes of every Pokémon TCG set, their most valuable cards and whether opening packs pays off. Updated daily.',
     h1: 'Prices by set',
+    topTitle: 'The most valuable cards right now', moversTitle: 'This week\'s movers', up: 'Rising', down: 'Falling',
+    moversNote: '7-day average against the 30-day average on Cardmarket. Cards worth €10 or more.',
     updated: pricesDate ? `Updated ${pricesDate} · Cardmarket` : 'Cardmarket prices',
     search: 'Filter sets', packFrom: 'Pack from', packTrend: 'Pack trend', box: 'Box', ret: 'You get back',
     open: 'Show cards', close: 'Hide cards',
     th: ['', 'No.', 'Card', 'Rarity', 'From', 'Trend', ''],
     all: (n: number) => `See the full set (${n} cards), sealed product and expected value`,
-    see: 'View on Cardmarket', hitsOnly: 'Showing special cards, most valuable first.',
+    see: 'View on Cardmarket', hitsOnly: 'The 15 most valuable cards in the set. Tap one to see its details.',
     noResults: 'No set matches your search.',
     empty: 'No price data yet. It loads with the next daily update.',
     disclosure: 'Prices from Cardmarket (public price guide, average across languages). Images from TCGdex.',
@@ -46,6 +63,49 @@ const c = {
 }[lang];
 ---
 <Base lang={lang} route="home" title={c.title} description={c.description}>
+  {sets.length > 0 && <HeroCarousel slot="hero" lang={lang} slides={sets.slice(0, 5)} />}
+
+  {sets.length > 0 && (
+    <div class="container">
+      <section class="top" aria-labelledby="top-title">
+        <h2 id="top-title">{c.topTitle}</h2>
+        <ol class="top-row">
+          {topCards.map(({ card, s }, i) => (
+            <li>
+              <button type="button" class="card-btn" data-card={card.id} data-set={s.slug}>
+                <span class="scan">{card.image && <img src={cardImage(card.image)} alt={card.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}<span class="rank">{i + 1}</span></span>
+                <span class="cap"><span class="cn">{card.name}</span><span class="cp">{fmt(card.price.trend)}</span></span>
+                <span class="cr">{s.set.name} · <span class={`rar ${rarityTone(card.rarity)}`}>{rarityShort(card.rarity)}</span></span>
+              </button>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="movers" aria-labelledby="mov-title">
+        <h2 id="mov-title">{c.moversTitle}</h2>
+        <p class="note">{c.moversNote}</p>
+        <div class="mov-grid">
+          {[[c.up, risers, 'up'], [c.down, fallers, 'down']].map(([label, list, dir]) => (
+            <div class="mov-col">
+              <h3>{label as string}</h3>
+              <ul>
+                {(list as typeof risers).map(({ card, s, wk }) => (
+                  <li data-card={card.id} data-set={s.slug} tabindex="0">
+                    {card.image && <img src={cardImage(card.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}
+                    <span class="mn"><span>{card.name}</span><span class="ms">{s.set.name}</span></span>
+                    <span class="mp">{fmt(card.price.trend)}</span>
+                    <span class={`mw ${dir}`}>{wk! > 0 ? '▲' : '▼'} {Math.abs(wk!).toLocaleString(LOCALE[lang])}{lang === 'es' ? ' %' : '%'}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  )}
+
   <div class="container page">
     <header class="ph">
       <h1>{c.h1}</h1>
@@ -81,11 +141,11 @@ const c = {
                   <ol class="strip">
                     {hits.slice(0, 5).map((h, j) => (
                       <li>
-                        <a href={cardmarketUrl(lang, h.cmId, h.name)} rel="noopener" target="_blank">
+                        <button type="button" class="card-btn" data-card={h.id} data-set={s.slug}>
                           <span class="scan">{h.image && <img src={cardImage(h.image, 'high')} alt={h.name} loading="lazy" decoding="async" width="600" height="825" onerror="this.remove()" />}</span>
                           <span class="cap"><span class="cn">{j + 1}. {h.name}</span><span class="cp">{fmt(h.price.trend)}</span></span>
                           <span class={`cr rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span>
-                        </a>
+                        </button>
                       </li>
                     ))}
                   </ol>
@@ -95,15 +155,15 @@ const c = {
                     <table class="list">
                       <thead><tr>{c.th.map((h, k) => <th class={[k >= 4 ? 'n' : '', k === 3 || k === 4 ? 'hide-xs' : ''].join(' ')}>{h}</th>)}</tr></thead>
                       <tbody>
-                        {hits.map((h) => (
-                          <tr>
+                        {hits.slice(0, 15).map((h) => (
+                          <tr data-card={h.id} data-set={s.slug} tabindex="0">
                             <td class="thumb">{h.image && <img src={cardImage(h.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}</td>
                             <td class="muted num">{h.num}</td>
                             <td class="cname">{h.name}<span class="rar-sm rar">{rarityShort(h.rarity)}</span></td>
                             <td class="hide-xs"><span class={`rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span></td>
                             <td class="n muted hide-xs">{fmt(h.price.low)}</td>
                             <td class="n strong">{fmt(h.price.trend)}</td>
-                            <td class="n"><a href={cardmarketUrl(lang, h.cmId, h.name)} rel="noopener" target="_blank" aria-label={`${c.see}: ${h.name}`}><Icon name="arrow-up-right" /></a></td>
+                            <td class="n"><a class="ext" href={cardmarketUrl(lang, h.cmId, h.name)} rel="noopener" target="_blank" aria-label={`${c.see}: ${h.name}`}></a></td>
                           </tr>
                         ))}
                       </tbody>
@@ -119,10 +179,32 @@ const c = {
       </>
     )}
   </div>
+  <CardDrawer lang={lang} />
 </Base>
 
 <style>
-  .page { padding-top: 32px; }
+  .page { padding-top: 48px; }
+  .top { margin-top: 36px; }
+  .top-row { list-style: none; margin: 14px 0 0; padding: 0 0 8px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(150px, 170px); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .top-row li { scroll-snap-align: start; }
+  .rank { position: absolute; left: 8px; top: 8px; width: 26px; height: 26px; border-radius: 50%; background: rgb(15 17 22 / 0.85); color: #fff; font-size: 0.8rem; font-weight: 700; display: grid; place-items: center; }
+  .top .scan { position: relative; }
+  .movers { margin-top: 40px; }
+  .mov-grid { display: grid; gap: 16px; margin-top: 12px; }
+  @media (min-width: 800px) { .mov-grid { grid-template-columns: 1fr 1fr; } }
+  .mov-col { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); padding: 14px 16px; }
+  .mov-col h3 { font-size: 0.95rem; margin: 0 0 6px; }
+  .mov-col ul { list-style: none; margin: 0; padding: 0; }
+  .mov-col li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 7px 4px; border-top: 1px solid var(--border); cursor: pointer; border-radius: 6px; }
+  .mov-col li:first-child { border-top: 0; }
+  .mov-col li:hover { background: var(--bg); }
+  .mov-col img { width: 34px; height: 47px; border-radius: 3px; object-fit: cover; background: var(--surface-2); }
+  .mn { display: flex; flex-direction: column; min-width: 0; font-weight: 600; font-size: 0.92rem; }
+  .mn > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ms { font-weight: 400; font-size: 0.78rem; color: var(--text-muted); }
+  .mp { font-weight: 650; }
+  .mw { font-weight: 700; font-size: 0.88rem; min-width: 64px; text-align: right; }
+  .mw.up { color: var(--ok); } .mw.down { color: var(--accent); }
   .ph { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; margin-bottom: 20px; }
   .ph h1 { margin: 0; }
   .updated { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
@@ -165,14 +247,16 @@ const c = {
   .panel { border-top: 1px solid var(--border); padding: 20px; }
   .strip { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(5, minmax(130px, 1fr)); overflow-x: auto; scroll-snap-type: x mandatory; }
   .strip li { scroll-snap-align: start; }
-  .strip a { display: flex; flex-direction: column; gap: 6px; color: var(--text); text-decoration: none; }
+  .card-btn { all: unset; box-sizing: border-box; cursor: pointer; width: 100%; display: flex; flex-direction: column; gap: 6px; color: var(--text); }
+  .card-btn:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 8px; }
+  .list tbody tr { cursor: pointer; }
   .scan { display: block; aspect-ratio: 600 / 825; border-radius: 8px; background: var(--surface-2); overflow: hidden; box-shadow: 0 2px 6px rgb(20 24 32 / 0.18); transition: transform 0.2s var(--ease); }
-  .strip a:hover .scan { transform: translateY(-3px); }
+  .card-btn:hover .scan { transform: translateY(-3px); }
   .scan img { width: 100%; height: 100%; object-fit: cover; }
   .cap { display: flex; justify-content: space-between; gap: 8px; font-size: 0.9rem; }
   .cn { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .cp { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
-  .cr { margin-top: -4px; }
+  .cr { margin-top: -4px; font-size: 0.8rem; color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
   .note { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 8px; }
   .table-wrap { overflow: auto; max-height: 520px; border: 1px solid var(--border); border-radius: 12px; }
@@ -187,7 +271,8 @@ const c = {
   .list .cname { white-space: normal; min-width: 150px; font-weight: 550; }
   .thumb { width: 46px; }
   .thumb img { width: 34px; height: 47px; border-radius: 3px; object-fit: cover; background: var(--surface-2); display: block; }
-  .list :global(svg) { width: 15px; height: 15px; }
+  .ext { text-decoration: none; font-weight: 600; }
+  .ext::after { content: '↗'; }
   .full { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-weight: 650; }
   .full :global(svg) { width: 16px; height: 16px; }
   .disclosure { margin-top: 18px; font-size: 0.82rem; color: var(--text-muted); }

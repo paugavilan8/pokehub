@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import CardDrawer from '../components/CardDrawer.astro';
+import PackSim from '../components/PackSim.astro';
 import { marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit, normRarity, type SealedItem } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
@@ -163,6 +165,8 @@ const cmLang = lang;
       )}
     </section>
 
+    {rates && <PackSim lang={lang} summary={summary} />}
+
     <section class="block" aria-labelledby="hits-title">
       <h2 id="hits-title">{c.hitsTitle}</h2>
       <ol class="hits">
@@ -170,14 +174,14 @@ const cmLang = lang;
           const odds = specificOdds(h.rarity);
           return (
             <li>
-              <a class="hit" href={cardmarketUrl(cmLang, h.cmId, h.name)} rel="noopener" target="_blank">
+              <button type="button" class="hit" data-card={h.id} data-set={summary.slug}>
                 <span class="rank">{i + 1}</span>
                 <span class="img-wrap">{h.image && <img src={cardImage(h.image)} alt={h.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
                 <span class="h-name">{h.name}</span>
                 <span class={`rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span>
                 <span class="h-price mono">{fmt(h.price.trend)}</span>
                 {odds && <span class="h-odds">{c.specific(oneIn(odds))}</span>}
-              </a>
+              </button>
             </li>
           );
         })}
@@ -206,7 +210,7 @@ const cmLang = lang;
           <thead><tr>{c.cols.map((h, i) => <th class={i >= 3 ? 'n' : ''}>{h}</th>)}</tr></thead>
           <tbody>
             {[...set.cards].sort((a, b) => (b.price.trend ?? -1) - (a.price.trend ?? -1)).map((x) => (
-              <tr id={`c-${x.id}`} data-r={normRarity(x.rarity)} data-hit={isHit(x) ? '1' : '0'} data-p={x.price.trend ?? -1} data-n={x.num} hidden={!isHit(x)}>
+              <tr id={`c-${x.id}`} data-card={x.id} data-set={summary.slug} tabindex="0" data-r={normRarity(x.rarity)} data-hit={isHit(x) ? '1' : '0'} data-p={x.price.trend ?? -1} data-n={x.num} hidden={!isHit(x)}>
                 <td class="muted">{x.num}</td>
                 <td>{x.name}</td>
                 <td><span class={`rar ${rarityTone(x.rarity)}`} title={rarityLabel(x.rarity, lang)}>{rarityShort(x.rarity)}</span></td>
@@ -221,6 +225,7 @@ const cmLang = lang;
       <p class="muted small">{c.disclosure}</p>
     </section>
   </div>
+  <CardDrawer lang={lang} />
 </Base>
 
 <style>
@@ -273,7 +278,9 @@ const cmLang = lang;
   table.data tr { scroll-margin-top: 140px; }
 
   .hits { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-  .hit { display: flex; flex-direction: column; gap: 4px; text-decoration: none; color: var(--text); height: 100%; }
+  .hit { all: unset; box-sizing: border-box; cursor: pointer; display: flex; flex-direction: column; gap: 4px; color: var(--text); height: 100%; width: 100%; }
+  .hit:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 8px; }
+  table.cards tbody tr { cursor: pointer; }
   .hit:hover { color: var(--text); }
   .hit:hover .img-wrap { transform: translateY(-3px); }
   .rank { display: none; }

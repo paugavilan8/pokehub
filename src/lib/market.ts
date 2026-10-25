@@ -7,9 +7,12 @@ export interface CmGuide {
   avg?: number | null;
   low?: number | null;
   trend?: number | null;
+  avg1?: number | null;
   avg7?: number | null;
   avg30?: number | null;
   'low-holo'?: number | null;
+  'avg1-holo'?: number | null;
+  'avg7-holo'?: number | null;
   'trend-holo'?: number | null;
   'avg30-holo'?: number | null;
 }
@@ -31,6 +34,10 @@ export interface Price {
   low: number | null;
   /** Media de 30 días (EUR). */
   avg30: number | null;
+  /** Media de 7 días (EUR). */
+  avg7?: number | null;
+  /** Media del último día (EUR). */
+  avg1?: number | null;
 }
 
 export interface MarketCard {
@@ -81,11 +88,23 @@ const num = (v: unknown) => (typeof v === 'number' && Number.isFinite(v) && v > 
  * y la "holo" (reverse); si la normal no tiene precio, se usa la holo.
  */
 export function priceFromGuide(g: Partial<CmGuide> | null | undefined): Price {
-  if (!g) return { trend: null, low: null, avg30: null };
-  const trend = num(g.trend) ?? num(g['trend-holo']);
-  const low = num(g.low) ?? num(g['low-holo']);
-  const avg30 = num(g.avg30) ?? num(g['avg30-holo']);
-  return { trend, low, avg30 };
+  if (!g) return { trend: null, low: null, avg30: null, avg7: null, avg1: null };
+  // Si la versión normal no tiene precio, todas las cifras salen de la holo para no mezclar productos.
+  const holo = num(g.trend) == null && num(g['trend-holo']) != null;
+  const pick = (normal: unknown, holoValue: unknown) => (holo ? num(holoValue) : num(normal));
+  return {
+    trend: pick(g.trend, g['trend-holo']),
+    low: pick(g.low, g['low-holo']),
+    avg30: pick(g.avg30, g['avg30-holo']),
+    avg7: pick(g.avg7, g['avg7-holo']),
+    avg1: pick(g.avg1, g['avg1-holo']),
+  };
+}
+
+/** Variación de la media de 7 días frente a la de 30 (en %), o null si falta alguna. */
+export function weekChange(p: Price): number | null {
+  if (!p.avg7 || !p.avg30) return null;
+  return Math.round(((p.avg7 - p.avg30) / p.avg30) * 1000) / 10;
 }
 
 /** "2026-10-07T02:49:47+0200" -> "2026-10-07T00:49:47.000Z" */

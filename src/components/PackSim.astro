@@ -1,0 +1,198 @@
+---
+// Simulador de apertura de sobres con las tasas de aparición del set. Aproximado: no reproduce el orden real del sobre.
+import Icon from './Icon.astro';
+import type { SetSummary } from '../lib/market-data';
+import { normRarity } from '../lib/market';
+import { LOCALE, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang; summary: SetSummary }
+const { lang, summary } = Astro.props;
+const { set, rates, pack } = summary;
+const data = {
+  slug: summary.slug,
+  packPrice: pack?.price.trend ?? null,
+  rates: (rates?.rates ?? []).map((r) => [normRarity(r.rarity), r.perPack]),
+  // [id, nombre, rareza normalizada, imagen, tendencia]
+  cards: set.cards.map((c) => [c.id, c.name, normRarity(c.rarity), c.image, c.price.trend]),
+};
+const t = {
+  es: {
+    title: 'Abre un sobre virtual', lede: `Simula sobres de ${set.name} con las tasas de aparición del estudio citado arriba y mira cuánto valdrían las cartas.`,
+    open: 'Abrir sobre', again: 'Abrir otro', reveal: 'Revelar todo', reset: 'Reiniciar',
+    value: 'Valor de este sobre', price: 'Precio del sobre', opened: 'Sobres abiertos', spent: 'Gastado', got: 'Valor conseguido', best: 'Mejor carta',
+    tap: 'Toca las cartas para darles la vuelta.', note: 'Simulación aproximada: 4 comunes, 3 infrecuentes, 1 reversa, 1 hueco de ilustración y 1 de rara. Precios de tendencia de Cardmarket.',
+  },
+  en: {
+    title: 'Open a virtual pack', lede: `Simulate ${set.name} packs with the pull rates from the study cited above and see what the cards would be worth.`,
+    open: 'Open pack', again: 'Open another', reveal: 'Reveal all', reset: 'Reset',
+    value: 'This pack is worth', price: 'Pack price', opened: 'Packs opened', spent: 'Spent', got: 'Value pulled', best: 'Best pull',
+    tap: 'Tap the cards to flip them.', note: 'Approximate simulation: 4 commons, 3 uncommons, 1 reverse, 1 illustration slot and 1 rare slot. Cardmarket trend prices.',
+  },
+}[lang];
+---
+<section class="sim" id="abrir" aria-labelledby="sim-title" data-sim data-locale={LOCALE[lang]}>
+  <script type="application/json" data-sim-data set:html={JSON.stringify(data)} />
+  <div class="sim-head">
+    <div>
+      <h2 id="sim-title">{t.title}</h2>
+      <p class="lede">{t.lede}</p>
+    </div>
+    <div class="sim-btns">
+      <button type="button" class="btn btn-primary" data-open><Icon name="sparkle" /><span data-open-label data-first={t.open} data-again={t.again}>{t.open}</span></button>
+      <button type="button" class="btn btn-ghost" data-reveal hidden>{t.reveal}</button>
+    </div>
+  </div>
+
+  <div class="table" data-table>
+    <p class="hint" data-hint hidden>{t.tap}</p>
+    <ol class="cards" data-sim-cards></ol>
+  </div>
+
+  <div class="sim-result" data-result hidden>
+    <div><p class="k">{t.value}</p><p class="v" data-value></p></div>
+    <div><p class="k">{t.price}</p><p class="v">{data.packPrice != null ? new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' }).format(data.packPrice) : '-'}</p></div>
+    <div><p class="k">{t.opened}</p><p class="v" data-opened>0</p></div>
+    <div><p class="k">{t.spent} / {t.got}</p><p class="v" data-totals></p></div>
+    <div class="best"><p class="k">{t.best}</p><p class="v" data-best></p></div>
+    <button type="button" class="reset" data-reset>{t.reset}</button>
+  </div>
+  <p class="note">{t.note}</p>
+</section>
+
+<style>
+  .sim { margin-top: 48px; background: #12141a; color: #f2f3f6; border-radius: 16px; padding: 24px; overflow: hidden; position: relative; }
+  @media (min-width: 768px) { .sim { padding: 32px; } }
+  .sim::before { content: ''; position: absolute; inset: 0; background: radial-gradient(600px 300px at 80% 0%, rgb(208 38 43 / 0.28), transparent 60%), radial-gradient(500px 300px at 0% 100%, rgb(60 90 220 / 0.25), transparent 60%); pointer-events: none; }
+  .sim > * { position: relative; }
+  .sim-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; }
+  .sim h2 { color: #fff; margin-bottom: 4px; }
+  .lede { margin: 0; color: rgb(255 255 255 / 0.72); max-width: 60ch; }
+  .sim-btns { display: flex; gap: 8px; }
+  .sim-btns .btn-ghost { background: transparent; color: #fff; border-color: rgb(255 255 255 / 0.4); }
+  .sim-btns .btn-ghost:hover { background: rgb(255 255 255 / 0.1); }
+  .sim :global(.btn svg) { width: 17px; height: 17px; }
+  .table { margin-top: 22px; min-height: 40px; }
+  .hint { margin: 0 0 10px; font-size: 0.85rem; color: rgb(255 255 255 / 0.65); }
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; grid-template-columns: repeat(5, 1fr); }
+  @media (max-width: 640px) { .cards { grid-template-columns: repeat(3, 1fr); gap: 10px; } }
+  .cards :global(li) { perspective: 900px; animation: deal 0.35s var(--ease) both; }
+  @keyframes deal { from { transform: translateY(18px); opacity: 0; } }
+  .cards :global(button) { all: unset; cursor: pointer; display: block; width: 100%; aspect-ratio: 245 / 342; position: relative; transform-style: preserve-3d; transition: transform 0.55s var(--ease); }
+  .cards :global(button.up) { transform: rotateY(180deg); cursor: default; }
+  .cards :global(.face), .cards :global(.back) { position: absolute; inset: 0; border-radius: 8px; backface-visibility: hidden; overflow: hidden; }
+  .cards :global(.back) { background: repeating-linear-gradient(45deg, #1c2030 0 10px, #222738 10px 20px); border: 3px solid #2d3348; display: grid; place-items: center; }
+  .cards :global(.back span) { width: 44%; aspect-ratio: 1; border-radius: 22%; background: #15171c; display: grid; place-items: center; color: #d0262b; font-weight: 900; font-stretch: 125%; font-size: 1.6rem; box-shadow: 0 0 0 3px #2d3348; }
+  .cards :global(button:hover .back) { border-color: #4a5170; }
+  .cards :global(.face) { transform: rotateY(180deg); background: #20232c; }
+  .cards :global(.face img) { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cards :global(.hit .face) { box-shadow: 0 0 0 2px #ffd36b, 0 0 26px rgb(255 211 107 / 0.55); }
+  .cards :global(.price) { display: block; margin-top: 6px; text-align: center; font-size: 0.82rem; font-weight: 650; color: rgb(255 255 255 / 0.85); min-height: 1.2em; }
+  .cards :global(.hit + .price) { color: #ffd36b; }
+  .sim-result { margin-top: 22px; display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); align-items: end; }
+  @media (min-width: 900px) { .sim-result { grid-template-columns: repeat(5, 1fr) auto; } }
+  .sim-result > div { background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.1); border-radius: 10px; padding: 10px 14px; }
+  .k { margin: 0; font-size: 0.75rem; color: rgb(255 255 255 / 0.65); }
+  .v { margin: 2px 0 0; font-weight: 750; font-size: 1.1rem; }
+  .best .v { font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .reset { all: unset; cursor: pointer; font-size: 0.85rem; color: rgb(255 255 255 / 0.7); text-decoration: underline; padding: 8px 4px; }
+  .note { margin: 16px 0 0; font-size: 0.78rem; color: rgb(255 255 255 / 0.55); }
+  @media (prefers-reduced-motion: reduce) { .cards :global(button) { transition: none; } .cards :global(li) { animation: none; } }
+</style>
+
+<script>
+  type Card = [string, string, string, string | null, number | null];
+  for (const root of document.querySelectorAll<HTMLElement>('[data-sim]')) {
+    const data = JSON.parse(root.querySelector('[data-sim-data]')!.textContent!) as { slug: string; packPrice: number | null; rates: [string, number][]; cards: Card[] };
+    const money = new Intl.NumberFormat(root.dataset.locale, { style: 'currency', currency: 'EUR' });
+    const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
+    const list = $('[data-sim-cards]');
+    const byRarity = new Map<string, Card[]>();
+    for (const c of data.cards) byRarity.set(c[2], [...(byRarity.get(c[2]) ?? []), c]);
+    const pick = (rarities: string[]) => {
+      const pool = rarities.flatMap((r) => byRarity.get(r) ?? []);
+      return pool.length ? pool[Math.floor(Math.random() * pool.length)] : null;
+    };
+    const rateOf = new Map(data.rates);
+    // Hueco con prioridad: de la rareza más rara a la más común; si no sale ninguna, la carta de relleno.
+    const slot = (group: string[], fallback: string[]) => {
+      const options = group.filter((r) => rateOf.has(r) && byRarity.has(r)).sort((a, b) => rateOf.get(a)! - rateOf.get(b)!);
+      let roll = Math.random();
+      for (const r of options) {
+        if (roll < rateOf.get(r)!) return pick([r]);
+        roll -= rateOf.get(r)!;
+      }
+      return pick(fallback);
+    };
+    const HIT = new Set(['double rare', 'ultra rare', 'illustration rare', 'special illustration rare', 'hyper rare', 'mega hyper rare']);
+    const stats = { opened: 0, spent: 0, got: 0, best: null as Card | null };
+    let current: Card[] = [];
+
+    function openPack() {
+      const cards: (Card | null)[] = [
+        ...Array.from({ length: 4 }, () => pick(['common'])),
+        ...Array.from({ length: 3 }, () => pick(['uncommon'])),
+        pick(['common', 'uncommon', 'rare']),
+        slot(['mega hyper rare', 'hyper rare', 'special illustration rare', 'illustration rare'], ['common', 'uncommon', 'rare']),
+        slot(['ultra rare', 'double rare'], ['rare']),
+      ];
+      current = cards.filter(Boolean) as Card[];
+      list.replaceChildren(...current.map((c, i) => {
+        const li = document.createElement('li');
+        li.style.animationDelay = `${i * 45}ms`;
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.setAttribute('aria-label', `${i + 1}`);
+        if (HIT.has(c[2])) btn.classList.add('hit');
+        const back = document.createElement('span');
+        back.className = 'back';
+        back.innerHTML = '<span>P</span>';
+        const face = document.createElement('span');
+        face.className = 'face';
+        if (c[3]) { const img = document.createElement('img'); img.src = `${c[3]}/low.webp`; img.alt = c[1]; img.loading = 'eager'; face.append(img); }
+        const price = document.createElement('span');
+        price.className = 'price';
+        btn.append(back, face);
+        btn.addEventListener('click', () => flip(btn, price, c), { once: true });
+        li.append(btn, price);
+        return li;
+      }));
+      stats.opened++;
+      stats.spent += data.packPrice ?? 0;
+      $('[data-open-label]').textContent = $('[data-open-label]').dataset.again!;
+      $('[data-reveal]').hidden = false;
+      $('[data-hint]').hidden = false;
+      $('[data-result]').hidden = true;
+    }
+
+    function flip(btn: HTMLButtonElement, price: HTMLElement, c: Card) {
+      btn.classList.add('up');
+      btn.setAttribute('aria-label', c[1]);
+      price.textContent = c[4] != null ? money.format(c[4]) : '-';
+      if (list.querySelectorAll('button:not(.up)').length === 0) finish();
+    }
+
+    function finish() {
+      const value = current.reduce((s, c) => s + (c[4] ?? 0), 0);
+      stats.got += value;
+      for (const c of current) if ((c[4] ?? 0) > (stats.best?.[4] ?? 0)) stats.best = c;
+      $('[data-value]').textContent = money.format(value);
+      $('[data-opened]').textContent = String(stats.opened);
+      $('[data-totals]').textContent = `${money.format(stats.spent)} / ${money.format(stats.got)}`;
+      $('[data-best]').textContent = stats.best ? `${stats.best[1]} (${money.format(stats.best[4] ?? 0)})` : '-';
+      $('[data-result]').hidden = false;
+      $('[data-reveal]').hidden = true;
+      $('[data-hint]').hidden = true;
+    }
+
+    $('[data-open]').addEventListener('click', openPack);
+    $('[data-reveal]').addEventListener('click', () => {
+      list.querySelectorAll<HTMLButtonElement>('button:not(.up)').forEach((b, i) => setTimeout(() => b.click(), i * 90));
+    });
+    $('[data-reset]').addEventListener('click', () => {
+      Object.assign(stats, { opened: 0, spent: 0, got: 0, best: null });
+      list.replaceChildren();
+      $('[data-result]').hidden = true;
+      $('[data-open-label]').textContent = $('[data-open-label]').dataset.first!;
+    });
+  }
+</script>

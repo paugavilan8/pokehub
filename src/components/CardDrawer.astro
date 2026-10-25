@@ -1,0 +1,242 @@
+---
+// Ficha de carta: panel lateral (abajo en móvil) que se abre al pulsar cualquier elemento con data-card.
+import Icon from './Icon.astro';
+import { marketIndex, RARITY_ES } from '../lib/market-data';
+import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
+const t = {
+  es: {
+    close: 'Cerrar', trend: 'Tendencia', low: 'Desde', avg1: 'Media 1 día', avg7: 'Media 7 días', avg30: 'Media 30 días',
+    week: 'esta semana', odds: (n: string) => `1 de cada ${n} sobres`, oddsLabel: 'Probabilidad de que te salga',
+    cm: 'Ver en Cardmarket', set: 'Ver el set', source: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
+    noOdds: 'Sin tasa de aparición conocida para esta rareza.', share: 'Copiar enlace', copied: 'Copiado', x30: 'Media 30 d', x7: 'Media 7 d', x1: 'Último día', xNow: 'Tendencia',
+  },
+  en: {
+    close: 'Close', trend: 'Trend', low: 'From', avg1: '1-day average', avg7: '7-day average', avg30: '30-day average',
+    week: 'this week', odds: (n: string) => `1 in ${n} packs`, oddsLabel: 'Chance of pulling it',
+    cm: 'View on Cardmarket', set: 'View set', source: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
+    noOdds: 'No known pull rate for this rarity.', share: 'Copy link', copied: 'Copied', x30: '30-day avg', x7: '7-day avg', x1: 'Last day', xNow: 'Trend',
+  },
+}[lang];
+const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rarities: lang === 'es' ? RARITY_ES : {}, t: { ...t, odds: t.odds('{n}') } };
+---
+<dialog class="drawer" data-drawer data-config={JSON.stringify(config)} aria-labelledby="drawer-name">
+  <div class="inner">
+    <button class="close" type="button" data-close aria-label={t.close}><Icon name="x" /></button>
+    <div class="art">
+      <div class="tilt" data-tilt>
+        <img data-f="img" alt="" width="600" height="825" />
+        <span class="shine" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="info">
+      <a class="set-link" data-f="setUrl">
+        <img data-f="logo" alt="" />
+        <span data-f="set"></span>
+      </a>
+      <h2 id="drawer-name" data-f="name"></h2>
+      <p class="meta"><span data-f="num"></span> · <span data-f="rarity"></span></p>
+
+      <div class="price-main">
+        <p class="lbl">{t.trend}</p>
+        <p class="big" data-f="trend"></p>
+        <p class="wk" data-f="wk"></p>
+      </div>
+      <dl class="grid">
+        <div><dt>{t.low}</dt><dd data-f="low"></dd></div>
+        <div><dt>{t.avg1}</dt><dd data-f="avg1"></dd></div>
+        <div><dt>{t.avg7}</dt><dd data-f="avg7"></dd></div>
+        <div><dt>{t.avg30}</dt><dd data-f="avg30"></dd></div>
+      </dl>
+      <div class="spark" aria-hidden="true"><div data-f="spark"></div><ol class="spark-x"><li>{t.x30}</li><li>{t.x7}</li><li>{t.x1}</li><li>{t.xNow}</li></ol></div>
+
+      <div class="odds">
+        <p class="lbl">{t.oddsLabel}</p>
+        <p data-f="odds"></p>
+      </div>
+
+      <div class="actions">
+        <a class="btn btn-primary" data-f="cm" target="_blank" rel="noopener">{t.cm} <Icon name="arrow-up-right" /></a>
+        <a class="btn btn-ghost" data-f="setBtn">{t.set}</a>
+        <button class="btn btn-ghost" type="button" data-share><Icon name="link-simple" /><span>{t.share}</span></button>
+      </div>
+      <p class="src">{t.source}</p>
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .drawer {
+    margin: 0 0 0 auto; height: 100dvh; max-height: none; width: min(560px, 100vw); padding: 0; border: 0;
+    background: var(--surface); color: var(--text); box-shadow: -12px 0 40px rgb(0 0 0 / 0.2);
+  }
+  .drawer::backdrop { background: rgb(10 12 16 / 0.55); }
+  .drawer[open] { animation: slide-in 0.28s var(--ease); }
+  @keyframes slide-in { from { transform: translateX(40px); opacity: 0; } }
+  @media (max-width: 700px) {
+    .drawer { margin: auto 0 0; width: 100vw; max-width: 100vw; height: auto; max-height: 92dvh; border-radius: 16px 16px 0 0; }
+    .drawer[open] { animation-name: slide-up; }
+    @keyframes slide-up { from { transform: translateY(40px); opacity: 0; } }
+  }
+  .inner { position: relative; padding: 24px; display: grid; gap: 20px; }
+  .close { position: absolute; top: 12px; right: 12px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface); color: var(--text); display: grid; place-items: center; cursor: pointer; }
+  .close :global(svg) { width: 18px; height: 18px; }
+  .art { display: flex; justify-content: center; perspective: 900px; padding-top: 8px; }
+  .tilt { position: relative; width: min(300px, 70vw); border-radius: 14px; transform-style: preserve-3d; transition: transform 0.2s ease; will-change: transform; }
+  .tilt img { width: 100%; height: auto; border-radius: 14px; display: block; background: var(--surface-2); box-shadow: 0 18px 40px rgb(0 0 0 / 0.35); aspect-ratio: 600 / 825; }
+  .shine { position: absolute; inset: 0; border-radius: 14px; pointer-events: none; mix-blend-mode: color-dodge; opacity: 0; transition: opacity 0.2s ease;
+    background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.55), transparent 45%),
+      linear-gradient(115deg, transparent 20%, rgb(255 120 200 / 0.25) 35%, rgb(120 200 255 / 0.25) 50%, rgb(255 230 120 / 0.25) 65%, transparent 80%); }
+  .tilt:hover .shine { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .tilt { transform: none !important; } .shine { display: none; } }
+
+  .set-link { display: inline-flex; align-items: center; gap: 10px; color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 600; }
+  .set-link img { height: 26px; width: auto; max-width: 110px; object-fit: contain; }
+  .set-link:hover { color: var(--text); }
+  h2 { font-size: 1.6rem; margin: 6px 0 2px; }
+  .meta { color: var(--text-muted); margin: 0 0 16px; }
+  .price-main { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .lbl { margin: 0; font-size: 0.8rem; color: var(--text-muted); flex-basis: 100%; }
+  .big { margin: 0; font-size: 2.4rem; font-weight: 800; font-stretch: 115%; letter-spacing: -0.03em; }
+  .wk { margin: 0; font-weight: 700; font-size: 0.95rem; }
+  .wk.up { color: var(--ok); } .wk.down { color: var(--accent); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin: 14px 0 0; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  @media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  .grid div { background: var(--surface); padding: 10px 12px; }
+  .grid dt { font-size: 0.74rem; color: var(--text-muted); }
+  .grid dd { margin: 2px 0 0; font-weight: 650; }
+  .spark { margin-top: 14px; }
+  .spark :global(svg) { width: 100%; height: 64px; overflow: visible; }
+  .spark-x { list-style: none; margin: 4px 0 0; padding: 0; display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); }
+  .odds { margin-top: 16px; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); }
+  .odds p:last-child { margin: 2px 0 0; font-weight: 650; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+  .actions [hidden] { display: none; }
+  .src { margin: 14px 0 0; font-size: 0.78rem; color: var(--text-muted); }
+</style>
+
+<script>
+  const found = document.querySelector<HTMLDialogElement>('[data-drawer]');
+  if (found) {
+    const dlg: HTMLDialogElement = found;
+    const cfg = JSON.parse(dlg.dataset.config!);
+    const money = new Intl.NumberFormat(cfg.locale, { style: 'currency', currency: 'EUR' });
+    const fmt = (n: number | null | undefined) => (n == null ? '-' : money.format(n));
+    const f = (k: string) => dlg.querySelector<HTMLElement>(`[data-f="${k}"]`)!;
+    const tilt = dlg.querySelector<HTMLElement>('[data-tilt]')!;
+    const shareBtn = dlg.querySelector<HTMLButtonElement>('[data-share]')!;
+    const onSetPage = (url: string) => location.pathname === url;
+    let current: { id: string; setUrl: string } | null = null;
+
+    // Línea con las cuatro medias (30 d, 7 d, 1 d, tendencia): no es un histórico, solo la dirección reciente.
+    function spark(p: Record<string, number | null>) {
+      const pts = [p.avg30, p.avg7, p.avg1, p.trend].map((v) => v ?? null);
+      const vals = pts.filter((v): v is number => v != null);
+      if (vals.length < 2) return '';
+      const min = Math.min(...vals), max = Math.max(...vals), span = max - min || 1;
+      const xy = pts.map((v, i) => (v == null ? null : [i * 100, 56 - ((v - min) / span) * 48])).filter(Boolean) as number[][];
+      const d = xy.map(([x, y], i) => `${i ? 'L' : 'M'}${x},${y}`).join(' ');
+      const color = (p.trend ?? 0) >= (p.avg30 ?? 0) ? 'var(--ok)' : 'var(--accent)';
+      return `<svg viewBox="-6 0 312 64" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${xy.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.5" fill="${color}"/>`).join('')}</svg>`;
+    }
+
+    function open(data: any, push = true) {
+      current = data;
+      const img = f('img') as HTMLImageElement;
+      img.src = data.img ? `${data.img}/high.webp` : '';
+      img.alt = data.name;
+      const logo = f('logo') as HTMLImageElement;
+      logo.hidden = !data.logo;
+      if (data.logo) logo.src = `${data.logo}.webp`;
+      f('set').textContent = data.set;
+      (f('setUrl') as HTMLAnchorElement).href = data.setUrl;
+      f('name').textContent = data.name;
+      f('num').textContent = data.total ? `${data.num}/${data.total}` : data.num;
+      f('rarity').textContent = data.rarity;
+      f('trend').textContent = fmt(data.p.trend);
+      const wk = f('wk');
+      wk.className = `wk ${data.wk > 0 ? 'up' : data.wk < 0 ? 'down' : ''}`;
+      wk.textContent = data.wk == null ? '' : `${data.wk > 0 ? '▲' : data.wk < 0 ? '▼' : ''} ${Math.abs(data.wk).toLocaleString(cfg.locale)} % ${cfg.t.week}`;
+      for (const k of ['low', 'avg1', 'avg7', 'avg30']) f(k).textContent = fmt(data.p[k]);
+      f('spark').innerHTML = spark(data.p);
+      f('odds').textContent = data.odds ? cfg.t.odds.replace('{n}', data.odds.toLocaleString(cfg.locale)) : cfg.t.noOdds;
+      (f('cm') as HTMLAnchorElement).href = data.cm;
+      const setBtn = f('setBtn') as HTMLAnchorElement;
+      setBtn.href = `${data.setUrl}#c-${data.id}`;
+      setBtn.hidden = onSetPage(data.setUrl);
+      if (!dlg.open) dlg.showModal();
+      if (push && onSetPage(data.setUrl)) history.replaceState(null, '', `#c-${data.id}`);
+    }
+
+    function close() {
+      dlg.close();
+    }
+    dlg.addEventListener('close', () => {
+      if (location.hash.startsWith('#c-')) history.replaceState(null, '', location.pathname + location.search);
+    });
+    dlg.querySelector('[data-close]')!.addEventListener('click', close);
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) close(); });
+
+    const cache = new Map<string, Promise<any>>();
+    const setData = (slug: string) => {
+      if (!cache.has(slug)) cache.set(slug, fetch(`/data/sets/${slug}.json`).then((r) => r.json()).catch((e) => { cache.delete(slug); throw e; }));
+      return cache.get(slug)!;
+    };
+    async function openById(slug: string, id: string, push = true) {
+      const s = await setData(slug);
+      const c = s.cards[id];
+      if (!c) return;
+      const [name, num, rarity, img, cmId, trend, low, avg1, avg7, avg30, odds] = c;
+      const p = { trend, low, avg1, avg7, avg30 };
+      const key = (rarity ?? '').trim().toLowerCase();
+      open({
+        id, name, num, total: s.total, rarity: cfg.rarities[key] ?? rarity ?? '-', img, set: s.name, logo: s.logo,
+        setUrl: `${cfg.setsBase}${slug}/`, p, odds,
+        wk: avg7 && avg30 ? Math.round(((avg7 - avg30) / avg30) * 1000) / 10 : null,
+        cm: cmId ? `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products?idProduct=${cmId}`
+          : `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products/Search?searchString=${encodeURIComponent(name)}`,
+      }, push);
+    }
+    const trigger = (el: HTMLElement) => openById(el.dataset.set!, el.dataset.card!);
+
+    document.addEventListener('click', (e) => {
+      const el = (e.target as HTMLElement).closest<HTMLElement>('[data-card]');
+      if (!el || (e.target as HTMLElement).closest('a[target="_blank"]')) return;
+      e.preventDefault();
+      trigger(el);
+    });
+    document.addEventListener('keydown', (e) => {
+      const el = (e.target as HTMLElement).closest?.<HTMLElement>('[data-card]');
+      if (el && (e.key === 'Enter' || e.key === ' ') && el.tagName === 'TR') { e.preventDefault(); trigger(el); }
+    });
+
+    shareBtn.addEventListener('click', async () => {
+      if (!current) return;
+      const url = new URL(`${current.setUrl}#c-${current.id}`, location.origin).href;
+      const label = shareBtn.querySelector('span')!;
+      try { await navigator.clipboard.writeText(url); label.textContent = cfg.t.copied; setTimeout(() => (label.textContent = cfg.t.share), 1800); } catch { prompt('', url); }
+    });
+
+    // Efecto holográfico al mover el puntero sobre la carta.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      tilt.addEventListener('pointermove', (e) => {
+        const r = tilt.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        tilt.style.transform = `rotateY(${(x - 0.5) * 18}deg) rotateX(${(0.5 - y) * 18}deg)`;
+        tilt.style.setProperty('--mx', `${x * 100}%`);
+        tilt.style.setProperty('--my', `${y * 100}%`);
+      });
+      tilt.addEventListener('pointerleave', () => { tilt.style.transform = ''; });
+    }
+
+    // Abrir la ficha si se llega con #c-<id> (enlace compartido o desde el buscador).
+    if (location.hash.startsWith('#c-')) {
+      const id = decodeURIComponent(location.hash.slice(3));
+      const el = document.querySelector<HTMLElement>(`[data-card="${CSS.escape(id)}"][data-set]`);
+      if (el) openById(el.dataset.set!, id, false);
+    }
+  }
+</script>

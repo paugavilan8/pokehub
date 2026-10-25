@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  expansionOf, expectedValue, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits,
+  expansionOf, expectedValue, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
   type CmProduct, type MarketCard, type SetPullRates,
 } from './market';
 
@@ -35,7 +35,7 @@ describe('pickSealed', () => {
     const guide = new Map([[818570, { idProduct: 818570, trend: 7.38, low: 4 }], [818574, { idProduct: 818574, trend: 294.14, low: 175 }]]);
     const s = pickSealed(products, guide, 6096);
     expect(s.map((x) => x.kind)).toEqual(['pack', 'box', 'etb', 'bundle']);
-    expect(s[0].price).toEqual({ trend: 7.38, low: 4, avg30: null });
+    expect(s[0].price).toMatchObject({ trend: 7.38, low: 4, avg30: null });
     expect(s[2].price.trend).toBeNull();
   });
   it('sin expansión no devuelve nada', () => {
@@ -45,7 +45,12 @@ describe('pickSealed', () => {
 
 describe('priceFromGuide', () => {
   it('usa la versión holo si la normal no tiene precio', () => {
-    expect(priceFromGuide({ idProduct: 1, trend: 0, 'trend-holo': 3.456, low: null, 'low-holo': 1 })).toEqual({ trend: 3.46, low: 1, avg30: null });
+    expect(priceFromGuide({ idProduct: 1, trend: 0, 'trend-holo': 3.456, low: 9, 'low-holo': 1, avg7: 5, 'avg7-holo': 3 }))
+      .toEqual({ trend: 3.46, low: 1, avg30: null, avg7: 3, avg1: null });
+  });
+  it('variación semanal: media de 7 días frente a la de 30', () => {
+    expect(weekChange({ trend: 1, low: 1, avg30: 10, avg7: 12 })).toBe(20);
+    expect(weekChange({ trend: 1, low: 1, avg30: null, avg7: 12 })).toBeNull();
   });
 });
 

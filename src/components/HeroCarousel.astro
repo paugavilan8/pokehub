@@ -1,0 +1,171 @@
+---
+// Carrusel de portada con las últimas expansiones: se desliza con el dedo, con flechas, con los puntos o solo.
+import Icon from './Icon.astro';
+import type { SetSummary } from '../lib/market-data';
+import { cardImage } from '../lib/market';
+import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang; slides: SetSummary[] }
+const { lang, slides } = Astro.props;
+const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' });
+const t = {
+  es: { label: 'Últimas expansiones', prev: 'Anterior', next: 'Siguiente', go: (n: number) => `Ir a la diapositiva ${n}`, pack: 'Sobre', top: 'Carta top', ret: 'Recuperas', see: 'Ver precios', open: 'Abrir un sobre', newest: 'Última expansión', pause: 'Pausar', play: 'Reanudar' },
+  en: { label: 'Latest sets', prev: 'Previous', next: 'Next', go: (n: number) => `Go to slide ${n}`, pack: 'Pack', top: 'Top card', ret: 'You get back', see: 'See prices', open: 'Open a pack', newest: 'Latest set', pause: 'Pause', play: 'Resume' },
+}[lang];
+---
+<section class="hero" aria-roledescription="carousel" aria-label={t.label} data-carousel>
+  <div class="track" data-track>
+    {slides.map((s, i) => {
+      const top = s.hits.slice(0, 3);
+      const ret = s.ev && s.pack?.price.trend ? Math.round((s.ev.perPack.trend / s.pack.price.trend) * 100) : null;
+      const url = `${ROUTES.sets[lang]}${s.slug}/`;
+      return (
+        <article class="slide" aria-roledescription="slide" aria-label={`${i + 1} / ${slides.length}: ${s.set.name}`} data-slide>
+          {top[0]?.image && <img class="bg" src={cardImage(top[0].image, 'high')} alt="" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />}
+          <div class="shade"></div>
+          <div class="container content">
+            <div class="copy">
+              {i === 0 && <p class="eyebrow">{t.newest}</p>}
+              {s.set.logo
+                ? <img class="logo" src={`${s.set.logo}.webp`} alt={s.set.name} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
+                : <p class="name-fallback">{s.set.name}</p>}
+              <h2 class="name">{s.set.name}</h2>
+              <p class="date">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''} · {s.set.totalCount} {lang === 'es' ? 'cartas' : 'cards'}</p>
+              <dl class="chips">
+                {s.pack?.price.trend != null && <div><dt>{t.pack}</dt><dd>{money.format(s.pack.price.trend)}</dd></div>}
+                {top[0]?.price.trend != null && <div><dt>{t.top}</dt><dd>{money.format(top[0].price.trend)}</dd></div>}
+                {ret != null && <div><dt>{t.ret}</dt><dd>{ret}{lang === 'es' ? ' %' : '%'}</dd></div>}
+              </dl>
+              <div class="ctas">
+                <a class="btn btn-light" href={url}>{t.see} <Icon name="arrow-right" /></a>
+                {s.rates && <a class="btn btn-outline" href={`${url}#abrir`}>{t.open}</a>}
+              </div>
+            </div>
+            <div class="fan" aria-hidden="true">
+              {top.map((h, j) => h.image && (
+                <button type="button" class={`fc fc-${j}`} data-card={h.id} data-set={s.slug} tabindex="-1">
+                  <img src={cardImage(h.image, 'high')} alt="" loading={i === 0 ? 'eager' : 'lazy'} decoding="async" width="600" height="825" />
+                </button>
+              ))}
+            </div>
+          </div>
+        </article>
+      );
+    })}
+  </div>
+
+  <div class="controls container">
+    <div class="dots" role="group" aria-label={t.label}>
+      {slides.map((_, i) => <button type="button" class="dot" aria-label={t.go(i + 1)} aria-current={i === 0 ? 'true' : undefined} data-dot={i}></button>)}
+    </div>
+    <span class="count" aria-hidden="true"><span data-count>1</span> / {slides.length}</span>
+    <button type="button" class="arrow" aria-label={t.pause} data-toggle-play data-pause={t.pause} data-play={t.play}><Icon name="pause" /></button>
+    <button type="button" class="arrow" aria-label={t.prev} data-prev><Icon name="caret-left" /></button>
+    <button type="button" class="arrow" aria-label={t.next} data-next><Icon name="caret-right" /></button>
+  </div>
+</section>
+
+<style>
+  .hero { position: relative; background: #0f1116; color: #fff; overflow: hidden; }
+  .track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; }
+  .track::-webkit-scrollbar { display: none; }
+  .slide { position: relative; flex: 0 0 100%; scroll-snap-align: start; min-height: 440px; display: flex; overflow: hidden; isolation: isolate; }
+  .bg { position: absolute; inset: -40px; width: calc(100% + 80px); height: calc(100% + 80px); object-fit: cover; filter: blur(34px) saturate(1.6) brightness(0.9); transform: scale(1.1); z-index: -2; }
+  .shade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, rgb(10 12 18 / 0.88) 0%, rgb(10 12 18 / 0.55) 45%, rgb(10 12 18 / 0.05) 100%), linear-gradient(0deg, rgb(10 12 18 / 0.55), transparent 35%); }
+  .content { display: grid; align-items: center; gap: 24px; padding-block: 40px 76px; width: 100%; }
+  @media (min-width: 880px) { .content { grid-template-columns: 1fr 1fr; } }
+  .eyebrow { margin: 0 0 12px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #ffd36b; }
+  .logo { max-height: 110px; max-width: 340px; object-fit: contain; filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.5)); margin-bottom: 10px; }
+  .name-fallback { font-size: 2.6rem; font-weight: 800; font-stretch: 125%; margin: 0 0 8px; }
+  .name { font-size: 1.15rem; font-weight: 650; font-stretch: 100%; margin: 6px 0 0; color: rgb(255 255 255 / 0.92); letter-spacing: 0; }
+  .date { margin: 2px 0 18px; color: rgb(255 255 255 / 0.7); font-size: 0.92rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 22px; }
+  .chips div { background: rgb(255 255 255 / 0.1); border: 1px solid rgb(255 255 255 / 0.16); border-radius: 10px; padding: 8px 14px; backdrop-filter: blur(6px); }
+  .chips dt { font-size: 0.72rem; color: rgb(255 255 255 / 0.7); }
+  .chips dd { margin: 0; font-weight: 750; font-size: 1.15rem; }
+  .ctas { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn-light { background: #fff; color: #111; }
+  .btn-light:hover { background: #f1f1f1; color: #111; }
+  .btn-outline { background: transparent; color: #fff; border-color: rgb(255 255 255 / 0.5); }
+  .btn-outline:hover { background: rgb(255 255 255 / 0.1); color: #fff; }
+
+  .fan { position: relative; height: 340px; display: none; }
+  @media (min-width: 880px) { .fan { display: block; } }
+  .fc { all: unset; cursor: pointer; position: absolute; top: 10px; width: 200px; border-radius: 10px; transition: transform 0.3s var(--ease); }
+  .fc img { width: 100%; height: auto; border-radius: 10px; box-shadow: 0 18px 40px rgb(0 0 0 / 0.55); display: block; }
+  .fc-0 { left: calc(50% - 100px); z-index: 3; }
+  .fc-1 { left: calc(50% - 230px); transform: rotate(-12deg) translateY(24px); z-index: 2; }
+  .fc-2 { left: calc(50% + 30px); transform: rotate(12deg) translateY(24px); z-index: 1; }
+  .fc-0:hover { transform: translateY(-10px); }
+  .fc-1:hover { transform: rotate(-12deg) translateY(10px); }
+  .fc-2:hover { transform: rotate(12deg) translateY(10px); }
+
+  .controls { position: absolute; left: 0; right: 0; bottom: 18px; display: flex; align-items: center; gap: 10px; }
+  .dots { display: flex; gap: 6px; margin-right: auto; }
+  .dot { width: 8px; height: 8px; border-radius: 99px; border: 0; padding: 0; background: rgb(255 255 255 / 0.4); cursor: pointer; transition: width 0.25s var(--ease), background-color 0.25s; }
+  .dot[aria-current='true'] { width: 26px; background: #fff; }
+  .count { font-size: 0.85rem; color: rgb(255 255 255 / 0.8); margin-right: 4px; }
+  .arrow { width: 38px; height: 38px; border-radius: 50%; border: 1px solid rgb(255 255 255 / 0.3); background: rgb(0 0 0 / 0.25); color: #fff; display: grid; place-items: center; cursor: pointer; }
+  .arrow:hover { background: rgb(255 255 255 / 0.15); }
+  .arrow :global(svg) { width: 17px; height: 17px; }
+  @media (max-width: 600px) { .slide { min-height: 420px; } .logo { max-width: 260px; max-height: 90px; } .count, [data-toggle-play] { display: none; } }
+  @media (prefers-reduced-motion: reduce) { .track { scroll-behavior: auto; } }
+</style>
+
+<script>
+  for (const root of document.querySelectorAll<HTMLElement>('[data-carousel]')) {
+    const track = root.querySelector<HTMLElement>('[data-track]')!;
+    const slides = [...root.querySelectorAll<HTMLElement>('[data-slide]')];
+    const dots = [...root.querySelectorAll<HTMLButtonElement>('[data-dot]')];
+    const count = root.querySelector<HTMLElement>('[data-count]')!;
+    const playBtn = root.querySelector<HTMLButtonElement>('[data-toggle-play]')!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let index = 0;
+    let playing = !reduced;
+    let hover = false;
+    let timer: number | undefined;
+
+    const go = (i: number) => {
+      index = (i + slides.length) % slides.length;
+      track.scrollTo({ left: slides[index].offsetLeft, behavior: reduced ? 'auto' : 'smooth' });
+    };
+    const mark = (i: number) => {
+      index = i;
+      dots.forEach((d, j) => d.setAttribute('aria-current', String(j === i)));
+      count.textContent = String(i + 1);
+      slides.forEach((s, j) => s.toggleAttribute('inert', j !== i));
+    };
+    const schedule = () => {
+      clearTimeout(timer);
+      if (playing && !hover && !document.hidden) timer = window.setTimeout(() => go(index + 1), 6500);
+    };
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting && e.intersectionRatio > 0.6) { mark(slides.indexOf(e.target as HTMLElement)); schedule(); }
+    }, { root: track, threshold: [0.6] });
+    slides.forEach((s) => io.observe(s));
+
+    root.querySelector('[data-prev]')!.addEventListener('click', () => go(index - 1));
+    root.querySelector('[data-next]')!.addEventListener('click', () => go(index + 1));
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+    const paint = () => {
+      playBtn.setAttribute('aria-label', playing ? playBtn.dataset.pause! : playBtn.dataset.play!);
+      playBtn.innerHTML = playing
+        ? '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M200,32H160a16,16,0,0,0-16,16V208a16,16,0,0,0,16,16h40a16,16,0,0,0,16-16V48A16,16,0,0,0,200,32ZM96,32H56A16,16,0,0,0,40,48V208a16,16,0,0,0,16,16H96a16,16,0,0,0,16-16V48A16,16,0,0,0,96,32Z"/></svg>'
+        : '<svg viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M240,128a15.74,15.74,0,0,1-7.6,13.51L88.32,229.65a16,16,0,0,1-16.2.3A15.86,15.86,0,0,1,64,216.13V39.87a15.86,15.86,0,0,1,8.12-13.82,16,16,0,0,1,16.2.3L232.4,114.49A15.74,15.74,0,0,1,240,128Z"/></svg>';
+    };
+    playBtn.addEventListener('click', () => { playing = !playing; paint(); schedule(); });
+    root.addEventListener('pointerenter', () => { hover = true; clearTimeout(timer); });
+    root.addEventListener('pointerleave', () => { hover = false; schedule(); });
+    root.addEventListener('focusin', () => { hover = true; clearTimeout(timer); });
+    root.addEventListener('focusout', () => { hover = false; schedule(); });
+    document.addEventListener('visibilitychange', schedule);
+    root.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') go(index - 1);
+      if (e.key === 'ArrowRight') go(index + 1);
+    });
+    if (reduced) paint();
+    mark(0);
+    schedule();
+  }
+</script>

@@ -77,3 +77,4 @@ export function rarityTone(r: string | null) {
   if (k.includes('double')) return 'dr';
   return 'base';
 }
+
