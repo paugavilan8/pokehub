@@ -1,0 +1,22 @@
+---
+import '../styles/global.css';
+import { SITE_NAME } from '../i18n/ui';
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Página no encontrada | {SITE_NAME}</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  </head>
+  <body>
+    <main class="container prose" style="padding-block: 96px;">
+      <h1>Página no encontrada</h1>
+      <p>La página que buscas no existe o ha cambiado de dirección.</p>
+      <p><a class="btn btn-primary" href="/">Ir a la calculadora</a></p>
+      <p lang="en" class="muted">Page not found. <a href="/en/">Go to the calculator</a>.</p>
+    </main>
+  </body>
+</html>

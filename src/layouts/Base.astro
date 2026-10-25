@@ -1,0 +1,143 @@
+---
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { ROUTES, SITE_NAME, OG_LOCALE, ui, type Lang, type RouteKey } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  route: RouteKey;
+  title: string;
+  description: string;
+  jsonLd?: Record<string, unknown>;
+  noindex?: boolean;
+}
+const { lang, route, title, description, jsonLd, noindex = false } = Astro.props;
+const t = ui[lang];
+const other: Lang = lang === 'es' ? 'en' : 'es';
+const site = Astro.site!;
+const abs = (path: string) => new URL(path, site).href;
+const canonical = abs(ROUTES[route][lang]);
+const fullTitle = route === 'home' ? title : `${title} | ${SITE_NAME}`;
+const ogImage = abs(`/og-${lang}.png`);
+const nav: { key: RouteKey; label: string }[] = [
+  { key: 'home', label: t.nav.calculator },
+  { key: 'guide', label: t.nav.guide },
+  { key: 'sources', label: t.nav.sources },
+];
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="alternate" hreflang="es" href={abs(ROUTES[route].es)} />
+    <link rel="alternate" hreflang="en" href={abs(ROUTES[route].en)} />
+    <link rel="alternate" hreflang="x-default" href={abs(ROUTES[route].es)} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={OG_LOCALE[lang]} />
+    <meta property="og:locale:alternate" content={OG_LOCALE[other]} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#f6f6f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#131315" media="(prefers-color-scheme: dark)" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  </head>
+  <body>
+    <a class="skip" href="#main">{t.skip}</a>
+    <header class="site-header">
+      <div class="container bar">
+        <a class="brand" href={ROUTES.home[lang]}>
+          <span class="mark" aria-hidden="true"><Icon name="cards" /></span>
+          {SITE_NAME}
+        </a>
+        <nav aria-label={lang === 'es' ? 'Principal' : 'Main'}>
+          <ul>
+            {nav.map((n) => (
+              <li><a href={ROUTES[n.key][lang]} aria-current={n.key === route ? 'page' : undefined}>{n.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <a class="lang" href={ROUTES[route][other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>
+          <Icon name="translate" />{t.langSwitch}
+        </a>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container foot">
+        <div>
+          <p class="brand-foot">{SITE_NAME}</p>
+          <p class="muted">{t.footer.tagline}</p>
+        </div>
+        <ul class="foot-links">
+          <li><a href={ROUTES.legal[lang]}>{t.footer.legal}</a></li>
+          <li><a href={ROUTES.privacy[lang]}>{t.footer.privacy}</a></li>
+          <li><a href={ROUTES.cookies[lang]}>{t.footer.cookies}</a></li>
+          <li><a href={ROUTES.affiliates[lang]}>{t.footer.affiliates}</a></li>
+        </ul>
+        <div class="foot-small muted">
+          <p>{t.footer.notAdvice}</p>
+          <p>{t.footer.disclaimer}</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  .site-header { border-bottom: 1px solid var(--border); background: var(--bg); }
+  .bar { display: flex; align-items: center; gap: 16px; min-height: 64px; flex-wrap: wrap; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.1rem;
+    letter-spacing: -0.02em; color: var(--text); text-decoration: none;
+  }
+  .mark {
+    display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--radius-control);
+    background: var(--accent); color: var(--on-accent);
+  }
+  .mark :global(svg) { width: 20px; height: 20px; }
+  nav { margin-left: auto; }
+  nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  nav a {
+    display: block; padding: 8px 12px; border-radius: var(--radius-control);
+    color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+  }
+  nav a:hover { color: var(--text); background: var(--surface-2); }
+  nav a[aria-current='page'] { color: var(--text); }
+  .lang {
+    display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 500;
+    color: var(--text); text-decoration: none; padding: 7px 12px;
+    border: 1px solid var(--border-strong); border-radius: var(--radius-control);
+  }
+  .lang :global(svg) { width: 16px; height: 16px; }
+  .lang:hover { background: var(--surface-2); color: var(--text); }
+  @media (max-width: 767px) {
+    .bar { padding-block: 10px; gap: 8px 12px; }
+    nav { order: 3; margin-left: 0; width: 100%; overflow-x: auto; }
+    nav a { padding: 6px 10px; white-space: nowrap; }
+    nav li:first-child a { padding-left: 0; }
+    .lang { margin-left: auto; }
+  }
+  .site-footer { border-top: 1px solid var(--border); margin-top: 96px; padding-block: 40px 56px; font-size: 0.92rem; }
+  .foot { display: grid; gap: 24px; }
+  @media (min-width: 768px) { .foot { grid-template-columns: 1.2fr 1fr; } .foot-small { grid-column: 1 / -1; } }
+  .brand-foot { font-weight: 700; margin-bottom: 4px; }
+  .foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; align-content: start; }
+  .foot-links a { color: var(--text); }
+  .foot-small { font-size: 0.85rem; max-width: 90ch; }
+</style>

@@ -1,0 +1,8 @@
+{
+  "note": "Datos del titular para el aviso legal (art. 10 LSSI). OBLIGATORIO rellenarlos antes de publicar la web.",
+  "name": "[PENDIENTE: nombre y apellidos o razón social]",
+  "taxId": "[PENDIENTE: NIF]",
+  "address": "[PENDIENTE: domicilio]",
+  "email": "[PENDIENTE: correo de contacto]",
+  "hosting": "Cloudflare, Inc. (Cloudflare Pages)"
+}

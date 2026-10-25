@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import owner from '../data/owner.json';
+import rules from '../data/import-rules.json';
+import { SITE_NAME, formatDate, type Lang } from '../i18n/ui';
+
+type LegalKey = 'legal' | 'privacy' | 'cookies' | 'affiliates';
+interface Props { lang: Lang; page: LegalKey }
+const { lang, page } = Astro.props;
+const updated = formatDate(rules.lastReviewed, lang);
+
+type Block = { h?: string; p: string[] };
+const pages: Record<LegalKey, Record<Lang, { title: string; description: string; blocks: Block[] }>> = {
+  legal: {
+    es: {
+      title: 'Aviso legal',
+      description: `Datos del titular de ${SITE_NAME} y condiciones de uso de la web.`,
+      blocks: [
+        { h: 'Titular', p: [`En cumplimiento del artículo 10 de la Ley 34/2002 (LSSI), el titular de esta web es ${owner.name}, con NIF ${owner.taxId}, domicilio en ${owner.address} y correo de contacto ${owner.email}.`] },
+        { h: 'Objeto', p: [`${SITE_NAME} ofrece herramientas y guías gratuitas para estimar el coste de comprar cartas coleccionables. Los resultados son estimaciones orientativas basadas en las reglas publicadas en la página "Reglas y fuentes" y no constituyen asesoramiento fiscal ni aduanero.`] },
+        { h: 'Responsabilidad', p: ['Revisamos las reglas con frecuencia e indicamos la fecha de cada revisión, pero la normativa puede cambiar y los importes finales dependen de la aduana y del transportista. El titular no se hace responsable de decisiones tomadas solo a partir de estas estimaciones.', 'Los enlaces a webs de terceros se ofrecen como referencia. No controlamos su contenido.'] },
+        { h: 'Marcas', p: ['Esta es una web independiente de fans. Pokémon y los nombres relacionados son marcas de Nintendo, Creatures, GAME FREAK y The Pokémon Company. Esta web no está afiliada, patrocinada ni aprobada por ellas.'] },
+        { h: 'Legislación', p: ['Estas condiciones se rigen por la legislación española.'] },
+      ],
+    },
+    en: {
+      title: 'Legal notice',
+      description: `Owner details and terms of use for ${SITE_NAME}.`,
+      blocks: [
+        { h: 'Owner', p: [`Under article 10 of Spanish Law 34/2002 (LSSI), this website is owned by ${owner.name}, tax ID ${owner.taxId}, address ${owner.address}, contact email ${owner.email}.`] },
+        { h: 'Purpose', p: [`${SITE_NAME} offers free tools and guides to estimate the cost of buying collectible cards. Results are estimates based on the rules published on the "Rules and sources" page and are not tax or customs advice.`] },
+        { h: 'Liability', p: ['We review the rules often and date every review, but rules can change and final amounts depend on customs and the carrier. The owner is not liable for decisions made solely on the basis of these estimates.', 'Links to third-party websites are provided for reference. We do not control their content.'] },
+        { h: 'Trademarks', p: ['This is an independent fan site. Pokémon and related names are trademarks of Nintendo, Creatures, GAME FREAK and The Pokémon Company. This site is not affiliated with, sponsored or endorsed by them.'] },
+        { h: 'Governing law', p: ['These terms are governed by Spanish law.'] },
+      ],
+    },
+  },
+  privacy: {
+    es: {
+      title: 'Política de privacidad',
+      description: `Qué datos trata ${SITE_NAME} y cómo ejercer tus derechos según el RGPD.`,
+      blocks: [
+        { h: 'Responsable', p: [`${owner.name}, NIF ${owner.taxId}, ${owner.email}.`] },
+        { h: 'Qué datos tratamos', p: ['Esta web no tiene registro, formularios, analítica ni publicidad. La calculadora funciona en tu navegador: los importes que escribes no se envían a nuestros servidores.', `El proveedor de alojamiento (${owner.hosting}) registra datos técnicos de cada visita, como la dirección IP, para servir la web y protegerla frente a ataques. Base jurídica: interés legítimo en la seguridad del servicio.`, 'Cuando eliges una divisa distinta del euro, tu navegador pide el tipo de cambio a la API pública Frankfurter (api.frankfurter.app), que publica los tipos de referencia del Banco Central Europeo. Esa petición incluye tu dirección IP y la divisa elegida, nada más.'] },
+        { h: 'Tus derechos', p: [`Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad escribiendo a ${owner.email}. También puedes reclamar ante la Agencia Española de Protección de Datos (aepd.es).`] },
+        { h: 'Cambios', p: ['Si añadimos funciones que traten datos personales (por ejemplo, alertas por correo), actualizaremos esta política antes de activarlas.'] },
+      ],
+    },
+    en: {
+      title: 'Privacy policy',
+      description: `What data ${SITE_NAME} processes and how to exercise your GDPR rights.`,
+      blocks: [
+        { h: 'Controller', p: [`${owner.name}, tax ID ${owner.taxId}, ${owner.email}.`] },
+        { h: 'What data we process', p: ['This site has no sign-up, forms, analytics or advertising. The calculator runs in your browser: the amounts you type are not sent to our servers.', `The hosting provider (${owner.hosting}) logs technical data for each visit, such as the IP address, to serve the site and protect it from attacks. Legal basis: legitimate interest in service security.`, 'When you choose a currency other than the euro, your browser requests the exchange rate from the public Frankfurter API (api.frankfurter.app), which publishes European Central Bank reference rates. That request includes your IP address and the chosen currency, nothing else.'] },
+        { h: 'Your rights', p: [`You can exercise your rights of access, rectification, erasure, objection, restriction and portability by writing to ${owner.email}. You can also complain to the Spanish Data Protection Agency (aepd.es) or your local authority.`] },
+        { h: 'Changes', p: ['If we add features that process personal data (such as email alerts), we will update this policy before turning them on.'] },
+      ],
+    },
+  },
+  cookies: {
+    es: {
+      title: 'Política de cookies',
+      description: `${SITE_NAME} no usa cookies ni almacenamiento local.`,
+      blocks: [
+        { p: ['Esta web no instala cookies ni usa almacenamiento local del navegador, ni propias ni de terceros. Por eso no te mostramos un aviso de cookies.', 'Si en el futuro añadimos analítica, publicidad u otras funciones que las necesiten, te pediremos el consentimiento antes de instalarlas y actualizaremos esta página.'] },
+      ],
+    },
+    en: {
+      title: 'Cookie policy',
+      description: `${SITE_NAME} uses no cookies or local storage.`,
+      blocks: [
+        { p: ['This site sets no cookies and uses no browser local storage, first-party or third-party. That is why there is no cookie banner.', 'If we later add analytics, advertising or other features that need them, we will ask for your consent before setting them and update this page.'] },
+      ],
+    },
+  },
+  affiliates: {
+    es: {
+      title: 'Aviso de afiliados',
+      description: `Cómo se financia ${SITE_NAME} y qué no hacemos a cambio de dinero.`,
+      blocks: [
+        { p: ['Ahora mismo esta web no contiene enlaces de afiliado ni publicidad.', 'Más adelante podremos incluir enlaces de afiliado a tiendas o marketplaces: si compras a través de ellos, podemos recibir una comisión sin que te cueste más. Cada página con enlaces de afiliado lo indicará de forma visible.'] },
+        { h: 'Lo que no hacemos', p: ['No cobramos a tiendas por aparecer como fiables en el verificador de tiendas ni por mejorar su posición. Si alguna vez una tienda patrocina contenido, lo señalaremos de forma clara en el propio contenido.', 'Las comisiones no cambian los cálculos ni las reglas que usa la calculadora.'] },
+      ],
+    },
+    en: {
+      title: 'Affiliate disclosure',
+      description: `How ${SITE_NAME} is funded and what we never do for money.`,
+      blocks: [
+        { p: ['Right now this site has no affiliate links or advertising.', 'Later we may add affiliate links to shops or marketplaces: if you buy through them, we may earn a commission at no extra cost to you. Every page with affiliate links will say so visibly.'] },
+        { h: 'What we never do', p: ['We do not charge shops to be listed as trustworthy in the shop checker or to rank higher. If a shop ever sponsors content, we will flag it clearly in that content.', 'Commissions never change the calculations or the rules the calculator uses.'] },
+      ],
+    },
+  },
+};
+const content = pages[page][lang];
+---
+<Base lang={lang} route={page} title={content.title} description={content.description}>
+  <article class="container prose legal">
+    <h1>{content.title}</h1>
+    <p class="muted">{lang === 'es' ? 'Última actualización' : 'Last updated'}: {updated}</p>
+    {content.blocks.map((b) => (
+      <section>
+        {b.h && <h2>{b.h}</h2>}
+        {b.p.map((p) => <p>{p}</p>)}
+      </section>
+    ))}
+  </article>
+</Base>
+
+<style>
+  .legal { padding-top: 48px; }
+  .legal h2 { font-size: 1.3rem; margin-top: 1.8em; }
+</style>

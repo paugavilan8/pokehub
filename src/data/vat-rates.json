@@ -1,0 +1,39 @@
+{
+  "lastReviewed": "2026-10-25",
+  "note": "Tipo general de IVA por Estado miembro (el que se aplica a la importación de cartas coleccionables). status: secondary = contrastado con varias tablas de 2026; confirmar en la base de datos oficial de la Comisión antes de publicar.",
+  "source": {
+    "title": "Comisión Europea: VAT rates (Taxes in Europe Database)",
+    "url": "https://taxation-customs.ec.europa.eu/taxation/vat/vat-directive/vat-rates_en",
+    "accessed": "2026-10-25"
+  },
+  "status": "secondary",
+  "rates": {
+    "ES": 21,
+    "PT": 23,
+    "FR": 20,
+    "IT": 22,
+    "DE": 19,
+    "NL": 21,
+    "BE": 21,
+    "LU": 17,
+    "IE": 23,
+    "AT": 20,
+    "PL": 23,
+    "CZ": 21,
+    "SK": 23,
+    "HU": 27,
+    "SI": 22,
+    "HR": 25,
+    "RO": 21,
+    "BG": 20,
+    "GR": 24,
+    "CY": 19,
+    "MT": 18,
+    "DK": 25,
+    "SE": 25,
+    "FI": 25.5,
+    "EE": 24,
+    "LV": 21,
+    "LT": 21
+  }
+}

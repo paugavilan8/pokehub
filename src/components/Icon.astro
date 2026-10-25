@@ -1,0 +1,13 @@
+---
+// Iconos de Phosphor (regular), insertados en línea.
+const icons = import.meta.glob('/node_modules/@phosphor-icons/core/assets/regular/*.svg', {
+  query: '?raw', import: 'default', eager: true,
+}) as Record<string, string>;
+
+interface Props { name: string; class?: string }
+const { name, class: className } = Astro.props;
+const raw = icons[`/node_modules/@phosphor-icons/core/assets/regular/${name}.svg`];
+if (!raw) throw new Error(`Icono no encontrado: ${name}`);
+const svg = raw.replace('<svg', `<svg aria-hidden="true" focusable="false" ${className ? ` class="${className}"` : ''}`);
+---
+<Fragment set:html={svg} />

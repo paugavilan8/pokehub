@@ -1,0 +1,46 @@
+{
+  "note": "Ejemplos ilustrativos con precios redondos inventados para explicar las reglas. No son precios reales de mercado. Fecha de cálculo fija para que el resultado no cambie con cada despliegue.",
+  "date": "2026-11-02",
+  "items": [
+    {
+      "id": "jp-box",
+      "title": { "es": "Caja japonesa desde Japón", "en": "Japanese booster box from Japan" },
+      "summary": {
+        "es": "Una caja de sobres japoneses de 90 € con 25 € de envío. Queda por debajo de 150 €, así que paga el derecho fijo.",
+        "en": "A €90 Japanese booster box with €25 shipping. It stays under €150, so the flat duty applies."
+      },
+      "input": { "origin": "jp", "goods": 90, "shipping": 25, "itemTypes": 1, "ioss": false, "preferential": false, "carrierFee": 0 },
+      "compareEu": 135
+    },
+    {
+      "id": "jp-two-boxes",
+      "title": { "es": "Dos cajas japonesas (más de 150 €)", "en": "Two Japanese boxes (over €150)" },
+      "summary": {
+        "es": "Dos cajas de 90 € con 30 € de envío. Al pasar de 150 € entra el arancel normal, salvo que la factura traiga declaración de origen.",
+        "en": "Two €90 boxes with €30 shipping. Over €150 the normal duty applies, unless the invoice has an origin statement."
+      },
+      "input": { "origin": "jp", "goods": 180, "shipping": 30, "itemTypes": 1, "ioss": false, "preferential": false, "carrierFee": 0 },
+      "compareEu": 260
+    },
+    {
+      "id": "us-etb",
+      "title": { "es": "Elite Trainer Box desde EE. UU.", "en": "Elite Trainer Box from the US" },
+      "summary": {
+        "es": "Una ETB de 55 € con 20 € de envío desde una tienda de EE. UU. sin IOSS: pagas IVA y aduana al recibirla.",
+        "en": "A €55 ETB with €20 shipping from a US shop without IOSS: you pay VAT and duty on delivery."
+      },
+      "input": { "origin": "us", "goods": 55, "shipping": 20, "itemTypes": 1, "ioss": false, "preferential": false, "carrierFee": 0 },
+      "compareEu": 65
+    },
+    {
+      "id": "uk-ioss",
+      "title": { "es": "Pedido a una tienda del Reino Unido con IOSS", "en": "UK shop order with IOSS" },
+      "summary": {
+        "es": "100 € con 12 € de envío, IVA cobrado al pagar. Solo se añaden el derecho fijo y la tasa de gestión.",
+        "en": "€100 plus €12 shipping, VAT charged at checkout. Only the flat duty and handling fee are added."
+      },
+      "input": { "origin": "uk", "goods": 100, "shipping": 12, "itemTypes": 1, "ioss": true, "preferential": false, "carrierFee": 0 },
+      "compareEu": 115
+    }
+  ]
+}

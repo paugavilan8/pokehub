@@ -1,0 +1,126 @@
+{
+  "lastReviewed": "2026-10-25",
+  "note": "Reglas para importar cartas Pokémon (TCG) a la UE. Revisar cada entrada contra su fuente oficial antes de publicar y en cada cambio normativo. status: verified = contrastado con fuente oficial; secondary = solo fuentes secundarias coincidentes; pending = sin confirmar.",
+  "lowValueThresholdEur": {
+    "value": 150,
+    "description": "Valor intrínseco del envío (sin transporte) por debajo del cual aplica el régimen de bajo valor.",
+    "status": "verified",
+    "reviewed": "2026-10-25",
+    "sources": ["council-2025-12-12", "correos-bajo-valor"]
+  },
+  "flatDuty": {
+    "amountEur": 3,
+    "per": "tariff-line",
+    "description": "Derecho de aduana fijo por cada tipo de artículo (subpartida arancelaria distinta) en envíos de venta a distancia de hasta 150 €. Varias cajas iguales de cartas cuentan como un solo tipo.",
+    "validFrom": "2026-07-01",
+    "validUntil": "2028-07-01",
+    "legalBasis": "Reglamento (UE) 2026/382 del Consejo",
+    "status": "verified",
+    "reviewed": "2026-10-25",
+    "sources": ["correos-bajo-valor", "ec-news-2026-06-29", "ec-guidance-2026-06-08", "council-2025-12-12"]
+  },
+  "handlingFee": {
+    "amountEur": 2,
+    "per": "tariff-line",
+    "inVatBase": true,
+    "description": "Tasa de tramitación aduanera de la UE para ventas a distancia desde fuera de la UE, sea cual sea el valor. Prevista desde el 1-nov-2026, sujeta a publicación del acto delegado en el DOUE. Las fuentes discrepan sobre si se cobra por artículo o por paquete y sobre si lleva IVA: la calculadora usa la hipótesis más cara (por tipo de artículo y dentro de la base del IVA).",
+    "validFrom": "2026-11-01",
+    "legalBasis": "Art. 20 del nuevo Código Aduanero de la Unión (Reglamento (UE) 2026/2108); acto delegado de la Comisión adoptado el 21-sep-2026 (citado como C(2026) 6694)",
+    "status": "secondary",
+    "reviewed": "2026-10-25",
+    "sources": ["sgs-2026-10-14", "bandcamp-2026-10-20"]
+  },
+  "standardDuty": {
+    "ratePct": 2.7,
+    "hsCode": "9504 40 00",
+    "description": "Arancel convencional orientativo para envíos de más de 150 € (base: valor de la mercancía + transporte hasta la UE). Confirmar en TARIC para la subpartida concreta.",
+    "status": "pending",
+    "reviewed": "2026-10-25",
+    "sources": ["taric-950440"]
+  },
+  "preferentialOrigin": {
+    "description": "Con prueba de origen preferencial (por ejemplo, declaración de origen en la factura) el arancel puede ser 0 % en envíos de más de 150 €. Solo si la mercancía es originaria del país de envío según su acuerdo con la UE.",
+    "agreements": {
+      "jp": "Acuerdo de Asociación Económica UE-Japón",
+      "uk": "Acuerdo de Comercio y Cooperación UE-Reino Unido (solo mercancía originaria del Reino Unido)",
+      "ch": "Acuerdo de Libre Comercio UE-Suiza"
+    },
+    "status": "pending",
+    "reviewed": "2026-10-25",
+    "sources": ["taric-950440"]
+  },
+  "importVat": {
+    "description": "El IVA de importación se calcula sobre mercancía + transporte + derechos de aduana y demás tributos. Si la tienda está acogida al IOSS (envíos de hasta 150 €), el IVA se paga al comprar y no en la entrega.",
+    "status": "verified",
+    "reviewed": "2026-10-25",
+    "sources": ["liva-art-83", "aeat-ioss"]
+  },
+  "carrierFee": {
+    "description": "Gestión aduanera del transportista (Correos, DHL, FedEx, UPS...). Varía según la empresa y el valor del envío: el usuario la introduce a mano. No se usa un valor por defecto porque no hemos podido verificar las tarifas vigentes.",
+    "status": "pending",
+    "reviewed": "2026-10-25",
+    "sources": []
+  },
+  "excludedTerritories": {
+    "description": "Canarias, Ceuta y Melilla no forman parte del territorio IVA de la UE (IGIC / IPSI). La calculadora no los cubre.",
+    "status": "verified",
+    "reviewed": "2026-10-25",
+    "sources": ["liva-art-83"]
+  },
+  "sources": {
+    "correos-bajo-valor": {
+      "title": "Correos: Arancel para envíos de bajo valor en la UE",
+      "url": "https://www.correos.es/es/es/atencion-al-cliente/informacion-aduanera/arancel-para-envios-de-bajo-valor-en-la-ue",
+      "kind": "official",
+      "accessed": "2026-10-25"
+    },
+    "ec-news-2026-06-29": {
+      "title": "Comisión Europea: €3 customs duty for low-value parcels (29-jun-2026)",
+      "url": "https://commission.europa.eu/news-and-media/news/ensuring-fairness-and-safety-eur3-customs-duty-low-value-parcels-2026-06-29_en",
+      "kind": "official",
+      "accessed": "2026-10-25"
+    },
+    "ec-guidance-2026-06-08": {
+      "title": "Comisión Europea (DG TAXUD): Guidance and legal text on temporary flat fee on low-value imports",
+      "url": "https://taxation-customs.ec.europa.eu/news/guidance-and-legal-text-temporary-flat-fee-low-value-imports-which-will-apply-until-1-july-2028-2026-06-08_en",
+      "kind": "official",
+      "accessed": "2026-10-25"
+    },
+    "council-2025-12-12": {
+      "title": "Consejo de la UE: Council agrees to levy customs duty on small parcels as of 1 July 2026",
+      "url": "https://www.consilium.europa.eu/en/press/press-releases/2025/12/12/customs-council-agrees-to-levy-customs-duty-on-small-parcels-as-of-1-july-2026/",
+      "kind": "official",
+      "accessed": "2026-10-25"
+    },
+    "sgs-2026-10-14": {
+      "title": "SGS e-Customs: EU takes action to curb influx of small parcels without customs duties",
+      "url": "https://ecustoms.sgs.com/2026/10/14/eu-takes-action-to-curb-influx-of-small-parcels-without-customs-duties/",
+      "kind": "secondary",
+      "accessed": "2026-10-25"
+    },
+    "bandcamp-2026-10-20": {
+      "title": "Bandcamp: EU Customs beginning November 1, a new €2 handling fee",
+      "url": "https://blog.bandcamp.com/2026/10/20/eu-customs-beginning-november-1-a-new-e2-handling-fee-and-product-ids/",
+      "kind": "secondary",
+      "accessed": "2026-10-25"
+    },
+    "taric-950440": {
+      "title": "TARIC (Comisión Europea): consulta de la subpartida 9504 40 00",
+      "url": "https://ec.europa.eu/taxation_customs/dds2/taric/measures.jsp?Lang=es&Taric=9504400000",
+      "kind": "official",
+      "accessed": "2026-10-25"
+    },
+    "liva-art-83": {
+      "title": "Ley 37/1992 del IVA (BOE), art. 83: base imponible en las importaciones",
+      "url": "https://www.boe.es/buscar/act.php?id=BOE-A-1992-28740",
+      "kind": "official",
+      "accessed": "2026-10-25"
+    },
+    "aeat-ioss": {
+      "title": "Agencia Tributaria: Comercio electrónico, régimen de importación (IOSS)",
+      "url": "https://sede.agenciatributaria.gob.es/Sede/iva/iva-comercio-electronico.html",
+      "kind": "official",
+      "accessed": "2026-10-25"
+    }
+  }
+}

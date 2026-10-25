@@ -1,0 +1,114 @@
+---
+import Base from '../layouts/Base.astro';
+import rules from '../data/import-rules.json';
+import vat from '../data/vat-rates.json';
+import { ROUTES, LOCALE, countryName, formatDate, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+type Rule = { description: string; status: string; reviewed: string; sources: string[]; legalBasis?: string; validFrom?: string; validUntil?: string };
+const sources = rules.sources as Record<string, { title: string; url: string; kind: string; accessed: string }>;
+
+const names = {
+  es: { lowValueThresholdEur: 'Umbral de 150 €', flatDuty: 'Derecho fijo de 3 €', handlingFee: 'Tasa de gestión de 2 €', standardDuty: 'Arancel de más de 150 €', preferentialOrigin: 'Origen preferencial', importVat: 'IVA de importación', carrierFee: 'Gestión del transportista', excludedTerritories: 'Territorios excluidos' },
+  en: { lowValueThresholdEur: '€150 threshold', flatDuty: 'Flat €3 duty', handlingFee: '€2 handling fee', standardDuty: 'Duty over €150', preferentialOrigin: 'Preferential origin', importVat: 'Import VAT', carrierFee: 'Carrier clearance fee', excludedTerritories: 'Excluded territories' },
+}[lang];
+
+const enDesc: Record<string, string> = {
+  lowValueThresholdEur: 'Intrinsic value of the consignment (without transport) below which the low-value regime applies.',
+  flatDuty: 'Flat customs duty for each product type (distinct tariff subheading) in distance-sale consignments up to €150. Several identical boxes of cards count as one type.',
+  handlingFee: 'EU customs handling fee on distance sales from outside the EU, at any value. Expected from 1 Nov 2026, subject to the delegated act being published in the Official Journal. Sources disagree on whether it is per item or per parcel and whether VAT applies: the calculator uses the more expensive reading (per product type, inside the VAT base).',
+  standardDuty: 'Indicative conventional duty for consignments over €150 (base: goods plus transport to the EU). Check TARIC for the exact subheading.',
+  preferentialOrigin: 'With proof of preferential origin (such as an origin statement on the invoice), duty can be 0% on consignments over €150. Only if the goods originate in the shipping country under its agreement with the EU.',
+  importVat: 'Import VAT is charged on goods plus transport plus customs duties and other charges. If the shop uses IOSS (consignments up to €150), VAT is paid at checkout rather than on delivery.',
+  carrierFee: 'Customs clearance charged by the carrier (post office, DHL, FedEx, UPS...). It varies by company and parcel value, so you enter it yourself. There is no default because we could not verify current price lists.',
+  excludedTerritories: 'The Canary Islands, Ceuta and Melilla are outside the EU VAT area (IGIC / IPSI). The calculator does not cover them.',
+};
+
+const ruleKeys = Object.keys(names) as (keyof typeof names)[];
+const ruleMap = rules as unknown as Record<string, Rule>;
+const statusLabel = lang === 'es'
+  ? { verified: 'Verificado', secondary: 'Fuentes secundarias', pending: 'Por confirmar' }
+  : { verified: 'Verified', secondary: 'Secondary sources', pending: 'To be confirmed' };
+const c = {
+  es: {
+    title: 'Reglas y fuentes de la calculadora',
+    description: 'Todas las reglas de aduanas e IVA que usa la calculadora, con su estado de verificación, fecha de revisión y enlace a la fuente oficial.',
+    lede: 'Así calculamos cada cifra. Si una regla cambia o ves un error, la actualizamos con fecha.',
+    statusHelp: 'Verificado: contrastado con fuente oficial. Fuentes secundarias: varias fuentes no oficiales coinciden. Por confirmar: dato orientativo pendiente de comprobar.',
+    reviewed: 'Revisado', basis: 'Base legal', from: 'Desde', until: 'Hasta', src: 'Fuentes', noSrc: 'Sin fuente: lo introduces tú.',
+    vatTitle: 'Tipos generales de IVA en la UE', country: 'País', rate: 'IVA',
+    vatNote: `Contrastados con varias tablas de 2026. Revisado el ${formatDate(vat.lastReviewed, lang)}. Fuente oficial:`,
+    official: 'oficial', secondary: 'secundaria',
+  },
+  en: {
+    title: 'Calculator rules and sources',
+    description: 'Every customs and VAT rule the calculator uses, with its verification status, review date and a link to the official source.',
+    lede: 'This is how we work out every figure. If a rule changes or you spot a mistake, we update it with a date.',
+    statusHelp: 'Verified: checked against an official source. Secondary sources: several unofficial sources agree. To be confirmed: a guide figure still to be checked.',
+    reviewed: 'Reviewed', basis: 'Legal basis', from: 'From', until: 'Until', src: 'Sources', noSrc: 'No source: you enter it yourself.',
+    vatTitle: 'Standard VAT rates in the EU', country: 'Country', rate: 'VAT',
+    vatNote: `Cross-checked against several 2026 tables. Reviewed on ${formatDate(vat.lastReviewed, lang)}. Official source:`,
+    official: 'official', secondary: 'secondary',
+  },
+}[lang];
+const vatRows = Object.entries(vat.rates)
+  .map(([code, rate]) => ({ name: countryName(code, lang), rate }))
+  .sort((a, b) => a.name.localeCompare(b.name, LOCALE[lang]));
+---
+<Base lang={lang} route="sources" title={c.title} description={c.description}>
+  <div class="container">
+    <header class="head">
+      <h1>{c.title}</h1>
+      <p class="lede">{c.lede}</p>
+      <p class="muted small">{c.statusHelp}</p>
+    </header>
+
+    <div class="rules">
+      {ruleKeys.map((key) => {
+        const rule = ruleMap[key];
+        return (
+          <section class="rule" id={key}>
+            <h2>{names[key]} <span class={`badge ${rule.status}`}>{statusLabel[rule.status as keyof typeof statusLabel]}</span></h2>
+            <p>{lang === 'es' ? rule.description : enDesc[key]}</p>
+            <p class="meta muted">
+              {c.reviewed}: {formatDate(rule.reviewed, lang)}
+              {rule.validFrom && <> · {c.from}: {formatDate(rule.validFrom, lang)}</>}
+              {rule.validUntil && <> · {c.until}: {formatDate(rule.validUntil, lang)}</>}
+            </p>
+            {rule.legalBasis && <p class="meta"><strong>{c.basis}:</strong> {rule.legalBasis}</p>}
+            {rule.sources.length > 0 ? (
+              <ul class="srcs">
+                {rule.sources.map((id) => (
+                  <li><a href={sources[id].url} rel="noopener" target="_blank">{sources[id].title}</a> <span class="badge">{sources[id].kind === 'official' ? c.official : c.secondary}</span></li>
+                ))}
+              </ul>
+            ) : <p class="meta muted">{c.noSrc}</p>}
+          </section>
+        );
+      })}
+    </div>
+
+    <section class="vat" id="vat">
+      <h2>{c.vatTitle}</h2>
+      <p class="muted small">{c.vatNote} <a href={vat.source.url} rel="noopener" target="_blank">{vat.source.title}</a></p>
+      <ul class="vat-grid">
+        {vatRows.map((r) => <li><span>{r.name}</span><span class="num">{r.rate.toLocaleString(LOCALE[lang])} %</span></li>)}
+      </ul>
+    </section>
+  </div>
+</Base>
+
+<style>
+  .head { padding-block: 48px 16px; max-width: 760px; }
+  .lede { font-size: 1.15rem; color: var(--text-muted); }
+  .small { font-size: 0.9rem; }
+  .rules { display: grid; gap: 0; max-width: 860px; }
+  .rule { padding: 26px 0; border-top: 1px solid var(--border); }
+  .rule h2 { font-size: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+  .meta { font-size: 0.9rem; margin-bottom: 6px; }
+  .srcs { margin: 8px 0 0; padding-left: 1.2em; font-size: 0.93rem; display: grid; gap: 6px; }
+  .vat { margin-top: 64px; }
+  .vat-grid { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 0 32px; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+  .vat-grid li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--border); }
+</style>

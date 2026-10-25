@@ -1,0 +1,392 @@
+---
+import Icon from './Icon.astro';
+import { ORIGINS, CURRENCIES, VAT_RATES, DEFAULT_CURRENCY } from '../lib/calc';
+import rules from '../data/import-rules.json';
+import { ui, countryName, LOCALE, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang; headingLevel?: 'h1' | 'h2'; heading?: string }
+const { lang, headingLevel = 'h2', heading } = Astro.props;
+const t = ui[lang].calc;
+const H = headingLevel;
+const countries = Object.keys(VAT_RATES)
+  .map((code) => ({ code, name: countryName(code, lang), vat: VAT_RATES[code] }))
+  .sort((a, b) => (a.code === 'ES' ? -1 : b.code === 'ES' ? 1 : a.name.localeCompare(b.name, LOCALE[lang])));
+const config = { lang, locale: LOCALE[lang], t, defaultCurrency: DEFAULT_CURRENCY, defaultDutyRate: rules.standardDuty.ratePct };
+---
+<section class="calc" data-calc data-config={JSON.stringify(config)} aria-labelledby="calc-title">
+  <form class="panel form" novalidate>
+    <H id="calc-title" class="calc-title">{heading ?? t.title}</H>
+
+    <div class="row two">
+      <div class="field">
+        <label for="c-origin">{t.origin}</label>
+        <select id="c-origin" name="o">
+          {ORIGINS.map((o) => <option value={o} selected={o === 'jp'}>{t.origins[o]}</option>)}
+        </select>
+      </div>
+      <div class="field">
+        <label for="c-dest">{t.destination}</label>
+        <select id="c-dest" name="d" aria-describedby="c-dest-help">
+          {countries.map((c) => <option value={c.code}>{c.name} ({c.vat.toLocaleString(LOCALE[lang])}{lang === 'es' ? ' %' : '%'})</option>)}
+        </select>
+        <p class="help" id="c-dest-help">{t.destinationHelp}</p>
+      </div>
+    </div>
+
+    <div class="row money">
+      <div class="field">
+        <label for="c-goods">{t.goods}</label>
+        <input id="c-goods" name="g" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="c-goods-help c-goods-err" />
+        <p class="help" id="c-goods-help">{t.goodsHelp}</p>
+        <p class="error" id="c-goods-err" hidden>{t.errorNumber}</p>
+      </div>
+      <div class="field">
+        <label for="c-ship">{t.shipping}</label>
+        <input id="c-ship" name="s" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="c-ship-err" />
+        <p class="error" id="c-ship-err" hidden>{t.errorNumber}</p>
+      </div>
+      <div class="field">
+        <label for="c-cur">{t.currency}</label>
+        <select id="c-cur" name="c">
+          {CURRENCIES.map((c) => <option value={c} selected={c === 'JPY'}>{c}</option>)}
+        </select>
+      </div>
+    </div>
+
+    <div class="field rate" data-rate-field>
+      <label for="c-rate">{t.rate} <span class="muted num" data-rate-unit></span></label>
+      <input id="c-rate" name="r" type="text" inputmode="decimal" autocomplete="off" aria-describedby="c-rate-help" />
+      <p class="help" id="c-rate-help" aria-live="polite">{t.rateLoading}</p>
+    </div>
+
+    <details class="advanced">
+      <summary>{t.advanced}</summary>
+      <div class="adv-body">
+        <div class="row two">
+          <div class="field">
+            <label for="c-types">{t.itemTypes}</label>
+            <input id="c-types" name="n" type="number" min="1" step="1" value="1" aria-describedby="c-types-help" />
+            <p class="help" id="c-types-help">{t.itemTypesHelp}</p>
+          </div>
+          <div class="field">
+            <label for="c-carrier">{t.carrierFee} (€)</label>
+            <input id="c-carrier" name="cf" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="c-carrier-help" />
+            <p class="help" id="c-carrier-help">{t.carrierFeeHelp}</p>
+          </div>
+        </div>
+        <div class="check">
+          <input id="c-ioss" name="i" type="checkbox" aria-describedby="c-ioss-help" />
+          <div>
+            <label for="c-ioss">{t.ioss}</label>
+            <p class="help" id="c-ioss-help">{t.iossHelp}</p>
+          </div>
+        </div>
+        <div class="check">
+          <input id="c-pref" name="p" type="checkbox" aria-describedby="c-pref-help" />
+          <div>
+            <label for="c-pref">{t.preferential}</label>
+            <p class="help" id="c-pref-help">{t.preferentialHelp}</p>
+          </div>
+        </div>
+        <div class="row two">
+          <div class="field">
+            <label for="c-duty">{t.dutyRate} (%)</label>
+            <input id="c-duty" name="dr" type="text" inputmode="decimal" autocomplete="off" value={String(rules.standardDuty.ratePct).replace('.', lang === 'es' ? ',' : '.')} />
+          </div>
+          <div class="field">
+            <label for="c-date">{lang === 'es' ? 'Fecha de llegada a la aduana' : 'Date it reaches customs'}</label>
+            <input id="c-date" name="dt" type="date" />
+          </div>
+        </div>
+        <div class="field">
+          <label for="c-cmp">{t.compare} (€)</label>
+          <input id="c-cmp" name="cmp" type="text" inputmode="decimal" autocomplete="off" aria-describedby="c-cmp-help" />
+          <p class="help" id="c-cmp-help">{t.compareHelp}</p>
+        </div>
+      </div>
+    </details>
+  </form>
+
+  <div class="panel result" aria-live="polite">
+    <p class="result-label">{t.result}</p>
+    <p class="total" data-total>-</p>
+    <p class="extras" data-extras>{t.empty}</p>
+    <p class="regime" data-regime></p>
+
+    <h3 class="bd-title">{t.breakdown}</h3>
+    <dl class="breakdown" data-breakdown></dl>
+
+    <div class="notes" data-notes></div>
+
+    <div class="actions">
+      <button type="button" class="btn btn-ghost" data-share><Icon name="link-simple" /><span>{t.share}</span></button>
+    </div>
+    <p class="fine muted">{t.disclaimer}</p>
+  </div>
+</section>
+
+<style>
+  .calc { display: grid; gap: 16px; align-items: start; }
+  @media (min-width: 960px) { .calc { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; } .result { position: sticky; top: 24px; } }
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); padding: 20px; box-shadow: var(--shadow); }
+  @media (min-width: 768px) { .panel { padding: 28px; } }
+  .calc-title { font-size: 1.35rem; margin-bottom: 20px; }
+  .row { display: grid; gap: 16px; }
+  .form > :global(* + *) { margin-top: 16px; }
+  .form > .calc-title + * { margin-top: 0; }
+  @media (min-width: 600px) {
+    .row.two { grid-template-columns: 1fr 1fr; }
+    .row.money { grid-template-columns: 1.3fr 1fr 0.8fr; }
+  }
+  .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  label { font-weight: 550; font-size: 0.93rem; }
+  input[type='text'], input[type='number'], input[type='date'], select {
+    font: inherit; font-size: 1rem; color: var(--text); background: var(--bg);
+    border: 1px solid var(--border-strong); border-radius: var(--radius-control);
+    padding: 10px 12px; width: 100%; min-height: 44px;
+  }
+  input[name='g'], input[name='s'] { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  input::placeholder { color: var(--text-muted); }
+  input[aria-invalid='true'] { border-color: var(--accent); }
+  .help { font-size: 0.84rem; color: var(--text-muted); margin: 0; line-height: 1.45; }
+  .error { font-size: 0.84rem; color: var(--accent); margin: 0; font-weight: 550; }
+  .rate[hidden] { display: none; }
+  .advanced { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 14px; }
+  .advanced summary { cursor: pointer; font-weight: 600; padding-block: 6px; }
+  .adv-body { padding-top: 12px; display: grid; gap: 16px; }
+  .adv-body > * { margin: 0 !important; }
+  .check { display: flex; gap: 10px; align-items: flex-start; }
+  .check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+
+  .result-label { margin: 0; font-weight: 550; color: var(--text-muted); }
+  .total { font-variant-numeric: tabular-nums; font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 600; letter-spacing: -0.03em; margin: 2px 0 4px; line-height: 1.1; }
+  .extras { margin: 0 0 12px; font-weight: 550; }
+  .extras strong { color: var(--accent); }
+  .regime { font-size: 0.93rem; color: var(--text-muted); margin-bottom: 18px; }
+  .bd-title { font-size: 0.95rem; margin: 0 0 6px; }
+  .breakdown { margin: 0; display: grid; grid-template-columns: 1fr auto; font-size: 0.95rem; }
+  .breakdown dt, .breakdown dd { padding: 7px 0; margin: 0; }
+  .breakdown dd { text-align: right; font-variant-numeric: tabular-nums; }
+  .breakdown dt.sub, .breakdown dd.sub { color: var(--text-muted); }
+  .breakdown dt.total-row, .breakdown dd.total-row { border-top: 1px solid var(--border-strong); font-weight: 650; padding-top: 10px; margin-top: 4px; }
+  .notes { display: grid; gap: 8px; margin-top: 16px; }
+  .notes :global(p) { margin: 0; }
+  .actions { margin-top: 18px; }
+  .fine { font-size: 0.82rem; margin: 12px 0 0; }
+</style>
+
+<script>
+  import { calculate, todayIso, type CalcInput, type Currency, type Origin } from '../lib/calc';
+
+  const root = document.querySelector<HTMLElement>('[data-calc]');
+  if (root) init(root);
+
+  function init(root: HTMLElement) {
+    const cfg = JSON.parse(root.dataset.config!);
+    const t = cfg.t;
+    const form = root.querySelector('form')!;
+    const $ = <T extends HTMLElement>(sel: string) => root.querySelector<T>(sel)!;
+    const field = (name: string) => form.elements.namedItem(name) as HTMLInputElement;
+    const money = new Intl.NumberFormat(cfg.locale, { style: 'currency', currency: 'EUR' });
+    const pctFmt = new Intl.NumberFormat(cfg.locale, { maximumFractionDigits: 1 });
+    const pct = (n: number) => `${pctFmt.format(n)}${cfg.lang === 'es' ? ' %' : '%'}`;
+    const rateFmt = new Intl.NumberFormat(cfg.locale, { maximumFractionDigits: 4 });
+    const fmt = (s: string, vars: Record<string, string>) => s.replace(/\{(\w+)\}/g, (_, k) => vars[k] ?? '');
+    const parse = (v: string) => {
+      const s = v.trim().replace(/\s/g, '');
+      if (!s) return 0;
+      // Acepta "1.234,56", "1234,56" y "1234.56".
+      const norm = s.includes(',') ? s.replace(/\./g, '').replace(',', '.') : s;
+      const n = Number(norm);
+      return Number.isFinite(n) ? n : NaN;
+    };
+    const rateCache: Record<string, { rate: number; date: string }> = {};
+    let rateRequest = 0;
+
+    field('dt').value = todayIso();
+
+    // Rellenar desde la URL (enlaces compartidos y ejemplos de la guía).
+    const params = new URLSearchParams(location.search);
+    let rateFromUrl = false;
+    for (const [k, v] of params) {
+      const el = field(k);
+      if (!el) continue;
+      if (el.type === 'checkbox') el.checked = v === '1';
+      else el.value = v;
+      if (k === 'r') rateFromUrl = true;
+    }
+    if (!params.has('c')) field('c').value = cfg.defaultCurrency[field('o').value];
+
+    async function loadRate(cur: Currency) {
+      const help = $('#c-rate-help');
+      if (rateCache[cur]) {
+        field('r').value = rateFmt.format(rateCache[cur].rate);
+        help.textContent = fmt(t.rateHelpLive, { date: rateCache[cur].date });
+        return;
+      }
+      const id = ++rateRequest;
+      help.textContent = t.rateLoading;
+      try {
+        const res = await fetch(`https://api.frankfurter.app/latest?from=EUR&to=${cur}`);
+        if (!res.ok) throw new Error(String(res.status));
+        const data = await res.json();
+        const rate = data.rates?.[cur];
+        if (!(rate > 0)) throw new Error('no rate');
+        rateCache[cur] = { rate, date: new Date(data.date).toLocaleDateString(cfg.locale) };
+        if (id !== rateRequest) return;
+        field('r').value = rateFmt.format(rate);
+        help.textContent = fmt(t.rateHelpLive, { date: rateCache[cur].date });
+      } catch {
+        if (id !== rateRequest) return;
+        help.textContent = t.rateHelpManual;
+      }
+      update();
+    }
+
+    function syncRateField(fetchRate: boolean) {
+      const cur = field('c').value as Currency;
+      const wrap = $('[data-rate-field]');
+      wrap.hidden = cur === 'EUR';
+      $('[data-rate-unit]').textContent = cur === 'EUR' ? '' : `(${cur} / 1 EUR)`;
+      if (cur !== 'EUR' && fetchRate) {
+        field('r').value = '';
+        loadRate(cur);
+      }
+    }
+
+    function readNumber(name: string, errId?: string) {
+      const el = field(name);
+      const n = parse(el.value);
+      const bad = Number.isNaN(n) || n < 0;
+      if (errId) {
+        el.setAttribute('aria-invalid', String(bad));
+        $(`#${errId}`).hidden = !bad;
+      }
+      return bad ? 0 : n;
+    }
+
+    function update() {
+      const origin = field('o').value as Origin;
+      const goodsRaw = field('g').value.trim();
+      const input: CalcInput = {
+        origin,
+        destination: field('d').value,
+        goods: readNumber('g', 'c-goods-err'),
+        shipping: readNumber('s', 'c-ship-err'),
+        currency: field('c').value as Currency,
+        rate: readNumber('r'),
+        itemTypes: Number(field('n').value) || 1,
+        ioss: field('i').checked,
+        preferential: field('p').checked,
+        dutyRatePct: field('dr').value.trim() === '' ? cfg.defaultDutyRate : readNumber('dr'),
+        carrierFee: readNumber('cf'),
+        date: field('dt').value || todayIso(),
+      };
+      const needsRate = input.currency !== 'EUR' && !(input.rate > 0);
+      if (!goodsRaw || needsRate) return render(null, input);
+      render(calculate(input), input);
+    }
+
+    function render(r: ReturnType<typeof calculate> | null, input: CalcInput) {
+      const total = $('[data-total]');
+      const extras = $('[data-extras]');
+      const bd = $('[data-breakdown]');
+      const notes = $('[data-notes]');
+      const regime = $('[data-regime]');
+      if (!r) {
+        total.textContent = '-';
+        extras.textContent = t.empty;
+        regime.textContent = '';
+        bd.innerHTML = '';
+        notes.innerHTML = '';
+        return;
+      }
+      total.textContent = money.format(r.total);
+      extras.innerHTML = r.regime === 'intra-eu'
+        ? ''
+        : `<strong>+${money.format(r.extras)}</strong> (${pct(r.extrasPct)}) ${t.extras}`;
+      regime.textContent = fmt(t.regime[r.regime], { vat: pctFmt.format(r.vatRate) });
+
+      const rows: [string, number, string?][] = [
+        [t.lines.goods, r.goodsEur],
+        [t.lines.shipping, r.shippingEur],
+      ];
+      if (r.regime !== 'intra-eu') {
+        rows.push([r.regime === 'low-value' ? t.lines.dutyFlat : t.lines.duty, r.duty]);
+        if (r.handlingFeeActive) rows.push([t.lines.handling, r.handlingFee]);
+        if (r.vatPaidAtCheckout > 0) rows.push([t.lines.vatIoss, r.vatPaidAtCheckout, 'sub']);
+        else rows.push([`${t.lines.vat} (${pct(r.vatRate)})`, r.vat]);
+        if (r.carrierFee > 0) rows.push([t.lines.carrier, r.carrierFee]);
+      }
+      rows.push([t.lines.total, r.total, 'total-row']);
+      bd.replaceChildren(...rows.flatMap(([label, value, cls]) => {
+        const dt = document.createElement('dt');
+        const dd = document.createElement('dd');
+        dt.textContent = label;
+        dd.textContent = money.format(value);
+        if (cls) { dt.className = cls; dd.className = cls; }
+        return [dt, dd];
+      }));
+
+      const msgs: string[] = [];
+      if (r.iossIgnored) msgs.push(t.iossIgnored);
+      if (r.regime !== 'intra-eu' && !r.handlingFeeActive) msgs.push(t.noHandlingYet);
+      const cmp = readNumber('cmp');
+      if (cmp > 0) {
+        const diff = r.total - cmp;
+        msgs.push(Math.abs(diff) < 1 ? t.compareSame
+          : fmt(diff < 0 ? t.compareCheaper : t.compareMore, { amount: money.format(Math.abs(diff)) }));
+      }
+      notes.replaceChildren(...msgs.map((m) => {
+        const p = document.createElement('p');
+        p.className = 'callout';
+        p.textContent = m;
+        return p;
+      }));
+      writeUrl(input);
+    }
+
+    function writeUrl(input: CalcInput) {
+      const p = new URLSearchParams();
+      for (const name of ['o', 'd', 'g', 's', 'c', 'n', 'cf', 'dr', 'cmp']) {
+        const v = field(name).value.trim();
+        if (!v || (name === 'n' && v === '1') || (name === 'dr' && v === field(name).defaultValue)) continue;
+        p.set(name, v);
+      }
+      if (input.currency !== 'EUR' && field('r').value) p.set('r', field('r').value);
+      if (input.ioss) p.set('i', '1');
+      if (input.preferential) p.set('p', '1');
+      history.replaceState(null, '', `${location.pathname}?${p}`);
+    }
+
+    form.addEventListener('input', (e) => {
+      const name = (e.target as HTMLInputElement).name;
+      if (name === 'c') syncRateField(true);
+      update();
+    });
+    form.addEventListener('change', (e) => {
+      const name = (e.target as HTMLInputElement).name;
+      if (name === 'o') {
+        field('c').value = cfg.defaultCurrency[field('o').value];
+        syncRateField(true);
+        update();
+      }
+    });
+    form.addEventListener('submit', (e) => e.preventDefault());
+
+    $('[data-share]').addEventListener('click', async (e) => {
+      const btn = e.currentTarget as HTMLButtonElement;
+      const label = btn.querySelector('span')!;
+      try {
+        await navigator.clipboard.writeText(location.href);
+        label.textContent = t.copied;
+        setTimeout(() => (label.textContent = t.share), 2000);
+      } catch {
+        prompt('', location.href);
+      }
+    });
+
+    syncRateField(!rateFromUrl);
+    update();
+  }
+</script>

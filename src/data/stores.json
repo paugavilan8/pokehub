@@ -1,0 +1,32 @@
+{
+  "lastReviewed": null,
+  "note": "Fase 2 (verificador de tiendas). Base de datos curada a mano. NO se publica todavía. Cada afirmación necesita una fuente verificable y fecha; sin fuente no se publica. Nunca publicar acusaciones de fraude sin fuente citada.",
+  "schema": {
+    "name": "string", "url": "string", "country": "ISO-3166 alfa-2", "sells": ["sealed-en", "sealed-jp", "singles"],
+    "languages": ["es", "en"], "shipsToSpain": "boolean", "reputation": [{ "site": "Trustpilot|Reddit|...", "summary": "string", "url": "string", "accessed": "YYYY-MM-DD" }],
+    "notes": "string", "reviewed": "YYYY-MM-DD", "sources": [{ "claim": "string", "url": "string", "accessed": "YYYY-MM-DD" }]
+  },
+  "trusted": [
+    { "name": "Panda Collecting", "country": "PT", "status": "to-research" },
+    { "name": "Pokemillon", "status": "to-research" },
+    { "name": "Flashstore", "status": "to-research" },
+    { "name": "Pokeadicción TCG", "status": "to-research" },
+    { "name": "Surcollect", "status": "to-research" },
+    { "name": "Metamorph Center", "country": "ES", "status": "to-research" },
+    { "name": "Pokezilla", "status": "to-research" },
+    { "name": "Iberian Collect", "status": "to-research" },
+    { "name": "Tempest Store", "country": "ES", "status": "to-research" },
+    { "name": "CardGameCorner", "notes": "Vendedor de Cardmarket", "status": "to-research" },
+    { "name": "Hobby-Games", "notes": "Vendedor de Cardmarket", "status": "to-research" },
+    { "name": "Zenpan EU", "country": "PT", "status": "to-research" },
+    { "name": "Magic Madhouse", "country": "GB", "status": "to-research" },
+    { "name": "Samurai Sword Tokyo", "country": "JP", "status": "to-research" },
+    { "name": "AmiAmi", "country": "JP", "status": "to-research" }
+  ],
+  "warnings": [
+    { "domain": "holobooster.com", "status": "to-research", "claim": "Parte de una red de tiendas Shopify falsas (julio de 2026)", "sources": [{ "publisher": "NordVPN", "url": null, "accessed": null }] },
+    { "domain": "poketurbo.com", "status": "to-research", "claim": "Parte de una red de tiendas Shopify falsas (julio de 2026)", "sources": [{ "publisher": "NordVPN", "url": null, "accessed": null }] },
+    { "domain": "pokelios.com", "status": "to-research", "claim": "Parte de una red de tiendas Shopify falsas (julio de 2026)", "sources": [{ "publisher": "NordVPN", "url": null, "accessed": null }] },
+    { "domain": "tcgora.com", "status": "to-research", "claim": "Parte de una red de tiendas Shopify falsas (julio de 2026)", "sources": [{ "publisher": "NordVPN", "url": null, "accessed": null }] }
+  ]
+}
