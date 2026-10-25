@@ -7,7 +7,9 @@ Precios de sets de Pokémon TCG (Cardmarket) y calculadora de aduanas para compr
 - **Portada:** carrusel con las últimas expansiones, las cartas más caras ahora, las que más suben y bajan en la semana, y la lista de precios por set (al pulsar un set se despliegan sus cartas top).
 - **Página de cada set:** producto sellado, valor esperado por sobre y caja, simulador para abrir sobres virtuales (sets con tasas de aparición), cartas más caras y lista completa.
 - **Ficha de carta:** panel lateral con imagen grande (efecto holográfico), tendencia, desde, medias de 1, 7 y 30 días, variación semanal y probabilidad de salir. Se abre desde cualquier carta y con enlaces `#c-<id>`.
-- **Buscador** de cartas y sets en la cabecera (`/search-index.json`, se carga al usarlo).
+- **Páginas por Pokémon** (`/pokemon/charizard/`): todas sus cartas de todos los sets, ordenadas por precio. Nombres en español e inglés de PokeAPI (`scripts/build-pokemon-names.mjs` genera `src/data/pokemon-names.json`).
+- **Historial de precios:** cada ejecución diaria guarda la tendencia de las cartas de 1 € o más y del sellado en `src/data/market/history/<set>.json` (hasta 400 días). Empezó el 25-oct-2026; las gráficas aparecen al tener 3 días.
+- **Buscador** de Pokémon, cartas y sets en la cabecera (`/search-index.json`, se carga al usarlo).
 - **Calculadora de aduanas** (`/calculadora-aduanas/`): coste final de importar a España o a la UE (IVA, derecho de 3 €, tasa de 2 €, transportista), con guía y ejemplos.
 - Verificador de tiendas y alertas de stock: pendientes (fases 2 y 3 del plan).
 

@@ -7,6 +7,7 @@ export const SITE_NAME = 'PokeHub';
 export const ROUTES = {
   home: { es: '/', en: '/en/' },
   calc: { es: '/calculadora-aduanas/', en: '/en/import-calculator/' },
+  pokemon: { es: '/pokemon/', en: '/en/pokemon/' },
   /** Prefijo de las páginas de cada set (la lista de sets es la portada). */
   sets: { es: '/expansiones/', en: '/en/sets/' },
   guide: { es: '/guia-aduanas-cartas-pokemon/', en: '/en/pokemon-card-import-tax-eu/' },
@@ -34,7 +35,7 @@ export function countryName(code: string, lang: Lang) {
 export const ui = {
   es: {
     skip: 'Saltar al contenido',
-    nav: { calculator: 'Calculadora de aduanas', sets: 'Precios de sets', guide: 'Guía de importación', sources: 'Reglas y fuentes', setsShort: 'Sets', calculatorShort: 'Aduanas', guideShort: 'Guía' },
+    nav: { calculator: 'Calculadora de aduanas', sets: 'Precios de sets', guide: 'Guía de importación', sources: 'Reglas y fuentes', setsShort: 'Sets', pokemonShort: 'Pokémon', calculatorShort: 'Aduanas', guideShort: 'Guía' },
     langSwitch: 'English',
     langSwitchLabel: 'Read this page in English',
     footer: {
@@ -100,7 +101,7 @@ export const ui = {
   },
   en: {
     skip: 'Skip to content',
-    nav: { calculator: 'Import calculator', sets: 'Set prices', guide: 'Import guide', sources: 'Rules and sources', setsShort: 'Sets', calculatorShort: 'Import tax', guideShort: 'Guide' },
+    nav: { calculator: 'Import calculator', sets: 'Set prices', guide: 'Import guide', sources: 'Rules and sources', setsShort: 'Sets', pokemonShort: 'Pokémon', calculatorShort: 'Import tax', guideShort: 'Guide' },
     langSwitch: 'Español',
     langSwitchLabel: 'Leer esta página en español',
     footer: {

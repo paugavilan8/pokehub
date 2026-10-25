@@ -71,9 +71,9 @@ const vatRows = Object.entries(vat.rates)
             <h2>{names[key]} <span class={`badge ${rule.status}`}>{statusLabel[rule.status as keyof typeof statusLabel]}</span></h2>
             <p>{lang === 'es' ? rule.description : enDesc[key]}</p>
             <p class="meta muted">
-              {c.reviewed}: {formatDate(rule.reviewed, lang)}
-              {rule.validFrom && <> · {c.from}: {formatDate(rule.validFrom, lang)}</>}
-              {rule.validUntil && <> · {c.until}: {formatDate(rule.validUntil, lang)}</>}
+              {c.reviewed}: {formatDate(rule.reviewed, lang)}.
+              {rule.validFrom && <> {c.from}: {formatDate(rule.validFrom, lang)}.</>}
+              {rule.validUntil && <> {c.until}: {formatDate(rule.validUntil, lang)}.</>}
             </p>
             {rule.legalBasis && <p class="meta"><strong>{c.basis}:</strong> {rule.legalBasis}</p>}
             {rule.sources.length > 0 ? (

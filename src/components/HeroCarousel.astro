@@ -9,8 +9,12 @@ interface Props { lang: Lang; slides: SetSummary[] }
 const { lang, slides } = Astro.props;
 const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' });
 const t = {
-  es: { label: 'Últimas expansiones', prev: 'Anterior', next: 'Siguiente', go: (n: number) => `Ir a la diapositiva ${n}`, pack: 'Sobre', top: 'Carta top', ret: 'Recuperas', see: 'Ver precios', open: 'Abrir un sobre', newest: 'Última expansión', pause: 'Pausar', play: 'Reanudar' },
-  en: { label: 'Latest sets', prev: 'Previous', next: 'Next', go: (n: number) => `Go to slide ${n}`, pack: 'Pack', top: 'Top card', ret: 'You get back', see: 'See prices', open: 'Open a pack', newest: 'Latest set', pause: 'Pause', play: 'Resume' },
+  es: { label: 'Últimas expansiones', prev: 'Anterior', next: 'Siguiente', go: (n: number) => `Ir a la diapositiva ${n}`, pack: 'Sobre', top: 'Carta top', ret: 'Recuperas', see: 'Ver precios', open: 'Abrir un sobre', newest: 'Última expansión', pause: 'Pausar', play: 'Reanudar', released: (d: string, n: number) => `Salió el ${d} con ${n} cartas`,
+    facts: (pack: string | null, card: string | null, price: string | null, ret: number | null) =>
+      [pack && `El sobre está a ${pack}.`, card && price && `Su carta más cara, ${card}, vale ${price}.`, ret != null && `De media recuperas el ${ret} % de lo que pagas por sobre.`].filter(Boolean).join(' ') },
+  en: { label: 'Latest sets', prev: 'Previous', next: 'Next', go: (n: number) => `Go to slide ${n}`, pack: 'Pack', top: 'Top card', ret: 'You get back', see: 'See prices', open: 'Open a pack', newest: 'Latest set', pause: 'Pause', play: 'Resume', released: (d: string, n: number) => `Released ${d} with ${n} cards`,
+    facts: (pack: string | null, card: string | null, price: string | null, ret: number | null) =>
+      [pack && `Packs sell for ${pack}.`, card && price && `Its most valuable card, ${card}, is worth ${price}.`, ret != null && `On average you get back ${ret}% of what you pay per pack.`].filter(Boolean).join(' ') },
 }[lang];
 ---
 <section class="hero" aria-roledescription="carousel" aria-label={t.label} data-carousel>
@@ -30,12 +34,13 @@ const t = {
                 ? <img class="logo" src={`${s.set.logo}.webp`} alt={s.set.name} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />
                 : <p class="name-fallback">{s.set.name}</p>}
               <h2 class="name">{s.set.name}</h2>
-              <p class="date">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''} · {s.set.totalCount} {lang === 'es' ? 'cartas' : 'cards'}</p>
-              <dl class="chips">
-                {s.pack?.price.trend != null && <div><dt>{t.pack}</dt><dd>{money.format(s.pack.price.trend)}</dd></div>}
-                {top[0]?.price.trend != null && <div><dt>{t.top}</dt><dd>{money.format(top[0].price.trend)}</dd></div>}
-                {ret != null && <div><dt>{t.ret}</dt><dd>{ret}{lang === 'es' ? ' %' : '%'}</dd></div>}
-              </dl>
+              <p class="date">{t.released(s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : '', s.set.totalCount)}</p>
+              <p class="facts">{t.facts(
+                s.pack?.price.trend != null ? money.format(s.pack.price.trend) : null,
+                top[0]?.name ?? null,
+                top[0]?.price.trend != null ? money.format(top[0].price.trend) : null,
+                ret,
+              )}</p>
               <div class="ctas">
                 <a class="btn btn-light" href={url}>{t.see} <Icon name="arrow-right" /></a>
                 {s.rates && <a class="btn btn-outline" href={`${url}#abrir`}>{t.open}</a>}
@@ -76,13 +81,10 @@ const t = {
   @media (min-width: 880px) { .content { grid-template-columns: 1fr 1fr; } }
   .eyebrow { margin: 0 0 12px; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #ffd36b; }
   .logo { max-height: 110px; max-width: 340px; object-fit: contain; filter: drop-shadow(0 6px 18px rgb(0 0 0 / 0.5)); margin-bottom: 10px; }
-  .name-fallback { font-size: 2.6rem; font-weight: 800; font-stretch: 125%; margin: 0 0 8px; }
-  .name { font-size: 1.15rem; font-weight: 650; font-stretch: 100%; margin: 6px 0 0; color: rgb(255 255 255 / 0.92); letter-spacing: 0; }
+  .name-fallback { font-size: 2.6rem; font-weight: 800; margin: 0 0 8px; }
+  .name { font-size: 1.15rem; font-weight: 650; margin: 6px 0 0; color: rgb(255 255 255 / 0.92); letter-spacing: 0; }
   .date { margin: 2px 0 18px; color: rgb(255 255 255 / 0.7); font-size: 0.92rem; }
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 0 0 22px; }
-  .chips div { background: rgb(255 255 255 / 0.1); border: 1px solid rgb(255 255 255 / 0.16); border-radius: 10px; padding: 8px 14px; backdrop-filter: blur(6px); }
-  .chips dt { font-size: 0.72rem; color: rgb(255 255 255 / 0.7); }
-  .chips dd { margin: 0; font-weight: 750; font-size: 1.15rem; }
+  .facts { margin: 0 0 22px; max-width: 46ch; font-size: 1.05rem; line-height: 1.5; color: rgb(255 255 255 / 0.9); }
   .ctas { display: flex; flex-wrap: wrap; gap: 10px; }
   .btn-light { background: #fff; color: #111; }
   .btn-light:hover { background: #f1f1f1; color: #111; }

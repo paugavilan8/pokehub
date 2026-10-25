@@ -3,7 +3,8 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import CardDrawer from '../components/CardDrawer.astro';
 import PackSim from '../components/PackSim.astro';
-import { marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary } from '../lib/market-data';
+import PriceChart from '../components/PriceChart.astro';
+import { historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit, normRarity, type SealedItem } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
@@ -21,10 +22,15 @@ const c = {
   es: {
     title: `${set.name}: precios, cartas top y valor del sobre`,
     description: `Precio de sobres, cajas y ETB de ${set.name} en Cardmarket, sus cartas más caras y cuánto valen de media los hits de un sobre.`,
-    back: 'Todas las expansiones', cards: 'cartas', prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
+    back: 'Todas las expansiones', cards: 'cartas', released: (serie: string, d: string, n: number) => `Serie ${serie}. Salió el ${d} con ${n} cartas.`, prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
     sealedTitle: 'Producto sellado',
     kinds: { pack: 'Sobre', box: 'Caja de 36 sobres', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 sobres)' } as Record<SealedItem['kind'], string>,
     from: 'desde', perPack: 'por sobre', see: 'Ver en Cardmarket', noSealed: 'No hemos encontrado producto sellado de este set en Cardmarket.',
+    sealedLine: (low: string | null, per: string | null) => [low && `desde ${low}`, per && `unos ${per} por sobre`].filter(Boolean).join(', '),
+    histEmpty: (d: string) => `Guardamos el precio cada día desde el ${d}. La gráfica aparecerá en cuanto haya tres días de datos.`,
+    evSentence: (paid: string, low: string, high: string, pct: string) => `Un sobre cuesta ${paid}. Sus cartas buenas valen de media entre ${low} y ${high}, así que recuperas en torno al ${pct} de lo que pagas.`,
+    boxSentence: (paid: string, low: string, high: string) => `Con una caja de 36 sobres (${paid}) sacarías de media entre ${low} y ${high} en cartas buenas.`,
+    meterGot: 'Lo que recuperas', meterPaid: (p: string) => `Lo que pagas: ${p}`,
     evTitle: '¿Sale a cuenta abrir sobres?',
     evPack: 'Valor medio de los hits de un sobre', evVs: 'Precio del sobre', evBox: 'Valor medio de los hits de una caja', evBoxVs: 'Precio de la caja',
     ret: (n: string) => `De media recuperas el ${n} de lo que pagas, si vendes cada carta a su precio de tendencia.`,
@@ -44,10 +50,15 @@ const c = {
   en: {
     title: `${set.name}: prices, chase cards and pack value`,
     description: `Cardmarket prices for ${set.name} packs, boxes and ETBs, its most valuable cards and what the hits in a pack are worth on average.`,
-    back: 'All sets', cards: 'cards', prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
+    back: 'All sets', cards: 'cards', released: (serie: string, d: string, n: number) => `${serie} series. Released ${d} with ${n} cards.`, prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
     sealedTitle: 'Sealed product',
     kinds: { pack: 'Booster pack', box: 'Booster box (36 packs)', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 packs)' } as Record<SealedItem['kind'], string>,
     from: 'from', perPack: 'per pack', see: 'View on Cardmarket', noSealed: 'We found no sealed product for this set on Cardmarket.',
+    sealedLine: (low: string | null, per: string | null) => [low && `from ${low}`, per && `about ${per} per pack`].filter(Boolean).join(', '),
+    histEmpty: (d: string) => `We save the price every day since ${d}. The chart appears once there are three days of data.`,
+    evSentence: (paid: string, low: string, high: string, pct: string) => `A pack costs ${paid}. Its good cards are worth between ${low} and ${high} on average, so you get back about ${pct} of what you pay.`,
+    boxSentence: (paid: string, low: string, high: string) => `A 36-pack box (${paid}) would give you between ${low} and ${high} in good cards on average.`,
+    meterGot: 'What you get back', meterPaid: (p: string) => `What you pay: ${p}`,
     evTitle: 'Does opening packs pay off?',
     evPack: 'Average value of the hits in a pack', evVs: 'Pack price', evBox: 'Average value of the hits in a box', evBoxVs: 'Box price',
     ret: (n: string) => `On average you get back ${n} of what you pay, if you sell every card at its trend price.`,
@@ -77,6 +88,7 @@ const rarities = [...new Set(set.cards.map((x) => x.rarity).filter(Boolean))] as
 const packRet = ev && pack?.price.trend ? (ev.perPack.trend / pack.price.trend) * 100 : null;
 const boxRet = ev?.perBox && box?.price.trend ? (ev.perBox.trend / box.price.trend) * 100 : null;
 const cmLang = lang;
+const history = historyOf(set.id);
 ---
 <Base lang={lang} route="sets" active="home" paths={paths} title={c.title} description={c.description}>
   <section slot="hero" class="container set-hero">
@@ -85,7 +97,7 @@ const cmLang = lang;
       <div>
         {set.logo && <img class="logo" src={`${set.logo}.webp`} alt="" decoding="async" onerror="this.remove()" />}
         <h1>{set.name}</h1>
-        <p class="meta">{set.serie} · {set.releaseDate ? formatDate(set.releaseDate, lang) : ''} · {set.totalCount} {c.cards}</p>
+        <p class="meta">{c.released(set.serie, set.releaseDate ? formatDate(set.releaseDate, lang) : '', set.totalCount)}</p>
         <p class="small">{c.prices}</p>
       </div>
       <div class="hero-hits" aria-hidden="true">
@@ -98,19 +110,24 @@ const cmLang = lang;
     <section class="block" aria-labelledby="sealed-title">
       <h2 id="sealed-title">{c.sealedTitle}</h2>
       {set.sealed.length === 0 && <p class="muted">{c.noSealed}</p>}
-      <ul class="sealed">
+      <ul class="pricelist">
         {set.sealed.map((s) => (
-          <li class={`tile k-${s.kind}`}>
-            <p class="kind">{c.kinds[s.kind]}</p>
-            <p class="price mono">{fmt(s.price.trend)}</p>
-            <p class="sub muted">
-              {s.price.low != null && <>{c.from}{' '}{fmt(s.price.low)}</>}
-              {s.kind !== 'pack' && s.price.trend != null && <><br />≈ {fmt(s.price.trend / PACKS[s.kind])}{' '}{c.perPack}</>}
-            </p>
-            <a class="cm" href={cardmarketUrl(cmLang, s.idProduct)} rel="noopener" target="_blank">{c.see} <Icon name="arrow-up-right" /></a>
+          <li>
+            <span class="pl-name">{c.kinds[s.kind]}
+              <small>{c.sealedLine(s.price.low != null ? fmt(s.price.low) : null, s.kind !== 'pack' && s.price.trend != null ? fmt(s.price.trend / PACKS[s.kind]) : null)}</small>
+            </span>
+            <span class="pl-price">{fmt(s.price.trend)}</span>
+            <a class="ext" href={cardmarketUrl(cmLang, s.idProduct)} rel="noopener" target="_blank" aria-label={`${c.see}: ${s.name}`}></a>
           </li>
         ))}
       </ul>
+      {history && set.sealed.length > 0 && (
+        <PriceChart lang={lang} dates={history.dates} empty={c.histEmpty(formatDate(history.dates[0], lang))}
+          series={[
+            ...(history.sealed.pack ? [{ label: c.kinds.pack, values: history.sealed.pack, tone: 'a' as const }] : []),
+            ...(history.sealed.etb ? [{ label: c.kinds.etb, values: history.sealed.etb, tone: 'b' as const }] : []),
+          ]} />
+      )}
     </section>
 
     <section class="block ev" aria-labelledby="ev-title">
@@ -118,29 +135,17 @@ const cmLang = lang;
       {!ev && <p class="muted">{c.noRates}</p>}
       {ev && (
         <>
-          <div class="ev-compare">
-            <div class="ev-stat main">
-              <p class="label">{c.evPack}</p>
-              <p class="big mono">{fmt(ev.perPack.low)} - {fmt(ev.perPack.trend)}</p>
-            </div>
-            <div class="ev-stat">
-              <p class="label">{c.evVs}</p>
-              <p class="big mono">{fmt(pack?.price.trend)}</p>
-            </div>
-            {ev.perBox && box && (
-              <>
-                <div class="ev-stat main">
-                  <p class="label">{c.evBox}</p>
-                  <p class="big mono">{fmt(ev.perBox.low)} - {fmt(ev.perBox.trend)}</p>
-                </div>
-                <div class="ev-stat">
-                  <p class="label">{c.evBoxVs}</p>
-                  <p class="big mono">{fmt(box.price.trend)}</p>
-                </div>
-              </>
-            )}
-          </div>
-          {packRet != null && <p class="verdict">{c.ret(pctN(packRet))}{boxRet != null && ` (${lang === 'es' ? 'caja' : 'box'}: ${pctN(boxRet)})`}</p>}
+          {pack?.price.trend != null && packRet != null && (
+            <>
+              <p class="verdict">{c.evSentence(fmt(pack.price.trend), fmt(ev.perPack.low), fmt(ev.perPack.trend), pctN(packRet))}</p>
+              <div class="meter" role="img" aria-label={c.evSentence(fmt(pack.price.trend), fmt(ev.perPack.low), fmt(ev.perPack.trend), pctN(packRet))}>
+                <span class="m-range" style={`left:${Math.min(100, (ev.perPack.low / pack.price.trend) * 100)}%;width:${Math.max(0, Math.min(100, packRet) - Math.min(100, (ev.perPack.low / pack.price.trend) * 100))}%`}></span>
+                <span class="m-got" style={`width:${Math.min(100, (ev.perPack.low / pack.price.trend) * 100)}%`}></span>
+              </div>
+              <div class="meter-labels"><span>{c.meterGot}</span><span>{c.meterPaid(fmt(pack.price.trend))}</span></div>
+            </>
+          )}
+          {ev.perBox && box?.price.trend != null && <p>{c.boxSentence(fmt(box.price.trend), fmt(ev.perBox.low), fmt(ev.perBox.trend))}</p>}
           <p class="muted small">{c.range}</p>
           <div class="table-wrap">
             <table class="data">
@@ -248,21 +253,21 @@ const cmLang = lang;
 
   .block { margin-top: 40px; }
   .block h2 { margin-bottom: 14px; }
-  .sealed { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); overflow: hidden; }
-  .tile { padding: 16px 18px; display: flex; flex-direction: column; border-left: 1px solid var(--border); margin-left: -1px; }
-  .kind { font-size: 0.82rem; color: var(--text-muted); margin: 0 0 2px; }
-  .price { font-size: 1.5rem; font-weight: 600; margin: 0; }
-  .sub { font-size: 0.82rem; margin: 2px 0 10px; }
-  .cm { margin-top: auto; display: inline-flex; align-items: center; gap: 4px; font-weight: 600; font-size: 0.86rem; }
+  .pricelist { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); }
+  .pricelist li { display: grid; grid-template-columns: 1fr auto 28px; align-items: center; gap: 16px; padding: 14px 18px; }
+  .pricelist li + li { border-top: 1px solid var(--border); }
+  .pl-name { font-weight: 600; display: flex; flex-direction: column; }
+  .pl-name small { font-weight: 400; font-size: 0.82rem; color: var(--text-muted); }
+  .pl-price { font-size: 1.25rem; font-weight: 700; }
+  .ext { text-decoration: none; font-weight: 600; text-align: right; }
+  .ext::after { content: '↗'; }
   .cm :global(svg), td :global(svg) { width: 14px; height: 14px; }
 
-  .ev-compare { display: grid; grid-template-columns: repeat(2, 1fr); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); overflow: hidden; }
-  @media (min-width: 960px) { .ev-compare { grid-template-columns: repeat(4, 1fr); } }
-  .ev-stat { padding: 16px 18px; border-left: 1px solid var(--border); border-top: 1px solid var(--border); margin: -1px 0 0 -1px; }
-  .ev-stat .label { margin: 0; font-size: 0.82rem; color: var(--text-muted); }
-  .ev-stat .big { margin: 4px 0 0; font-size: clamp(1.05rem, 3vw, 1.4rem); font-weight: 600; }
-  .ev-stat.main .big { color: var(--accent); }
-  .verdict { font-weight: 600; margin: 16px 0 2px; }
+  .verdict { font-size: 1.1rem; max-width: 62ch; margin: 0 0 14px; }
+  .meter { position: relative; height: 14px; border-radius: 99px; background: var(--surface-2); border: 1px solid var(--border); overflow: hidden; max-width: 640px; }
+  .m-got { position: absolute; left: 0; top: 0; bottom: 0; background: var(--accent); }
+  .m-range { position: absolute; top: 0; bottom: 0; background: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .meter-labels { display: flex; justify-content: space-between; max-width: 640px; font-size: 0.8rem; color: var(--text-muted); margin: 6px 0 14px; }
 
   .table-wrap { overflow-x: auto; margin: 12px 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); }
   table.data { border-collapse: collapse; width: 100%; font-size: 0.9rem; }

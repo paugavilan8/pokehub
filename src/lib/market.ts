@@ -49,6 +49,8 @@ export interface MarketCard {
   image: string | null;
   cmId: number | null;
   price: Price;
+  /** Números de Pokédex del Pokémon (o Pokémon) de la carta; vacío en entrenadores y energías. */
+  dex?: number[] | null;
 }
 
 export type SealedKind = 'pack' | 'box' | 'etb' | 'bundle';
@@ -270,4 +272,52 @@ export function cardImage(base: string | null, quality: 'low' | 'high' = 'low') 
 
 export function slugify(s: string) {
   return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+/** Historial diario de precios de tendencia de un set (euros), alineado con `dates`. */
+export interface PriceHistory {
+  dates: string[];
+  cards: Record<string, (number | null)[]>;
+  sealed: Record<string, (number | null)[]>;
+}
+
+/** Cartas que se siguen en el historial: las de 1 € o más (y las que ya estaban, para no dejar huecos). */
+export const HISTORY_MIN_EUR = 1;
+export const HISTORY_MAX_DAYS = 400;
+
+/**
+ * Añade (o reemplaza, si se ejecuta dos veces el mismo día) los precios de `day` al historial.
+ * Las series nuevas se rellenan con null en los días anteriores.
+ */
+export function appendHistory(prev: PriceHistory | null, day: string, set: Pick<MarketSet, 'cards' | 'sealed'>): PriceHistory {
+  const h: PriceHistory = prev
+    ? { dates: [...prev.dates], cards: { ...prev.cards }, sealed: { ...prev.sealed } }
+    : { dates: [], cards: {}, sealed: {} };
+  const sameDay = h.dates.at(-1) === day;
+  if (!sameDay) h.dates.push(day);
+  const n = h.dates.length;
+  const put = (bucket: Record<string, (number | null)[]>, key: string, value: number | null) => {
+    const series = [...(bucket[key] ?? [])];
+    while (series.length < n - (sameDay ? 0 : 1)) series.push(null);
+    if (sameDay && series.length === n) series[n - 1] = value;
+    else series.push(value);
+    bucket[key] = series;
+  };
+  const today = new Set<string>();
+  for (const c of set.cards) {
+    if ((c.price.trend ?? 0) >= HISTORY_MIN_EUR || h.cards[c.id]) {
+      put(h.cards, c.id, c.price.trend);
+      today.add(c.id);
+    }
+  }
+  for (const s of set.sealed) put(h.sealed, s.kind, s.price.trend);
+  // Series que hoy no tienen dato: null para que sigan alineadas.
+  for (const [key, series] of Object.entries(h.cards)) if (!today.has(key) && series.length < n) h.cards[key] = [...series, null];
+  for (const [key, series] of Object.entries(h.sealed)) if (series.length < n) h.sealed[key] = [...series, null];
+  if (h.dates.length > HISTORY_MAX_DAYS) {
+    const cut = h.dates.length - HISTORY_MAX_DAYS;
+    h.dates = h.dates.slice(cut);
+    for (const b of [h.cards, h.sealed]) for (const k of Object.keys(b)) b[k] = b[k].slice(cut);
+  }
+  return h;
 }

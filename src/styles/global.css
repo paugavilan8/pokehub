@@ -1,8 +1,8 @@
-@import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource-variable/rubik';
 
 /*
   Estilo sobrio, de herramienta de datos: fondo gris muy claro, paneles blancos con borde fino,
-  un solo acento (rojo) y Archivo para todo: ancha y gruesa en titulares, normal en texto y con cifras tabulares.
+  un solo acento (rojo) y Rubik para todo: algo redondeada, cercana para coleccionistas y clara con cifras.
   Las imágenes de cartas ponen el color.
   Radios: controles 8px, paneles 12px.
 */
@@ -29,7 +29,7 @@
   --shadow: 0 1px 2px rgb(20 24 32 / 0.05);
   --radius-control: 8px;
   --radius-panel: 12px;
-  --font: 'Archivo Variable', ui-sans-serif, system-ui, sans-serif;
+  --font: 'Rubik Variable', ui-sans-serif, system-ui, sans-serif;
   --display: var(--font);
   /* Las cifras usan la misma fuente con números tabulares (alineados en columnas). */
   --mono: var(--font);
@@ -73,10 +73,10 @@ img, svg { display: block; max-width: 100%; }
 a { color: var(--link); text-underline-offset: 0.2em; }
 a:hover { color: var(--link-hover); }
 :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
-h1, h2, h3 { line-height: 1.1; letter-spacing: -0.015em; margin: 0 0 0.5em; font-weight: 750; font-stretch: 115%; text-wrap: balance; }
-h1 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); font-weight: 800; font-stretch: 120%; letter-spacing: -0.025em; }
+h1, h2, h3 { line-height: 1.15; letter-spacing: -0.01em; margin: 0 0 0.5em; font-weight: 650; text-wrap: balance; }
+h1 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); font-weight: 700; letter-spacing: -0.02em; }
 h2 { font-size: clamp(1.3rem, 2.4vw, 1.6rem); }
-h3 { font-size: 1.08rem; font-stretch: 105%; }
+h3 { font-size: 1.08rem; }
 p { margin: 0 0 1em; text-wrap: pretty; }
 .num, .mono { font-variant-numeric: tabular-nums; }
 
@@ -121,7 +121,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .badge.pending, .badge.secondary { background: var(--warn-bg); color: var(--warn-text); }
 
 /* Etiquetas de rareza (texto corto, como en las webs de precios) */
-.rar { display: inline-block; font-size: 0.72rem; font-weight: 650; font-stretch: 90%; letter-spacing: 0.06em; color: var(--text-muted); white-space: nowrap; }
+.rar { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text-muted); white-space: nowrap; }
 .rar.sir, .rar.mhr { color: var(--accent); }
 
 @media (prefers-reduced-motion: reduce) {

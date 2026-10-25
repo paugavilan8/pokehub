@@ -10,15 +10,15 @@ const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.s
 const t = {
   es: {
     close: 'Cerrar', trend: 'Tendencia', low: 'Desde', avg1: 'Media 1 día', avg7: 'Media 7 días', avg30: 'Media 30 días',
-    week: 'esta semana', odds: (n: string) => `1 de cada ${n} sobres`, oddsLabel: 'Probabilidad de que te salga',
+    week: 'esta semana', odds: (n: string) => `Te sale en 1 de cada ${n} sobres, según las tasas de aparición del set.`, oddsLabel: 'Probabilidad de que te salga',
     cm: 'Ver en Cardmarket', set: 'Ver el set', source: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
-    noOdds: 'Sin tasa de aparición conocida para esta rareza.', share: 'Copiar enlace', copied: 'Copiado', x30: 'Media 30 d', x7: 'Media 7 d', x1: 'Último día', xNow: 'Tendencia',
+    noOdds: 'Para esta rareza no tenemos tasa de aparición.', share: 'Copiar enlace', copied: 'Copiado', x30: 'Media 30 d', x7: 'Media 7 d', x1: 'Último día', xNow: 'Hoy', history: 'Evolución del precio', since: 'Historial diario desde el {d}.', early: 'El historial diario empezó el {d}. Hasta tener más días, la línea une las medias de 30 y 7 días de Cardmarket con el precio de hoy.',
   },
   en: {
     close: 'Close', trend: 'Trend', low: 'From', avg1: '1-day average', avg7: '7-day average', avg30: '30-day average',
-    week: 'this week', odds: (n: string) => `1 in ${n} packs`, oddsLabel: 'Chance of pulling it',
+    week: 'this week', odds: (n: string) => `You pull it in 1 of every ${n} packs, based on the set's pull rates.`, oddsLabel: 'Chance of pulling it',
     cm: 'View on Cardmarket', set: 'View set', source: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
-    noOdds: 'No known pull rate for this rarity.', share: 'Copy link', copied: 'Copied', x30: '30-day avg', x7: '7-day avg', x1: 'Last day', xNow: 'Trend',
+    noOdds: 'We have no pull rate for this rarity.', share: 'Copy link', copied: 'Copied', x30: '30-day avg', x7: '7-day avg', x1: 'Last day', xNow: 'Today', history: 'Price history', since: 'Daily history since {d}.', early: 'Daily history started on {d}. Until there are more days, the line joins Cardmarket\'s 30 and 7-day averages with today\'s price.',
   },
 }[lang];
 const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rarities: lang === 'es' ? RARITY_ES : {}, t: { ...t, odds: t.odds('{n}') } };
@@ -38,25 +38,24 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
         <span data-f="set"></span>
       </a>
       <h2 id="drawer-name" data-f="name"></h2>
-      <p class="meta"><span data-f="num"></span> · <span data-f="rarity"></span></p>
+      <p class="meta"><span data-f="rarity"></span>, {lang === 'es' ? 'n.º' : 'no.'} <span data-f="num"></span></p>
 
       <div class="price-main">
         <p class="lbl">{t.trend}</p>
         <p class="big" data-f="trend"></p>
         <p class="wk" data-f="wk"></p>
       </div>
-      <dl class="grid">
+      <section class="history" aria-labelledby="hist-title">
+        <h3 id="hist-title">{t.history}</h3>
+        <div class="chart" data-f="chart"></div>
+        <p class="chart-note" data-f="chartNote"></p>
+      </section>
+      <dl class="rows">
         <div><dt>{t.low}</dt><dd data-f="low"></dd></div>
-        <div><dt>{t.avg1}</dt><dd data-f="avg1"></dd></div>
         <div><dt>{t.avg7}</dt><dd data-f="avg7"></dd></div>
         <div><dt>{t.avg30}</dt><dd data-f="avg30"></dd></div>
       </dl>
-      <div class="spark" aria-hidden="true"><div data-f="spark"></div><ol class="spark-x"><li>{t.x30}</li><li>{t.x7}</li><li>{t.x1}</li><li>{t.xNow}</li></ol></div>
-
-      <div class="odds">
-        <p class="lbl">{t.oddsLabel}</p>
-        <p data-f="odds"></p>
-      </div>
+      <p class="odds-line" data-f="odds"></p>
 
       <div class="actions">
         <a class="btn btn-primary" data-f="cm" target="_blank" rel="noopener">{t.cm} <Icon name="arrow-up-right" /></a>
@@ -100,19 +99,19 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
   .meta { color: var(--text-muted); margin: 0 0 16px; }
   .price-main { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .lbl { margin: 0; font-size: 0.8rem; color: var(--text-muted); flex-basis: 100%; }
-  .big { margin: 0; font-size: 2.4rem; font-weight: 800; font-stretch: 115%; letter-spacing: -0.03em; }
+  .big { margin: 0; font-size: 2.4rem; font-weight: 800; letter-spacing: -0.03em; }
   .wk { margin: 0; font-weight: 700; font-size: 0.95rem; }
   .wk.up { color: var(--ok); } .wk.down { color: var(--accent); }
-  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin: 14px 0 0; background: var(--border); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-  @media (max-width: 480px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  .grid div { background: var(--surface); padding: 10px 12px; }
-  .grid dt { font-size: 0.74rem; color: var(--text-muted); }
-  .grid dd { margin: 2px 0 0; font-weight: 650; }
-  .spark { margin-top: 14px; }
-  .spark :global(svg) { width: 100%; height: 64px; overflow: visible; }
-  .spark-x { list-style: none; margin: 4px 0 0; padding: 0; display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); }
-  .odds { margin-top: 16px; padding: 12px 14px; border-radius: 10px; background: var(--surface-2); }
-  .odds p:last-child { margin: 2px 0 0; font-weight: 650; }
+  .history { margin-top: 22px; }
+  .history h3 { font-size: 0.95rem; margin: 0 0 8px; }
+  .chart :global(svg) { width: 100%; height: 120px; display: block; overflow: visible; }
+  .chart :global(.ch-x) { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+  .chart-note { font-size: 0.78rem; color: var(--text-muted); margin: 6px 0 0; }
+  .rows { margin: 18px 0 0; }
+  .rows div { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--border); }
+  .rows dt { color: var(--text-muted); }
+  .rows dd { margin: 0; font-weight: 600; }
+  .odds-line { margin: 14px 0 0; font-size: 0.92rem; }
   .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
   .actions [hidden] { display: none; }
   .src { margin: 14px 0 0; font-size: 0.78rem; color: var(--text-muted); }
@@ -131,16 +130,45 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
     const onSetPage = (url: string) => location.pathname === url;
     let current: { id: string; setUrl: string } | null = null;
 
-    // Línea con las cuatro medias (30 d, 7 d, 1 d, tendencia): no es un histórico, solo la dirección reciente.
-    function spark(p: Record<string, number | null>) {
-      const pts = [p.avg30, p.avg7, p.avg1, p.trend].map((v) => v ?? null);
-      const vals = pts.filter((v): v is number => v != null);
-      if (vals.length < 2) return '';
-      const min = Math.min(...vals), max = Math.max(...vals), span = max - min || 1;
-      const xy = pts.map((v, i) => (v == null ? null : [i * 100, 56 - ((v - min) / span) * 48])).filter(Boolean) as number[][];
-      const d = xy.map(([x, y], i) => `${i ? 'L' : 'M'}${x},${y}`).join(' ');
-      const color = (p.trend ?? 0) >= (p.avg30 ?? 0) ? 'var(--ok)' : 'var(--accent)';
-      return `<svg viewBox="-6 0 312 64" preserveAspectRatio="none"><path d="${d}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" vector-effect="non-scaling-stroke"/>${xy.map(([x, y]) => `<circle cx="${x}" cy="${y}" r="3.5" fill="${color}"/>`).join('')}</svg>`;
+    const shortDate = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateString(cfg.locale, { day: 'numeric', month: 'short', timeZone: 'UTC' });
+
+    // Gráfica de línea con área. Puntos sin dato (null) se saltan.
+    function chart(points: { label: string; value: number | null }[]) {
+      const pts = points.map((p, i) => ({ ...p, i })).filter((p) => p.value != null) as { label: string; value: number; i: number }[];
+      if (pts.length < 2) return '';
+      const W = 300, H = 110, top = 8, bottom = 6;
+      const vals = pts.map((p) => p.value);
+      const min = Math.min(...vals), max = Math.max(...vals), span = max - min || max * 0.1 || 1;
+      const x = (i: number) => (i / (points.length - 1)) * W;
+      const y = (v: number) => top + (1 - (v - min) / span) * (H - top - bottom);
+      const line = pts.map((p, k) => `${k ? 'L' : 'M'}${x(p.i).toFixed(1)},${y(p.value).toFixed(1)}`).join(' ');
+      const area = `${line} L${x(pts.at(-1)!.i).toFixed(1)},${H - bottom} L${x(pts[0].i).toFixed(1)},${H - bottom} Z`;
+      const up = pts.at(-1)!.value >= pts[0].value;
+      const color = up ? 'var(--ok)' : 'var(--accent)';
+      const last = pts.at(-1)!;
+      return `<svg viewBox="-4 0 308 ${H}" preserveAspectRatio="none" role="img">
+        <defs><linearGradient id="hg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${up ? '#17663a' : '#d0262b'}" stop-opacity="0.22"/><stop offset="1" stop-color="${up ? '#17663a' : '#d0262b'}" stop-opacity="0"/></linearGradient></defs>
+        <line x1="0" x2="${W}" y1="${H - bottom}" y2="${H - bottom}" stroke="var(--border)" />
+        <path d="${area}" fill="url(#hg)" />
+        <path d="${line}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" vector-effect="non-scaling-stroke" />
+        <circle cx="${x(last.i)}" cy="${y(last.value)}" r="3.5" fill="${color}" />
+      </svg><div class="ch-x"><span>${points[0].label}</span><span>${fmt(min)} - ${fmt(max)}</span><span>${points.at(-1)!.label}</span></div>`;
+    }
+
+    function renderHistory(data: any) {
+      const hist: (number | null)[] | null = data.hist;
+      const days = hist ? hist.filter((v) => v != null).length : 0;
+      const first = data.dates?.[0];
+      if (hist && days >= 3) {
+        f('chart').innerHTML = chart(data.dates.map((d: string, i: number) => ({ label: shortDate(d), value: hist[i] })));
+        f('chartNote').textContent = cfg.t.since.replace('{d}', shortDate(first));
+      } else {
+        const p = data.p;
+        f('chart').innerHTML = chart([
+          { label: cfg.t.x30, value: p.avg30 }, { label: '', value: p.avg7 }, { label: '', value: p.avg1 }, { label: cfg.t.xNow, value: p.trend },
+        ]);
+        f('chartNote').textContent = first ? cfg.t.early.replace('{d}', shortDate(first)) : '';
+      }
     }
 
     function open(data: any, push = true) {
@@ -160,8 +188,8 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
       const wk = f('wk');
       wk.className = `wk ${data.wk > 0 ? 'up' : data.wk < 0 ? 'down' : ''}`;
       wk.textContent = data.wk == null ? '' : `${data.wk > 0 ? '▲' : data.wk < 0 ? '▼' : ''} ${Math.abs(data.wk).toLocaleString(cfg.locale)} % ${cfg.t.week}`;
-      for (const k of ['low', 'avg1', 'avg7', 'avg30']) f(k).textContent = fmt(data.p[k]);
-      f('spark').innerHTML = spark(data.p);
+      for (const k of ['low', 'avg7', 'avg30']) f(k).textContent = fmt(data.p[k]);
+      renderHistory(data);
       f('odds').textContent = data.odds ? cfg.t.odds.replace('{n}', data.odds.toLocaleString(cfg.locale)) : cfg.t.noOdds;
       (f('cm') as HTMLAnchorElement).href = data.cm;
       const setBtn = f('setBtn') as HTMLAnchorElement;
@@ -189,12 +217,12 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
       const s = await setData(slug);
       const c = s.cards[id];
       if (!c) return;
-      const [name, num, rarity, img, cmId, trend, low, avg1, avg7, avg30, odds] = c;
+      const [name, num, rarity, img, cmId, trend, low, avg1, avg7, avg30, odds, hist] = c;
       const p = { trend, low, avg1, avg7, avg30 };
       const key = (rarity ?? '').trim().toLowerCase();
       open({
         id, name, num, total: s.total, rarity: cfg.rarities[key] ?? rarity ?? '-', img, set: s.name, logo: s.logo,
-        setUrl: `${cfg.setsBase}${slug}/`, p, odds,
+        setUrl: `${cfg.setsBase}${slug}/`, p, odds, hist, dates: s.dates,
         wk: avg7 && avg30 ? Math.round(((avg7 - avg30) / avg30) * 1000) / 10 : null,
         cm: cmId ? `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products?idProduct=${cmId}`
           : `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products/Search?searchString=${encodeURIComponent(name)}`,

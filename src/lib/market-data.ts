@@ -1,12 +1,18 @@
 // Acceso a los datos de mercado generados por scripts/fetch-market.ts (pueden no existir todavía).
 import pullRates from '../data/pull-rates.json';
+import pokemonNames from '../data/pokemon-names.json';
 import {
   expectedValue, findPullRates, slugify, topHits,
-  type ExpectedValue, type MarketCard, type MarketIndex, type MarketSet, type SealedItem, type SetPullRates,
+  type ExpectedValue, type MarketCard, type MarketIndex, type MarketSet, type PriceHistory, type SealedItem, type SetPullRates,
 } from './market';
 
 const indexFiles = import.meta.glob<MarketIndex>('../data/market/index.json', { eager: true, import: 'default' });
 const setFiles = import.meta.glob<MarketSet>('../data/market/sets/*.json', { eager: true, import: 'default' });
+const historyFiles = import.meta.glob<PriceHistory>('../data/market/history/*.json', { eager: true, import: 'default' });
+
+export function historyOf(setId: string): PriceHistory | null {
+  return historyFiles[`../data/market/history/${setId}.json`] ?? null;
+}
 
 export const marketIndex: MarketIndex | null = Object.values(indexFiles)[0] ?? null;
 export const RATES = pullRates.sets as SetPullRates[];
@@ -78,3 +84,43 @@ export function rarityTone(r: string | null) {
   return 'base';
 }
 
+
+const NAMES = pokemonNames.names as Record<string, { en?: string; es?: string }>;
+
+export interface PokemonEntry {
+  dex: number;
+  en: string;
+  es: string;
+  slug: string;
+  /** Cartas de este Pokémon en todos los sets, de la más cara a la más barata. */
+  cards: { card: MarketCard; summary: SetSummary }[];
+  /** Suma de la tendencia de todas sus cartas: lo que costaría tener una de cada. */
+  total: number;
+}
+
+let pokemonCache: PokemonEntry[] | null = null;
+
+/** Pokémon con al menos una carta en los sets con precios, agrupados por número de Pokédex. */
+export function allPokemon(): PokemonEntry[] {
+  if (pokemonCache) return pokemonCache;
+  const byDex = new Map<number, PokemonEntry>();
+  for (const summary of allSets()) {
+    for (const card of summary.set.cards) {
+      for (const dex of card.dex ?? []) {
+        const names = NAMES[String(dex)];
+        if (!names?.en) continue;
+        if (!byDex.has(dex)) byDex.set(dex, { dex, en: names.en, es: names.es ?? names.en, slug: slugify(names.en.replace('♀', ' f').replace('♂', ' m')), cards: [], total: 0 });
+        byDex.get(dex)!.cards.push({ card, summary });
+      }
+    }
+  }
+  pokemonCache = [...byDex.values()].map((p) => {
+    p.cards.sort((a, b) => (b.card.price.trend ?? -1) - (a.card.price.trend ?? -1));
+    p.total = Math.round(p.cards.reduce((sum, x) => sum + (x.card.price.trend ?? 0), 0) * 100) / 100;
+    return p;
+  });
+  pokemonCache.sort((a, b) => (b.cards[0]?.card.price.trend ?? 0) - (a.cards[0]?.card.price.trend ?? 0));
+  return pokemonCache;
+}
+
+export const pokemonName = (p: PokemonEntry, lang: 'es' | 'en') => (lang === 'es' ? p.es : p.en);

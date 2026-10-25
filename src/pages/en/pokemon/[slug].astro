@@ -1,0 +1,10 @@
+---
+import View from '../../../views/PokemonPage.astro';
+import { allPokemon, type PokemonEntry } from '../../../lib/market-data';
+
+export function getStaticPaths() {
+  return allPokemon().map((pokemon) => ({ params: { slug: pokemon.slug }, props: { pokemon } }));
+}
+const { pokemon } = Astro.props as { pokemon: PokemonEntry };
+---
+<View lang="en" pokemon={pokemon} />

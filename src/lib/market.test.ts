@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  expansionOf, expectedValue, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
+  appendHistory, expansionOf, expectedValue, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
   type CmProduct, type MarketCard, type SetPullRates,
 } from './market';
 
@@ -97,5 +97,25 @@ describe('expectedValue', () => {
   it('encuentra las tasas por nombre de set sin importar mayúsculas ni signos', () => {
     expect(findPullRates('destined rivals', [rates])).toBe(rates);
     expect(findPullRates('Otro', [rates])).toBeNull();
+  });
+});
+
+describe('appendHistory', () => {
+  const set = (trend: number | null, pack: number | null) => ({
+    cards: [card('a', 'Special illustration rare', trend), card('b', 'Common', 0.05)],
+    sealed: pack == null ? [] : [{ kind: 'pack' as const, idProduct: 1, name: 'p', price: { trend: pack, low: null, avg30: null } }],
+  });
+  it('empieza el historial y sigue solo cartas de 1 € o más', () => {
+    const h = appendHistory(null, '2026-10-25', set(10, 5));
+    expect(h).toEqual({ dates: ['2026-10-25'], cards: { a: [10] }, sealed: { pack: [5] } });
+  });
+  it('añade días, rellena huecos y no duplica el mismo día', () => {
+    let h = appendHistory(null, '2026-10-25', set(10, null));
+    h = appendHistory(h, '2026-10-26', set(12, 5));
+    h = appendHistory(h, '2026-10-26', set(13, 6));
+    h = appendHistory(h, '2026-10-27', set(null, 6));
+    expect(h.dates).toEqual(['2026-10-25', '2026-10-26', '2026-10-27']);
+    expect(h.cards.a).toEqual([10, 13, null]);
+    expect(h.sealed.pack).toEqual([null, 6, 6]);
   });
 });

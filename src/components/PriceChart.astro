@@ -1,0 +1,41 @@
+---
+// Gráfica de líneas en SVG (sin JavaScript) para el historial diario de precios.
+import { LOCALE, type Lang } from '../i18n/ui';
+
+interface Series { label: string; values: (number | null)[]; tone: 'a' | 'b' }
+interface Props { lang: Lang; dates: string[]; series: Series[]; minDays?: number; empty: string }
+const { lang, dates, series, minDays = 3, empty } = Astro.props;
+const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const day = (iso: string) => new Date(`${iso}T12:00:00Z`).toLocaleDateString(LOCALE[lang], { day: 'numeric', month: 'short', timeZone: 'UTC' });
+const enough = series.some((s) => s.values.filter((v) => v != null).length >= minDays);
+const W = 600, H = 170, top = 8, bottom = 8;
+const all = series.flatMap((s) => s.values).filter((v): v is number => v != null);
+const min = Math.min(...all), max = Math.max(...all), span = max - min || max * 0.1 || 1;
+const x = (i: number) => (dates.length > 1 ? (i / (dates.length - 1)) * W : 0);
+const y = (v: number) => top + (1 - (v - min) / span) * (H - top - bottom);
+const path = (vals: (number | null)[]) =>
+  vals.map((v, i) => (v == null ? null : [x(i), y(v)])).filter(Boolean).map((p, k) => `${k ? 'L' : 'M'}${p![0].toFixed(1)},${p![1].toFixed(1)}`).join(' ');
+---
+{enough ? (
+  <figure class="pc">
+    <svg viewBox={`-4 0 ${W + 8} ${H}`} preserveAspectRatio="none" role="img" aria-label={series.map((s) => s.label).join(', ')}>
+      <line x1="0" x2={W} y1={H - bottom} y2={H - bottom} class="axis" />
+      {series.map((s) => <path d={path(s.values)} class={`ln ${s.tone}`} vector-effect="non-scaling-stroke" />)}
+    </svg>
+    <div class="px"><span>{day(dates[0])}</span><span>{money.format(min)} - {money.format(max)}</span><span>{day(dates.at(-1)!)}</span></div>
+    <figcaption>{series.map((s) => <span class={`key ${s.tone}`}>{s.label}</span>)}</figcaption>
+  </figure>
+) : <p class="pc-empty">{empty}</p>}
+
+<style>
+  .pc { margin: 12px 0 0; }
+  .pc svg { width: 100%; height: 180px; display: block; overflow: visible; }
+  .px { display: flex; justify-content: space-between; font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+  .axis { stroke: var(--border); }
+  .ln { fill: none; stroke-width: 2; stroke-linejoin: round; }
+  .ln.a { stroke: var(--accent); } .ln.b { stroke: var(--text); }
+  figcaption { display: flex; gap: 16px; font-size: 0.82rem; color: var(--text-muted); margin-top: 6px; }
+  .key::before { content: ''; display: inline-block; width: 14px; height: 3px; border-radius: 2px; vertical-align: middle; margin-right: 6px; background: currentColor; }
+  .key.a::before { background: var(--accent); } .key.b::before { background: var(--text); }
+  .pc-empty { font-size: 0.86rem; color: var(--text-muted); margin: 10px 0 0; }
+</style>

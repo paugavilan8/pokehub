@@ -26,6 +26,7 @@ const fullTitle = route === 'home' && !customPaths ? title : `${title} | ${SITE_
 const ogImage = abs(`/og-${lang}.png`);
 const nav: { key: RouteKey; label: string }[] = [
   { key: 'home', label: t.nav.setsShort },
+  { key: 'pokemon', label: t.nav.pokemonShort },
   { key: 'calc', label: t.nav.calculatorShort },
   { key: 'guide', label: t.nav.guideShort },
 ];
@@ -106,7 +107,7 @@ const nav: { key: RouteKey; label: string }[] = [
   .bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 12px 28px; min-height: 64px; }
   .brand { display: inline-flex; align-items: center; gap: 9px; color: var(--text); text-decoration: none; }
   .mark { width: 28px; height: 28px; color: var(--text); }
-  .wm { font-weight: 800; font-stretch: 125%; font-size: 1.15rem; letter-spacing: -0.03em; }
+  .wm { font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; }
   .search-slot { display: flex; justify-content: center; }
   nav { display: flex; gap: 22px; }
   nav a { color: var(--text-muted); text-decoration: none; font-size: 0.93rem; font-weight: 500; white-space: nowrap; }
@@ -131,7 +132,7 @@ const nav: { key: RouteKey; label: string }[] = [
   .site-footer { margin-top: 80px; border-top: 1px solid var(--border); background: var(--surface); padding-block: 28px 36px; font-size: 0.85rem; color: var(--text-muted); }
   .foot p { max-width: 95ch; margin-bottom: 0.6em; }
   .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 24px; margin-bottom: 12px; }
-  .brand-foot { font-weight: 800; font-stretch: 125%; letter-spacing: -0.03em; color: var(--text); font-size: 1rem; margin: 0 !important; }
+  .brand-foot { font-weight: 800; letter-spacing: -0.03em; color: var(--text); font-size: 1rem; margin: 0 !important; }
   .foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
   .foot-links a { color: var(--text-muted); }
   .foot-links a:hover { color: var(--text); }

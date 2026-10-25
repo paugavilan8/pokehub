@@ -34,8 +34,8 @@ const c = {
     h1: 'Precios por set',
     topTitle: 'Las cartas más caras ahora', moversTitle: 'Movimientos de la semana', up: 'Suben', down: 'Bajan',
     moversNote: 'Media de 7 días frente a la de 30 días en Cardmarket. Cartas de 10 € o más.',
-    updated: pricesDate ? `Actualizado el ${pricesDate} · Cardmarket` : 'Precios de Cardmarket',
-    search: 'Filtrar sets', packFrom: 'Sobre desde', packTrend: 'Tendencia sobre', box: 'Caja', ret: 'Recuperas',
+    updated: pricesDate ? `Precios de Cardmarket actualizados el ${pricesDate}` : 'Precios de Cardmarket',
+    search: 'Filtrar sets', packsFrom: 'Sobres desde', retLine: (p: string) => `recuperas un ${p} de media`, packFrom: 'Sobre desde', packTrend: 'Tendencia sobre', box: 'Caja', ret: 'Recuperas',
     open: 'Ver cartas', close: 'Ocultar cartas',
     th: ['', 'N.º', 'Carta', 'Rareza', 'Desde', 'Tendencia', ''],
     all: (n: number) => `Ver el set completo (${n} cartas), sellado y valor esperado`,
@@ -50,8 +50,8 @@ const c = {
     h1: 'Prices by set',
     topTitle: 'The most valuable cards right now', moversTitle: 'This week\'s movers', up: 'Rising', down: 'Falling',
     moversNote: '7-day average against the 30-day average on Cardmarket. Cards worth €10 or more.',
-    updated: pricesDate ? `Updated ${pricesDate} · Cardmarket` : 'Cardmarket prices',
-    search: 'Filter sets', packFrom: 'Pack from', packTrend: 'Pack trend', box: 'Box', ret: 'You get back',
+    updated: pricesDate ? `Cardmarket prices updated ${pricesDate}` : 'Cardmarket prices',
+    search: 'Filter sets', packsFrom: 'Packs from', retLine: (p: string) => `you get back ${p} on average`, packFrom: 'Pack from', packTrend: 'Pack trend', box: 'Box', ret: 'You get back',
     open: 'Show cards', close: 'Hide cards',
     th: ['', 'No.', 'Card', 'Rarity', 'From', 'Trend', ''],
     all: (n: number) => `See the full set (${n} cards), sealed product and expected value`,
@@ -75,7 +75,7 @@ const c = {
               <button type="button" class="card-btn" data-card={card.id} data-set={s.slug}>
                 <span class="scan">{card.image && <img src={cardImage(card.image)} alt={card.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}<span class="rank">{i + 1}</span></span>
                 <span class="cap"><span class="cn">{card.name}</span><span class="cp">{fmt(card.price.trend)}</span></span>
-                <span class="cr">{s.set.name} · <span class={`rar ${rarityTone(card.rarity)}`}>{rarityShort(card.rarity)}</span></span>
+                <span class="cr">{s.set.name} <span class={`rar ${rarityTone(card.rarity)}`}>{rarityShort(card.rarity)}</span></span>
               </button>
             </li>
           ))}
@@ -128,12 +128,12 @@ const c = {
                   </span>
                   <span class="title">
                     <span class="name">{s.set.name}</span>
-                    <span class="date">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''} · {s.set.totalCount} {lang === 'es' ? 'cartas' : 'cards'}</span>
+                    <span class="date">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''}, {s.set.totalCount} {lang === 'es' ? 'cartas' : 'cards'}</span>
                   </span>
-                  <span class="stat hide-xs"><span class="k">{c.packFrom}</span><span class="v">{fmt(s.pack?.price.low)}</span></span>
-                  <span class="stat"><span class="k">{c.packTrend}</span><span class="v">{fmt(s.pack?.price.trend)}</span></span>
-                  <span class="stat hide-sm"><span class="k">{c.box}</span><span class="v">{fmt(s.box?.price.trend)}</span></span>
-                  <span class="stat hide-sm"><span class="k">{c.ret}</span><span class={`v ${ret != null ? 'ret' : ''}`}>{ret != null ? pct(ret) : '-'}</span></span>
+                  <span class="offer">
+                    <span class="of-main">{c.packsFrom} <b>{fmt(s.pack?.price.low ?? s.pack?.price.trend)}</b></span>
+                    {ret != null && <span class="of-sub">{c.retLine(pct(ret))}</span>}
+                  </span>
                   <span class="chev" aria-hidden="true"><Icon name="caret-down" /></span>
                 </button>
 
@@ -191,8 +191,8 @@ const c = {
   .top .scan { position: relative; }
   .movers { margin-top: 40px; }
   .mov-grid { display: grid; gap: 16px; margin-top: 12px; }
-  @media (min-width: 800px) { .mov-grid { grid-template-columns: 1fr 1fr; } }
-  .mov-col { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); padding: 14px 16px; }
+  @media (min-width: 800px) { .mov-grid { grid-template-columns: 1fr 1fr; gap: 48px; } }
+  .mov-col { padding: 0; }
   .mov-col h3 { font-size: 0.95rem; margin: 0 0 6px; }
   .mov-col ul { list-style: none; margin: 0; padding: 0; }
   .mov-col li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 7px 4px; border-top: 1px solid var(--border); cursor: pointer; border-radius: 6px; }
@@ -216,9 +216,9 @@ const c = {
   .head {
     all: unset; box-sizing: border-box; cursor: pointer; width: 100%;
     display: grid; align-items: center; gap: 12px 20px; padding: 16px 20px;
-    grid-template-columns: 120px minmax(0, 1fr) auto auto 24px;
+    grid-template-columns: 120px minmax(0, 1fr) auto 24px;
   }
-  @media (min-width: 900px) { .head { grid-template-columns: 170px minmax(0, 1fr) repeat(4, 110px) 24px; } }
+  @media (min-width: 900px) { .head { grid-template-columns: 170px minmax(0, 1fr) auto 24px; } }
   .head:hover { background: var(--bg); }
   .head:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
   .logo-box { height: 56px; display: flex; align-items: center; }
@@ -226,7 +226,10 @@ const c = {
   .title { display: flex; flex-direction: column; min-width: 0; }
   .name { font-weight: 600; font-size: 1.08rem; }
   .date { font-size: 0.82rem; color: var(--text-muted); }
-  .stat { display: flex; flex-direction: column; align-items: flex-end; }
+  .offer { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+  .of-main { font-size: 0.92rem; color: var(--text-muted); white-space: nowrap; }
+  .of-main b { color: var(--text); font-size: 1.15rem; font-weight: 700; margin-left: 4px; }
+  .of-sub { font-size: 0.8rem; color: var(--accent); white-space: nowrap; }
   .k { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
   .v { font-family: var(--mono); font-weight: 600; font-size: 1.02rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
   .v.ret { color: var(--accent); }
@@ -237,6 +240,7 @@ const c = {
   .rar-sm { display: none; }
   @media (max-width: 599px) {
     .head { grid-template-columns: minmax(0, 1fr) auto 20px; padding: 14px; }
+    .of-sub { display: none; }
     .logo-box, .hide-xs { display: none; }
     .panel { padding: 14px; }
     .strip { grid-template-columns: repeat(5, 42%); }

@@ -5,10 +5,10 @@ import { ROUTES, LOCALE, type Lang } from '../i18n/ui';
 interface Props { lang: Lang }
 const { lang } = Astro.props;
 const t = {
-  es: { label: 'Buscar carta o set', placeholder: 'Buscar carta o set', loading: 'Cargando...', none: 'Sin resultados', sets: 'Sets', cards: 'Cartas' },
-  en: { label: 'Search cards or sets', placeholder: 'Search cards or sets', loading: 'Loading...', none: 'No results', sets: 'Sets', cards: 'Cards' },
+  es: { label: 'Buscar Pokémon, carta o set', placeholder: 'Buscar Pokémon, carta o set', loading: 'Cargando...', none: 'Sin resultados', sets: 'Sets', cards: 'Cartas', pokemon: 'Pokémon', count: (n: number) => `${n} cartas` },
+  en: { label: 'Search Pokémon, cards or sets', placeholder: 'Search Pokémon, cards or sets', loading: 'Loading...', none: 'No results', sets: 'Sets', cards: 'Cards', pokemon: 'Pokémon', count: (n: number) => `${n} cards` },
 }[lang];
-const config = { setsBase: ROUTES.sets[lang], locale: LOCALE[lang], t };
+const config = { lang, setsBase: ROUTES.sets[lang], pokemonBase: ROUTES.pokemon[lang], locale: LOCALE[lang], no: lang === 'es' ? 'n.º' : 'no.', t: { ...t, count: t.count(0).replace('0', '{n}') } };
 ---
 <div class="site-search" data-search-root data-config={JSON.stringify(config)}>
   <label class="field">
@@ -51,7 +51,7 @@ const config = { setsBase: ROUTES.sets[lang], locale: LOCALE[lang], t };
 </style>
 
 <script>
-  type Index = { assets: string; sets: [string, string, string | null, string | null][]; cards: [number, string, string, string, string | null, number, string | null][] };
+  type Index = { assets: string; pokemon: [string, string, string, string | null, number][]; sets: [string, string, string | null, string | null][]; cards: [number, string, string, string, string | null, number, string | null][] };
   const root = document.querySelector<HTMLElement>('[data-search-root]');
   if (root) {
     const cfg = JSON.parse(root.dataset.config!);
@@ -102,7 +102,22 @@ const config = { setsBase: ROUTES.sets[lang], locale: LOCALE[lang], t };
         })
         .sort((a, b) => b[5] - a[5])
         .slice(0, 8);
+      const pokes = index.pokemon
+        .filter((p) => tokens.every((tk) => norm(`${p[1]} ${p[2]}`).includes(tk)))
+        .slice(0, 3);
       const nodes: Node[] = [];
+      if (pokes.length) {
+        nodes.push(el('p', 'grp', cfg.t.pokemon));
+        for (const p of pokes) {
+          const a = el('a') as HTMLAnchorElement;
+          a.href = `${cfg.pokemonBase}${p[0]}/`;
+          a.setAttribute('role', 'option');
+          const nm = el('span', 'nm', cfg.lang === 'es' ? p[2] : p[1]);
+          nm.append(el('span', 'sub', cfg.t.count.replace('{n}', String(p[4]))));
+          a.append(img(p[3] ? `${index.assets}${p[3]}/low.webp` : null, 'th'), nm, el('span', 'pr', ''));
+          nodes.push(a);
+        }
+      }
       if (sets.length) {
         nodes.push(el('p', 'grp', cfg.t.sets));
         for (const { s } of sets) {
@@ -122,7 +137,9 @@ const config = { setsBase: ROUTES.sets[lang], locale: LOCALE[lang], t };
           a.href = `${cfg.setsBase}${set[0]}/#c-${c[1]}`;
           a.setAttribute('role', 'option');
           const nm = el('span', 'nm', c[2]);
-          nm.append(el('span', 'sub', `${set[1]} · ${c[3]}${c[4] ? ` · ${c[4]}` : ''}`));
+          const sub = el('span', 'sub', `${set[1]}, ${cfg.no} ${c[3]} `);
+          if (c[4]) sub.append(el('span', 'rar', c[4]));
+          nm.append(sub);
           a.append(img(c[6] ? `${index.assets}${c[6]}/low.webp` : null, 'th'), nm, el('span', 'pr', money.format(c[5])));
           nodes.push(a);
         }

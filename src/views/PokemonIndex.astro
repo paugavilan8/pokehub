@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { allPokemon, marketIndex, pokemonName } from '../lib/market-data';
+import { cardImage } from '../lib/market';
+import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const list = allPokemon();
+const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 });
+const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
+const c = {
+  es: {
+    title: 'Cartas Pokémon por Pokémon: precios de cada una',
+    description: 'Busca tu Pokémon y mira todas sus cartas de las expansiones recientes con su precio en Cardmarket: Charizard, Pikachu, Umbreon, Mewtwo y cientos más.',
+    h1: 'Pokémon',
+    lede: `Elige un Pokémon y verás todas sus cartas de las expansiones recientes, de la más cara a la más barata.${pricesDate ? ` Precios de Cardmarket del ${pricesDate}.` : ''}`,
+    filter: 'Buscar Pokémon', sort: 'Ordenar', byValue: 'Carta más cara', byDex: 'Número de Pokédex', byName: 'Nombre', byCount: 'Número de cartas',
+    line: (n: number, price: string) => `${n} ${n === 1 ? 'carta' : 'cartas'}, la mejor a ${price}`,
+    none: 'Ningún Pokémon coincide.',
+  },
+  en: {
+    title: 'Pokémon cards by Pokémon: every card and its price',
+    description: 'Find your Pokémon and see all its cards from recent sets with Cardmarket prices: Charizard, Pikachu, Umbreon, Mewtwo and hundreds more.',
+    h1: 'Pokémon',
+    lede: `Pick a Pokémon to see all its cards from recent sets, most valuable first.${pricesDate ? ` Cardmarket prices from ${pricesDate}.` : ''}`,
+    filter: 'Search Pokémon', sort: 'Sort', byValue: 'Most valuable card', byDex: 'Pokédex number', byName: 'Name', byCount: 'Number of cards',
+    line: (n: number, price: string) => `${n} ${n === 1 ? 'card' : 'cards'}, best at ${price}`,
+    none: 'No Pokémon matches.',
+  },
+}[lang];
+---
+<Base lang={lang} route="pokemon" title={c.title} description={c.description}>
+  <PageHero slot="hero" title={c.h1} lede={c.lede} />
+  <div class="container">
+    <div class="controls">
+      <label class="search"><span class="sr">{c.filter}</span><input type="search" placeholder={c.filter} data-filter autocomplete="off" /></label>
+      <label class="sort">{c.sort}
+        <select data-sort>
+          <option value="value">{c.byValue}</option>
+          <option value="count">{c.byCount}</option>
+          <option value="dex">{c.byDex}</option>
+          <option value="name">{c.byName}</option>
+        </select>
+      </label>
+    </div>
+    <p class="none" data-none hidden>{c.none}</p>
+    <ul class="grid" data-grid>
+      {list.map((p, i) => {
+        const top = p.cards[0]?.card;
+        const name = pokemonName(p, lang);
+        return (
+          <li data-name={`${p.en} ${p.es}`.toLowerCase()} data-dex={p.dex} data-value={top?.price.trend ?? 0} data-count={p.cards.length} data-i={i}>
+            <a href={`${ROUTES.pokemon[lang]}${p.slug}/`}>
+              <span class="scan">{top?.image && <img src={cardImage(top.image)} alt="" loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
+              <span class="name">{name}</span>
+              <span class="dex">#{String(p.dex).padStart(4, '0')}</span>
+              <span class="line">{c.line(p.cards.length, top?.price.trend != null ? money.format(top.price.trend) : '-')}</span>
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: end; margin-bottom: 18px; }
+  .search input { font: inherit; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); width: min(340px, 80vw); }
+  .sort { display: flex; flex-direction: column; gap: 4px; font-size: 0.82rem; font-weight: 600; }
+  .sort select { font: inherit; font-weight: 400; padding: 9px 10px; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .none { color: var(--text-muted); }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px 16px; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .grid li[hidden] { display: none; }
+  .grid a { display: flex; flex-direction: column; color: var(--text); text-decoration: none; }
+  .scan { display: block; aspect-ratio: 245 / 342; border-radius: 8px; background: var(--surface-2); overflow: hidden; box-shadow: 0 2px 6px rgb(20 24 32 / 0.18); transition: transform 0.2s var(--ease); margin-bottom: 8px; }
+  .scan img { width: 100%; height: 100%; object-fit: cover; }
+  .grid a:hover .scan { transform: translateY(-3px); }
+  .name { font-weight: 650; }
+  .dex { font-size: 0.78rem; color: var(--text-muted); }
+  .line { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+</style>
+
+<script>
+  const grid = document.querySelector<HTMLElement>('[data-grid]');
+  if (grid) {
+    const items = [...grid.querySelectorAll<HTMLElement>('li')];
+    const filter = document.querySelector<HTMLInputElement>('[data-filter]')!;
+    const sort = document.querySelector<HTMLSelectElement>('[data-sort]')!;
+    const none = document.querySelector<HTMLElement>('[data-none]')!;
+    const norm = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    const apply = () => {
+      const q = norm(filter.value.trim());
+      let shown = 0;
+      for (const li of items) { const ok = !q || norm(li.dataset.name!).includes(q); li.hidden = !ok; if (ok) shown++; }
+      none.hidden = shown > 0;
+      const k = sort.value;
+      const num = (li: HTMLElement, key: string) => Number(li.dataset[key]);
+      items.sort((a, b) =>
+        k === 'dex' ? num(a, 'dex') - num(b, 'dex')
+        : k === 'name' ? a.querySelector('.name')!.textContent!.localeCompare(b.querySelector('.name')!.textContent!)
+        : k === 'count' ? num(b, 'count') - num(a, 'count') || num(a, 'i') - num(b, 'i')
+        : num(a, 'i') - num(b, 'i'));
+      grid.append(...items);
+    };
+    filter.addEventListener('input', apply);
+    sort.addEventListener('change', apply);
+  }
+</script>

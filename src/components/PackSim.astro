@@ -19,18 +19,20 @@ const t = {
   es: {
     title: 'Abre un sobre virtual', lede: `Simula sobres de ${set.name} con las tasas de aparición del estudio citado arriba y mira cuánto valdrían las cartas.`,
     open: 'Abrir sobre', again: 'Abrir otro', reveal: 'Revelar todo', reset: 'Reiniciar',
-    value: 'Valor de este sobre', price: 'Precio del sobre', opened: 'Sobres abiertos', spent: 'Gastado', got: 'Valor conseguido', best: 'Mejor carta',
+    summary: 'Este sobre vale {value} y en la tienda cuesta {price}. Llevas {n} {packs}: has gastado {spent} y has sacado {got} en cartas. Tu mejor carta hasta ahora: {best}.',
+    pack1: 'sobre', packN: 'sobres',
     tap: 'Toca las cartas para darles la vuelta.', note: 'Simulación aproximada: 4 comunes, 3 infrecuentes, 1 reversa, 1 hueco de ilustración y 1 de rara. Precios de tendencia de Cardmarket.',
   },
   en: {
     title: 'Open a virtual pack', lede: `Simulate ${set.name} packs with the pull rates from the study cited above and see what the cards would be worth.`,
     open: 'Open pack', again: 'Open another', reveal: 'Reveal all', reset: 'Reset',
-    value: 'This pack is worth', price: 'Pack price', opened: 'Packs opened', spent: 'Spent', got: 'Value pulled', best: 'Best pull',
+    summary: 'This pack is worth {value} and costs {price} in shops. You have opened {n} {packs}: spent {spent} and pulled {got} in cards. Best card so far: {best}.',
+    pack1: 'pack', packN: 'packs',
     tap: 'Tap the cards to flip them.', note: 'Approximate simulation: 4 commons, 3 uncommons, 1 reverse, 1 illustration slot and 1 rare slot. Cardmarket trend prices.',
   },
 }[lang];
 ---
-<section class="sim" id="abrir" aria-labelledby="sim-title" data-sim data-locale={LOCALE[lang]}>
+<section class="sim" id="abrir" aria-labelledby="sim-title" data-sim data-locale={LOCALE[lang]} data-t={JSON.stringify({ summary: t.summary, pack1: t.pack1, packN: t.packN })}>
   <script type="application/json" data-sim-data set:html={JSON.stringify(data)} />
   <div class="sim-head">
     <div>
@@ -49,11 +51,7 @@ const t = {
   </div>
 
   <div class="sim-result" data-result hidden>
-    <div><p class="k">{t.value}</p><p class="v" data-value></p></div>
-    <div><p class="k">{t.price}</p><p class="v">{data.packPrice != null ? new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' }).format(data.packPrice) : '-'}</p></div>
-    <div><p class="k">{t.opened}</p><p class="v" data-opened>0</p></div>
-    <div><p class="k">{t.spent} / {t.got}</p><p class="v" data-totals></p></div>
-    <div class="best"><p class="k">{t.best}</p><p class="v" data-best></p></div>
+    <p class="summary" data-summary></p>
     <button type="button" class="reset" data-reset>{t.reset}</button>
   </div>
   <p class="note">{t.note}</p>
@@ -81,19 +79,15 @@ const t = {
   .cards :global(button.up) { transform: rotateY(180deg); cursor: default; }
   .cards :global(.face), .cards :global(.back) { position: absolute; inset: 0; border-radius: 8px; backface-visibility: hidden; overflow: hidden; }
   .cards :global(.back) { background: repeating-linear-gradient(45deg, #1c2030 0 10px, #222738 10px 20px); border: 3px solid #2d3348; display: grid; place-items: center; }
-  .cards :global(.back span) { width: 44%; aspect-ratio: 1; border-radius: 22%; background: #15171c; display: grid; place-items: center; color: #d0262b; font-weight: 900; font-stretch: 125%; font-size: 1.6rem; box-shadow: 0 0 0 3px #2d3348; }
+  .cards :global(.back span) { width: 44%; aspect-ratio: 1; border-radius: 22%; background: #15171c; display: grid; place-items: center; color: #d0262b; font-weight: 900; font-size: 1.6rem; box-shadow: 0 0 0 3px #2d3348; }
   .cards :global(button:hover .back) { border-color: #4a5170; }
   .cards :global(.face) { transform: rotateY(180deg); background: #20232c; }
   .cards :global(.face img) { width: 100%; height: 100%; object-fit: cover; display: block; }
   .cards :global(.hit .face) { box-shadow: 0 0 0 2px #ffd36b, 0 0 26px rgb(255 211 107 / 0.55); }
   .cards :global(.price) { display: block; margin-top: 6px; text-align: center; font-size: 0.82rem; font-weight: 650; color: rgb(255 255 255 / 0.85); min-height: 1.2em; }
   .cards :global(.hit + .price) { color: #ffd36b; }
-  .sim-result { margin-top: 22px; display: grid; gap: 12px; grid-template-columns: repeat(2, 1fr); align-items: end; }
-  @media (min-width: 900px) { .sim-result { grid-template-columns: repeat(5, 1fr) auto; } }
-  .sim-result > div { background: rgb(255 255 255 / 0.06); border: 1px solid rgb(255 255 255 / 0.1); border-radius: 10px; padding: 10px 14px; }
-  .k { margin: 0; font-size: 0.75rem; color: rgb(255 255 255 / 0.65); }
-  .v { margin: 2px 0 0; font-weight: 750; font-size: 1.1rem; }
-  .best .v { font-size: 0.95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .sim-result { margin-top: 22px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 16px; }
+  .summary { margin: 0; font-size: 1.08rem; line-height: 1.55; max-width: 70ch; color: #fff; }
   .reset { all: unset; cursor: pointer; font-size: 0.85rem; color: rgb(255 255 255 / 0.7); text-decoration: underline; padding: 8px 4px; }
   .note { margin: 16px 0 0; font-size: 0.78rem; color: rgb(255 255 255 / 0.55); }
   @media (prefers-reduced-motion: reduce) { .cards :global(button) { transition: none; } .cards :global(li) { animation: none; } }
@@ -104,6 +98,7 @@ const t = {
   for (const root of document.querySelectorAll<HTMLElement>('[data-sim]')) {
     const data = JSON.parse(root.querySelector('[data-sim-data]')!.textContent!) as { slug: string; packPrice: number | null; rates: [string, number][]; cards: Card[] };
     const money = new Intl.NumberFormat(root.dataset.locale, { style: 'currency', currency: 'EUR' });
+    const tx = JSON.parse(root.dataset.t!);
     const $ = <T extends HTMLElement>(s: string) => root.querySelector<T>(s)!;
     const list = $('[data-sim-cards]');
     const byRarity = new Map<string, Card[]>();
@@ -175,10 +170,13 @@ const t = {
       const value = current.reduce((s, c) => s + (c[4] ?? 0), 0);
       stats.got += value;
       for (const c of current) if ((c[4] ?? 0) > (stats.best?.[4] ?? 0)) stats.best = c;
-      $('[data-value]').textContent = money.format(value);
-      $('[data-opened]').textContent = String(stats.opened);
-      $('[data-totals]').textContent = `${money.format(stats.spent)} / ${money.format(stats.got)}`;
-      $('[data-best]').textContent = stats.best ? `${stats.best[1]} (${money.format(stats.best[4] ?? 0)})` : '-';
+      const vars: Record<string, string> = {
+        value: money.format(value), price: data.packPrice != null ? money.format(data.packPrice) : '-',
+        n: String(stats.opened), packs: stats.opened === 1 ? tx.pack1 : tx.packN,
+        spent: money.format(stats.spent), got: money.format(stats.got),
+        best: stats.best ? `${stats.best[1]} (${money.format(stats.best[4] ?? 0)})` : '-',
+      };
+      $('[data-summary]').textContent = tx.summary.replace(/\{(\w+)\}/g, (_: string, k: string) => vars[k] ?? '');
       $('[data-result]').hidden = false;
       $('[data-reveal]').hidden = true;
       $('[data-hint]').hidden = true;
