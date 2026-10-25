@@ -19,7 +19,7 @@ Precios de sets de Pokémon TCG (Cardmarket) y calculadora de aduanas para compr
 - [Astro 5](https://astro.build) estático, i18n con español sin prefijo (`/`) e inglés en `/en/`, slugs traducidos y `hreflang`.
 - Lógica en `src/lib/calc.ts` (TypeScript puro, probada con Vitest).
 - Datos curados en `src/data/*.json`, con fecha de revisión, estado (`verified` / `secondary` / `pending`) y fuente en cada regla.
-- Diseño sobrio de herramienta de datos (IBM Plex Sans y Plex Mono, un solo acento rojo). Las imágenes son los escaneos de cartas y logos de set de TCGdex.
+- Diseño sobrio de herramienta de datos (tipografía Rubik, un solo acento rojo). Las imágenes son los escaneos de cartas y logos de set de TCGdex.
 - Sin cookies, sin analítica, sin backend. Tipos de cambio en vivo desde la API pública del BCE (Frankfurter) con entrada manual de respaldo.
 - Pensado para Cloudflare Pages (gratis). Inversión inicial: solo el dominio.
 
