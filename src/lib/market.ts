@@ -24,6 +24,8 @@ export interface CmProduct {
   idCategory?: number;
   categoryName?: string;
   idExpansion?: number;
+  /** Misma carta (nombre y ataques) en distintas expansiones e idiomas. */
+  idMetacard?: number;
   dateAdded?: string;
 }
 
@@ -153,6 +155,33 @@ export function japaneseSetName(id: string, seriesEn: string, sealed: SealedItem
   if (/-P$/i.test(id)) return `${seriesEn} Promos`;
   const pack = sealed.find((s) => s.kind === 'pack');
   return pack ? pack.name.replace(/\s+booster$/i, '').replace(/\s+JP$/, '').trim() : null;
+}
+
+/**
+ * Cartas de una expansión sacadas solo del catálogo de Cardmarket, para los sets que TCGdex tiene vacíos. No hay
+ * número, rareza ni imagen; el número de Pokédex se toma de otra versión de la misma carta (mismo idMetacard).
+ */
+export function cardsFromCardmarket(
+  setId: string,
+  expansion: number,
+  singles: CmProduct[],
+  guideById: Map<number, Partial<CmGuide>>,
+  dexByMetacard: Map<number, number[]>,
+): MarketCard[] {
+  const products = singles.filter((p) => p.idExpansion === expansion).sort((a, b) => a.idProduct - b.idProduct);
+  // Las cartas repetidas (la normal y su versión alternativa) se distinguen como en Cardmarket: (V.1), (V.2)...
+  const total = new Map<string, number>();
+  for (const p of products) total.set(cmCardName(p.name), (total.get(cmCardName(p.name)) ?? 0) + 1);
+  const seen = new Map<string, number>();
+  return products.map((p) => {
+    const name = cmCardName(p.name);
+    const n = (seen.get(name) ?? 0) + 1;
+    seen.set(name, n);
+    return {
+      id: `${setId}-cm${p.idProduct}`, num: '', name: total.get(name)! > 1 ? `${name} (V.${n})` : name, rarity: null, image: null,
+      cmId: p.idProduct, price: priceFromGuide(guideById.get(p.idProduct)), dex: (p.idMetacard != null && dexByMetacard.get(p.idMetacard)) || null,
+    };
+  });
 }
 
 /** Nombre de carta comparable entre TCGdex y Cardmarket (Cardmarket añade los ataques entre corchetes). */

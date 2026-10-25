@@ -18,7 +18,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import {
-  appendHistory, cmCardName, expansionOf, inferRarity, guideDate, japaneseSetName, matchByName, pickSealed, priceFromGuide,
+  appendHistory, cardsFromCardmarket, cmCardName, expansionOf, inferRarity, guideDate, japaneseSetName, matchByName, pickSealed, priceFromGuide,
   type CmGuide, type CmProduct, type MarketCard, type MarketIndex, type MarketSet, type PriceHistory,
 } from '../src/lib/market.ts';
 
@@ -36,6 +36,19 @@ const PARENT: Record<string, string> = {
  * vienen en japonés: el de cada carta se toma de Cardmarket (en inglés) y el del set, de su sobre en Cardmarket.
  */
 const JA_SERIES: Record<string, string> = { M: 'Mega Evolution', SV: 'Scarlet & Violet', S: 'Sword & Shield', SM: 'Sun & Moon' };
+/**
+ * Sets japoneses que TCGdex tiene vacíos (o mal enlazados, como Heat Wave Arena): se montan solo con Cardmarket, a
+ * partir de su sobre ("Eevee Heroes Booster"). `name` es el nombre que se muestra si no coincide con el del sobre.
+ */
+const JA_FROM_CARDMARKET: Record<string, { booster: string; name?: string }> = {
+  S1W: { booster: 'Sword' }, S1H: { booster: 'Shield' }, S1a: { booster: 'VMAX Rising' }, S2: { booster: 'Rebellion Crash' },
+  S2a: { booster: 'Explosive Flame Walker' }, S3: { booster: 'Infinity Zone' }, S3a: { booster: 'Legendary Heartbeat' },
+  S4: { booster: 'Shocking Volt Tackle' }, S4a: { booster: 'Shiny Star V' }, S5a: { booster: 'Matchless Fighters' },
+  S5R: { booster: 'Rapid Strike Master' }, S6a: { booster: 'Eevee Heroes' }, S7R: { booster: 'Blue Sky Stream' },
+  S8a: { booster: '25th Anniversary Collection' }, S10D: { booster: 'Time Gazer' },
+  S10b: { booster: 'Pokémon GO Enhanced Expansion Pack', name: 'Pokémon GO' }, SV9a: { booster: 'Heat Wave Arena' },
+  SMP2: { booster: 'Great Detective Pikachu' },
+};
 /** Prefijo de los ids japoneses: evita choques con los internacionales (XY1 frente a xy1) y deja claro el idioma. */
 const JA = 'ja-';
 /** Sets sin interés de precio (energías básicas). */
@@ -135,9 +148,24 @@ async function main() {
 
   const sets: MarketSet[] = [];
   const children: MarketSet[] = [];
+  /** Sets que se rellenan con Cardmarket en el paso 2 (hasta entonces, con lo guardado en la ejecución anterior). */
+  const fromCardmarket = new Map<MarketSet, { booster: string; name?: string }>();
   for (const b of briefs) {
     const file = b.lang === 'ja' ? JA + b.id : PARENT[b.id] ?? b.id;
     const saved = await readJson<MarketSet>(new URL(`sets/${file}.json`, OUT));
+    const cm = b.lang === 'ja' ? JA_FROM_CARDMARKET[b.id] : undefined;
+    if (cm) {
+      const meta = await get<DexSet>(`${TCGDEX}/ja/sets/${encodeURIComponent(b.id)}`);
+      const set: MarketSet = saved ?? {
+        id: file, name: b.name, serie: b.serieEn ?? '', releaseDate: null, logo: null, symbol: null, officialCount: null,
+        totalCount: 0, cmExpansion: null, sealed: [], cards: [],
+      };
+      Object.assign(set, { serie: b.serieEn ?? set.serie, releaseDate: meta?.releaseDate ?? set.releaseDate, lang: 'ja', nameLocal: meta?.name ?? b.name });
+      fromCardmarket.set(set, cm);
+      sets.push(set);
+      process.stdout.write('c');
+      continue;
+    }
     const set = await catalogOf(b, saved);
     if (set) (PARENT[b.id] ? children : sets).push(set);
     process.stdout.write('.');
@@ -165,7 +193,28 @@ async function main() {
     pricesDate = guideDate(guide.createdAt);
     const guideById = new Map(guide.priceGuides.map((g) => [g.idProduct, g]));
     const singlesById = new Map(singles.products.map((p) => [p.idProduct, p]));
+    // Sets solo de Cardmarket: la expansión es la de su sobre y el Pokédex, el de otra versión de cada carta.
+    const dexByMetacard = new Map<number, number[]>();
     for (const set of sets) {
+      if (fromCardmarket.has(set)) continue;
+      for (const c of set.cards) {
+        const meta = c.cmId ? singlesById.get(c.cmId)?.idMetacard : undefined;
+        if (meta != null && c.dex?.length && !dexByMetacard.has(meta)) dexByMetacard.set(meta, c.dex);
+      }
+    }
+    for (const [set, cm] of fromCardmarket) {
+      const booster = nonsingles.products.find((p) => p.name.toLowerCase() === `${cm.booster} booster`.toLowerCase());
+      if (booster?.idExpansion == null) continue;
+      set.cards = cardsFromCardmarket(set.id, booster.idExpansion, singles.products, guideById, dexByMetacard);
+      set.totalCount = set.cards.length;
+      set.cmExpansion = booster.idExpansion;
+      set.name = `${cm.name ?? cm.booster} (JP)`;
+    }
+    for (const set of sets) {
+      if (fromCardmarket.has(set)) {
+        set.sealed = pickSealed(nonsingles.products, guideById, set.cmExpansion);
+        continue;
+      }
       const known = expansionOf(set.cards.map((c) => c.cmId), singlesById);
       set.cmExpansion = matchByName(set.cards, known, singles.products);
       for (const card of set.cards) {
@@ -197,7 +246,7 @@ async function main() {
   for (let i = sets.length - 1; i >= 0; i--) {
     const set = sets[i];
     const linked = set.cards.filter((c) => c.cmId).length;
-    if (set.lang === 'ja' && (!set.name.endsWith('(JP)') || linked < set.cards.length / 3)) sets.splice(i, 1);
+    if (set.lang === 'ja' && (!set.name.endsWith('(JP)') || !set.cards.length || linked < set.cards.length / 3)) sets.splice(i, 1);
   }
   sets.sort((a, b) => (b.releaseDate ?? '').localeCompare(a.releaseDate ?? ''));
   for (const set of sets) {

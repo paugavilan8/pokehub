@@ -1,6 +1,6 @@
 {
  "pricesDate": "2026-10-25T00:47:18.000Z",
- "generatedAt": "2026-10-25T23:36:44.883Z",
+ "generatedAt": "2026-10-25T23:44:27.621Z",
  "sets": [
   {
    "id": "30th",
@@ -1079,6 +1079,45 @@
      }
     }
    ]
+  },
+  {
+   "id": "ja-SV9a",
+   "name": "Heat Wave Arena (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-03-14",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 92,
+   "cmExpansion": 6037,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 810651,
+     "name": "Heat Wave Arena Booster",
+     "price": {
+      "trend": 2.3,
+      "low": 1,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 810652,
+     "name": "Heat Wave Arena Booster Box",
+     "price": {
+      "trend": 70.77,
+      "low": 44,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "熱風のアリーナ"
   },
   {
    "id": "ja-SV9",
@@ -3062,6 +3101,45 @@
    ]
   },
   {
+   "id": "ja-S10b",
+   "name": "Pokémon GO (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-06-17",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 102,
+   "cmExpansion": 4786,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 608123,
+     "name": "Pokémon GO Enhanced Expansion Pack Booster",
+     "price": {
+      "trend": 4.17,
+      "low": 4,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 664310,
+     "name": "Pokémon GO Enhanced Expansion Pack Booster Box",
+     "price": {
+      "trend": 100.65,
+      "low": 77.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "Pokémon GO"
+  },
+  {
    "id": "swsh10",
    "name": "Astral Radiance",
    "serie": "Sword & Shield",
@@ -3187,6 +3265,45 @@
      }
     }
    ]
+  },
+  {
+   "id": "ja-S10D",
+   "name": "Time Gazer (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-04-08",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 88,
+   "cmExpansion": 4973,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 611244,
+     "name": "Time Gazer Booster",
+     "price": {
+      "trend": 3.14,
+      "low": 1.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 611242,
+     "name": "Time Gazer Booster Box",
+     "price": {
+      "trend": 97.48,
+      "low": 69.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "タイムゲイザー"
   },
   {
    "id": "swsh9",
@@ -3404,6 +3521,45 @@
    ]
   },
   {
+   "id": "ja-S8a",
+   "name": "25th Anniversary Collection (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-10-22",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 38,
+   "cmExpansion": 4345,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 570886,
+     "name": "25th Anniversary Collection Booster",
+     "price": {
+      "trend": 15.62,
+      "low": 7.68,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 579346,
+     "name": "25th Anniversary Collection Booster Box",
+     "price": {
+      "trend": 249.51,
+      "low": 114.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "25th アニバーサリーコレクション"
+  },
+  {
    "id": "cel25",
    "name": "Celebrations",
    "serie": "Sword & Shield",
@@ -3556,6 +3712,45 @@
    ]
   },
   {
+   "id": "ja-S7R",
+   "name": "Blue Sky Stream (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-07-09",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 90,
+   "cmExpansion": 4330,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 568811,
+     "name": "Blue Sky Stream Booster",
+     "price": {
+      "trend": 5.95,
+      "low": 2,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 568813,
+     "name": "Blue Sky Stream Booster Box",
+     "price": {
+      "trend": 154.18,
+      "low": 109,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "蒼空ストリーム"
+  },
+  {
    "id": "swsh6",
    "name": "Chilling Reign",
    "serie": "Sword & Shield",
@@ -3603,6 +3798,45 @@
      }
     }
    ]
+  },
+  {
+   "id": "ja-S6a",
+   "name": "Eevee Heroes (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-05-28",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 101,
+   "cmExpansion": 4239,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 564172,
+     "name": "Eevee Heroes Booster",
+     "price": {
+      "trend": 6.99,
+      "low": 3.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 564175,
+     "name": "Eevee Heroes Booster Box",
+     "price": {
+      "trend": 308.86,
+      "low": 159.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "イーブイヒーローズ"
   },
   {
    "id": "ja-S6H",
@@ -3720,6 +3954,45 @@
    ]
   },
   {
+   "id": "ja-S5a",
+   "name": "Matchless Fighters (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-03-19",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 96,
+   "cmExpansion": 3751,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 549376,
+     "name": "Matchless Fighters Booster",
+     "price": {
+      "trend": 4.33,
+      "low": 2,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 549381,
+     "name": "Matchless Fighters Booster Box",
+     "price": {
+      "trend": 131.08,
+      "low": 80,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "双璧のファイター"
+  },
+  {
    "id": "swsh4.5",
    "name": "Shining Fates",
    "serie": "Sword & Shield",
@@ -3782,6 +4055,45 @@
    ]
   },
   {
+   "id": "ja-S5R",
+   "name": "Rapid Strike Master (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-01-22",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 91,
+   "cmExpansion": 3697,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 534142,
+     "name": "Rapid Strike Master Booster",
+     "price": {
+      "trend": 4.29,
+      "low": 2,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 534132,
+     "name": "Rapid Strike Master Booster Box",
+     "price": {
+      "trend": 151.92,
+      "low": 69.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "連撃マスター"
+  },
+  {
    "id": "ja-S5I",
    "name": "Single Strike Master (JP)",
    "serie": "Sword & Shield",
@@ -3819,6 +4131,45 @@
      }
     }
    ]
+  },
+  {
+   "id": "ja-S4a",
+   "name": "Shiny Star V (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-11-20",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 330,
+   "cmExpansion": 3580,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 522570,
+     "name": "Shiny Star V Booster",
+     "price": {
+      "trend": 11.56,
+      "low": 8,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 522560,
+     "name": "Shiny Star V Booster Box",
+     "price": {
+      "trend": 117.14,
+      "low": 100,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "シャイニースターV"
   },
   {
    "id": "swsh4",
@@ -3907,6 +4258,45 @@
    ]
   },
   {
+   "id": "ja-S4",
+   "name": "Shocking Volt Tackle (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-09-18",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 121,
+   "cmExpansion": 3479,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 494484,
+     "name": "Shocking Volt Tackle Booster",
+     "price": {
+      "trend": 5.17,
+      "low": 3.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 494479,
+     "name": "Shocking Volt Tackle Booster Box",
+     "price": {
+      "trend": 106.24,
+      "low": 69.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "仰天のボルテッカー"
+  },
+  {
    "id": "fut2020",
    "name": "Pokémon Futsal 2020",
    "serie": "Sword & Shield",
@@ -3968,6 +4358,84 @@
    ]
   },
   {
+   "id": "ja-S3a",
+   "name": "Legendary Heartbeat (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-07-10",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 94,
+   "cmExpansion": 3384,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 480109,
+     "name": "Legendary Heartbeat Booster",
+     "price": {
+      "trend": 9.55,
+      "low": 2.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 480104,
+     "name": "Legendary Heartbeat Booster Box",
+     "price": {
+      "trend": 160.81,
+      "low": 75,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "伝説の鼓動"
+  },
+  {
+   "id": "ja-S3",
+   "name": "Infinity Zone (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-06-05",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 119,
+   "cmExpansion": 3274,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 463839,
+     "name": "Infinity Zone Booster",
+     "price": {
+      "trend": 8.95,
+      "low": 3,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 463834,
+     "name": "Infinity Zone Booster Box",
+     "price": {
+      "trend": 163.97,
+      "low": 94.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "ムゲンゾーン"
+  },
+  {
    "id": "swsh2",
    "name": "Rebel Clash",
    "serie": "Sword & Shield",
@@ -4017,6 +4485,84 @@
    ]
   },
   {
+   "id": "ja-S2a",
+   "name": "Explosive Flame Walker (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-04-24",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 86,
+   "cmExpansion": 3219,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 463844,
+     "name": "Explosive Flame Walker Booster",
+     "price": {
+      "trend": 4.94,
+      "low": 2.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 463849,
+     "name": "Explosive Flame Walker Booster Box",
+     "price": {
+      "trend": 139.8,
+      "low": 59.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "爆炎ウォーカー"
+  },
+  {
+   "id": "ja-S2",
+   "name": "Rebellion Crash (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-03-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 115,
+   "cmExpansion": 3279,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 464429,
+     "name": "Rebellion Crash Booster",
+     "price": {
+      "trend": 7.21,
+      "low": 7.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 464434,
+     "name": "Rebellion Crash Booster Box",
+     "price": {
+      "trend": 148.84,
+      "low": 259.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "反逆クラッシュ"
+  },
+  {
    "id": "swsh1",
    "name": "Sword & Shield",
    "serie": "Sword & Shield",
@@ -4052,6 +4598,123 @@
      }
     }
    ]
+  },
+  {
+   "id": "ja-S1a",
+   "name": "VMAX Rising (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2020-02-07",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 86,
+   "cmExpansion": 3284,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 468304,
+     "name": "VMAX Rising Booster",
+     "price": {
+      "trend": 17.37,
+      "low": 12,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 468319,
+     "name": "VMAX Rising Booster Box",
+     "price": {
+      "trend": 270.12,
+      "low": 119.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "VMAXライジング"
+  },
+  {
+   "id": "ja-S1H",
+   "name": "Shield (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2019-12-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 75,
+   "cmExpansion": 3294,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 468314,
+     "name": "Shield Booster",
+     "price": {
+      "trend": 10.43,
+      "low": 3.2,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 468329,
+     "name": "Shield Booster Box",
+     "price": {
+      "trend": 188.12,
+      "low": 72.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "シールド"
+  },
+  {
+   "id": "ja-S1W",
+   "name": "Sword (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2019-12-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 75,
+   "cmExpansion": 3289,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 468309,
+     "name": "Sword Booster",
+     "price": {
+      "trend": 9.04,
+      "low": 3.85,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 468324,
+     "name": "Sword Booster Box",
+     "price": {
+      "trend": 220.47,
+      "low": 79.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "ソード"
   },
   {
    "id": "swshp",
@@ -4494,6 +5157,45 @@
      }
     }
    ]
+  },
+  {
+   "id": "ja-SMP2",
+   "name": "Great Detective Pikachu (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-04-26",
+   "logo": null,
+   "symbol": null,
+   "officialCount": null,
+   "totalCount": 25,
+   "cmExpansion": 3826,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550426,
+     "name": "Great Detective Pikachu Booster",
+     "price": {
+      "trend": 19.3,
+      "low": 9.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550421,
+     "name": "Great Detective Pikachu Booster Box",
+     "price": {
+      "trend": 433.88,
+      "low": 150,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ],
+   "lang": "ja",
+   "nameLocal": "名探偵ピカチュウ"
   },
   {
    "id": "ja-SM10a",

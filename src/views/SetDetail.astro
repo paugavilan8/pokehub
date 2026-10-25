@@ -25,7 +25,7 @@ const c = {
     title: `${set.name}: precios, cartas top y valor del sobre`,
     description: `Precio de sobres, cajas y ETB de ${set.name} en Cardmarket, sus cartas más caras y cuánto valen de media los hits de un sobre.`,
     back: 'Todas las expansiones', cards: 'cartas', released: (serie: string, d: string, n: number) => `Serie ${serie}. Salió el ${d} con ${n} cartas.`,
-    jaNote: (local: string) => `Edición japonesa (${local}). Precios de la versión japonesa en Cardmarket; los nombres de las cartas, en inglés como los pone Cardmarket.`, jaBox: 'Caja de sobres', prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
+    jaNote: (local: string) => `Edición japonesa (${local}). Precios de la versión japonesa en Cardmarket; los nombres de las cartas, en inglés como los pone Cardmarket.`, jaBox: 'Caja de sobres', cmNote: 'TCGdex no tiene las cartas de este set, así que la lista sale del catálogo de Cardmarket: sin número, rareza ni imagen. Las versiones alternativas de una misma carta se distinguen como allí, (V.1) y (V.2).', prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
     sealedTitle: 'Producto sellado',
     kinds: { pack: 'Sobre', box: 'Caja de 36 sobres', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 sobres)' } as Record<SealedItem['kind'], string>,
     from: 'desde', perPack: 'por sobre', see: 'Ver en Cardmarket', noSealed: 'No hemos encontrado producto sellado de este set en Cardmarket.',
@@ -55,7 +55,7 @@ const c = {
     title: `${set.name}: prices, chase cards and pack value`,
     description: `Cardmarket prices for ${set.name} packs, boxes and ETBs, its most valuable cards and what the hits in a pack are worth on average.`,
     back: 'All sets', cards: 'cards',
-    jaNote: (local: string) => `Japanese edition (${local}). Prices for the Japanese version on Cardmarket; card names in English as Cardmarket lists them.`, jaBox: 'Booster box', released: (serie: string, d: string, n: number) => `${serie} series. Released ${d} with ${n} cards.`, prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
+    jaNote: (local: string) => `Japanese edition (${local}). Prices for the Japanese version on Cardmarket; card names in English as Cardmarket lists them.`, jaBox: 'Booster box', cmNote: 'TCGdex does not have the cards for this set, so the list comes from the Cardmarket catalogue: no number, rarity or image. Alternate versions of the same card are labelled as there, (V.1) and (V.2).', released: (serie: string, d: string, n: number) => `${serie} series. Released ${d} with ${n} cards.`, prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
     sealedTitle: 'Sealed product',
     kinds: { pack: 'Booster pack', box: 'Booster box (36 packs)', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 packs)' } as Record<SealedItem['kind'], string>,
     from: 'from', perPack: 'per pack', see: 'View on Cardmarket', noSealed: 'We found no sealed product for this set on Cardmarket.',
@@ -91,6 +91,9 @@ const specificOdds = (r: string | null) => {
   return rate && n ? rate.perPack / n : null;
 };
 const rarities = [...new Set(set.cards.map((x) => x.rarity).filter(Boolean))] as string[];
+/** Sets montados solo con Cardmarket: sin rareza ni número, la lista empieza con todas las cartas por precio. */
+const cmOnly = rarities.length === 0;
+const shown = (x: (typeof set.cards)[number]) => cmOnly || isHit(x);
 const packRet = ev && pack?.price.trend ? (ev.perPack.trend / pack.price.trend) * 100 : null;
 const boxRet = ev?.perBox && box?.price.trend ? (ev.perBox.trend / box.price.trend) * 100 : null;
 const cmLang = lang;
@@ -106,6 +109,7 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
         <h1>{set.name}</h1>
         <p class="meta">{c.released(seriesName(set.serie, lang), set.releaseDate ? formatDate(set.releaseDate, lang) : '', set.totalCount)}</p>
         {ja && set.nameLocal && <p class="ja-note">{c.jaNote(set.nameLocal)}</p>}
+        {cmOnly && <p class="ja-note">{c.cmNote}</p>}
         <p class="small">{c.prices}</p>
       </div>
       <div class="hero-hits" aria-hidden="true">
@@ -209,12 +213,12 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
       <div class="controls">
         <label>{c.filter}
           <select data-filter>
-            <option value="hits" selected>{c.onlyHits}</option>
+            {!cmOnly && <option value="hits" selected>{c.onlyHits}</option>}
             <option value="">{c.all}</option>
             {rarities.map((r) => <option value={normRarity(r)}>{rarityLabel(r, lang)}</option>)}
           </select>
         </label>
-        <label>{c.sort}
+        <label hidden={cmOnly}>{c.sort}
           <select data-sort>
             <option value="price">{c.byPrice}</option>
             <option value="num">{c.byNum}</option>
@@ -226,7 +230,7 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
           <thead><tr>{c.cols.map((h, i) => <th class={i >= 3 ? 'n' : ''}>{h}</th>)}</tr></thead>
           <tbody>
             {[...set.cards].sort((a, b) => (b.price.trend ?? -1) - (a.price.trend ?? -1)).map((x) => (
-              <tr id={`c-${x.id}`} data-card={x.id} data-set={summary.slug} tabindex="0" data-r={normRarity(x.rarity)} data-hit={isHit(x) ? '1' : '0'} data-p={x.price.trend ?? -1} data-n={x.num} hidden={!isHit(x)}>
+              <tr id={`c-${x.id}`} data-card={x.id} data-set={summary.slug} tabindex="0" data-r={normRarity(x.rarity)} data-hit={isHit(x) ? '1' : '0'} data-p={x.price.trend ?? -1} data-n={x.num} hidden={!shown(x)}>
                 <td class="muted">{x.num}</td>
                 <td>{x.name}</td>
                 <td><span class={`rar ${rarityTone(x.rarity)}`} title={rarityLabel(x.rarity, lang)}>{rarityShort(x.rarity)}</span></td>

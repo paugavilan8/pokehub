@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  appendHistory, baseName, cmCardName, inferRarity, expansionOf, japaneseSetName, expectedValue, matchByName, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
+  appendHistory, baseName, cardsFromCardmarket, cmCardName, inferRarity, expansionOf, japaneseSetName, expectedValue, matchByName, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
   type CmProduct, type MarketCard, type SetPullRates,
 } from './market';
 
@@ -122,6 +122,20 @@ describe('sets japoneses', () => {
     expect(inferRarity({ num: '100', rarity: null }, 187)).toBeNull();
     expect(inferRarity({ num: 'TG01', rarity: null }, 30)).toBeNull();
     expect(inferRarity({ num: '217', rarity: 'Hyper rare' }, 187)).toBe('Hyper rare');
+  });
+  it('monta un set solo con Cardmarket, con el Pokédex de otra versión de la carta', () => {
+    const singles: CmProduct[] = [
+      { idProduct: 9, name: 'Umbreon VMAX [Dark Signal | Max Darkness]', idExpansion: 4239, idMetacard: 77 },
+      { idProduct: 5, name: 'Pinsir [Seismic Toss]', idExpansion: 4239, idMetacard: 78 },
+      { idProduct: 6, name: 'Otra', idExpansion: 1 },
+      { idProduct: 12, name: 'Umbreon VMAX [Dark Signal | Max Darkness]', idExpansion: 4239, idMetacard: 77 },
+    ];
+    const cards = cardsFromCardmarket('ja-S6a', 4239, singles, new Map([[9, { trend: 300, low: 250 }]]), new Map([[77, [197]]]));
+    expect(cards.map((c) => [c.id, c.name, c.price.trend, c.dex])).toEqual([
+      ['ja-S6a-cm5', 'Pinsir', null, null],
+      ['ja-S6a-cm9', 'Umbreon VMAX (V.1)', 300, [197]],
+      ['ja-S6a-cm12', 'Umbreon VMAX (V.2)', null, [197]],
+    ]);
   });
   it('descarta el sellado coreano o chino', () => {
     expect(sealedKind({ name: 'Korean Terastal Festival ex Booster' })).toBeNull();
