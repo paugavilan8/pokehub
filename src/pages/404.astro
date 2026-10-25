@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Poke from '../components/Poke.astro';
 import { SITE_NAME } from '../i18n/ui';
 ---
 <!doctype html>
@@ -12,11 +13,23 @@ import { SITE_NAME } from '../i18n/ui';
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <main class="container prose" style="padding-block: 96px;">
-      <h1>Página no encontrada</h1>
-      <p>La página que buscas no existe o ha cambiado de dirección.</p>
-      <p><a class="btn btn-primary" href="/">Ir a la calculadora</a></p>
-      <p lang="en" class="muted">Page not found. <a href="/en/">Go to the calculator</a>.</p>
+    <main class="night nf">
+      <div class="container nf-inner">
+        <Poke name="psyduck" size={260} eager class="nf-art" />
+        <div>
+          <h1>Esta página no existe</h1>
+          <p class="muted">Puede que haya cambiado de dirección. Psyduck tampoco la encuentra.</p>
+          <p><a class="btn btn-primary" href="/">Ir a la calculadora</a></p>
+          <p lang="en" class="muted">Page not found. <a href="/en/">Go to the calculator</a>.</p>
+        </div>
+      </div>
     </main>
   </body>
 </html>
+
+<style>
+  .nf { min-height: 100dvh; display: grid; align-items: center; }
+  .nf-inner { display: grid; gap: 24px; align-items: center; padding-block: 48px; }
+  @media (min-width: 760px) { .nf-inner { grid-template-columns: 280px 1fr; } }
+  .nf :global(.nf-art) { width: 220px; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.45)); }
+</style>

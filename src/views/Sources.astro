@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
 import rules from '../data/import-rules.json';
 import vat from '../data/vat-rates.json';
 import { ROUTES, LOCALE, countryName, formatDate, type Lang } from '../i18n/ui';
@@ -57,12 +58,10 @@ const vatRows = Object.entries(vat.rates)
   .sort((a, b) => a.name.localeCompare(b.name, LOCALE[lang]));
 ---
 <Base lang={lang} route="sources" title={c.title} description={c.description}>
+  <PageHero slot="hero" title={c.title} lede={c.lede} art="lucario">
+    <p class="small">{c.statusHelp}</p>
+  </PageHero>
   <div class="container">
-    <header class="head">
-      <h1>{c.title}</h1>
-      <p class="lede">{c.lede}</p>
-      <p class="muted small">{c.statusHelp}</p>
-    </header>
 
     <div class="rules">
       {ruleKeys.map((key) => {
@@ -100,11 +99,10 @@ const vatRows = Object.entries(vat.rates)
 </Base>
 
 <style>
-  .head { padding-block: 48px 16px; max-width: 760px; }
-  .lede { font-size: 1.15rem; color: var(--text-muted); }
   .small { font-size: 0.9rem; }
   .rules { display: grid; gap: 0; max-width: 860px; }
   .rule { padding: 26px 0; border-top: 1px solid var(--border); }
+  .rule:first-child { border-top: 0; padding-top: 8px; }
   .rule h2 { font-size: 1.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
   .meta { font-size: 0.9rem; margin-bottom: 6px; }
   .srcs { margin: 8px 0 0; padding-left: 1.2em; font-size: 0.93rem; display: grid; gap: 6px; }

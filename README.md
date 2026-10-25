@@ -18,6 +18,7 @@ Las otras tres herramientas aparecen como "Lo próximo" en la portada, sin pági
 - [Astro 5](https://astro.build) estático, i18n con español sin prefijo (`/`) e inglés en `/en/`, slugs traducidos y `hreflang`.
 - Lógica en `src/lib/calc.ts` (TypeScript puro, probada con Vitest).
 - Datos curados en `src/data/*.json`, con fecha de revisión, estado (`verified` / `secondary` / `pending`) y fuente en cada regla.
+- Ilustraciones: arte oficial de Pokémon descargado de [PokeAPI/sprites](https://github.com/PokeAPI/sprites) a `src/assets/pokemon/` y convertido a WebP en el build. Es material con copyright de Nintendo/Creatures/GAME FREAK/The Pokémon Company: el pie de página lo acredita, pero si la web se monetiza conviene valorar el riesgo (ver "Antes de publicar").
 - Sin cookies, sin analítica, sin backend. Tipos de cambio en vivo desde la API pública del BCE (Frankfurter) con entrada manual de respaldo.
 - Pensado para Cloudflare Pages (gratis). Inversión inicial: solo el dominio.
 
@@ -59,4 +60,5 @@ Para regenerar las imágenes sociales tras cambiar el nombre: `NODE_PATH=$(npm r
    - Tasa de gestión de 2 €: pendiente de publicación en el DOUE; confirmar si es por paquete o por tipo de artículo y si lleva IVA.
    - Arancel 2,7 % de la partida 9504 40 00 y el 0 % con origen preferencial: confirmar en TARIC.
    - Tarifas de gestión aduanera de Correos/DHL/FedEx: no hay valor por defecto.
-4. Contrastar los tipos de IVA de `vat-rates.json` con la base de datos oficial de la Comisión.
+4. **Imágenes**: el arte oficial de Pokémon es común en webs de fans, pero The Pokémon Company puede pedir su retirada, sobre todo en webs con ingresos. Alternativas con menos riesgo: fotos propias de cartas y productos, o fotos con licencia libre (Unsplash, Pexels).
+5. Contrastar los tipos de IVA de `vat-rates.json` con la base de datos oficial de la Comisión.

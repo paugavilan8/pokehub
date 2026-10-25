@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
 import owner from '../data/owner.json';
 import rules from '../data/import-rules.json';
 import { SITE_NAME, formatDate, type Lang } from '../i18n/ui';
@@ -95,9 +96,10 @@ const pages: Record<LegalKey, Record<Lang, { title: string; description: string;
 const content = pages[page][lang];
 ---
 <Base lang={lang} route={page} title={content.title} description={content.description}>
+  <PageHero slot="hero" title={content.title} art="snorlax">
+    <p class="small">{lang === 'es' ? 'Última actualización' : 'Last updated'}: {updated}</p>
+  </PageHero>
   <article class="container prose legal">
-    <h1>{content.title}</h1>
-    <p class="muted">{lang === 'es' ? 'Última actualización' : 'Last updated'}: {updated}</p>
     {content.blocks.map((b) => (
       <section>
         {b.h && <h2>{b.h}</h2>}
@@ -108,6 +110,7 @@ const content = pages[page][lang];
 </Base>
 
 <style>
-  .legal { padding-top: 48px; }
+  .legal { padding-top: 8px; }
+  .legal > section:first-child h2 { margin-top: 0; }
   .legal h2 { font-size: 1.3rem; margin-top: 1.8em; }
 </style>

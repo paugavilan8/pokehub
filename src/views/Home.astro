@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Calculator from '../components/Calculator.astro';
 import Icon from '../components/Icon.astro';
+import Poke from '../components/Poke.astro';
 import rules from '../data/import-rules.json';
 import { ROUTES, SITE_NAME, formatDate, ui, type Lang } from '../i18n/ui';
 
@@ -15,13 +16,13 @@ const copy = {
     title: 'Calculadora de aduanas e IVA para cartas Pokémon en España',
     description:
       'Calcula cuánto te cuesta de verdad una caja o sobres Pokémon comprados en Japón, EE. UU. o Reino Unido: IVA, derecho de 3 €, tasa de 2 € y transportista.',
-    h1: 'Lo que pagas de verdad por tus cartas importadas',
+    h1: ['Lo que pagas ', 'de verdad', ' por tus cartas importadas'],
     sub: 'IVA, aduana y tasas de 2026 para compras desde Japón, EE. UU., Reino Unido y Suiza, puesto en España.',
     timelineTitle: 'Qué ha cambiado en 2026',
     timeline: [
-      { date: '2026-07-01', title: 'Fin de la exención de 150 €', body: 'Cada envío de fuera de la UE de hasta 150 € paga un derecho fijo de 3 € por tipo de producto. Una caja o diez cajas de cartas cuentan igual.', status: rules.flatDuty.status },
-      { date: '2026-11-01', title: 'Tasa de gestión de 2 €', body: 'Se suma a cualquier compra a distancia de fuera de la UE, valga lo que valga. Pendiente de publicación oficial: puede retrasarse.', status: rules.handlingFee.status },
-      { date: null, title: 'Más de 150 €: arancel normal', body: 'Se paga un porcentaje sobre mercancía y envío (orientativo 2,7 %). Con declaración de origen desde Japón, Reino Unido o Suiza puede quedar en 0 %.', status: rules.standardDuty.status },
+      { date: '2026-07-01', title: 'Fin de la exención de 150 €', art: 'snorlax', tint: 'electric', body: 'Cada envío de fuera de la UE de hasta 150 € paga un derecho fijo de 3 € por tipo de producto. Una caja o diez cajas de cartas cuentan igual.', status: rules.flatDuty.status },
+      { date: '2026-11-01', title: 'Tasa de gestión de 2 €', art: 'rotom', tint: 'fire', body: 'Se suma a cualquier compra a distancia de fuera de la UE, valga lo que valga. Pendiente de publicación oficial: puede retrasarse.', status: rules.handlingFee.status },
+      { date: null, title: 'Más de 150 €: arancel normal', art: 'mewtwo', tint: 'psychic', body: 'Se paga un porcentaje sobre mercancía y envío (orientativo 2,7 %). Con declaración de origen desde Japón, Reino Unido o Suiza puede quedar en 0 %.', status: rules.standardDuty.status },
     ],
     always: 'Siempre',
     statusLabel: { verified: 'Verificado', secondary: 'Fuentes secundarias', pending: 'Por confirmar' },
@@ -31,9 +32,9 @@ const copy = {
     soonTitle: 'Lo próximo en ' + SITE_NAME,
     soonBody: 'Estamos preparando estas herramientas. Las publicaremos cuando los datos estén revisados y con fuentes.',
     soon: [
-      { icon: 'shield-check', title: 'Verificador de tiendas', body: 'Pega la URL de una tienda y mira si está en nuestra lista revisada, en la de alertas o sin datos.' },
-      { icon: 'bell', title: 'Alertas de stock y precio', body: 'Aviso por correo cuando vuelva el stock o baje el precio de un producto sellado en tiendas de España y la UE.' },
-      { icon: 'cards-three', title: '¿Merece la pena abrir este set?', body: 'Precio del sobre frente al valor esperado de sus cartas, con rangos y fecha.' },
+      { art: 'lucario', tint: 'water', title: 'Verificador de tiendas', body: 'Pega la URL de una tienda y mira si está en nuestra lista revisada, en la de alertas o sin datos.' },
+      { art: 'jigglypuff', tint: 'psychic', title: 'Alertas de stock y precio', body: 'Aviso por correo cuando vuelva el stock o baje el precio de un producto sellado en tiendas de España y la UE.' },
+      { art: 'meowth', tint: 'electric', title: '¿Merece la pena abrir este set?', body: 'Precio del sobre frente al valor esperado de sus cartas, con rangos y fecha.' },
     ],
     sourcesNote: `${t.reviewed} ${reviewed}. Cada regla enlaza a su fuente oficial.`,
     sourcesLink: 'Ver reglas y fuentes',
@@ -42,13 +43,13 @@ const copy = {
     title: 'EU import tax and customs calculator for Pokémon cards',
     description:
       'See what a Pokémon booster box or packs from Japan, the US or the UK really cost delivered to Spain or any EU country: VAT, the €3 duty, the €2 fee and carrier charges.',
-    h1: 'What your imported cards really cost',
+    h1: ['What your imported cards ', 'really', ' cost'],
     sub: 'The 2026 EU VAT, duty and fees for orders from Japan, the US, the UK and Switzerland.',
     timelineTitle: 'What changed in 2026',
     timeline: [
-      { date: '2026-07-01', title: 'The €150 exemption is gone', body: 'Every order up to €150 from outside the EU pays a flat €3 duty per product type. One box of cards or ten boxes count the same.', status: rules.flatDuty.status },
-      { date: '2026-11-01', title: '€2 handling fee', body: 'Added to any distance sale from outside the EU, whatever its value. Still awaiting official publication, so it may be delayed.', status: rules.handlingFee.status },
-      { date: null, title: 'Over €150: normal duty', body: 'A percentage of goods plus shipping (about 2.7% as a guide). With an origin statement from Japan, the UK or Switzerland it can be 0%.', status: rules.standardDuty.status },
+      { date: '2026-07-01', title: 'The €150 exemption is gone', art: 'snorlax', tint: 'electric', body: 'Every order up to €150 from outside the EU pays a flat €3 duty per product type. One box of cards or ten boxes count the same.', status: rules.flatDuty.status },
+      { date: '2026-11-01', title: '€2 handling fee', art: 'rotom', tint: 'fire', body: 'Added to any distance sale from outside the EU, whatever its value. Still awaiting official publication, so it may be delayed.', status: rules.handlingFee.status },
+      { date: null, title: 'Over €150: normal duty', art: 'mewtwo', tint: 'psychic', body: 'A percentage of goods plus shipping (about 2.7% as a guide). With an origin statement from Japan, the UK or Switzerland it can be 0%.', status: rules.standardDuty.status },
     ],
     always: 'Always',
     statusLabel: { verified: 'Verified', secondary: 'Secondary sources', pending: 'To be confirmed' },
@@ -58,9 +59,9 @@ const copy = {
     soonTitle: 'Coming next to ' + SITE_NAME,
     soonBody: 'We are building these tools. Each one goes live once its data is reviewed and sourced.',
     soon: [
-      { icon: 'shield-check', title: 'Shop checker', body: 'Paste a shop URL and see whether it is on our reviewed list, on the warning list, or unknown.' },
-      { icon: 'bell', title: 'Stock and price alerts', body: 'An email when a sealed product is back in stock or drops in price at shops in Spain and the EU.' },
-      { icon: 'cards-three', title: 'Is this set worth opening?', body: 'Pack price against the expected value of its cards, with ranges and dates.' },
+      { art: 'lucario', tint: 'water', title: 'Shop checker', body: 'Paste a shop URL and see whether it is on our reviewed list, on the warning list, or unknown.' },
+      { art: 'jigglypuff', tint: 'psychic', title: 'Stock and price alerts', body: 'An email when a sealed product is back in stock or drops in price at shops in Spain and the EU.' },
+      { art: 'meowth', tint: 'electric', title: 'Is this set worth opening?', body: 'Pack price against the expected value of its cards, with ranges and dates.' },
     ],
     sourcesNote: `${t.reviewed} ${reviewed}. Every rule links to its official source.`,
     sourcesLink: 'See rules and sources',
@@ -80,39 +81,52 @@ const jsonLd = {
 };
 ---
 <Base lang={lang} route="home" title={copy.title} description={copy.description} jsonLd={jsonLd}>
-  <div class="container">
-    <section class="hero">
-      <h1>{copy.h1}</h1>
+  <section slot="hero" class="container home-hero">
+    <div class="copy">
+      <h1>{copy.h1[0]}<span class="hl">{copy.h1[1]}</span>{copy.h1[2]}</h1>
       <p class="sub">{copy.sub}</p>
-    </section>
+    </div>
+    <div class="cluster" aria-hidden="true">
+      <span class="glow"></span>
+      <Poke name="umbreon" size={220} eager class="c-umbreon" />
+      <Poke name="charizard" size={380} eager class="c-charizard" />
+      <Poke name="pikachu" size={200} eager class="c-pikachu" />
+    </div>
+  </section>
 
+  <div class="container calc-wrap">
     <Calculator lang={lang} />
-
     <p class="reviewed muted">
       <Icon name="info" /> {copy.sourcesNote} <a href={ROUTES.sources[lang]}>{copy.sourcesLink}</a>
     </p>
+  </div>
 
-    <section class="timeline-sec" aria-labelledby="tl-title">
+  <div class="container">
+    <section class="changes" aria-labelledby="tl-title">
       <h2 id="tl-title">{copy.timelineTitle}</h2>
-      <ol class="timeline">
-        {copy.timeline.map((item) => (
-          <li>
+      <ol class="bento">
+        {copy.timeline.map((item, i) => (
+          <li class={`tile t-${item.tint} ${i === 0 ? 'big' : ''}`}>
             <p class="tl-date">{item.date ? formatDate(item.date, lang) : copy.always}</p>
-            <div>
-              <h3>{item.title} <span class={`badge ${item.status}`}>{copy.statusLabel[item.status as keyof typeof copy.statusLabel]}</span></h3>
-              <p>{item.body}</p>
-            </div>
+            <h3>{item.title}</h3>
+            <p class="tl-body">{item.body}</p>
+            <span class={`badge ${item.status}`}>{copy.statusLabel[item.status as keyof typeof copy.statusLabel]}</span>
+            <Poke name={item.art} size={i === 0 ? 260 : 150} class="tile-art" />
           </li>
         ))}
       </ol>
     </section>
 
     <section class="guide-band">
-      <div>
+      <div class="gb-copy">
         <h2>{copy.guideTitle}</h2>
         <p>{copy.guideBody}</p>
+        <a class="btn btn-dark" href={ROUTES.guide[lang]}>{copy.guideCta} <Icon name="arrow-right" /></a>
       </div>
-      <a class="btn btn-primary" href={ROUTES.guide[lang]}>{copy.guideCta} <Icon name="arrow-right" /></a>
+      <div class="gb-art" aria-hidden="true">
+        <Poke name="sylveon" size={220} class="gb-sylveon" />
+        <Poke name="eevee" size={200} class="gb-eevee" />
+      </div>
     </section>
 
     <section class="soon" aria-labelledby="soon-title">
@@ -123,7 +137,7 @@ const jsonLd = {
       <ul class="soon-list">
         {copy.soon.map((s) => (
           <li>
-            <span class="soon-icon"><Icon name={s.icon} /></span>
+            <span class={`soon-avatar t-${s.tint}`}><Poke name={s.art} size={96} /></span>
             <div>
               <h3>{s.title}</h3>
               <p class="muted">{s.body}</p>
@@ -136,38 +150,66 @@ const jsonLd = {
 </Base>
 
 <style>
-  .hero { padding-block: 40px 28px; max-width: 760px; }
-  @media (min-width: 768px) { .hero { padding-block: 56px 32px; } }
-  .hero h1 { margin-bottom: 14px; }
-  .sub { font-size: 1.15rem; color: var(--text-muted); max-width: 56ch; margin: 0; }
-  .reviewed { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 0.9rem; margin-top: 16px; }
+  .home-hero { display: grid; align-items: center; gap: 0 24px; padding-block: 16px 150px; }
+  @media (min-width: 900px) { .home-hero { grid-template-columns: 1.1fr 0.9fr; padding-block: 24px 170px; } }
+  .home-hero h1 { margin-bottom: 18px; max-width: 13ch; }
+  .sub { font-size: 1.2rem; color: var(--night-muted); max-width: 46ch; margin: 0; }
+  .cluster { position: relative; height: 230px; margin-top: 12px; }
+  @media (min-width: 900px) { .cluster { height: 400px; margin-top: 0; } }
+  .glow { position: absolute; inset: 8% 10%; border-radius: 50%; background: radial-gradient(circle, rgb(255 201 60 / 0.45), transparent 65%); }
+  .cluster :global(.poke) { position: absolute; filter: drop-shadow(0 20px 30px rgb(5 8 40 / 0.55)); }
+  .cluster :global(.c-charizard) { width: 58%; left: 22%; top: 0; }
+  .cluster :global(.c-umbreon) { width: 34%; right: 0; top: 12%; opacity: 0.95; }
+  .cluster :global(.c-pikachu) { width: 34%; left: 4%; bottom: -4%; }
+  @media (max-width: 899px) {
+    .cluster :global(.c-charizard) { width: 230px; left: calc(50% - 115px); }
+    .cluster :global(.c-umbreon) { width: 130px; right: calc(50% - 180px); }
+    .cluster :global(.c-pikachu) { width: 120px; left: calc(50% - 190px); }
+  }
+
+  .calc-wrap { margin-top: -120px; position: relative; z-index: 2; }
+  .reviewed { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; font-size: 0.9rem; margin-top: 18px; }
   .reviewed :global(svg) { width: 16px; height: 16px; align-self: center; }
 
-  .timeline-sec { margin-top: 88px; }
-  .timeline { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 0; max-width: 860px; }
-  .timeline li { display: grid; gap: 4px 32px; padding: 22px 0; border-top: 1px solid var(--border); }
-  @media (min-width: 768px) { .timeline li { grid-template-columns: 200px 1fr; } }
-  .tl-date { margin: 0; color: var(--accent); font-weight: 600; font-size: 0.95rem; }
-  .timeline h3 { margin-bottom: 6px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-  .timeline p { margin: 0; color: var(--text-muted); max-width: 62ch; }
+  .changes { margin-top: 104px; }
+  .bento { list-style: none; padding: 0; margin: 28px 0 0; display: grid; gap: 18px; }
+  @media (min-width: 860px) { .bento { grid-template-columns: 1.15fr 1fr; grid-template-rows: auto auto; } .bento .big { grid-row: span 2; } }
+  .tile { position: relative; overflow: hidden; border-radius: var(--radius-panel); padding: 26px 26px 28px; min-height: 210px; display: flex; flex-direction: column; align-items: flex-start; }
+  .tile.big { min-height: 440px; }
+  .t-electric { background: var(--t-electric); } .t-fire { background: var(--t-fire); } .t-psychic { background: var(--t-psychic); }
+  .t-water { background: var(--t-water); } .t-grass { background: var(--t-grass); } .t-ghost { background: var(--t-ghost); }
+  .tl-date { margin: 0 0 6px; font-weight: 700; font-size: 0.92rem; color: var(--text-muted); }
+  .tile h3 { font-size: 1.45rem; max-width: 16ch; }
+  .tile.big h3 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
+  .tl-body { margin: 0 0 14px; max-width: 34ch; position: relative; z-index: 1; }
+  .tile.big .tl-body { max-width: 30ch; font-size: 1.05rem; }
+  .tile :global(.tile-art) { position: absolute; right: -8px; bottom: -12px; width: 150px; pointer-events: none; }
+  .tile:not(.big) { padding-right: 150px; }
+  .tile.big :global(.tile-art) { width: 250px; right: -10px; bottom: -20px; }
+  @media (max-width: 600px) { .tile:not(.big) { padding-right: 100px; } .tile :global(.tile-art) { width: 110px; } .tile.big :global(.tile-art) { width: 170px; } .tile.big { min-height: 380px; } }
+  .tile .badge { margin-top: auto; position: relative; z-index: 1; }
 
   .guide-band {
-    margin-top: 88px; display: grid; gap: 20px; align-items: center;
-    background: var(--accent-soft); border-radius: var(--radius-panel); padding: 28px;
+    margin-top: 120px; position: relative; display: grid; gap: 12px; align-items: end;
+    background: var(--sun); color: var(--on-sun); border-radius: 28px; padding: 32px 28px 0;
   }
-  @media (min-width: 768px) { .guide-band { grid-template-columns: 1fr auto; padding: 40px 44px; } }
-  .guide-band h2 { margin-bottom: 8px; }
-  .guide-band p { margin: 0; max-width: 58ch; }
+  @media (min-width: 860px) { .guide-band { grid-template-columns: 1fr 380px; padding: 48px 52px; } }
+  .gb-copy h2 { font-size: clamp(1.8rem, 3.6vw, 2.7rem); }
+  .gb-copy p { max-width: 46ch; font-size: 1.08rem; }
+  .btn-dark { background: var(--night-2); color: #fff; }
+  .btn-dark:hover { background: var(--night); color: #fff; }
+  .gb-art { position: relative; height: 200px; }
+  .gb-art :global(.poke) { position: absolute; filter: drop-shadow(0 14px 18px rgb(80 50 0 / 0.3)); }
+  .gb-art :global(.gb-sylveon) { width: 210px; right: 90px; bottom: 0; }
+  .gb-art :global(.gb-eevee) { width: 170px; right: -10px; bottom: -6px; }
+  @media (min-width: 860px) { .gb-art { position: absolute; right: 28px; bottom: 0; width: 380px; height: 300px; } .gb-art :global(.gb-sylveon) { width: 250px; right: 110px; } .gb-art :global(.gb-eevee) { width: 200px; } }
 
-  .soon { margin-top: 88px; display: grid; gap: 28px; }
+  .soon { margin-top: 110px; display: grid; gap: 28px; }
   @media (min-width: 960px) { .soon { grid-template-columns: 0.8fr 1.2fr; gap: 56px; } }
-  .soon-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 26px; }
-  .soon-list li { display: grid; grid-template-columns: 44px 1fr; gap: 16px; }
-  .soon-icon {
-    width: 44px; height: 44px; border-radius: var(--radius-control); display: grid; place-items: center;
-    background: var(--surface); border: 1px solid var(--border); color: var(--accent);
-  }
-  .soon-icon :global(svg) { width: 22px; height: 22px; }
+  .soon-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+  .soon-list li { display: grid; grid-template-columns: 84px 1fr; gap: 18px; align-items: center; }
+  .soon-avatar { width: 84px; height: 84px; border-radius: 24px; display: grid; place-items: center; overflow: hidden; }
+  .soon-avatar :global(.poke) { width: 78px; }
   .soon-list h3 { margin-bottom: 4px; }
   .soon-list p { margin: 0; }
 </style>

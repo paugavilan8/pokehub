@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import Poke from '../components/Poke.astro';
+import PageHero from '../components/PageHero.astro';
 import examples from '../data/examples.json';
 import rules from '../data/import-rules.json';
 import { calculate, type Origin } from '../lib/calc';
@@ -27,6 +29,12 @@ const worked = examples.items.map((ex) => {
 });
 
 const L = t.calc.lines;
+const EX_ART: Record<string, { art: string; tint: string }> = {
+  'jp-box': { art: 'pikachu', tint: 'electric' },
+  'jp-two-boxes': { art: 'greninja', tint: 'water' },
+  'us-etb': { art: 'oshawott', tint: 'psychic' },
+  'uk-ioss': { art: 'corviknight', tint: 'fire' },
+};
 const c = {
   es: {
     title: 'Aduanas e IVA al comprar cartas Pokémon fuera de la UE (2026)',
@@ -121,12 +129,10 @@ const jsonLd = {
 };
 ---
 <Base lang={lang} route="guide" title={c.title} description={c.description} jsonLd={jsonLd}>
+  <PageHero slot="hero" title={c.h1} lede={c.lede} art="dragonite" artAlt="psyduck">
+    <p class="small">{c.sourcesNote} <a href={ROUTES.sources[lang]}>{c.sourcesLink}</a></p>
+  </PageHero>
   <article class="container">
-    <header class="head">
-      <h1>{c.h1}</h1>
-      <p class="lede">{c.lede}</p>
-      <p class="muted small">{c.sourcesNote} <a href={ROUTES.sources[lang]}>{c.sourcesLink}</a></p>
-    </header>
 
     <section class="summary panel-soft">
       <h2>{c.short}</h2>
@@ -148,7 +154,10 @@ const jsonLd = {
       <div class="ex-grid">
         {worked.map((ex) => (
           <article class="ex" id={ex.id}>
-            <h3>{ex.title[lang]}</h3>
+            <div class={`ex-head t-${EX_ART[ex.id].tint}`}>
+              <h3>{ex.title[lang]}</h3>
+              <Poke name={EX_ART[ex.id].art} size={130} class="ex-art" />
+            </div>
             <p class="muted">{ex.summary[lang]}</p>
             <dl class="ex-lines">
               <dt>{L.goods}</dt><dd>{money.format(ex.r.goodsEur)}</dd>
@@ -192,30 +201,32 @@ const jsonLd = {
 </Base>
 
 <style>
-  .head { padding-block: 48px 8px; max-width: 760px; }
-  .lede { font-size: 1.15rem; color: var(--text-muted); }
   .small { font-size: 0.9rem; }
-  .panel-soft { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); padding: 24px 28px; margin-top: 24px; max-width: 860px; }
-  .panel-soft h2 { font-size: 1.25rem; }
-  .panel-soft ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
-  .examples { margin-top: 72px; }
-  .ex-grid { display: grid; gap: 20px; margin-top: 24px; }
+  .panel-soft { background: var(--t-electric); border-radius: var(--radius-panel); padding: 26px 30px; margin-top: 8px; max-width: 900px; }
+  .panel-soft h2 { font-size: 1.5rem; }
+  .panel-soft ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; font-size: 1.03rem; }
+  .examples { margin-top: 80px; }
+  .ex-grid { display: grid; gap: 22px; margin-top: 26px; }
   @media (min-width: 800px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
-  .ex { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); padding: 24px; display: flex; flex-direction: column; }
-  .ex h3 { font-size: 1.15rem; }
-  .ex-lines { display: grid; grid-template-columns: 1fr auto; margin: 4px 0 12px; font-size: 0.95rem; }
-  .ex-lines dt, .ex-lines dd { margin: 0; padding: 5px 0; }
-  .ex-lines dd { text-align: right; font-variant-numeric: tabular-nums; }
+  .ex { background: var(--surface); border-radius: var(--radius-panel); box-shadow: var(--shadow); display: flex; flex-direction: column; overflow: hidden; }
+  .ex > :not(.ex-head) { margin-inline: 24px; }
+  .ex-head { position: relative; min-height: 112px; padding: 22px 140px 18px 24px; margin-bottom: 16px; display: flex; align-items: flex-end; }
+  .t-electric { background: var(--t-electric); } .t-water { background: var(--t-water); } .t-psychic { background: var(--t-psychic); } .t-fire { background: var(--t-fire); }
+  .ex-head h3 { font-size: 1.3rem; margin: 0; }
+  .ex-head :global(.ex-art) { position: absolute; right: 8px; bottom: -14px; width: 124px; filter: drop-shadow(0 10px 14px rgb(16 22 58 / 0.25)); }
+  .ex-lines { display: grid; grid-template-columns: 1fr auto; margin: 4px 24px 12px; font-size: 0.95rem; }
+  .ex-lines dt, .ex-lines dd { margin: 0; padding: 6px 0; }
+  .ex-lines dd { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
   .ex-lines .sub { color: var(--text-muted); }
-  .ex-lines .tot { border-top: 1px solid var(--border-strong); font-weight: 650; padding-top: 8px; }
-  .verdict { font-weight: 550; margin-bottom: 6px; }
-  .verdict strong { color: var(--accent); font-variant-numeric: tabular-nums; }
-  .open { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+  .ex-lines .tot { border-top: 2px solid var(--text); font-weight: 800; padding-top: 9px; font-size: 1.05rem; }
+  .verdict { font-weight: 600; margin-bottom: 6px; }
+  .verdict strong { color: var(--ember); font-variant-numeric: tabular-nums; }
+  .open { margin-top: auto !important; padding: 12px 0 24px; display: inline-flex; align-items: center; gap: 6px; font-weight: 650; }
   .open :global(svg) { width: 16px; height: 16px; }
   .checks { list-style: none; padding: 0 !important; }
-  .checks li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
-  .checks :global(svg) { width: 20px; height: 20px; color: var(--accent); margin-top: 3px; }
-  .faq { border-top: 1px solid var(--border); padding: 14px 0; }
-  .faq summary { cursor: pointer; font-weight: 600; }
+  .checks li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; }
+  .checks :global(svg) { width: 22px; height: 22px; color: var(--ok); margin-top: 2px; }
+  .faq { border-top: 1px solid var(--border); padding: 16px 0; }
+  .faq summary { cursor: pointer; font-weight: 650; font-size: 1.05rem; }
   .faq p { margin: 10px 0 0; color: var(--text-muted); }
 </style>

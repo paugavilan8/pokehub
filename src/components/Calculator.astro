@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import Poke from './Poke.astro';
 import { ORIGINS, CURRENCIES, VAT_RATES, DEFAULT_CURRENCY } from '../lib/calc';
 import rules from '../data/import-rules.json';
 import { ui, countryName, LOCALE, type Lang } from '../i18n/ui';
@@ -17,13 +18,19 @@ const config = { lang, locale: LOCALE[lang], t, defaultCurrency: DEFAULT_CURRENC
   <form class="panel form" novalidate>
     <H id="calc-title" class="calc-title">{heading ?? t.title}</H>
 
-    <div class="row two">
-      <div class="field">
-        <label for="c-origin">{t.origin}</label>
-        <select id="c-origin" name="o">
-          {ORIGINS.map((o) => <option value={o} selected={o === 'jp'}>{t.origins[o]}</option>)}
-        </select>
+    <fieldset class="origins">
+      <legend>{t.origin}</legend>
+      <div class="pills">
+        {ORIGINS.map((o) => (
+          <label class="pill">
+            <input type="radio" name="o" value={o} checked={o === 'jp'} />
+            <span>{t.origins[o]}</span>
+          </label>
+        ))}
       </div>
+    </fieldset>
+
+    <div class="row two">
       <div class="field">
         <label for="c-dest">{t.destination}</label>
         <select id="c-dest" name="d" aria-describedby="c-dest-help">
@@ -31,9 +38,15 @@ const config = { lang, locale: LOCALE[lang], t, defaultCurrency: DEFAULT_CURRENC
         </select>
         <p class="help" id="c-dest-help">{t.destinationHelp}</p>
       </div>
+      <div class="field">
+        <label for="c-cur">{t.currency}</label>
+        <select id="c-cur" name="c">
+          {CURRENCIES.map((c) => <option value={c} selected={c === 'JPY'}>{c}</option>)}
+        </select>
+      </div>
     </div>
 
-    <div class="row money">
+    <div class="row two money">
       <div class="field">
         <label for="c-goods">{t.goods}</label>
         <input id="c-goods" name="g" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="c-goods-help c-goods-err" />
@@ -44,12 +57,6 @@ const config = { lang, locale: LOCALE[lang], t, defaultCurrency: DEFAULT_CURRENC
         <label for="c-ship">{t.shipping}</label>
         <input id="c-ship" name="s" type="text" inputmode="decimal" autocomplete="off" placeholder="0" aria-describedby="c-ship-err" />
         <p class="error" id="c-ship-err" hidden>{t.errorNumber}</p>
-      </div>
-      <div class="field">
-        <label for="c-cur">{t.currency}</label>
-        <select id="c-cur" name="c">
-          {CURRENCIES.map((c) => <option value={c} selected={c === 'JPY'}>{c}</option>)}
-        </select>
       </div>
     </div>
 
@@ -108,6 +115,7 @@ const config = { lang, locale: LOCALE[lang], t, defaultCurrency: DEFAULT_CURRENC
   </form>
 
   <div class="panel result" aria-live="polite">
+    <Poke name="dragonite" size={180} class="result-art" />
     <p class="result-label">{t.result}</p>
     <p class="total" data-total>-</p>
     <p class="extras" data-extras>{t.empty}</p>
@@ -126,53 +134,80 @@ const config = { lang, locale: LOCALE[lang], t, defaultCurrency: DEFAULT_CURRENC
 </section>
 
 <style>
-  .calc { display: grid; gap: 16px; align-items: start; }
-  @media (min-width: 960px) { .calc { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; } .result { position: sticky; top: 24px; } }
-  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); padding: 20px; box-shadow: var(--shadow); }
-  @media (min-width: 768px) { .panel { padding: 28px; } }
-  .calc-title { font-size: 1.35rem; margin-bottom: 20px; }
-  .row { display: grid; gap: 16px; }
-  .form > :global(* + *) { margin-top: 16px; }
+  .calc { display: grid; gap: 18px; align-items: start; }
+  @media (min-width: 960px) { .calc { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 22px; } .calc .result { position: sticky; top: 24px; } }
+  .panel { border-radius: var(--radius-panel); padding: 22px; box-shadow: var(--shadow); }
+  @media (min-width: 768px) { .panel { padding: 32px; } }
+  .form { background: var(--surface); border: 1px solid var(--border); }
+  .calc-title { font-size: 1.55rem; margin-bottom: 22px; }
+  .form > :global(* + *) { margin-top: 20px; }
   .form > .calc-title + * { margin-top: 0; }
-  @media (min-width: 600px) {
-    .row.two { grid-template-columns: 1fr 1fr; }
-    .row.money { grid-template-columns: 1.3fr 1fr 0.8fr; }
-  }
+  .row { display: grid; gap: 16px; }
+  @media (min-width: 600px) { .row.two { grid-template-columns: 1fr 1fr; } }
   .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
-  label { font-weight: 550; font-size: 0.93rem; }
+  label, legend { font-weight: 650; font-size: 0.93rem; }
+  .origins { border: 0; margin: 0; padding: 0; min-width: 0; }
+  .origins legend { padding: 0; margin-bottom: 10px; }
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill { position: relative; cursor: pointer; font-weight: 600; }
+  .pill input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+  .pill span {
+    display: inline-block; padding: 9px 16px; border-radius: 999px; font-size: 0.93rem;
+    background: var(--surface-2); color: var(--text); border: 1.5px solid transparent;
+    transition: background-color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .pill:hover span { border-color: var(--border-strong); }
+  .pill input:checked + span { background: var(--night); color: var(--night-text); }
+  .pill input:focus-visible + span { outline: 3px solid var(--focus); outline-offset: 2px; }
   input[type='text'], input[type='number'], input[type='date'], select {
     font: inherit; font-size: 1rem; color: var(--text); background: var(--bg);
-    border: 1px solid var(--border-strong); border-radius: var(--radius-control);
-    padding: 10px 12px; width: 100%; min-height: 44px;
+    border: 1.5px solid var(--border); border-radius: var(--radius-control);
+    padding: 11px 14px; width: 100%; min-height: 48px;
+    transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
   }
-  input[name='g'], input[name='s'] { font-size: 1.1rem; font-variant-numeric: tabular-nums; }
+  input:hover, select:hover { border-color: var(--border-strong); }
+  input:focus, select:focus { background: var(--surface); }
+  input[name='g'], input[name='s'] { font-family: var(--display); font-size: 1.35rem; font-weight: 650; font-variant-numeric: tabular-nums; }
   input::placeholder { color: var(--text-muted); }
-  input[aria-invalid='true'] { border-color: var(--accent); }
+  input[aria-invalid='true'] { border-color: var(--ember); }
   .help { font-size: 0.84rem; color: var(--text-muted); margin: 0; line-height: 1.45; }
-  .error { font-size: 0.84rem; color: var(--accent); margin: 0; font-weight: 550; }
+  .error { font-size: 0.84rem; color: var(--ember); margin: 0; font-weight: 600; }
   .rate[hidden] { display: none; }
-  .advanced { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 14px; }
-  .advanced summary { cursor: pointer; font-weight: 600; padding-block: 6px; }
+  .advanced { border-top: 1px dashed var(--border-strong); padding-top: 14px; }
+  .advanced summary { cursor: pointer; font-weight: 650; padding-block: 6px; color: var(--link); }
   .adv-body { padding-top: 12px; display: grid; gap: 16px; }
   .adv-body > * { margin: 0 !important; }
   .check { display: flex; gap: 10px; align-items: flex-start; }
-  .check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--accent); flex: none; }
+  .check input { width: 20px; height: 20px; margin-top: 2px; accent-color: var(--night); flex: none; }
 
-  .result-label { margin: 0; font-weight: 550; color: var(--text-muted); }
-  .total { font-variant-numeric: tabular-nums; font-size: clamp(2.4rem, 6vw, 3.2rem); font-weight: 600; letter-spacing: -0.03em; margin: 2px 0 4px; line-height: 1.1; }
-  .extras { margin: 0 0 12px; font-weight: 550; }
-  .extras strong { color: var(--accent); }
-  .regime { font-size: 0.93rem; color: var(--text-muted); margin-bottom: 18px; }
-  .bd-title { font-size: 0.95rem; margin: 0 0 6px; }
+  .result {
+    position: relative; overflow: hidden; color: var(--night-text);
+    background:
+      radial-gradient(30rem 16rem at 100% 0%, rgb(255 201 60 / 0.25), transparent 60%),
+      linear-gradient(160deg, var(--night) 0%, var(--night-2) 100%);
+  }
+  .result :global(.result-art) { position: absolute; right: -18px; top: -6px; width: 150px; opacity: 0.95; pointer-events: none; filter: drop-shadow(0 10px 18px rgb(0 0 0 / 0.4)); }
+  .result-label { margin: 0; font-weight: 600; color: var(--night-muted); }
+  .total {
+    font-family: var(--display); font-variant-numeric: tabular-nums; color: var(--sun);
+    font-size: clamp(2.8rem, 6.5vw, 3.8rem); font-weight: 800; letter-spacing: -0.035em; margin: 4px 0 6px; line-height: 1.05;
+    max-width: calc(100% - 110px);
+  }
+  .extras { margin: 0 0 12px; font-weight: 600; max-width: calc(100% - 100px); }
+  .extras :global(strong) { color: #ff9c85; }
+  .regime { font-size: 0.93rem; color: var(--night-muted); margin-bottom: 18px; }
+  .bd-title { font-family: var(--font); font-size: 0.95rem; font-weight: 700; margin: 0 0 6px; }
   .breakdown { margin: 0; display: grid; grid-template-columns: 1fr auto; font-size: 0.95rem; }
-  .breakdown dt, .breakdown dd { padding: 7px 0; margin: 0; }
-  .breakdown dd { text-align: right; font-variant-numeric: tabular-nums; }
-  .breakdown dt.sub, .breakdown dd.sub { color: var(--text-muted); }
-  .breakdown dt.total-row, .breakdown dd.total-row { border-top: 1px solid var(--border-strong); font-weight: 650; padding-top: 10px; margin-top: 4px; }
+  .breakdown :global(dt), .breakdown :global(dd) { padding: 7px 0; margin: 0; border-top: 1px solid rgb(255 255 255 / 0.08); }
+  .breakdown :global(dd) { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .breakdown :global(.sub) { color: var(--night-muted); }
+  .breakdown :global(.total-row) { border-top: 1px solid rgb(255 255 255 / 0.35); font-weight: 750; padding-top: 10px; color: var(--sun); }
   .notes { display: grid; gap: 8px; margin-top: 16px; }
   .notes :global(p) { margin: 0; }
   .actions { margin-top: 18px; }
-  .fine { font-size: 0.82rem; margin: 12px 0 0; }
+  .result .btn-ghost { color: var(--night-text); border-color: rgb(255 255 255 / 0.35); }
+  .result .btn-ghost:hover { background: rgb(255 255 255 / 0.1); color: var(--night-text); }
+  .fine { font-size: 0.82rem; margin: 12px 0 0; color: var(--night-muted) !important; }
 </style>
 
 <script>

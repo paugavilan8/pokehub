@@ -38,6 +38,7 @@ export const ui = {
       tagline: 'Herramientas para comprar cartas Pokémon desde España sin sorpresas.',
       disclaimer:
         'Web independiente de fans. No está afiliada, patrocinada ni aprobada por Nintendo, Creatures, GAME FREAK ni The Pokémon Company. Pokémon y sus nombres son marcas de sus respectivos titulares.',
+      art: 'Ilustraciones de Pokémon © Nintendo, Creatures, GAME FREAK y The Pokémon Company, usadas solo con fines ilustrativos.',
       notAdvice:
         'La información es orientativa y no sustituye el asesoramiento de la Agencia Tributaria ni de un agente de aduanas.',
       legal: 'Aviso legal', privacy: 'Privacidad', cookies: 'Cookies', affiliates: 'Afiliados',
@@ -104,6 +105,7 @@ export const ui = {
       tagline: 'Tools for buying Pokémon cards into Spain and the EU without surprises.',
       disclaimer:
         'Independent fan site. Not affiliated with, sponsored or endorsed by Nintendo, Creatures, GAME FREAK or The Pokémon Company. Pokémon and its names are trademarks of their respective owners.',
+      art: 'Pokémon artwork © Nintendo, Creatures, GAME FREAK and The Pokémon Company, used for illustration only.',
       notAdvice:
         'This information is a guide only and is not a substitute for advice from your tax authority or a customs broker.',
       legal: 'Legal notice', privacy: 'Privacy', cookies: 'Cookies', affiliates: 'Affiliates',
