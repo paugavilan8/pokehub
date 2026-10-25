@@ -14,6 +14,7 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
+      filter: (page) => !/\/(avisos\/estado|alerts\/status)\//.test(page),
       i18n: { defaultLocale: 'es', locales: { es: 'es-ES', en: 'en' } },
     }),
   ],

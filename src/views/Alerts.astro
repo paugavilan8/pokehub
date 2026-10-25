@@ -1,0 +1,224 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { ROUTES, LOCALE, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+// Dirección del worker de avisos. Sin ella (todavía no desplegado) la página lo explica y no muestra el formulario.
+const api = import.meta.env.PUBLIC_ALERTS_API as string | undefined;
+const shops = ['Pokemillon', 'Surcollect', 'Metamorph Center', 'Iberian Collect', 'Pokeadicción TCG'];
+const list = new Intl.ListFormat(LOCALE[lang], { style: 'long', type: 'conjunction' }).format(shops);
+
+const t = {
+  es: {
+    title: 'Avisos de stock de cajas, ETB y sobres Pokémon',
+    description: 'Te avisamos por correo cuando vuelve a haber stock de cajas, ETB y sobres Pokémon en tiendas españolas. Gratis, sin registro y con baja en un clic.',
+    h1: 'Avisos de stock',
+    lede: 'Te escribimos cuando vuelve a haber stock de una caja, ETB o sobre en tiendas españolas. Gratis y sin registro: solo tu correo.',
+    how: `Busca el producto, pulsa "Avisarme" y confirma tu correo. Revisamos ${list} cada 25 minutos más o menos, y te escribimos en cuanto pase de agotado a disponible.`,
+    search: 'Busca un producto', placeholder: 'Por ejemplo: ETB Pitch Black, Oscuridad Absoluta, booster box 151',
+    soon: 'Los avisos de stock estarán disponibles muy pronto.',
+    loading: 'Buscando...', empty: 'No hemos encontrado ese producto en las tiendas que revisamos.', error: 'No hemos podido buscar ahora mismo. Prueba en un momento.',
+    inStock: 'Disponible', out: 'Agotado', go: 'Ir a la tienda', notify: 'Avisarme', at: 'en',
+    email: 'Tu correo', consent: 'Acepto recibir un correo cuando vuelva el stock. Puedo darme de baja desde cualquier correo.', privacy: 'Privacidad',
+    send: 'Crear aviso',
+    ok: { pending: 'Listo. Te hemos enviado un correo para confirmar el aviso (mira también en spam).', active: 'Aviso creado. Te escribiremos cuando vuelva el stock.' },
+    errors: {
+      'invalid-email': 'Ese correo no parece válido.', consent: 'Marca la casilla para poder avisarte.', 'too-many': 'Has llegado al máximo de 25 avisos con este correo.',
+      'rate-limited': 'Demasiados intentos seguidos. Prueba dentro de un rato.', 'unknown-product': 'Ese producto ya no está en la tienda.', default: 'Algo ha fallado. Prueba de nuevo.',
+    },
+    note: 'No vendemos nada ni cobramos a las tiendas. El stock puede volver a agotarse en minutos.',
+  },
+  en: {
+    title: 'Pokémon booster box, ETB and pack stock alerts',
+    description: 'Get an email when Pokémon booster boxes, ETBs and packs are back in stock at Spanish shops. Free, no account, one-click unsubscribe.',
+    h1: 'Stock alerts',
+    lede: 'We email you when a box, ETB or pack is back in stock at Spanish shops. Free and no account: just your email.',
+    how: `Search for the product, tap "Notify me" and confirm your email. We check ${list} about every 25 minutes and write as soon as it goes from sold out to available.`,
+    search: 'Search for a product', placeholder: 'For example: ETB Pitch Black, booster box 151',
+    soon: 'Stock alerts are coming very soon.',
+    loading: 'Searching...', empty: 'We could not find that product in the shops we check.', error: 'Search is not available right now. Try again in a moment.',
+    inStock: 'In stock', out: 'Sold out', go: 'Go to shop', notify: 'Notify me', at: 'at',
+    email: 'Your email', consent: 'I agree to get an email when it is back in stock. I can unsubscribe from any email.', privacy: 'Privacy',
+    send: 'Create alert',
+    ok: { pending: 'Done. We have sent you an email to confirm the alert (check spam too).', active: 'Alert created. We will write when it is back in stock.' },
+    errors: {
+      'invalid-email': 'That email does not look right.', consent: 'Tick the box so we can notify you.', 'too-many': 'You have reached the limit of 25 alerts for this email.',
+      'rate-limited': 'Too many attempts in a row. Try again later.', 'unknown-product': 'That product is no longer in the shop.', default: 'Something went wrong. Please try again.',
+    },
+    note: 'We sell nothing and charge shops nothing. Stock can sell out again within minutes.',
+  },
+}[lang];
+const config = { api, lang, locale: LOCALE[lang], privacy: ROUTES.privacy[lang], t };
+---
+<Base lang={lang} route="alerts" title={t.title} description={t.description}>
+  <PageHero slot="hero" title={t.h1} lede={t.lede} />
+  <div class="container">
+    <p class="how">{t.how}</p>
+    {!api ? <p class="callout">{t.soon}</p> : (
+      <section class="finder" data-alerts data-config={JSON.stringify(config)}>
+        <label class="field">
+          <span class="lbl">{t.search}</span>
+          <input type="search" placeholder={t.placeholder} autocomplete="off" data-q />
+        </label>
+        <p class="status" data-status aria-live="polite"></p>
+        <ul class="results" data-results></ul>
+        <p class="note">{t.note}</p>
+      </section>
+    )}
+  </div>
+</Base>
+
+<style>
+  .how { max-width: 70ch; font-size: 1.05rem; margin: 0 0 24px; }
+  .finder { max-width: 860px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .lbl { font-weight: 600; font-size: 0.9rem; }
+  .field input { font: inherit; font-size: 1.05rem; padding: 12px 14px; border-radius: 10px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); }
+  .field input:focus { outline: none; border-color: var(--text); box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 20%, transparent); }
+  .status { color: var(--text-muted); min-height: 1.5em; margin: 10px 0; }
+  .results { list-style: none; margin: 0; padding: 0; }
+  .results :global(li) { border-top: 1px solid var(--border); padding: 14px 0; }
+  .results :global(.row) { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center; }
+  .results :global(.row img) { width: 56px; height: 56px; object-fit: contain; border-radius: 6px; background: var(--surface); }
+  .results :global(.nm) { font-weight: 600; line-height: 1.3; }
+  .results :global(.meta) { font-size: 0.85rem; color: var(--text-muted); }
+  .results :global(.in) { color: var(--ok); font-weight: 600; }
+  .results :global(.out) { color: var(--accent); font-weight: 600; }
+  .results :global(.act a), .results :global(.act button) { white-space: nowrap; }
+  .results :global(form) { margin: 12px 0 0 70px; display: grid; gap: 10px; max-width: 520px; }
+  @media (max-width: 600px) { .results :global(form) { margin-left: 0; } .results :global(.row) { grid-template-columns: 48px minmax(0, 1fr); } .results :global(.act) { grid-column: 2; } }
+  .results :global(form input[type='email']) { font: inherit; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); }
+  .results :global(.consent) { display: flex; gap: 8px; font-size: 0.86rem; color: var(--text-muted); align-items: flex-start; }
+  .results :global(.consent input) { margin-top: 3px; accent-color: var(--text); }
+  .results :global(.hp) { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .results :global(.msg) { font-size: 0.9rem; margin: 0; }
+  .results :global(.msg.ok) { color: var(--ok); } .results :global(.msg.err) { color: var(--accent); }
+  .note { font-size: 0.82rem; color: var(--text-muted); margin-top: 18px; }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-alerts]');
+  if (root) {
+    const cfg = JSON.parse(root.dataset.config!);
+    const t = cfg.t;
+    const input = root.querySelector<HTMLInputElement>('[data-q]')!;
+    const list = root.querySelector<HTMLElement>('[data-results]')!;
+    const status = root.querySelector<HTMLElement>('[data-status]')!;
+    const money = new Intl.NumberFormat(cfg.locale, { style: 'currency', currency: 'EUR' });
+    let timer: number | undefined;
+    let seq = 0;
+    const el = <K extends keyof HTMLElementTagNameMap>(tag: K, cls?: string, text?: string) => {
+      const e = document.createElement(tag);
+      if (cls) e.className = cls;
+      if (text != null) e.textContent = text;
+      return e;
+    };
+
+    async function search() {
+      const q = input.value.trim();
+      const id = ++seq;
+      const url = new URL(location.href);
+      if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+      history.replaceState(null, '', url);
+      if (q.length < 2) { list.replaceChildren(); status.textContent = ''; return; }
+      status.textContent = t.loading;
+      try {
+        const res = await fetch(`${cfg.api}/api/products?q=${encodeURIComponent(q)}&limit=30`);
+        const data = await res.json();
+        if (id !== seq) return;
+        status.textContent = data.products.length ? '' : t.empty;
+        list.replaceChildren(...data.products.map(render));
+      } catch {
+        if (id === seq) status.textContent = t.error;
+      }
+    }
+
+    function render(p: any) {
+      const li = el('li');
+      const row = el('div', 'row');
+      const img = el('img');
+      img.src = p.image ?? '';
+      img.alt = '';
+      img.loading = 'lazy';
+      img.onerror = () => (img.style.visibility = 'hidden');
+      const info = el('div');
+      info.append(el('div', 'nm', p.name));
+      const meta = el('div', 'meta', `${t.at} ${p.shopName}${p.price != null ? `, ${money.format(p.price)}` : ''}. `);
+      meta.append(el('span', p.available ? 'in' : 'out', p.available ? t.inStock : t.out));
+      info.append(meta);
+      const act = el('div', 'act');
+      if (p.available) {
+        const a = el('a', 'btn btn-ghost', t.go);
+        a.href = p.url;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        act.append(a);
+      } else {
+        const b = el('button', 'btn btn-primary', t.notify);
+        b.type = 'button';
+        b.addEventListener('click', () => { if (!li.querySelector('form')) li.append(form(p)); li.querySelector<HTMLInputElement>('input[type=email]')?.focus(); });
+        act.append(b);
+      }
+      row.append(img, info, act);
+      li.append(row);
+      return li;
+    }
+
+    function form(p: any) {
+      const f = el('form');
+      f.noValidate = true;
+      const email = el('input');
+      email.type = 'email';
+      email.required = true;
+      email.autocomplete = 'email';
+      email.placeholder = t.email;
+      email.setAttribute('aria-label', t.email);
+      const hp = el('input', 'hp');
+      hp.name = 'website';
+      hp.tabIndex = -1;
+      hp.autocomplete = 'off';
+      hp.setAttribute('aria-hidden', 'true');
+      const consentLabel = el('label', 'consent');
+      const consent = el('input');
+      consent.type = 'checkbox';
+      const consentText = el('span', '', `${t.consent} `);
+      const pl = el('a', '', t.privacy);
+      pl.href = cfg.privacy;
+      pl.target = '_blank';
+      consentText.append(pl);
+      consentLabel.append(consent, consentText);
+      const send = el('button', 'btn btn-primary', t.send);
+      send.type = 'submit';
+      const msg = el('p', 'msg');
+      msg.setAttribute('role', 'status');
+      f.append(email, hp, consentLabel, send, msg);
+      f.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        send.disabled = true;
+        msg.className = 'msg';
+        msg.textContent = '';
+        try {
+          const res = await fetch(`${cfg.api}/api/watch`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email.value, productId: p.id, lang: cfg.lang, consent: consent.checked, website: hp.value }),
+          });
+          const data = await res.json();
+          if (data.ok) { msg.className = 'msg ok'; msg.textContent = t.ok[data.status]; email.disabled = true; consent.disabled = true; send.remove(); return; }
+          msg.className = 'msg err';
+          msg.textContent = t.errors[data.error] ?? t.errors.default;
+        } catch {
+          msg.className = 'msg err';
+          msg.textContent = t.errors.default;
+        }
+        send.disabled = false;
+      });
+      return f;
+    }
+
+    input.addEventListener('input', () => { clearTimeout(timer); timer = window.setTimeout(search, 300); });
+    const q = new URLSearchParams(location.search).get('q');
+    if (q) { input.value = q; search(); }
+  }
+</script>

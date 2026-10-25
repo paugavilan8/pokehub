@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+import { ROUTES, type Lang } from '../i18n/ui';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const t = {
+  es: {
+    title: 'Estado de tu aviso', description: 'Confirmación o baja de los avisos de stock.',
+    confirmed: ['Aviso activado', 'Ya está. Te escribiremos en cuanto vuelva a haber stock. Puedes darte de baja desde cualquiera de nuestros correos.'],
+    unsubscribed: ['Te has dado de baja', 'Hemos borrado tu correo y todos tus avisos. No te escribiremos más.'],
+    invalid: ['Enlace no válido', 'Este enlace ya no sirve: puede que ya lo usaras o que el aviso caducara sin confirmar. Puedes crear otro aviso cuando quieras.'],
+    back: 'Ir a los avisos',
+  },
+  en: {
+    title: 'Your alert status', description: 'Stock alert confirmation or unsubscribe.',
+    confirmed: ['Alert active', 'All set. We will write as soon as it is back in stock. You can unsubscribe from any of our emails.'],
+    unsubscribed: ['You have unsubscribed', 'We have deleted your email and all your alerts. We will not write again.'],
+    invalid: ['Invalid link', 'This link no longer works: you may have used it already or the alert expired unconfirmed. You can create another alert any time.'],
+    back: 'Go to alerts',
+  },
+}[lang];
+---
+<Base lang={lang} route="alertsStatus" active="alerts" title={t.title} description={t.description} noindex>
+  <div class="container box" data-status-root data-t={JSON.stringify({ confirmed: t.confirmed, unsubscribed: t.unsubscribed, invalid: t.invalid })}>
+    <h1 data-h>{t.confirmed[0]}</h1>
+    <p data-p>{t.confirmed[1]}</p>
+    <p><a class="btn btn-ghost" href={ROUTES.alerts[lang]}>{t.back}</a></p>
+  </div>
+</Base>
+
+<style>
+  .box { padding-block: 64px; max-width: 640px; }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-status-root]');
+  if (root) {
+    const t = JSON.parse(root.dataset.t!);
+    const r = new URLSearchParams(location.search).get('r');
+    const pick = t[r ?? ''] ?? t.invalid;
+    root.querySelector('[data-h]')!.textContent = pick[0];
+    root.querySelector('[data-p]')!.textContent = pick[1];
+  }
+</script>

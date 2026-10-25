@@ -95,6 +95,21 @@ const pages: Record<LegalKey, Record<Lang, { title: string; description: string;
     },
   },
 };
+// Con los avisos de stock activos, la política de privacidad explica qué se guarda.
+if (import.meta.env.PUBLIC_ALERTS_API) {
+  pages.privacy.es.blocks.splice(2, 0, { h: 'Avisos de stock por correo', p: [
+    'Si creas un aviso de stock guardamos tu correo, los productos que quieres seguir y las fechas de alta, confirmación y último aviso. Solo los usamos para enviarte esos avisos. Base jurídica: tu consentimiento, que confirmas desde el correo que te enviamos (doble confirmación).',
+    'Los datos se guardan en Cloudflare (Cloudflare D1) y los correos se envían con Resend, que actúan como encargados del tratamiento. No los cedemos a nadie más ni los usamos para publicidad.',
+    'Puedes darte de baja desde el enlace de cualquier correo: borramos al momento tu dirección y todos tus avisos. Si no confirmas el aviso, lo borramos a los 7 días.',
+  ] });
+  pages.privacy.en.blocks.splice(2, 0, { h: 'Email stock alerts', p: [
+    'If you create a stock alert we store your email, the products you follow and the dates you signed up, confirmed and were last notified. We use them only to send you those alerts. Legal basis: your consent, which you confirm from the email we send you (double opt-in).',
+    'The data is stored on Cloudflare (Cloudflare D1) and emails are sent with Resend, acting as processors. We do not share it with anyone else or use it for advertising.',
+    'You can unsubscribe from the link in any email: we immediately delete your address and all your alerts. If you do not confirm an alert, we delete it after 7 days.',
+  ] });
+  pages.privacy.es.blocks[1].p[0] = 'Esta web no tiene registro, analítica ni publicidad. La calculadora funciona en tu navegador: los importes que escribes no se envían a nuestros servidores. El único formulario es el de avisos de stock (ver más abajo).';
+  pages.privacy.en.blocks[1].p[0] = 'This site has no sign-up, analytics or advertising. The calculator runs in your browser: the amounts you type are not sent to our servers. The only form is the stock alert one (see below).';
+}
 const content = pages[page][lang];
 ---
 <Base lang={lang} route={page} title={content.title} description={content.description}>

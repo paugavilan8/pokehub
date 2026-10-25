@@ -11,7 +11,8 @@ Precios de sets de Pokémon TCG (Cardmarket) y calculadora de aduanas para compr
 - **Historial de precios:** cada ejecución diaria guarda la tendencia de las cartas de 1 € o más y del sellado en `src/data/market/history/<set>.json` (hasta 400 días). Empezó el 25-oct-2026; las gráficas aparecen al tener 3 días.
 - **Buscador** de Pokémon, cartas y sets en la cabecera (`/search-index.json`, se carga al usarlo).
 - **Calculadora de aduanas** (`/calculadora-aduanas/`): coste final de importar a España o a la UE (IVA, derecho de 3 €, tasa de 2 €, transportista), con guía y ejemplos.
-- Verificador de tiendas y alertas de stock: pendientes (fases 2 y 3 del plan).
+- **Avisos de stock por correo** (`/avisos/`): busca un producto sellado de las tiendas revisadas y recibe un correo cuando vuelva el stock. Lo gestiona el worker de `worker/` (ver `worker/README.md`); hasta desplegarlo y poner `PUBLIC_ALERTS_API`, la página dice "muy pronto".
+- Verificador de tiendas: pendiente (fase 2 del plan).
 
 ## Stack
 
