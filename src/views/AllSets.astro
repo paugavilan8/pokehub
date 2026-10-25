@@ -1,25 +1,32 @@
 ---
-// Todas las expansiones, agrupadas por serie (de Megaevolución a Base Set).
+// Todas las expansiones, agrupadas por serie: primero las internacionales (de Megaevolución a Base Set), luego las japonesas.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
-import { allSets, marketIndex, seriesName, setsBySeries } from '../lib/market-data';
+import { allSets, isJapanese, marketIndex, seriesName, setsBySeries } from '../lib/market-data';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
 interface Props { lang: Lang }
 const { lang } = Astro.props;
-const groups = setsBySeries();
 const total = allSets();
+const intl = total.filter((s) => !isJapanese(s));
+const jaCount = total.length - intl.length;
 const cards = total.reduce((n, s) => n + s.set.cards.length, 0);
 const money = new Intl.NumberFormat(LOCALE[lang], { style: 'currency', currency: 'EUR' });
 const num = new Intl.NumberFormat(LOCALE[lang]);
 const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
 const year = (d: string | null) => (d ? d.slice(0, 4) : '');
+const regions = [
+  { id: 'intl', groups: setsBySeries('intl'), count: 0 },
+  { id: 'jp', groups: setsBySeries('ja'), count: 0 },
+].map((r) => ({ ...r, count: r.groups.reduce((n, g) => n + g.sets.length, 0) }));
 const c = {
   es: {
     title: 'Todas las expansiones de Pokémon TCG con precios',
     description: `Las ${total.length} expansiones de Pokémon TCG, de Base Set a las más nuevas, con el precio de sus sobres y de sus ${num.format(cards)} cartas en Cardmarket.`,
     h1: 'Todas las expansiones',
-    lede: `${total.length} expansiones y ${num.format(cards)} cartas, de 1999 a hoy.${pricesDate ? ` Precios de Cardmarket del ${pricesDate}.` : ''}`,
+    lede: `${intl.length} expansiones internacionales desde 1999 y ${jaCount} japonesas desde 2016, con ${num.format(cards)} cartas.${pricesDate ? ` Precios de Cardmarket del ${pricesDate}.` : ''}`,
+    regions: { intl: 'Internacionales', ja: 'Japonesas' },
+    jaLede: 'Ediciones japonesas desde Sol y Luna, con los precios de la versión japonesa en Cardmarket. Muchas traen cartas que fuera de Japón salen más tarde o en otro set.',
     filter: 'Buscar expansión', jump: 'Ir a la serie', none: 'Ninguna expansión coincide.',
     pack: (p: string) => `Sobre ${p}`, top: (p: string) => `Carta top ${p}`, cards: (n: number) => `${n} cartas`,
   },
@@ -27,7 +34,9 @@ const c = {
     title: 'Every Pokémon TCG set with prices',
     description: `All ${total.length} Pokémon TCG sets, from Base Set to the newest, with Cardmarket prices for their packs and their ${num.format(cards)} cards.`,
     h1: 'All sets',
-    lede: `${total.length} sets and ${num.format(cards)} cards, from 1999 to today.${pricesDate ? ` Cardmarket prices from ${pricesDate}.` : ''}`,
+    lede: `${intl.length} international sets since 1999 and ${jaCount} Japanese sets since 2016, with ${num.format(cards)} cards.${pricesDate ? ` Cardmarket prices from ${pricesDate}.` : ''}`,
+    regions: { intl: 'International', ja: 'Japanese' },
+    jaLede: 'Japanese editions since Sun & Moon, with Cardmarket prices for the Japanese version. Many have cards that reach the rest of the world later or in a different set.',
     filter: 'Search sets', jump: 'Jump to series', none: 'No set matches.',
     pack: (p: string) => `Pack ${p}`, top: (p: string) => `Top card ${p}`, cards: (n: number) => `${n} cards`,
   },
@@ -38,35 +47,45 @@ const c = {
   <div class="container">
     <div class="tools">
       <label class="search"><span class="sr">{c.filter}</span><input type="search" placeholder={c.filter} autocomplete="off" data-filter /></label>
-      <nav class="chips" aria-label={c.jump}>
-        {groups.map((g) => <a href={`#${g.slug}`}>{seriesName(g.name, lang)}</a>)}
-      </nav>
+      {regions.map((r) => (
+        <nav class="chips" aria-label={`${c.jump}: ${c.regions[r.id === 'jp' ? 'ja' : 'intl']}`}>
+          <a class="chip-region" href={`#${r.id}`}>{c.regions[r.id === 'jp' ? 'ja' : 'intl']} <span>{r.count}</span></a>
+          {r.groups.map((g) => <a href={`#${g.slug}`}>{seriesName(g.name, lang)}</a>)}
+        </nav>
+      ))}
     </div>
     <p class="none" hidden data-none>{c.none}</p>
 
-    {groups.map((g) => (
-      <section class="serie" id={g.slug} data-serie>
-        <h2>{seriesName(g.name, lang)} <span class="years">{year(g.sets.at(-1)!.set.releaseDate)}{g.sets.length > 1 && year(g.sets[0].set.releaseDate) !== year(g.sets.at(-1)!.set.releaseDate) ? `–${year(g.sets[0].set.releaseDate)}` : ''}</span></h2>
-        <ul class="grid" role="list">
-          {g.sets.map((s) => {
-            const pack = s.pack?.price.low ?? s.pack?.price.trend;
-            const top = s.hits[0]?.price.trend;
-            return (
-              <li data-name={s.set.name.toLowerCase()}>
-                <a href={`${ROUTES.sets[lang]}${s.slug}/`}>
-                  <span class="logo">
-                    {s.set.logo && <img src={`${s.set.logo}.webp`} alt="" loading="lazy" decoding="async" onerror="this.remove()" />}
-                    <span class="logo-text">{s.set.name}</span>
-                  </span>
-                  <span class="name">{s.set.name}</span>
-                  <span class="meta">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''}{s.set.releaseDate ? ', ' : ''}{c.cards(s.set.cards.length)}</span>
-                  <span class="price">{pack != null ? c.pack(money.format(pack)) : top != null ? c.top(money.format(top)) : ''}</span>
-                </a>
-              </li>
-            );
-          })}
-        </ul>
-      </section>
+    {regions.map((r) => (
+      <div class="region" id={r.id} data-region>
+        <h2 class="region-title">{c.regions[r.id === 'jp' ? 'ja' : 'intl']} <span class="years">{r.count}</span></h2>
+        {r.id === 'jp' && <p class="region-lede">{c.jaLede}</p>}
+        {r.groups.map((g) => (
+          <section class="serie" id={g.slug} data-serie>
+            <h3>{seriesName(g.name, lang)} <span class="years">{year(g.sets.at(-1)!.set.releaseDate)}{g.sets.length > 1 && year(g.sets[0].set.releaseDate) !== year(g.sets.at(-1)!.set.releaseDate) ? `–${year(g.sets[0].set.releaseDate)}` : ''}</span></h3>
+            <ul class="grid" role="list">
+              {g.sets.map((s) => {
+                const pack = s.pack?.price.low ?? s.pack?.price.trend;
+                const top = s.hits[0]?.price.trend;
+                const name = r.id === 'jp' ? s.set.name.replace(/\s*\(JP\)$/, '') : s.set.name;
+                return (
+                  <li data-name={`${s.set.name} ${s.set.nameLocal ?? ''}`.toLowerCase()}>
+                    <a href={`${ROUTES.sets[lang]}${s.slug}/`}>
+                      <span class="logo">
+                        {s.set.logo && <img src={`${s.set.logo}.webp`} alt="" loading="lazy" decoding="async" onerror="this.remove()" />}
+                        <span class="logo-text">{r.id === 'jp' ? s.set.nameLocal ?? name : name}</span>
+                      </span>
+                      <span class="name">{name}{r.id === 'jp' && <span class="jp">JP</span>}</span>
+                      <span class="meta">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''}{s.set.releaseDate ? ', ' : ''}{c.cards(s.set.cards.length)}</span>
+                      <span class="price">{pack != null ? c.pack(money.format(pack)) : top != null ? c.top(money.format(top)) : ''}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        ))}
+      </div>
     ))}
   </div>
 </Base>
@@ -77,8 +96,14 @@ const c = {
   .chips { display: flex; flex-wrap: wrap; gap: 8px; }
   .chips a { padding: 6px 12px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); color: var(--text); text-decoration: none; font-size: 0.88rem; font-weight: 550; }
   .chips a:hover { border-color: var(--border-strong); background: var(--surface-2); }
-  .serie { margin-top: 36px; scroll-margin-top: 140px; }
-  .serie h2 { display: flex; align-items: baseline; gap: 10px; }
+  .region { margin-top: 44px; scroll-margin-top: 130px; }
+  .region-title { display: flex; align-items: baseline; gap: 10px; font-size: clamp(1.5rem, 3vw, 1.9rem); padding-bottom: 10px; border-bottom: 2px solid var(--text); }
+  .region-lede { max-width: 70ch; color: var(--text-muted); margin: 10px 0 0; }
+  .serie { margin-top: 30px; scroll-margin-top: 130px; }
+  .serie h3 { display: flex; align-items: baseline; gap: 10px; font-size: 1.25rem; }
+  .chip-region { background: var(--text) !important; color: var(--surface) !important; border-color: var(--text) !important; }
+  .chip-region span { opacity: 0.7; margin-left: 2px; }
+  .jp { display: inline-block; margin-left: 6px; padding: 0 5px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); font-size: 0.7rem; font-weight: 700; vertical-align: 2px; }
   .years { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); }
   .grid { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); }
   .grid a { display: flex; flex-direction: column; gap: 2px; height: 100%; padding: 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; color: var(--text); text-decoration: none; transition: border-color 0.15s, transform 0.2s var(--ease); }
@@ -86,7 +111,7 @@ const c = {
   .logo { height: 64px; display: grid; place-items: center; margin-bottom: 10px; }
   .logo img { max-height: 64px; max-width: 90%; object-fit: contain; }
   .logo img + .logo-text { display: none; }
-  .logo-text { font-weight: 800; color: var(--text-muted); text-align: center; line-height: 1.1; }
+  .logo-text { font-size: 0.95rem; font-weight: 800; color: var(--text-muted); text-align: center; line-height: 1.1; }
   .name { font-weight: 650; line-height: 1.25; }
   .meta { font-size: 0.8rem; color: var(--text-muted); }
   .price { margin-top: auto; padding-top: 6px; font-size: 0.88rem; font-weight: 650; }
@@ -98,6 +123,7 @@ const c = {
 <script>
   const input = document.querySelector<HTMLInputElement>('[data-filter]');
   const series = [...document.querySelectorAll<HTMLElement>('[data-serie]')];
+  const regions = [...document.querySelectorAll<HTMLElement>('[data-region]')];
   const none = document.querySelector<HTMLElement>('[data-none]')!;
   input?.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
@@ -112,6 +138,7 @@ const c = {
       s.hidden = inSerie === 0;
       shown += inSerie;
     }
+    for (const r of regions) r.hidden = [...r.querySelectorAll<HTMLElement>('[data-serie]')].every((s) => s.hidden);
     none.hidden = shown > 0;
   });
 </script>

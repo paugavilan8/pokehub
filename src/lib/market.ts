@@ -74,6 +74,9 @@ export interface MarketSet {
   cmExpansion: number | null;
   sealed: SealedItem[];
   cards: MarketCard[];
+  /** Solo en los sets japoneses: 'ja' y el nombre original. */
+  lang?: 'ja';
+  nameLocal?: string;
 }
 
 export interface MarketIndex {
@@ -127,6 +130,29 @@ export function expansionOf(cmIds: (number | null)[], singlesById: Map<number, C
   let max = 0;
   for (const [exp, n] of count) if (n > max) [best, max] = [exp, n];
   return best;
+}
+
+/**
+ * Rareza de las cartas que TCGdex trae sin ella (pasa mucho en los sets japoneses): si su número pasa del oficial del
+ * set (188/187), es una secreta. Si no, se deja como está.
+ */
+export function inferRarity(card: Pick<MarketCard, 'num' | 'rarity'>, officialCount: number | null): string | null {
+  const missing = !card.rarity || card.rarity.toLowerCase() === 'none';
+  if (missing && officialCount && /^\d+$/.test(card.num) && Number(card.num) > officialCount) return 'Secret Rare';
+  return card.rarity;
+}
+
+/** Nombre de una carta en Cardmarket sin los ataques: "Budew [Itchy Pollen]" -> "Budew". */
+export const cmCardName = (name: string) => name.replace(/\s*\[.*$/, '').trim();
+
+/**
+ * Nombre en inglés de un set japonés: el de su sobre en Cardmarket ("Terastal Festival ex Booster"), o el de la serie
+ * si es de promos. null si no hay forma de saberlo (barajas y sets de inicio sin sobres propios).
+ */
+export function japaneseSetName(id: string, seriesEn: string, sealed: SealedItem[]): string | null {
+  if (/-P$/i.test(id)) return `${seriesEn} Promos`;
+  const pack = sealed.find((s) => s.kind === 'pack');
+  return pack ? pack.name.replace(/\s+booster$/i, '').replace(/\s+JP$/, '').trim() : null;
 }
 
 /** Nombre de carta comparable entre TCGdex y Cardmarket (Cardmarket añade los ataques entre corchetes). */
@@ -197,7 +223,7 @@ function restore(cards: MarketCard[], fallback: Map<MarketCard, number>) {
  */
 export function sealedKind(p: Pick<CmProduct, 'name' | 'categoryName'>): SealedKind | null {
   const name = p.name.trim().toLowerCase();
-  if (/case|pok[eé]mon center|sleeved/.test(name)) return null;
+  if (/case|pok[eé]mon center|sleeved|korean|chinese|thai|indonesian/.test(name)) return null;
   if (name.endsWith(' booster')) return 'pack';
   if (name.endsWith(' booster box')) return 'box';
   if (name.endsWith(' booster bundle')) return 'bundle';

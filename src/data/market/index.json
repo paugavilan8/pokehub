@@ -1,6 +1,6 @@
 {
  "pricesDate": "2026-10-25T00:47:18.000Z",
- "generatedAt": "2026-10-25T22:56:47.514Z",
+ "generatedAt": "2026-10-25T23:36:44.883Z",
  "sets": [
   {
    "id": "30th",
@@ -44,6 +44,45 @@
      "price": {
       "trend": 67.96,
       "low": 43.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-M6",
+   "name": "Storm Emeralda (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-07-31",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 76,
+   "totalCount": 113,
+   "lang": "ja",
+   "nameLocal": "ストームエメラルダ",
+   "cmExpansion": 6636,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 895656,
+     "name": "Storm Emeralda Booster",
+     "price": {
+      "trend": 2.05,
+      "low": 1.7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 895668,
+     "name": "Storm Emeralda Booster Box",
+     "price": {
+      "trend": 72.5,
+      "low": 54.9,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -174,6 +213,45 @@
    ]
   },
   {
+   "id": "ja-M5",
+   "name": "Abyss Eye (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-05-22",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 81,
+   "totalCount": 118,
+   "lang": "ja",
+   "nameLocal": "アビスアイ",
+   "cmExpansion": 6556,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 883956,
+     "name": "Abyss Eye Booster",
+     "price": {
+      "trend": 1.75,
+      "low": 1.4,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 883955,
+     "name": "Abyss Eye Booster Box",
+     "price": {
+      "trend": 61.49,
+      "low": 47.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "me03",
    "name": "Perfect Order",
    "serie": "Mega Evolution",
@@ -235,6 +313,45 @@
    ]
   },
   {
+   "id": "ja-M4",
+   "name": "Ninja Spinner (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-03-13",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 83,
+   "totalCount": 120,
+   "lang": "ja",
+   "nameLocal": "ニンジャスピナー",
+   "cmExpansion": 6494,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 873179,
+     "name": "Ninja Spinner Booster",
+     "price": {
+      "trend": 1.67,
+      "low": 1.2,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 873182,
+     "name": "Ninja Spinner Booster Box",
+     "price": {
+      "trend": 53.61,
+      "low": 39.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "me02.5",
    "name": "Ascended Heroes",
    "serie": "Mega Evolution",
@@ -276,6 +393,84 @@
      "price": {
       "trend": 72.61,
       "low": 41.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-M3",
+   "name": "Nihil Zero (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-01-23",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 80,
+   "totalCount": 117,
+   "lang": "ja",
+   "nameLocal": "ムニキスゼロ",
+   "cmExpansion": 6427,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 864284,
+     "name": "Nihil Zero Booster",
+     "price": {
+      "trend": 1.59,
+      "low": 1.11,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 864283,
+     "name": "Nihil Zero Booster Box",
+     "price": {
+      "trend": 42.57,
+      "low": 36.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-M2a",
+   "name": "MEGA Dream ex (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-11-28",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 193,
+   "totalCount": 250,
+   "lang": "ja",
+   "nameLocal": "MEGAドリームex",
+   "cmExpansion": 6380,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 858381,
+     "name": "MEGA Dream ex Booster",
+     "price": {
+      "trend": 6.73,
+      "low": 4.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 858380,
+     "name": "MEGA Dream ex Booster Box",
+     "price": {
+      "trend": 83.05,
+      "low": 69.89,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -418,6 +613,137 @@
    ]
   },
   {
+   "id": "ja-M2",
+   "name": "Inferno X (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-09-26",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 80,
+   "totalCount": 116,
+   "lang": "ja",
+   "nameLocal": "インフェルノX",
+   "cmExpansion": 6291,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 845911,
+     "name": "Inferno X Booster",
+     "price": {
+      "trend": 2.42,
+      "low": 1.7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 845910,
+     "name": "Inferno X Booster Box",
+     "price": {
+      "trend": 69.91,
+      "low": 51.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-M1S",
+   "name": "Mega Symphonia (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-08-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 63,
+   "totalCount": 92,
+   "lang": "ja",
+   "nameLocal": "メガシンフォニア",
+   "cmExpansion": 6190,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 831333,
+     "name": "Mega Symphonia Booster",
+     "price": {
+      "trend": 1.7,
+      "low": 1.25,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 831328,
+     "name": "Mega Symphonia Booster Box",
+     "price": {
+      "trend": 52.04,
+      "low": 39.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-M1L",
+   "name": "Mega Brave (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-08-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 63,
+   "totalCount": 92,
+   "lang": "ja",
+   "nameLocal": "メガブレイブ",
+   "cmExpansion": 6189,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 831331,
+     "name": "Mega Brave Booster",
+     "price": {
+      "trend": 2,
+      "low": 1.29,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 831326,
+     "name": "Mega Brave Booster Box",
+     "price": {
+      "trend": 53.66,
+      "low": 42.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-M-P",
+   "name": "Mega Evolution Promos (JP)",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-07-28",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 0,
+   "totalCount": 132,
+   "lang": "ja",
+   "nameLocal": "メガ プロモカード",
+   "cmExpansion": 6230,
+   "sealed": []
+  },
+  {
    "id": "sv10.5w",
    "name": "White Flare",
    "serie": "Scarlet & Violet",
@@ -516,6 +842,84 @@
    ]
   },
   {
+   "id": "ja-SV11W",
+   "name": "White Flare (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-06-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 86,
+   "totalCount": 174,
+   "lang": "ja",
+   "nameLocal": "ホワイトフレア",
+   "cmExpansion": 6131,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 823797,
+     "name": "White Flare JP Booster",
+     "price": {
+      "trend": 3.42,
+      "low": 2.89,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 823793,
+     "name": "White Flare JP Booster Box",
+     "price": {
+      "trend": 78.55,
+      "low": 61.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV11B",
+   "name": "Black Bolt (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-06-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 174,
+   "totalCount": 174,
+   "lang": "ja",
+   "nameLocal": "ブラックボルト",
+   "cmExpansion": 6130,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 823796,
+     "name": "Black Bolt JP Booster",
+     "price": {
+      "trend": 3.32,
+      "low": 2.69,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 823792,
+     "name": "Black Bolt JP Booster Box",
+     "price": {
+      "trend": 72.65,
+      "low": 56.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv10",
    "name": "Destined Rivals",
    "serie": "Scarlet & Violet",
@@ -569,6 +973,45 @@
      "price": {
       "trend": 69.66,
       "low": 50,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV10",
+   "name": "The Glory of Team Rocket (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-04-18",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 98,
+   "totalCount": 132,
+   "lang": "ja",
+   "nameLocal": "ロケット団の栄光",
+   "cmExpansion": 6092,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 818037,
+     "name": "The Glory of Team Rocket Booster",
+     "price": {
+      "trend": 2.95,
+      "low": 1.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 818039,
+     "name": "The Glory of Team Rocket Booster Box",
+     "price": {
+      "trend": 67.12,
+      "low": 48,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -638,6 +1081,45 @@
    ]
   },
   {
+   "id": "ja-SV9",
+   "name": "Battle Partners (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-01-24",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 100,
+   "totalCount": 132,
+   "lang": "ja",
+   "nameLocal": "バトルパートナーズ",
+   "cmExpansion": 5996,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 804826,
+     "name": "Battle Partners Booster",
+     "price": {
+      "trend": 2.34,
+      "low": 1.34,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 804827,
+     "name": "Battle Partners Booster Box",
+     "price": {
+      "trend": 60.42,
+      "low": 42.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv08.5",
    "name": "Prismatic Evolutions",
    "serie": "Scarlet & Violet",
@@ -679,6 +1161,45 @@
      "price": {
       "trend": 77.42,
       "low": 40,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV8a",
+   "name": "Terastal Festival ex (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-12-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 187,
+   "totalCount": 237,
+   "lang": "ja",
+   "nameLocal": "テラスタルフェスex",
+   "cmExpansion": 5928,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 794933,
+     "name": "Terastal Festival ex Booster",
+     "price": {
+      "trend": 8.33,
+      "low": 6,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 794934,
+     "name": "Terastal Festival ex Booster Box",
+     "price": {
+      "trend": 90.62,
+      "low": 65,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -773,6 +1294,45 @@
    ]
   },
   {
+   "id": "ja-SV8",
+   "name": "Super Electric Breaker (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-10-18",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 106,
+   "totalCount": 138,
+   "lang": "ja",
+   "nameLocal": "超電ブレイカー",
+   "cmExpansion": 5901,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 789975,
+     "name": "Super Electric Breaker Booster",
+     "price": {
+      "trend": 2.92,
+      "low": 1.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 789976,
+     "name": "Super Electric Breaker Booster Box",
+     "price": {
+      "trend": 94.2,
+      "low": 49.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv07",
    "name": "Stellar Crown",
    "serie": "Scarlet & Violet",
@@ -834,6 +1394,45 @@
    ]
   },
   {
+   "id": "ja-SV7a",
+   "name": "Paradise Dragona (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-09-13",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 64,
+   "totalCount": 94,
+   "lang": "ja",
+   "nameLocal": "楽園ドラゴーナ",
+   "cmExpansion": 5846,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 781843,
+     "name": "Paradise Dragona Booster",
+     "price": {
+      "trend": 1.99,
+      "low": 1.25,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 781844,
+     "name": "Paradise Dragona Booster Box",
+     "price": {
+      "trend": 62.82,
+      "low": 46,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv06.5",
    "name": "Shrouded Fable",
    "serie": "Scarlet & Violet",
@@ -863,6 +1462,84 @@
      "price": {
       "trend": 68.26,
       "low": 46,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV7",
+   "name": "Stellar Miracle (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-07-19",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 102,
+   "totalCount": 135,
+   "lang": "ja",
+   "nameLocal": "ステラミラクル",
+   "cmExpansion": 5782,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 773317,
+     "name": "Stellar Miracle Booster",
+     "price": {
+      "trend": 2.02,
+      "low": 1.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 773318,
+     "name": "Stellar Miracle Booster Box",
+     "price": {
+      "trend": 49.42,
+      "low": 41.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV6a",
+   "name": "Night Wanderer (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-06-07",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 64,
+   "totalCount": 94,
+   "lang": "ja",
+   "nameLocal": "ナイトワンダラー",
+   "cmExpansion": 5757,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 769157,
+     "name": "Night Wanderer Booster",
+     "price": {
+      "trend": 2.07,
+      "low": 1.4,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 769158,
+     "name": "Night Wanderer Booster Box",
+     "price": {
+      "trend": 48.67,
+      "low": 43,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -932,6 +1609,45 @@
    ]
   },
   {
+   "id": "ja-SV6",
+   "name": "Mask of Change (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-04-26",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 101,
+   "totalCount": 133,
+   "lang": "ja",
+   "nameLocal": "変幻の仮面",
+   "cmExpansion": 5690,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 761215,
+     "name": "Mask of Change Booster",
+     "price": {
+      "trend": 2.55,
+      "low": 1.44,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 761216,
+     "name": "Mask of Change Booster Box",
+     "price": {
+      "trend": 48.54,
+      "low": 46.48,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv05",
    "name": "Temporal Forces",
    "serie": "Scarlet & Violet",
@@ -993,6 +1709,45 @@
    ]
   },
   {
+   "id": "ja-SV5a",
+   "name": "Crimson Haze (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-03-22",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 66,
+   "totalCount": 96,
+   "lang": "ja",
+   "nameLocal": "クリムゾンヘイズ",
+   "cmExpansion": 5636,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 757140,
+     "name": "Crimson Haze Booster",
+     "price": {
+      "trend": 2.82,
+      "low": 1.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 757141,
+     "name": "Crimson Haze Booster Box",
+     "price": {
+      "trend": 67.01,
+      "low": 39.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv04.5",
    "name": "Paldean Fates",
    "serie": "Scarlet & Violet",
@@ -1034,6 +1789,123 @@
      "price": {
       "trend": 115.29,
       "low": 60,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV5K",
+   "name": "Wild Force (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-01-26",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 71,
+   "totalCount": 100,
+   "lang": "ja",
+   "nameLocal": "ワイルドフォース",
+   "cmExpansion": 5573,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 749453,
+     "name": "Wild Force Booster",
+     "price": {
+      "trend": 2.4,
+      "low": 1.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 749455,
+     "name": "Wild Force Booster Box",
+     "price": {
+      "trend": 75.62,
+      "low": 42.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV5M",
+   "name": "Cyber Judge (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-01-26",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 71,
+   "totalCount": 100,
+   "lang": "ja",
+   "nameLocal": "サイバージャッジ",
+   "cmExpansion": 5574,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 749454,
+     "name": "Cyber Judge Booster",
+     "price": {
+      "trend": 2.2,
+      "low": 1.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 749456,
+     "name": "Cyber Judge Booster Box",
+     "price": {
+      "trend": 46.66,
+      "low": 42.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV4a",
+   "name": "Shiny Treasure ex (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-12-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 190,
+   "totalCount": 320,
+   "lang": "ja",
+   "nameLocal": "レイジングサーフ",
+   "cmExpansion": 5519,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 740460,
+     "name": "Shiny Treasure ex Booster",
+     "price": {
+      "trend": 8.65,
+      "low": 6.75,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 740461,
+     "name": "Shiny Treasure ex Booster Box",
+     "price": {
+      "trend": 101.35,
+      "low": 87.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1103,6 +1975,84 @@
    ]
   },
   {
+   "id": "ja-SV4K",
+   "name": "Ancient Roar (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-10-27",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 66,
+   "totalCount": 95,
+   "lang": "ja",
+   "nameLocal": "古代の咆哮",
+   "cmExpansion": 5478,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 732593,
+     "name": "Ancient Roar Booster",
+     "price": {
+      "trend": 2.15,
+      "low": 1.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 732595,
+     "name": "Ancient Roar Booster Box",
+     "price": {
+      "trend": 66.85,
+      "low": 50,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV4M",
+   "name": "Future Flash (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-10-27",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 66,
+   "totalCount": 95,
+   "lang": "ja",
+   "nameLocal": "未来の一閃",
+   "cmExpansion": 5479,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 732594,
+     "name": "Future Flash Booster",
+     "price": {
+      "trend": 2.33,
+      "low": 1.25,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 732596,
+     "name": "Future Flash Booster Box",
+     "price": {
+      "trend": 57.44,
+      "low": 44.1,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "mfb",
    "name": "My First Battle",
    "serie": "Scarlet & Violet",
@@ -1156,6 +2106,45 @@
      "price": {
       "trend": 132.19,
       "low": 84.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV3a",
+   "name": "Raging Surf (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-09-22",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 62,
+   "totalCount": 92,
+   "lang": "ja",
+   "nameLocal": "レイジングサーフ",
+   "cmExpansion": 5432,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 726557,
+     "name": "Raging Surf Booster",
+     "price": {
+      "trend": 2.42,
+      "low": 1.3,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 726556,
+     "name": "Raging Surf Booster Box",
+     "price": {
+      "trend": 58.39,
+      "low": 49.95,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1250,6 +2239,84 @@
    ]
   },
   {
+   "id": "ja-SV3",
+   "name": "Ruler of the Black Flame (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-07-28",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 108,
+   "totalCount": 141,
+   "lang": "ja",
+   "nameLocal": "黒炎の支配者",
+   "cmExpansion": 5409,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 719787,
+     "name": "Ruler of the Black Flame Booster",
+     "price": {
+      "trend": 2.6,
+      "low": 1.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 719790,
+     "name": "Ruler of the Black Flame Booster Box",
+     "price": {
+      "trend": 85.13,
+      "low": 62.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV2a",
+   "name": "Pokémon Card 151 (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-06-16",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 165,
+   "totalCount": 210,
+   "lang": "ja",
+   "nameLocal": "ポケモンカード151",
+   "cmExpansion": 5328,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 704498,
+     "name": "Pokémon Card 151 Booster",
+     "price": {
+      "trend": 11,
+      "low": 9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 718514,
+     "name": "Pokémon Card 151 Booster Box",
+     "price": {
+      "trend": 223.89,
+      "low": 160,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sv02",
    "name": "Paldea Evolved",
    "serie": "Scarlet & Violet",
@@ -1303,6 +2370,84 @@
      "price": {
       "trend": 130.64,
       "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV2D",
+   "name": "Clay Burst (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-04-14",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 71,
+   "totalCount": 99,
+   "lang": "ja",
+   "nameLocal": "クレイバースト",
+   "cmExpansion": 5315,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 702931,
+     "name": "Clay Burst Booster",
+     "price": {
+      "trend": 2.7,
+      "low": 1.45,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 702933,
+     "name": "Clay Burst Booster Box",
+     "price": {
+      "trend": 79.66,
+      "low": 52.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV2P",
+   "name": "Snow Hazard (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-04-14",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 71,
+   "totalCount": 99,
+   "lang": "ja",
+   "nameLocal": "スノーハザード",
+   "cmExpansion": 5314,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 702930,
+     "name": "Snow Hazard Booster",
+     "price": {
+      "trend": 2.33,
+      "low": 1.7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 702932,
+     "name": "Snow Hazard Booster Box",
+     "price": {
+      "trend": 64.94,
+      "low": 46.46,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1384,6 +2529,45 @@
    ]
   },
   {
+   "id": "ja-SV1a",
+   "name": "Triplet Beat (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-03-10",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 73,
+   "totalCount": 103,
+   "lang": "ja",
+   "nameLocal": "トリプレットビート",
+   "cmExpansion": 5257,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 695794,
+     "name": "Triplet Beat Booster",
+     "price": {
+      "trend": 1.96,
+      "low": 1.13,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 695793,
+     "name": "Triplet Beat Booster Box",
+     "price": {
+      "trend": 87.63,
+      "low": 55,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "swsh12.5",
    "name": "Crown Zenith",
    "serie": "Sword & Shield",
@@ -1425,6 +2609,150 @@
      "price": {
       "trend": 293.48,
       "low": 270,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV1S",
+   "name": "Scarlet ex (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-01-20",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 78,
+   "totalCount": 108,
+   "lang": "ja",
+   "nameLocal": "スカーレットex",
+   "cmExpansion": 5216,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 689085,
+     "name": "Scarlet ex Booster",
+     "price": {
+      "trend": 2.44,
+      "low": 1.7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 689087,
+     "name": "Scarlet ex Booster Box",
+     "price": {
+      "trend": 87.2,
+      "low": 59.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV1V",
+   "name": "Violet ex (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-01-20",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 78,
+   "totalCount": 108,
+   "lang": "ja",
+   "nameLocal": "バイオレットex",
+   "cmExpansion": 5217,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 689086,
+     "name": "Violet ex Booster",
+     "price": {
+      "trend": 2.48,
+      "low": 1.6,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 689088,
+     "name": "Violet ex Booster Box",
+     "price": {
+      "trend": 66.93,
+      "low": 47.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S12a",
+   "name": "VSTAR Universe (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-12-02",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 172,
+   "totalCount": 258,
+   "lang": "ja",
+   "nameLocal": "VSTARユニバース",
+   "cmExpansion": 5198,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 681797,
+     "name": "VSTAR Universe Booster",
+     "price": {
+      "trend": 13.4,
+      "low": 9.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 681796,
+     "name": "VSTAR Universe Booster Box",
+     "price": {
+      "trend": 157.45,
+      "low": 117.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SV-P",
+   "name": "Scarlet & Violet Promos (JP)",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2022-11-29",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 0,
+   "totalCount": 288,
+   "lang": "ja",
+   "nameLocal": "スカーレット&バイオレット プロモカード",
+   "cmExpansion": 5212,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 692871,
+     "name": "Pokémon Card Gym Promo Scarlet & Violet Vol. 1 Booster",
+     "price": {
+      "trend": 4.15,
+      "low": 3.89,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1494,6 +2822,45 @@
    ]
   },
   {
+   "id": "ja-S12",
+   "name": "Paradigm Trigger (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-10-21",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 98,
+   "totalCount": 125,
+   "lang": "ja",
+   "nameLocal": "パラダイムトリガー",
+   "cmExpansion": 5156,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 675866,
+     "name": "Paradigm Trigger Booster",
+     "price": {
+      "trend": 3.75,
+      "low": 1.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 675864,
+     "name": "Paradigm Trigger Booster Box",
+     "price": {
+      "trend": 112.91,
+      "low": 94.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "swsh11",
    "name": "Lost Origin",
    "serie": "Sword & Shield",
@@ -1555,6 +2922,45 @@
    ]
   },
   {
+   "id": "ja-S11a",
+   "name": "Incandescent Arcana (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-09-02",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 68,
+   "totalCount": 94,
+   "lang": "ja",
+   "nameLocal": "白熱のアルカナ",
+   "cmExpansion": 5127,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 669631,
+     "name": "Incandescent Arcana Booster",
+     "price": {
+      "trend": 3.25,
+      "low": 2.3,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 669629,
+     "name": "Incandescent Arcana Booster Box",
+     "price": {
+      "trend": 66.02,
+      "low": 39.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "2022swsh",
    "name": "McDonald's Collection 2022",
    "serie": "McDonald's Collection",
@@ -1572,6 +2978,45 @@
      "price": {
       "trend": 3.21,
       "low": 1.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S11",
+   "name": "Lost Abyss (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-07-15",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 100,
+   "totalCount": 127,
+   "lang": "ja",
+   "nameLocal": "ロストアビス",
+   "cmExpansion": 5094,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 665653,
+     "name": "Lost Abyss Booster",
+     "price": {
+      "trend": 5.59,
+      "low": 3.49,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 665654,
+     "name": "Lost Abyss Booster Box",
+     "price": {
+      "trend": 179.02,
+      "low": 120,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1666,6 +3111,84 @@
    ]
   },
   {
+   "id": "ja-S10a",
+   "name": "Dark Phantasma (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-05-13",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 71,
+   "totalCount": 99,
+   "lang": "ja",
+   "nameLocal": "ダークファンタズマ",
+   "cmExpansion": 5048,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 653291,
+     "name": "Dark Phantasma Booster",
+     "price": {
+      "trend": 4.82,
+      "low": 3.19,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 653290,
+     "name": "Dark Phantasma Booster Box",
+     "price": {
+      "trend": 101.33,
+      "low": 80,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S10P",
+   "name": "Space Juggler (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-04-08",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 67,
+   "totalCount": 88,
+   "lang": "ja",
+   "nameLocal": "スペースジャグラー",
+   "cmExpansion": 4974,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 611245,
+     "name": "Space Juggler Booster",
+     "price": {
+      "trend": 3.74,
+      "low": 2.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 611243,
+     "name": "Space Juggler Booster Box",
+     "price": {
+      "trend": 87.43,
+      "low": 57.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "swsh9",
    "name": "Brilliant Stars",
    "serie": "Sword & Shield",
@@ -1707,6 +3230,123 @@
      "price": {
       "trend": 276.39,
       "low": 148,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S9a",
+   "name": "Battle Region (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-02-25",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 67,
+   "totalCount": 93,
+   "lang": "ja",
+   "nameLocal": "バトルリージョン",
+   "cmExpansion": 4441,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 609613,
+     "name": "Battle Region Booster",
+     "price": {
+      "trend": 3.53,
+      "low": 2.47,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 609612,
+     "name": "Battle Region Booster Box",
+     "price": {
+      "trend": 71.81,
+      "low": 59.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S9",
+   "name": "Star Birth (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2022-01-14",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 100,
+   "totalCount": 127,
+   "lang": "ja",
+   "nameLocal": "スターバース",
+   "cmExpansion": 4440,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 605850,
+     "name": "Star Birth Booster",
+     "price": {
+      "trend": 3.48,
+      "low": 2.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 605851,
+     "name": "Star Birth Booster Box",
+     "price": {
+      "trend": 98.04,
+      "low": 60,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S8b",
+   "name": "VMAX Climax (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-12-03",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 184,
+   "totalCount": 285,
+   "lang": "ja",
+   "nameLocal": "VMAXクライマックス",
+   "cmExpansion": 4390,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 576801,
+     "name": "VMAX Climax Booster",
+     "price": {
+      "trend": 14.08,
+      "low": 9.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 576800,
+     "name": "VMAX Climax Booster Box",
+     "price": {
+      "trend": 117.56,
+      "low": 83.9,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1801,6 +3441,45 @@
    ]
   },
   {
+   "id": "ja-S8",
+   "name": "Fusion Arts (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-09-24",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 100,
+   "totalCount": 129,
+   "lang": "ja",
+   "nameLocal": "フュージョンアーツ",
+   "cmExpansion": 4360,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 573598,
+     "name": "Fusion Arts Booster",
+     "price": {
+      "trend": 5.99,
+      "low": 4.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 573595,
+     "name": "Fusion Arts Booster Box",
+     "price": {
+      "trend": 210.28,
+      "low": 85,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "swsh7",
    "name": "Evolving Skies",
    "serie": "Sword & Shield",
@@ -1830,6 +3509,45 @@
      "price": {
       "trend": 1715.99,
       "low": 995,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S7D",
+   "name": "Towering Perfection (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-07-09",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 67,
+   "totalCount": 90,
+   "lang": "ja",
+   "nameLocal": "摩天パーフェクト",
+   "cmExpansion": 4329,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 568810,
+     "name": "Towering Perfection Booster",
+     "price": {
+      "trend": 2.62,
+      "low": 1.35,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 568812,
+     "name": "Towering Perfection Booster Box",
+     "price": {
+      "trend": 52.11,
+      "low": 58.9,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1879,6 +3597,84 @@
      "price": {
       "trend": 135.19,
       "low": 96.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S6H",
+   "name": "Silver Lance (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-04-23",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 70,
+   "totalCount": 95,
+   "lang": "ja",
+   "nameLocal": "白銀のランス",
+   "cmExpansion": 4171,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 557966,
+     "name": "Silver Lance Booster",
+     "price": {
+      "trend": 3.08,
+      "low": 1.7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 557964,
+     "name": "Silver Lance Booster Box",
+     "price": {
+      "trend": 63.72,
+      "low": 44.45,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S6K",
+   "name": "Jet Black Spirit (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-04-23",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 70,
+   "totalCount": 95,
+   "lang": "ja",
+   "nameLocal": "漆黒のガイスト",
+   "cmExpansion": 4172,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 557967,
+     "name": "Jet Black Spirit Booster",
+     "price": {
+      "trend": 4.21,
+      "low": 1.7,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 557965,
+     "name": "Jet Black Spirit Booster Box",
+     "price": {
+      "trend": 74.45,
+      "low": 68.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -1978,6 +3774,45 @@
      "price": {
       "trend": 8,
       "low": 3.39,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-S5I",
+   "name": "Single Strike Master (JP)",
+   "serie": "Sword & Shield",
+   "releaseDate": "2021-01-22",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 70,
+   "totalCount": 91,
+   "lang": "ja",
+   "nameLocal": "一撃マスター",
+   "cmExpansion": 3712,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 534147,
+     "name": "Single Strike Master Booster",
+     "price": {
+      "trend": 5.63,
+      "low": 3,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 534137,
+     "name": "Single Strike Master Booster Box",
+     "price": {
+      "trend": 124.09,
+      "low": 59.95,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2292,6 +4127,84 @@
    "sealed": []
   },
   {
+   "id": "ja-SM12a",
+   "name": "Tag Team GX: Tag All Stars (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-10-04",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 173,
+   "totalCount": 226,
+   "lang": "ja",
+   "nameLocal": "TAG TEAM GX タッグオールスターズ",
+   "cmExpansion": 3776,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 543371,
+     "name": "Tag Team GX: Tag All Stars Booster",
+     "price": {
+      "trend": 58.98,
+      "low": 48,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 544736,
+     "name": "Tag Team GX: Tag All Stars Booster Box",
+     "price": {
+      "trend": 994.58,
+      "low": 599,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM12",
+   "name": "Alter Genesis (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-09-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 95,
+   "totalCount": 117,
+   "lang": "ja",
+   "nameLocal": "オルタージェネシス",
+   "cmExpansion": 3801,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550361,
+     "name": "Alter Genesis Booster",
+     "price": {
+      "trend": 13.12,
+      "low": 10.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550351,
+     "name": "Alter Genesis Booster Box",
+     "price": {
+      "trend": 497.33,
+      "low": 460,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sm115",
    "name": "Hidden Fates",
    "serie": "Sun & Moon",
@@ -2378,6 +4291,123 @@
    ]
   },
   {
+   "id": "ja-SM11b",
+   "name": "Dream League (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-08-02",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 49,
+   "totalCount": 75,
+   "lang": "ja",
+   "nameLocal": "ドリームリーグ",
+   "cmExpansion": 3806,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550366,
+     "name": "Dream League Booster",
+     "price": {
+      "trend": 22.11,
+      "low": 20,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550356,
+     "name": "Dream League Booster Box",
+     "price": {
+      "trend": 701.87,
+      "low": 780,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM11a",
+   "name": "Remix Bout (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-07-05",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 64,
+   "totalCount": 80,
+   "lang": "ja",
+   "nameLocal": "リミックスバウト",
+   "cmExpansion": 3811,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550376,
+     "name": "Remix Bout Booster",
+     "price": {
+      "trend": 12.1,
+      "low": 11,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550371,
+     "name": "Remix Bout Booster Box",
+     "price": {
+      "trend": 577.24,
+      "low": 480,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM11",
+   "name": "Miracle Twin (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-05-31",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 94,
+   "totalCount": 115,
+   "lang": "ja",
+   "nameLocal": "ミラクルツイン",
+   "cmExpansion": 3816,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550401,
+     "name": "Miracle Twin Booster",
+     "price": {
+      "trend": 15.9,
+      "low": 14,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550381,
+     "name": "Miracle Twin Booster Box",
+     "price": {
+      "trend": 837.98,
+      "low": 820,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sm10",
    "name": "Unbroken Bonds",
    "serie": "Sun & Moon",
@@ -2427,6 +4457,84 @@
    ]
   },
   {
+   "id": "ja-SM10b",
+   "name": "Sky Legend (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-04-26",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 56,
+   "totalCount": 69,
+   "lang": "ja",
+   "nameLocal": "スカイレジェンド",
+   "cmExpansion": 3821,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550406,
+     "name": "Sky Legend Booster",
+     "price": {
+      "trend": 12.98,
+      "low": 9.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550386,
+     "name": "Sky Legend Booster Box",
+     "price": {
+      "trend": 472.38,
+      "low": 479.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM10a",
+   "name": "GG End (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-04-05",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 54,
+   "totalCount": 69,
+   "lang": "ja",
+   "nameLocal": "ジージーエンド",
+   "cmExpansion": 3831,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550411,
+     "name": "GG End Booster",
+     "price": {
+      "trend": 13.79,
+      "low": 10,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550391,
+     "name": "GG End Booster Box",
+     "price": {
+      "trend": 357.73,
+      "low": 499.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "det1",
    "name": "Detective Pikachu",
    "serie": "Sun & Moon",
@@ -2444,6 +4552,84 @@
      "price": {
       "trend": 27.19,
       "low": 13.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM10",
+   "name": "Double Blaze (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-03-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 95,
+   "totalCount": 116,
+   "lang": "ja",
+   "nameLocal": "ダブルブレイズ",
+   "cmExpansion": 3836,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550416,
+     "name": "Double Blaze Booster",
+     "price": {
+      "trend": 11.49,
+      "low": 8.5,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550396,
+     "name": "Double Blaze Booster Box",
+     "price": {
+      "trend": 574.94,
+      "low": 490,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM9b",
+   "name": "Full Metal Wall (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-02-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 54,
+   "totalCount": 69,
+   "lang": "ja",
+   "nameLocal": "フルメタルウォール",
+   "cmExpansion": 3841,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550446,
+     "name": "Full Metal Wall Booster",
+     "price": {
+      "trend": 10.96,
+      "low": 8,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550431,
+     "name": "Full Metal Wall Booster Box",
+     "price": {
+      "trend": 311.23,
+      "low": 394.95,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2493,6 +4679,84 @@
      "price": {
       "trend": 2478.96,
       "low": 599,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM9a",
+   "name": "Night Unison (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2019-01-11",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 55,
+   "totalCount": 70,
+   "lang": "ja",
+   "nameLocal": "ナイトユニゾン",
+   "cmExpansion": 3846,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550451,
+     "name": "Night Unison Booster",
+     "price": {
+      "trend": 14.76,
+      "low": 12.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550436,
+     "name": "Night Unison Booster Box",
+     "price": {
+      "trend": 391.79,
+      "low": 425,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM9",
+   "name": "Tag Bolt (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-12-07",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 95,
+   "totalCount": 118,
+   "lang": "ja",
+   "nameLocal": "タッグボルト",
+   "cmExpansion": 3851,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550456,
+     "name": "Tag Bolt Booster",
+     "price": {
+      "trend": 52.48,
+      "low": 52.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550441,
+     "name": "Tag Bolt Booster Box",
+     "price": {
+      "trend": 1633.21,
+      "low": 2499,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2562,6 +4826,84 @@
    "sealed": []
   },
   {
+   "id": "ja-SM8a",
+   "name": "Dark Order (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-10-05",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 52,
+   "totalCount": 65,
+   "lang": "ja",
+   "nameLocal": "ダークオーダー",
+   "cmExpansion": 3861,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550481,
+     "name": "Dark Order Booster",
+     "price": {
+      "trend": 10.97,
+      "low": 8.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550466,
+     "name": "Dark Order Booster Box",
+     "price": {
+      "trend": 209.88,
+      "low": 239,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM8b",
+   "name": "GX Ultra Shiny (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-10-05",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 150,
+   "totalCount": 250,
+   "lang": "ja",
+   "nameLocal": "GXウルトラシャイニー",
+   "cmExpansion": 3856,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550476,
+     "name": "GX Ultra Shiny Booster",
+     "price": {
+      "trend": 56.47,
+      "low": 30,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550461,
+     "name": "GX Ultra Shiny Booster Box",
+     "price": {
+      "trend": 689.17,
+      "low": 600,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sm7.5",
    "name": "Dragon Majesty",
    "serie": "Sun & Moon",
@@ -2591,6 +4933,45 @@
      "price": {
       "trend": 1010.48,
       "low": 560,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM8",
+   "name": "Super-Burst Impact (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-09-07",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 95,
+   "totalCount": 111,
+   "lang": "ja",
+   "nameLocal": "超爆インパクト",
+   "cmExpansion": 3866,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 550486,
+     "name": "Super-Burst Impact Booster",
+     "price": {
+      "trend": 15.57,
+      "low": 12.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 550471,
+     "name": "Super-Burst Impact Booster Box",
+     "price": {
+      "trend": 423.8,
+      "low": 740,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2648,6 +5029,162 @@
    ]
   },
   {
+   "id": "ja-SM7a",
+   "name": "Thunderclap Spark (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-08-03",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 50,
+   "totalCount": 73,
+   "lang": "ja",
+   "nameLocal": "迅雷スパーク",
+   "cmExpansion": 3876,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551871,
+     "name": "Thunderclap Spark Booster",
+     "price": {
+      "trend": 9.96,
+      "low": 9.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551756,
+     "name": "Thunderclap Spark Booster Box",
+     "price": {
+      "trend": 262.69,
+      "low": 335,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM7b",
+   "name": "Fairy Rise (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-08-03",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 50,
+   "totalCount": 63,
+   "lang": "ja",
+   "nameLocal": "フェアリーライズ",
+   "cmExpansion": 3871,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551866,
+     "name": "Fairy Rise Booster",
+     "price": {
+      "trend": 14.14,
+      "low": 11,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551751,
+     "name": "Fairy Rise Booster Box",
+     "price": {
+      "trend": 267.39,
+      "low": 524.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM7",
+   "name": "Sky-Splitting Charisma (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-06-01",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 96,
+   "totalCount": 112,
+   "lang": "ja",
+   "nameLocal": "裂空のカリスマ",
+   "cmExpansion": 3881,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551876,
+     "name": "Sky-Splitting Charisma Booster",
+     "price": {
+      "trend": 35.42,
+      "low": 33.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551761,
+     "name": "Sky-Splitting Charisma Booster Box",
+     "price": {
+      "trend": 1859.8,
+      "low": 2800,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM6b",
+   "name": "Champion Road (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-05-30",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 66,
+   "totalCount": 86,
+   "lang": "ja",
+   "nameLocal": "チャンピオンロード",
+   "cmExpansion": 3886,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551881,
+     "name": "Champion Road Booster",
+     "price": {
+      "trend": 17.08,
+      "low": 16.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551771,
+     "name": "Champion Road Booster Box",
+     "price": {
+      "trend": 379.23,
+      "low": 390,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sm6",
    "name": "Forbidden Light",
    "serie": "Sun & Moon",
@@ -2697,6 +5234,84 @@
    ]
   },
   {
+   "id": "ja-SM6a",
+   "name": "Dragon Storm (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-04-06",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 53,
+   "totalCount": 66,
+   "lang": "ja",
+   "nameLocal": "ドラゴンストーム",
+   "cmExpansion": 3891,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551886,
+     "name": "Dragon Storm Booster",
+     "price": {
+      "trend": 17.35,
+      "low": 17.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551776,
+     "name": "Dragon Storm Booster Box",
+     "price": {
+      "trend": 448.7,
+      "low": 749.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM6",
+   "name": "Forbidden Light (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-03-02",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 94,
+   "totalCount": 110,
+   "lang": "ja",
+   "nameLocal": "禁断の光",
+   "cmExpansion": 3896,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551891,
+     "name": "Forbidden Light JP Booster",
+     "price": {
+      "trend": 15.81,
+      "low": 20,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551781,
+     "name": "Forbidden Light JP Booster Box",
+     "price": {
+      "trend": 328.61,
+      "low": 680,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sm5",
    "name": "Ultra Prism",
    "serie": "Sun & Moon",
@@ -2726,6 +5341,123 @@
      "price": {
       "trend": 1975.59,
       "low": 1000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM5p",
+   "name": "Ultra Force (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2018-01-19",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 50,
+   "totalCount": 63,
+   "lang": "ja",
+   "nameLocal": "ウルトラフォース",
+   "cmExpansion": 3901,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551896,
+     "name": "Ultra Force Booster",
+     "price": {
+      "trend": 16.56,
+      "low": 9.89,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551786,
+     "name": "Ultra Force Booster Box",
+     "price": {
+      "trend": 291,
+      "low": 324.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM5M",
+   "name": "Ultra Moon (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-12-08",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 66,
+   "totalCount": 78,
+   "lang": "ja",
+   "nameLocal": "ウルトラムーン",
+   "cmExpansion": 3906,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551901,
+     "name": "Ultra Moon Booster",
+     "price": {
+      "trend": 19.3,
+      "low": 15.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551791,
+     "name": "Ultra Moon Booster Box",
+     "price": {
+      "trend": 566.35,
+      "low": 1099,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM5S",
+   "name": "Ultra Sun (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-12-08",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 66,
+   "totalCount": 78,
+   "lang": "ja",
+   "nameLocal": "ウルトラサン",
+   "cmExpansion": 3911,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551906,
+     "name": "Ultra Sun Booster",
+     "price": {
+      "trend": 19.8,
+      "low": 18.99,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551796,
+     "name": "Ultra Sun Booster Box",
+     "price": {
+      "trend": 407.39,
+      "low": 550,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2783,6 +5515,45 @@
    ]
   },
   {
+   "id": "ja-SM4p",
+   "name": "GX Battle Boost (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-10-20",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 114,
+   "totalCount": 125,
+   "lang": "ja",
+   "nameLocal": "GXバトルブースト",
+   "cmExpansion": 3916,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551911,
+     "name": "GX Battle Boost Booster",
+     "price": {
+      "trend": 305.45,
+      "low": 300,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551801,
+     "name": "GX Battle Boost Booster Box",
+     "price": {
+      "trend": 973.18,
+      "low": 19990,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sm3.5",
    "name": "Shining Legends",
    "serie": "Sun & Moon",
@@ -2812,6 +5583,84 @@
      "price": {
       "trend": 895.8,
       "low": 400,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM4A",
+   "name": "Ultradimensional Beasts (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-09-15",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 50,
+   "totalCount": 61,
+   "lang": "ja",
+   "nameLocal": "超次元の暴獣",
+   "cmExpansion": 3921,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551916,
+     "name": "Ultradimensional Beasts Booster",
+     "price": {
+      "trend": 30.58,
+      "low": 44.95,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551806,
+     "name": "Ultradimensional Beasts Booster Box",
+     "price": {
+      "trend": 1375,
+      "low": 1999,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM4S",
+   "name": "Awakened Heroes (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-09-15",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 50,
+   "totalCount": 62,
+   "lang": "ja",
+   "nameLocal": "覚醒の勇者",
+   "cmExpansion": 3926,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551921,
+     "name": "Awakened Heroes Booster",
+     "price": {
+      "trend": 20.08,
+      "low": 22,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551816,
+     "name": "Awakened Heroes Booster Box",
+     "price": {
+      "trend": 796.14,
+      "low": 990,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2881,6 +5730,123 @@
    "sealed": []
   },
   {
+   "id": "ja-SM3p",
+   "name": "Shining Legends (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-07-15",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 72,
+   "totalCount": 82,
+   "lang": "ja",
+   "nameLocal": "ひかる伝説",
+   "cmExpansion": 3931,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551926,
+     "name": "Shining Legends JP Booster",
+     "price": {
+      "trend": 127.56,
+      "low": 48,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551821,
+     "name": "Shining Legends JP Booster Box",
+     "price": {
+      "trend": 1091.82,
+      "low": 599,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM3N",
+   "name": "Darkness that Consumes Light (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-06-16",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 51,
+   "totalCount": 64,
+   "lang": "ja",
+   "nameLocal": "光を喰らう闇",
+   "cmExpansion": 3936,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551931,
+     "name": "Darkness that Consumes Light Booster",
+     "price": {
+      "trend": 34.8,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551826,
+     "name": "Darkness that Consumes Light Booster Box",
+     "price": {
+      "trend": 350,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM3H",
+   "name": "To Have Seen the Battle Rainbow (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-06-16",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 51,
+   "totalCount": 64,
+   "lang": "ja",
+   "nameLocal": "闘う虹を見たか",
+   "cmExpansion": 3941,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551936,
+     "name": "To Have Seen the Battle Rainbow Booster",
+     "price": {
+      "trend": 77.75,
+      "low": 109,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551831,
+     "name": "To Have Seen the Battle Rainbow Booster Box",
+     "price": {
+      "trend": 4112.33,
+      "low": null,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "sm2",
    "name": "Guardians Rising",
    "serie": "Sun & Moon",
@@ -2930,6 +5896,123 @@
    ]
   },
   {
+   "id": "ja-SM2p",
+   "name": "Facing a New Trial (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-04-21",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 49,
+   "totalCount": 65,
+   "lang": "ja",
+   "nameLocal": "新たなる試練の向こう",
+   "cmExpansion": 3946,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551941,
+     "name": "Facing a New Trial Booster",
+     "price": {
+      "trend": 120.02,
+      "low": 124.98,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551836,
+     "name": "Facing a New Trial Booster Box",
+     "price": {
+      "trend": 1955.3,
+      "low": 5949,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM2K",
+   "name": "Islands Await You (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-03-17",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 50,
+   "totalCount": 61,
+   "lang": "ja",
+   "nameLocal": "キミを待つ島々",
+   "cmExpansion": 3956,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551951,
+     "name": "Islands Await You Booster",
+     "price": {
+      "trend": 59.05,
+      "low": 10,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551846,
+     "name": "Islands Await You Booster Box",
+     "price": {
+      "trend": 844.5,
+      "low": 850,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM2L",
+   "name": "Alolan Moonlight (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-03-17",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 50,
+   "totalCount": 62,
+   "lang": "ja",
+   "nameLocal": "アローラの月光",
+   "cmExpansion": 3951,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551946,
+     "name": "Alolan Moonlight Booster",
+     "price": {
+      "trend": 24.63,
+      "low": 16,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551841,
+     "name": "Alolan Moonlight Booster Box",
+     "price": {
+      "trend": 1368.77,
+      "low": 349,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
    "id": "smp",
    "name": "SM Black Star Promos",
    "serie": "Sun & Moon",
@@ -2971,6 +6054,123 @@
      "price": {
       "trend": 921.6,
       "low": 500,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM1p",
+   "name": "Strength Expansion Pack Sun & Moon (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2017-01-27",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 51,
+   "totalCount": 68,
+   "lang": "ja",
+   "nameLocal": "サン＆ムーン",
+   "cmExpansion": 3961,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551956,
+     "name": "Strength Expansion Pack Sun & Moon Booster",
+     "price": {
+      "trend": 66.69,
+      "low": 39,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551851,
+     "name": "Strength Expansion Pack Sun & Moon Booster Box",
+     "price": {
+      "trend": 788.24,
+      "low": 1799,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM1M",
+   "name": "Collection Moon (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2016-12-09",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 60,
+   "totalCount": 73,
+   "lang": "ja",
+   "nameLocal": "コレクションムーン",
+   "cmExpansion": 3966,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551961,
+     "name": "Collection Moon Booster",
+     "price": {
+      "trend": 68.2,
+      "low": 80,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551856,
+     "name": "Collection Moon Booster Box",
+     "price": {
+      "trend": 1702.06,
+      "low": 11000,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "ja-SM1S",
+   "name": "Collection Sun (JP)",
+   "serie": "Sun & Moon",
+   "releaseDate": "2016-12-09",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 60,
+   "totalCount": 73,
+   "lang": "ja",
+   "nameLocal": "コレクションサン",
+   "cmExpansion": 3971,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 551966,
+     "name": "Collection Sun Booster",
+     "price": {
+      "trend": 39.99,
+      "low": 34.9,
+      "avg30": null,
+      "avg7": null,
+      "avg1": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 551861,
+     "name": "Collection Sun Booster Box",
+     "price": {
+      "trend": 1027.5,
+      "low": 4500,
       "avg30": null,
       "avg7": null,
       "avg1": null

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  appendHistory, baseName, expansionOf, expectedValue, matchByName, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
+  appendHistory, baseName, cmCardName, inferRarity, expansionOf, japaneseSetName, expectedValue, matchByName, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
   type CmProduct, type MarketCard, type SetPullRates,
 } from './market';
 
@@ -103,6 +103,28 @@ describe('matchByName', () => {
     expect(matchByName(cards, null, many)).toBe(7);
     expect(cards[1].cmId).toBe(12);
     expect(matchByName([mk('x', '1', 'Nada')], null, singles)).toBeNull();
+  });
+});
+
+describe('sets japoneses', () => {
+  const sealed = (name: string) => [{ kind: 'pack' as const, idProduct: 1, name, price: { trend: 5, low: 4, avg30: 5 } }];
+  it('saca el nombre en inglés del sobre de Cardmarket', () => {
+    expect(japaneseSetName('SV8a', 'Scarlet & Violet', sealed('Terastal Festival ex Booster'))).toBe('Terastal Festival ex');
+    expect(japaneseSetName('SV-P', 'Scarlet & Violet', sealed('Pokémon Card Gym Promo Booster'))).toBe('Scarlet & Violet Promos');
+    expect(japaneseSetName('SV11B', 'Scarlet & Violet', sealed('Black Bolt JP Booster'))).toBe('Black Bolt');
+    expect(japaneseSetName('SVLS', 'Scarlet & Violet', [])).toBeNull();
+  });
+  it('quita los ataques del nombre de la carta', () => {
+    expect(cmCardName('Mega Dragonite ex [Hurricane Wing]')).toBe('Mega Dragonite ex');
+  });
+  it('marca como secretas las cartas sin rareza por encima del número oficial', () => {
+    expect(inferRarity({ num: '217', rarity: 'None' }, 187)).toBe('Secret Rare');
+    expect(inferRarity({ num: '100', rarity: null }, 187)).toBeNull();
+    expect(inferRarity({ num: 'TG01', rarity: null }, 30)).toBeNull();
+    expect(inferRarity({ num: '217', rarity: 'Hyper rare' }, 187)).toBe('Hyper rare');
+  });
+  it('descarta el sellado coreano o chino', () => {
+    expect(sealedKind({ name: 'Korean Terastal Festival ex Booster' })).toBeNull();
   });
 });
 

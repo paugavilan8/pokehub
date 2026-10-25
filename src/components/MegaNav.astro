@@ -2,7 +2,7 @@
 // Barra de navegación con desplegables grandes (como las tiendas de cartas): expansiones, Pokémon y aduanas.
 // En escritorio se abren al pasar el ratón o al pulsar; en móvil, el botón de menú los muestra en acordeón.
 import Icon from './Icon.astro';
-import { allPokemon, allSets, pokemonName, seriesName, setsBySeries } from '../lib/market-data';
+import { allPokemon, allSets, isJapanese, pokemonName, seriesName, setsBySeries } from '../lib/market-data';
 import { cardImage } from '../lib/market';
 import { ROUTES, LOCALE, type Lang, type RouteKey } from '../i18n/ui';
 
@@ -10,10 +10,13 @@ interface Props { lang: Lang; active: RouteKey }
 const { lang, active } = Astro.props;
 const sets = allSets();
 // Las expansiones con sobres (sin promos ni colecciones sueltas), como en el menú de las tiendas.
-const main = sets.filter((s) => s.pack);
-const latest = main.slice(0, 12);
+const main = sets.filter((s) => s.pack && !isJapanese(s));
+const latest = main.slice(0, 10);
 const featured = main[0];
+const japanese = sets.filter(isJapanese);
+const latestJa = japanese.filter((s) => s.pack).slice(0, 10);
 const series = setsBySeries();
+const jaName = (name: string) => name.replace(/\s*\(JP\)$/, '');
 /** Los más buscados, por número de Pokédex. */
 const POPULAR = [6, 25, 197, 151, 94, 249, 384, 150, 133, 658, 700, 448];
 const pokemon = allPokemon();
@@ -27,7 +30,7 @@ const setUrl = (slug: string) => `${ROUTES.sets[lang]}${slug}/`;
 const t = {
   es: {
     main: 'Principal', menu: 'Menú', close: 'Cerrar menú',
-    sets: 'Expansiones', latest: 'Últimas expansiones', bySeries: 'Por serie', all: (n: number) => `Todas las expansiones (${n})`, allShort: 'Todas las expansiones',
+    sets: 'Expansiones', latest: 'Últimas expansiones', latestJa: 'Últimas japonesas', allJa: (n: number) => `Todas las japonesas (${n})`, bySeries: 'Por serie', all: (n: number) => `Todas las expansiones (${n})`, allShort: 'Todas las expansiones',
     newest: 'Última expansión', seePrices: 'Ver precios del set', packFrom: (p: string) => `Sobres desde ${p}`,
     pokemon: 'Pokémon', popular: 'Los más buscados', allPokemon: (n: number) => `Todos los Pokémon (${n})`, cards: (n: number) => `${n} cartas`,
     alerts: 'Avisos de stock', import: 'Aduanas',
@@ -39,7 +42,7 @@ const t = {
   },
   en: {
     main: 'Main', menu: 'Menu', close: 'Close menu',
-    sets: 'Sets', latest: 'Latest sets', bySeries: 'By series', all: (n: number) => `All sets (${n})`, allShort: 'All sets',
+    sets: 'Sets', latest: 'Latest sets', latestJa: 'Latest Japanese sets', allJa: (n: number) => `All Japanese sets (${n})`, bySeries: 'By series', all: (n: number) => `All sets (${n})`, allShort: 'All sets',
     newest: 'Latest set', seePrices: 'See set prices', packFrom: (p: string) => `Packs from ${p}`,
     pokemon: 'Pokémon', popular: 'Most searched', allPokemon: (n: number) => `All Pokémon (${n})`, cards: (n: number) => `${n} cards`,
     alerts: 'Stock alerts', import: 'Import tax',
@@ -70,6 +73,15 @@ const featuredPack = featured?.pack?.price.low ?? featured?.pack?.price.trend;
                   <li><a href={setUrl(s.slug)}>{s.set.name}</a></li>
                 ))}
               </ul>
+            </div>
+            <div class="col col-ja">
+              <p class="col-title">{t.latestJa}</p>
+              <ul class="set-list" role="list">
+                {latestJa.map((s) => (
+                  <li><a href={setUrl(s.slug)}>{jaName(s.set.name)}</a></li>
+                ))}
+              </ul>
+              <a class="more small-more" href={`${ROUTES.sets[lang]}#jp`}>{t.allJa(japanese.length)} <Icon name="arrow-right" /></a>
             </div>
             <div class="col col-series">
               <p class="col-title">{t.bySeries}</p>
@@ -174,8 +186,9 @@ const featuredPack = featured?.pack?.price.low ?? featured?.pack?.price.trend;
   .mega a { color: var(--text); text-decoration: none; }
   .mega a:hover { color: var(--accent); }
 
-  .mega-sets { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.8fr) 250px; gap: 28px; }
-  .set-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; }
+  .mega-sets { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.75fr) 240px; gap: 26px; }
+  .set-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+  .small-more { margin-top: 10px; font-size: 0.88rem; }
   .set-list a { display: block; padding: 5px 0; font-size: 0.92rem; font-weight: 500; line-height: 1.25; }
   .series-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 18px; }
   .series-list a { display: flex; justify-content: space-between; gap: 10px; padding: 4px 0; font-size: 0.92rem; font-weight: 500; }
@@ -214,8 +227,8 @@ const featuredPack = featured?.pack?.price.low ?? featured?.pack?.price.trend;
   .tool-title { display: block; font-weight: 650; }
   .tool-text { display: block; font-size: 0.86rem; color: var(--text-muted); line-height: 1.4; }
 
-  @media (max-width: 1000px) {
-    .mega-sets { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+  @media (max-width: 1100px) {
+    .mega-sets { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.75fr); }
     .col-feature { display: none; }
     .poke-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
   }

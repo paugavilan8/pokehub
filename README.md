@@ -6,7 +6,7 @@ Precios de sets de Pokémon TCG (Cardmarket) y calculadora de aduanas para compr
 
 - **Menú con desplegables:** expansiones (últimas, por serie y la más nueva destacada), Pokémon más buscados y herramientas de aduanas. En móvil, botón de menú con acordeones (`src/components/MegaNav.astro`).
 - **Portada:** carrusel con las últimas expansiones, las cartas más caras ahora, las que más suben y bajan en la semana, y las 12 últimas expansiones con sobres (al pulsar una se despliegan sus cartas top).
-- **Todas las expansiones** (`/expansiones/`): las 167 expansiones en inglés desde Base Set (1999), agrupadas por serie, con buscador.
+- **Todas las expansiones** (`/expansiones/`): las internacionales desde Base Set (1999) y las japonesas desde Sol y Luna (2016), agrupadas por serie, con buscador. El menú tiene columna de últimas japonesas.
 - **Página de cada set:** producto sellado, valor esperado por sobre y caja, simulador para abrir sobres virtuales (sets con tasas de aparición), cartas más caras y lista completa.
 - **Ficha de carta:** panel lateral con imagen grande (efecto holográfico), tendencia, desde, medias de 1, 7 y 30 días, variación semanal y probabilidad de salir. Se abre desde cualquier carta y con enlaces `#c-<id>`.
 - **Páginas por Pokémon** (`/pokemon/charizard/`): todas sus cartas de todos los sets, ordenadas por precio. Nombres en español e inglés de PokeAPI (`scripts/build-pokemon-names.mjs` genera `src/data/pokemon-names.json`).
@@ -43,6 +43,7 @@ scripts/make-images.mjs    genera og-es.png, og-en.png y apple-touch-icon.png
 
 - `scripts/fetch-market.ts` descarga cada día el catálogo de TCGdex (sets, cartas, rareza, imagen e id de Cardmarket) y la guía de precios y el catálogo públicos de Cardmarket. Escribe `src/data/market/` y la web se vuelve a construir.
 - Series: todas las de cartas físicas desde Base Set (fuera TCG Pocket, kits de entrenador y jumbos). Los subsets que van en los mismos sobres (Trainer Gallery, Shiny Vault, Galarian Gallery...) se unen a su expansión, como en Cardmarket.
+- Sets japoneses (series SM, S, SV y M de TCGdex, guardados como `ja-<id>`): TCGdex los da en japonés, así que el nombre de cada carta se toma de Cardmarket y el del set, de su sobre en Cardmarket ("Terastal Festival ex Booster" -> "Terastal Festival ex (JP)"). Se descartan barajas y sets de inicio sin sobre propio, y los sets que TCGdex tiene vacíos (Eevee Heroes, Shiny Star V, 25th Anniversary...) o mal enlazados. Las cartas sin rareza por encima del número oficial se marcan como secretas.
 - TCGdex no trae id de Cardmarket en algunas cartas (Gym, sets recién salidos) y a veces repite el mismo id en la versión normal y la de arte completo. `matchByName` (`src/lib/market.ts`) las empareja por nombre dentro de la expansión de Cardmarket; si hay dudas, la carta se queda sin precio antes que con uno equivocado.
 - `.github/workflows/market-data.yml` lo ejecuta cada día a las 04:37 UTC (Cardmarket publica la guía de madrugada) y sube los cambios. También se puede lanzar a mano desde la pestaña Actions.
 - Valor esperado: `src/data/pull-rates.json` (tasas por rareza, con fuente y fecha). Solo se calcula para los sets que tienen tasas.

@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import CardDrawer from '../components/CardDrawer.astro';
 import HeroCarousel from '../components/HeroCarousel.astro';
-import { allSets, marketIndex, rarityLabel, rarityShort, rarityTone } from '../lib/market-data';
+import { allSets, isJapanese, marketIndex, rarityLabel, rarityShort, rarityTone } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit, weekChange } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
@@ -18,17 +18,18 @@ const base = ROUTES.sets[lang];
 
 // En la portada, las expansiones más recientes; el resto, en la página de todas las expansiones.
 const LATEST = 12;
-const withPacks = sets.filter((s) => s.pack);
+// La lista y el carrusel son de las expansiones internacionales; las japonesas tienen su sitio en el menú y en /expansiones/.
+const withPacks = sets.filter((s) => s.pack && !isJapanese(s));
 const shown = withPacks.slice(0, LATEST);
 // Las cartas más caras ahora mismo, de todos los sets. Solo las que tienen ofertas y cuya tendencia no se dispara frente
 // al precio más bajo: en cartas antiguas con pocas ventas, una sola venta graduada infla la tendencia de Cardmarket.
 const allCards = sets.flatMap((s) => s.set.cards.map((card) => ({ card, s })));
 const reliable = (p: { trend: number | null; low: number | null }) => p.trend != null && p.low != null && p.trend <= p.low * 15;
-const topCards = allCards.filter((x) => reliable(x.card.price)).sort((a, b) => b.card.price.trend! - a.card.price.trend!).slice(0, 12);
+const topCards = allCards.filter((x) => x.card.image && reliable(x.card.price)).sort((a, b) => b.card.price.trend! - a.card.price.trend!).slice(0, 12);
 // Las que más suben: media de 7 días frente a la de 30, solo cartas de 10 € o más para evitar ruido.
 const movers = allCards
   .map((x) => ({ ...x, wk: weekChange(x.card.price) }))
-  .filter((x) => x.wk != null && (x.card.price.trend ?? 0) >= 10 && reliable(x.card.price))
+  .filter((x) => x.wk != null && x.card.image && (x.card.price.trend ?? 0) >= 10 && reliable(x.card.price))
   .sort((a, b) => b.wk! - a.wk!);
 const risers = movers.slice(0, 6);
 const fallers = movers.slice(-6).reverse();
@@ -37,7 +38,7 @@ const c = {
   es: {
     title: 'Precios de expansiones Pokémon TCG: sobres, cajas y cartas',
     description: 'Precio de sobres y cajas de cada expansión de Pokémon TCG en Cardmarket, sus cartas más caras y si sale a cuenta abrir sobres. Actualizado cada día.',
-    h1: 'Últimas expansiones', allSets: (n: number) => `Ver las ${n} expansiones, de Base Set a hoy`,
+    h1: 'Últimas expansiones', allSets: (n: number) => `Ver las ${n} expansiones, de Base Set a hoy, y las japonesas`,
     topTitle: 'Las cartas más caras ahora', moversTitle: 'Movimientos de la semana', up: 'Suben', down: 'Bajan',
     moversNote: 'Media de 7 días frente a la de 30 días en Cardmarket. Cartas de 10 € o más.',
     updated: pricesDate ? `Precios de Cardmarket actualizados el ${pricesDate}` : 'Precios de Cardmarket',
@@ -53,7 +54,7 @@ const c = {
   en: {
     title: 'Pokémon TCG set prices: packs, boxes and cards',
     description: 'Cardmarket prices for packs and boxes of every Pokémon TCG set, their most valuable cards and whether opening packs pays off. Updated daily.',
-    h1: 'Latest sets', allSets: (n: number) => `See all ${n} sets, from Base Set to today`,
+    h1: 'Latest sets', allSets: (n: number) => `See all ${n} sets, from Base Set to today, and the Japanese ones`,
     topTitle: 'The most valuable cards right now', moversTitle: 'This week\'s movers', up: 'Rising', down: 'Falling',
     moversNote: '7-day average against the 30-day average on Cardmarket. Cards worth €10 or more.',
     updated: pricesDate ? `Cardmarket prices updated ${pricesDate}` : 'Cardmarket prices',
@@ -181,7 +182,7 @@ const c = {
             );
           })}
         </ul>
-        <a class="all-sets" href={base}>{c.allSets(sets.length)} <Icon name="arrow-right" /></a>
+        <a class="all-sets" href={base}>{c.allSets(sets.filter((s) => !isJapanese(s)).length)} <Icon name="arrow-right" /></a>
         <p class="disclosure">{c.disclosure}</p>
       </>
     )}

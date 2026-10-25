@@ -66,12 +66,18 @@ export function seriesName(serie: string, lang: 'es' | 'en') {
 
 export interface SeriesGroup { name: string; slug: string; sets: SetSummary[] }
 
-/** Expansiones agrupadas por serie, de la serie más nueva a la más antigua (las colecciones de McDonald's, al final). */
-export function setsBySeries(): SeriesGroup[] {
+export const isJapanese = (s: SetSummary) => s.set.lang === 'ja';
+
+/**
+ * Expansiones agrupadas por serie, de la serie más nueva a la más antigua (las colecciones de McDonald's, al final).
+ * Las japonesas van aparte: sus series llevan el prefijo "jp-" en el ancla.
+ */
+export function setsBySeries(region: 'intl' | 'ja' = 'intl'): SeriesGroup[] {
   const groups = new Map<string, SeriesGroup>();
   for (const s of allSets()) {
+    if (isJapanese(s) !== (region === 'ja')) continue;
     const name = s.set.serie || 'Other';
-    if (!groups.has(name)) groups.set(name, { name, slug: slugify(name), sets: [] });
+    if (!groups.has(name)) groups.set(name, { name, slug: (region === 'ja' ? 'jp-' : '') + slugify(name), sets: [] });
     groups.get(name)!.sets.push(s);
   }
   const start = (g: SeriesGroup) => (g.name.startsWith('McDonald') ? '' : g.sets.at(-1)?.set.releaseDate ?? '');
@@ -79,6 +85,7 @@ export function setsBySeries(): SeriesGroup[] {
 }
 
 export const RARITY_ES: Record<string, string> = {
+  'triple rare': 'Triple rara', 'character rare': 'Rara de personaje', 'character super rare': 'Súper rara de personaje',
   'common': 'Común', 'uncommon': 'Poco común', 'rare': 'Rara', 'double rare': 'Doble rara', 'ultra rare': 'Ultra rara',
   'illustration rare': 'Ilustración rara', 'special illustration rare': 'Ilustración especial rara',
   'hyper rare': 'Hiper rara', 'mega hyper rare': 'Mega hiper rara', 'ace spec rare': 'AS TÁCTICO rara',
@@ -97,6 +104,7 @@ export function rarityLabel(r: string | null, lang: 'es' | 'en') {
 }
 
 const SHORT: Record<string, string> = {
+  'triple rare': 'RRR', 'character rare': 'CHR', 'character super rare': 'CSR',
   'common': 'C', 'uncommon': 'U', 'rare': 'R', 'double rare': 'DR', 'ultra rare': 'UR', 'illustration rare': 'IR',
   'special illustration rare': 'SIR', 'hyper rare': 'HR', 'mega hyper rare': 'MHR', 'ace spec rare': 'ACE',
   'shiny rare': 'SR', 'shiny ultra rare': 'SSR', 'black white rare': 'BWR',
@@ -117,7 +125,7 @@ export function rarityTone(r: string | null) {
   if (k.includes('mega hyper')) return 'mhr';
   if (k.includes('special illustration')) return 'sir';
   if (k.includes('hyper') || k === 'secret rare' || k === 'amazing rare') return 'hr';
-  if (k.includes('illustration')) return 'ir';
+  if (k.includes('illustration') || k.includes('character')) return 'ir';
   if (k.includes('ultra')) return 'ur';
   if (k.includes('double')) return 'dr';
   return 'base';

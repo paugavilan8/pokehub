@@ -17,12 +17,15 @@ const pctN = (n: number) => `${Math.round(n)}${lang === 'es' ? ' %' : '%'}`;
 const oneIn = (p: number) => Math.round(1 / p).toLocaleString(LOCALE[lang]);
 const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
 const paths = { es: `${ROUTES.sets.es}${summary.slug}/`, en: `${ROUTES.sets.en}${summary.slug}/` };
+/** Las cajas japonesas traen 10, 20 o 30 sobres según el set: no se calcula el precio por sobre. */
+const ja = set.lang === 'ja';
 
 const c = {
   es: {
     title: `${set.name}: precios, cartas top y valor del sobre`,
     description: `Precio de sobres, cajas y ETB de ${set.name} en Cardmarket, sus cartas más caras y cuánto valen de media los hits de un sobre.`,
-    back: 'Todas las expansiones', cards: 'cartas', released: (serie: string, d: string, n: number) => `Serie ${serie}. Salió el ${d} con ${n} cartas.`, prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
+    back: 'Todas las expansiones', cards: 'cartas', released: (serie: string, d: string, n: number) => `Serie ${serie}. Salió el ${d} con ${n} cartas.`,
+    jaNote: (local: string) => `Edición japonesa (${local}). Precios de la versión japonesa en Cardmarket; los nombres de las cartas, en inglés como los pone Cardmarket.`, jaBox: 'Caja de sobres', prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
     sealedTitle: 'Producto sellado',
     kinds: { pack: 'Sobre', box: 'Caja de 36 sobres', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 sobres)' } as Record<SealedItem['kind'], string>,
     from: 'desde', perPack: 'por sobre', see: 'Ver en Cardmarket', noSealed: 'No hemos encontrado producto sellado de este set en Cardmarket.',
@@ -51,7 +54,8 @@ const c = {
   en: {
     title: `${set.name}: prices, chase cards and pack value`,
     description: `Cardmarket prices for ${set.name} packs, boxes and ETBs, its most valuable cards and what the hits in a pack are worth on average.`,
-    back: 'All sets', cards: 'cards', released: (serie: string, d: string, n: number) => `${serie} series. Released ${d} with ${n} cards.`, prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
+    back: 'All sets', cards: 'cards',
+    jaNote: (local: string) => `Japanese edition (${local}). Prices for the Japanese version on Cardmarket; card names in English as Cardmarket lists them.`, jaBox: 'Booster box', released: (serie: string, d: string, n: number) => `${serie} series. Released ${d} with ${n} cards.`, prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
     sealedTitle: 'Sealed product',
     kinds: { pack: 'Booster pack', box: 'Booster box (36 packs)', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 packs)' } as Record<SealedItem['kind'], string>,
     from: 'from', perPack: 'per pack', see: 'View on Cardmarket', noSealed: 'We found no sealed product for this set on Cardmarket.',
@@ -101,6 +105,7 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
         {set.logo && <img class="logo" src={`${set.logo}.webp`} alt="" decoding="async" onerror="this.remove()" />}
         <h1>{set.name}</h1>
         <p class="meta">{c.released(seriesName(set.serie, lang), set.releaseDate ? formatDate(set.releaseDate, lang) : '', set.totalCount)}</p>
+        {ja && set.nameLocal && <p class="ja-note">{c.jaNote(set.nameLocal)}</p>}
         <p class="small">{c.prices}</p>
       </div>
       <div class="hero-hits" aria-hidden="true">
@@ -116,8 +121,8 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
       <ul class="pricelist">
         {set.sealed.map((s) => (
           <li>
-            <span class="pl-name">{c.kinds[s.kind]}
-              <small>{c.sealedLine(s.price.low != null ? fmt(s.price.low) : null, s.kind !== 'pack' && s.price.trend != null ? fmt(s.price.trend / PACKS[s.kind]) : null)}</small>
+            <span class="pl-name">{ja && s.kind === 'box' ? c.jaBox : c.kinds[s.kind]}
+              <small>{c.sealedLine(s.price.low != null ? fmt(s.price.low) : null, !ja && s.kind !== 'pack' && s.price.trend != null ? fmt(s.price.trend / PACKS[s.kind]) : null)}</small>
             </span>
             <span class="pl-price">{fmt(s.price.trend)}</span>
             <a class="ext" href={cardmarketUrl(cmLang, s.idProduct)} rel="noopener" target="_blank" aria-label={`${c.see}: ${s.name}`}></a>
@@ -240,6 +245,7 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
 </Base>
 
 <style>
+  .ja-note { max-width: 60ch; font-size: 0.9rem; color: var(--text-muted); margin: 0 0 4px; }
   .set-hero { padding-block: 24px 8px; }
   .back { display: inline-flex; align-items: center; gap: 6px; font-weight: 500; font-size: 0.9rem; text-decoration: none; color: var(--text-muted); }
   .back:hover { color: var(--text); }
