@@ -1,9 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
-import { allSets, marketIndex } from '../lib/market-data';
-import { cardImage } from '../lib/market';
+import { allSets, marketIndex, rarityLabel, rarityTone } from '../lib/market-data';
+import { cardImage, cardmarketUrl, isHit } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
 interface Props { lang: Lang }
@@ -17,89 +16,226 @@ const base = ROUTES.sets[lang];
 
 const c = {
   es: {
-    title: 'Expansiones Pokémon TCG: precios y valor de cada sobre',
-    description: 'Todas las expansiones recientes de Pokémon TCG con el precio de sobres, cajas y ETB en Cardmarket, sus cartas más caras y si sale a cuenta abrir sobres.',
-    h1: 'Expansiones y precios',
-    lede: 'Precio de sobres y cajas, las cartas más buscadas de cada set y cuánto valen de media los hits de un sobre.',
-    prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}. Se actualizan cada día.` : 'Precios de Cardmarket, actualizados cada día.',
-    pack: 'Sobre', box: 'Caja', ev: 'Hits por sobre', topHit: 'Carta top', open: 'Ver expansión',
-    ret: 'recuperas', empty: 'Todavía no hay datos de precios. Se cargan con la próxima actualización diaria.',
+    title: 'Precios de expansiones Pokémon TCG: sobres, cajas y cartas',
+    description: 'Precio de sobres y cajas de cada expansión de Pokémon TCG en Cardmarket, sus cartas más caras y si sale a cuenta abrir sobres. Actualizado cada día.',
+    h1: 'Precios por set',
+    updated: pricesDate ? `Actualizado el ${pricesDate} · Cardmarket` : 'Precios de Cardmarket',
+    search: 'Buscar set', packFrom: 'Sobre desde', packTrend: 'Tendencia sobre', box: 'Caja', ret: 'Recuperas',
+    open: 'Ver cartas', close: 'Ocultar cartas',
+    th: ['', 'N.º', 'Carta', 'Rareza', 'Desde', 'Tendencia', ''],
+    all: (n: number) => `Ver el set completo (${n} cartas), sellado y valor esperado`,
+    see: 'Ver en Cardmarket', hitsOnly: 'Se muestran las cartas especiales, de la más cara a la más barata.',
+    noResults: 'Ningún set coincide con la búsqueda.',
+    empty: 'Todavía no hay datos de precios. Se cargan con la próxima actualización diaria.',
+    disclosure: 'Precios de Cardmarket (guía de precios pública, media de todos los idiomas). Imágenes de TCGdex.',
   },
   en: {
-    title: 'Pokémon TCG sets: prices and value per pack',
-    description: 'Every recent Pokémon TCG set with Cardmarket prices for packs, boxes and ETBs, its most valuable cards and whether opening packs pays off.',
-    h1: 'Sets and prices',
-    lede: 'Pack and box prices, the chase cards of every set, and what the hits in a pack are worth on average.',
-    prices: pricesDate ? `Cardmarket prices from ${pricesDate}. Updated daily.` : 'Cardmarket prices, updated daily.',
-    pack: 'Pack', box: 'Box', ev: 'Hits per pack', topHit: 'Top card', open: 'View set',
-    ret: 'you get back', empty: 'No price data yet. It loads with the next daily update.',
+    title: 'Pokémon TCG set prices: packs, boxes and cards',
+    description: 'Cardmarket prices for packs and boxes of every Pokémon TCG set, their most valuable cards and whether opening packs pays off. Updated daily.',
+    h1: 'Prices by set',
+    updated: pricesDate ? `Updated ${pricesDate} · Cardmarket` : 'Cardmarket prices',
+    search: 'Search sets', packFrom: 'Pack from', packTrend: 'Pack trend', box: 'Box', ret: 'You get back',
+    open: 'Show cards', close: 'Hide cards',
+    th: ['', 'No.', 'Card', 'Rarity', 'From', 'Trend', ''],
+    all: (n: number) => `See the full set (${n} cards), sealed product and expected value`,
+    see: 'View on Cardmarket', hitsOnly: 'Showing special cards, most valuable first.',
+    noResults: 'No set matches your search.',
+    empty: 'No price data yet. It loads with the next daily update.',
+    disclosure: 'Prices from Cardmarket (public price guide, average across languages). Images from TCGdex.',
   },
 }[lang];
 ---
 <Base lang={lang} route="sets" title={c.title} description={c.description}>
-  <PageHero slot="hero" title={c.h1} lede={c.lede} art="meowth">
-    <p class="small">{c.prices}</p>
-  </PageHero>
+  <div class="container page">
+    <header class="ph">
+      <h1>{c.h1}</h1>
+      <p class="updated">{c.updated}</p>
+    </header>
 
-  <div class="container">
-    {sets.length === 0 && <p class="callout">{c.empty}</p>}
-    <ul class="grid">
-      {sets.map((s) => {
-        const top = s.hits[0];
-        const packPrice = s.pack?.price.trend ?? null;
-        const ret = s.ev && packPrice ? (s.ev.perPack.trend / packPrice) * 100 : null;
-        return (
-          <li class="set">
-            <a class="set-link" href={`${base}${s.slug}/`} aria-label={`${c.open}: ${s.set.name}`}></a>
-            <div class={`set-top serie-${s.set.serie.startsWith('Mega') ? 'me' : 'sv'}`}>
-              {s.set.logo && <img class="logo" src={`${s.set.logo}.webp`} alt="" loading="lazy" decoding="async" onerror="this.remove()" />}
-              {top?.image && <img class="hit" src={cardImage(top.image)} alt="" loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}
-            </div>
-            <div class="set-body">
-              <h2>{s.set.name}</h2>
-              <p class="meta muted">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''} · {s.set.serie}</p>
-              <dl class="stats">
-                <div><dt>{c.pack}</dt><dd>{fmt(packPrice)}</dd></div>
-                <div><dt>{c.box}</dt><dd>{fmt(s.box?.price.trend)}</dd></div>
-                {s.ev && <div class="ev-cell"><dt>{c.ev}{ret != null && <span class="ret">{c.ret} {pct(ret)}</span>}</dt><dd>{fmt(s.ev.perPack.trend)}</dd></div>}
-              </dl>
-              {top && <p class="top"><span class="muted">{c.topHit}:</span> {top.name} <strong>{fmt(top.price.trend)}</strong></p>}
-              <span class="more">{c.open} <Icon name="arrow-right" /></span>
-            </div>
-          </li>
-        );
-      })}
-    </ul>
+    {sets.length === 0 ? <p class="callout">{c.empty}</p> : (
+      <>
+        <div class="toolbar">
+          <label class="search">
+            <Icon name="magnifying-glass" />
+            <span class="sr">{c.search}</span>
+            <input type="search" placeholder={c.search} data-search autocomplete="off" />
+          </label>
+        </div>
+        <p class="no-results" data-no-results hidden>{c.noResults}</p>
+
+        <ul class="sets" data-sets>
+          {sets.map((s, i) => {
+            const hits = [...s.set.cards].filter(isHit).sort((a, b) => (b.price.trend ?? -1) - (a.price.trend ?? -1));
+            const ret = s.ev && s.pack?.price.trend ? (s.ev.perPack.trend / s.pack.price.trend) * 100 : null;
+            const panel = `set-${s.set.id.replace(/\W/g, '-')}`;
+            return (
+              <li class="set" data-name={s.set.name.toLowerCase()} data-open={i === 0 ? 'true' : undefined}>
+                <button class="head" type="button" aria-expanded={i === 0 ? 'true' : 'false'} aria-controls={panel} data-toggle>
+                  <span class="logo-box">
+                    {s.set.logo && <img src={`${s.set.logo}.webp`} alt="" loading="lazy" decoding="async" onerror="this.remove()" />}
+                  </span>
+                  <span class="title">
+                    <span class="name">{s.set.name}</span>
+                    <span class="date">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''} · {s.set.totalCount} {lang === 'es' ? 'cartas' : 'cards'}</span>
+                  </span>
+                  <span class="stat hide-xs"><span class="k">{c.packFrom}</span><span class="v">{fmt(s.pack?.price.low)}</span></span>
+                  <span class="stat"><span class="k">{c.packTrend}</span><span class="v">{fmt(s.pack?.price.trend)}</span></span>
+                  <span class="stat hide-sm"><span class="k">{c.box}</span><span class="v">{fmt(s.box?.price.trend)}</span></span>
+                  <span class="stat hide-sm"><span class="k">{c.ret}</span><span class={`v ${ret != null ? 'ret' : ''}`}>{ret != null ? pct(ret) : '-'}</span></span>
+                  <span class="chev" aria-hidden="true"><Icon name="caret-down" /></span>
+                </button>
+
+                <div class="panel" id={panel} hidden={i !== 0}>
+                  <ol class="strip">
+                    {hits.slice(0, 5).map((h, j) => (
+                      <li>
+                        <a href={cardmarketUrl(lang, h.cmId, h.name)} rel="noopener" target="_blank">
+                          <span class="scan">{h.image && <img src={cardImage(h.image, 'high')} alt={h.name} loading="lazy" decoding="async" width="600" height="825" onerror="this.remove()" />}</span>
+                          <span class="cap"><span class="cn">{j + 1}. {h.name}</span><span class="cp">{fmt(h.price.trend)}</span></span>
+                          <span class="cr">{rarityLabel(h.rarity, lang)}</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <p class="note">{c.hitsOnly}</p>
+                  <div class="table-wrap">
+                    <table class="list">
+                      <thead><tr>{c.th.map((h, k) => <th class={[k >= 4 ? 'n' : '', k === 3 || k === 4 ? 'hide-xs' : ''].join(' ')}>{h}</th>)}</tr></thead>
+                      <tbody>
+                        {hits.map((h) => (
+                          <tr>
+                            <td class="thumb">{h.image && <img src={cardImage(h.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}</td>
+                            <td class="muted num">{h.num}</td>
+                            <td class="cname">{h.name}<span class="rar-sm">{rarityLabel(h.rarity, lang)}</span></td>
+                            <td class="hide-xs"><span class={`rar ${rarityTone(h.rarity)}`}>{rarityLabel(h.rarity, lang)}</span></td>
+                            <td class="n muted hide-xs">{fmt(h.price.low)}</td>
+                            <td class="n strong">{fmt(h.price.trend)}</td>
+                            <td class="n"><a href={cardmarketUrl(lang, h.cmId, h.name)} rel="noopener" target="_blank" aria-label={`${c.see}: ${h.name}`}><Icon name="arrow-up-right" /></a></td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <a class="full" href={`${base}${s.slug}/`}>{c.all(s.set.totalCount)} <Icon name="arrow-right" /></a>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+        <p class="disclosure">{c.disclosure}</p>
+      </>
+    )}
   </div>
 </Base>
 
 <style>
-  .small { font-size: 0.9rem; }
-  .grid { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 22px; }
-  @media (min-width: 680px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1040px) { .grid { grid-template-columns: repeat(3, 1fr); } }
-  .set { position: relative; background: var(--surface); border-radius: var(--radius-panel); box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s var(--ease); }
-  .set:hover { transform: translateY(-3px); }
-  .set-link { position: absolute; inset: 0; z-index: 2; border-radius: inherit; }
-  .set-link:focus-visible { outline-offset: -3px; }
-  .set-top { position: relative; height: 170px; overflow: hidden; display: grid; place-items: center start; padding: 18px 22px; }
-  .serie-me { background: radial-gradient(circle at 80% 20%, rgb(255 201 60 / 0.5), transparent 60%), linear-gradient(135deg, #2b1d6e, #6a2bb0); }
-  .serie-sv { background: radial-gradient(circle at 80% 20%, rgb(255 140 90 / 0.45), transparent 60%), linear-gradient(135deg, #8a1c2b, #d4512f); }
-  .logo { max-width: 58%; max-height: 110px; object-fit: contain; filter: drop-shadow(0 6px 12px rgb(0 0 0 / 0.35)); position: relative; z-index: 1; }
-  .hit { position: absolute; right: 16px; top: 26px; width: 118px; height: auto; border-radius: 6px; transform: rotate(7deg); box-shadow: 0 14px 30px rgb(0 0 0 / 0.45); }
-  .set-body { padding: 18px 22px 22px; display: flex; flex-direction: column; flex: 1; }
-  .set-body h2 { font-size: 1.35rem; margin-bottom: 2px; }
-  .meta { font-size: 0.88rem; margin-bottom: 14px; }
-  .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 14px; }
-  .stats .ev-cell { grid-column: 1 / -1; background: var(--night); color: var(--night-text); display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-  .stats .ev-cell dt { color: var(--night-muted); }
-  .stats .ev-cell dd { color: var(--sun); }
-  .stats div { background: var(--surface-2); border-radius: 12px; padding: 8px 10px; }
-  .stats dt { font-size: 0.75rem; font-weight: 650; color: var(--text-muted); }
-  .stats dd { margin: 0; font-family: var(--display); font-weight: 750; font-size: 1.1rem; font-variant-numeric: tabular-nums; }
-  .ret { display: block; font-size: 0.75rem; font-weight: 550; margin-top: 2px; }
-  .top { font-size: 0.92rem; margin-bottom: 12px; }
-  .top strong { color: var(--ember); font-variant-numeric: tabular-nums; }
-  .more { margin-top: auto; display: inline-flex; gap: 6px; align-items: center; font-weight: 650; color: var(--link); }
-  .more :global(svg) { width: 16px; height: 16px; }
+  .page { padding-top: 36px; }
+  .ph { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; margin-bottom: 20px; }
+  .ph h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin: 0; }
+  .updated { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
+  .toolbar { margin-bottom: 16px; }
+  .search { display: flex; align-items: center; gap: 8px; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0 12px; }
+  .search:focus-within { border-color: var(--border-strong); }
+  .search :global(svg) { width: 18px; height: 18px; color: var(--text-muted); flex: none; }
+  .search input { border: 0; outline: 0; background: transparent; font: inherit; color: var(--text); padding: 11px 0; width: 100%; }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .no-results { color: var(--text-muted); }
+
+  .sets { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .set { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .set[hidden] { display: none; }
+  .head {
+    all: unset; box-sizing: border-box; cursor: pointer; width: 100%;
+    display: grid; align-items: center; gap: 12px 20px; padding: 16px 20px;
+    grid-template-columns: 120px minmax(0, 1fr) auto auto 24px;
+  }
+  @media (min-width: 900px) { .head { grid-template-columns: 170px minmax(0, 1fr) repeat(4, 110px) 24px; } }
+  .head:hover { background: var(--bg); }
+  .head:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
+  .logo-box { height: 56px; display: flex; align-items: center; }
+  .logo-box img { max-height: 56px; max-width: 100%; object-fit: contain; }
+  .title { display: flex; flex-direction: column; min-width: 0; }
+  .name { font-family: var(--display); font-weight: 750; font-size: 1.15rem; }
+  .date { font-size: 0.82rem; color: var(--text-muted); }
+  .stat { display: flex; flex-direction: column; align-items: flex-end; }
+  .k { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+  .v { font-weight: 700; font-size: 1.05rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .v.ret { color: var(--ember); }
+  .chev { display: grid; place-items: center; color: var(--text-muted); transition: transform 0.2s var(--ease); }
+  .chev :global(svg) { width: 20px; height: 20px; }
+  .head[aria-expanded='true'] .chev { transform: rotate(180deg); }
+  @media (max-width: 899px) { .hide-sm { display: none; } }
+  .rar-sm { display: none; }
+  @media (max-width: 599px) {
+    .head { grid-template-columns: minmax(0, 1fr) auto 20px; padding: 14px; }
+    .logo-box, .hide-xs { display: none; }
+    .panel { padding: 14px; }
+    .strip { grid-template-columns: repeat(5, 42%); }
+    .list td, .list thead th { padding-inline: 8px; }
+    .rar-sm { display: block; font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
+  }
+
+  .panel { border-top: 1px solid var(--border); padding: 20px; }
+  .strip { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(5, minmax(130px, 1fr)); overflow-x: auto; scroll-snap-type: x mandatory; }
+  .strip li { scroll-snap-align: start; }
+  .strip a { display: flex; flex-direction: column; gap: 6px; color: var(--text); text-decoration: none; }
+  .scan { display: block; aspect-ratio: 600 / 825; border-radius: 8px; background: var(--surface-2); overflow: hidden; box-shadow: 0 6px 16px rgb(16 22 58 / 0.18); transition: transform 0.2s var(--ease); }
+  .strip a:hover .scan { transform: translateY(-3px); }
+  .scan img { width: 100%; height: 100%; object-fit: cover; }
+  .cap { display: flex; justify-content: space-between; gap: 8px; font-size: 0.9rem; }
+  .cn { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .cp { font-weight: 750; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .cr { font-size: 0.75rem; color: var(--text-muted); margin-top: -4px; }
+
+  .note { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 8px; }
+  .table-wrap { overflow: auto; max-height: 520px; border: 1px solid var(--border); border-radius: 12px; }
+  .list { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+  .list thead th { position: sticky; top: 0; background: var(--surface); z-index: 1; text-align: left; font-size: 0.78rem; font-weight: 700; color: var(--text-muted); padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .list td { padding: 6px 12px; border-top: 1px solid var(--border); white-space: nowrap; }
+  .list tbody tr:first-child td { border-top: 0; }
+  .list tbody tr:hover td { background: var(--bg); }
+  .list .n, .list thead th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .list .strong { font-weight: 700; }
+  .list .cname { white-space: normal; min-width: 150px; font-weight: 550; }
+  .thumb { width: 46px; }
+  .thumb img { width: 34px; height: 47px; border-radius: 3px; object-fit: cover; background: var(--surface-2); display: block; }
+  .list :global(svg) { width: 15px; height: 15px; }
+  .full { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-weight: 650; }
+  .full :global(svg) { width: 16px; height: 16px; }
+  .disclosure { margin-top: 18px; font-size: 0.82rem; color: var(--text-muted); }
+
+  .rar { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-muted); }
+  .rar.sir { background: linear-gradient(90deg, #ffe08a, #ffc0d9, #b9d8ff); color: #3a2a00; }
+  .rar.mhr { background: linear-gradient(90deg, #ff9a7a, #ffcf5c); color: #3a1200; }
+  .rar.hr { background: #ffe9a6; color: #5a4100; }
+  .rar.ir { background: #cdeee6; color: #0f5142; }
+  .rar.ur { background: #e3d9ff; color: #3d2a80; }
+  .rar.dr { background: #d8e6ff; color: #1d3a7a; }
 </style>
+
+<script>
+  const list = document.querySelector<HTMLElement>('[data-sets]');
+  if (list) {
+    list.addEventListener('click', (e) => {
+      const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-toggle]');
+      if (!btn) return;
+      const panel = document.getElementById(btn.getAttribute('aria-controls')!)!;
+      const open = btn.getAttribute('aria-expanded') !== 'true';
+      btn.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+    });
+    const search = document.querySelector<HTMLInputElement>('[data-search]');
+    const none = document.querySelector<HTMLElement>('[data-no-results]')!;
+    search?.addEventListener('input', () => {
+      const q = search.value.trim().toLowerCase();
+      let shown = 0;
+      for (const li of list.querySelectorAll<HTMLElement>('.set')) {
+        const match = !q || li.dataset.name!.includes(q);
+        li.hidden = !match;
+        if (match) shown++;
+      }
+      none.hidden = shown > 0;
+    });
+  }
+</script>
