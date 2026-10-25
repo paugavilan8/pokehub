@@ -26,7 +26,8 @@ export interface SetSummary {
 
 export function allSets(): SetSummary[] {
   const sets = Object.values(setFiles)
-    .filter((s) => s.cards?.length)
+    // Solo expansiones con sobres a la venta: fuera promos, energías y sets sin precios todavía.
+    .filter((s) => s.cards?.length && s.sealed?.some((x) => x.kind === 'pack'))
     .sort((a, b) => (b.releaseDate ?? '').localeCompare(a.releaseDate ?? ''));
   return sets.map((set) => {
     const rates = findPullRates(set.name, RATES);

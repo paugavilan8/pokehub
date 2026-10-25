@@ -1,0 +1,1176 @@
+{
+ "pricesDate": "2026-10-25T00:47:18.000Z",
+ "generatedAt": "2026-10-25T19:27:38.103Z",
+ "sets": [
+  {
+   "id": "30th-c",
+   "name": "30th Classic Collection",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-09-16",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 0,
+   "totalCount": 30,
+   "cmExpansion": null,
+   "sealed": []
+  },
+  {
+   "id": "30th",
+   "name": "30th Celebration",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-09-16",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 128,
+   "totalCount": 158,
+   "cmExpansion": null,
+   "sealed": []
+  },
+  {
+   "id": "me05",
+   "name": "Pitch Black",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-07-17",
+   "logo": "https://assets.tcgdex.net/en/me/me05/logo",
+   "symbol": "https://assets.tcgdex.net/univ/me/me05/symbol",
+   "officialCount": 84,
+   "totalCount": 120,
+   "cmExpansion": 6569,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 885547,
+     "name": "Pitch Black Booster",
+     "price": {
+      "trend": 5,
+      "low": 3.45,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 885545,
+     "name": "Pitch Black Booster Box",
+     "price": {
+      "trend": 178.05,
+      "low": 140,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 885542,
+     "name": "Pitch Black Elite Trainer Box",
+     "price": {
+      "trend": 68.28,
+      "low": 48.5,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 885539,
+     "name": "Pitch Black Booster Bundle",
+     "price": {
+      "trend": 39.22,
+      "low": 26.5,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "me04",
+   "name": "Chaos Rising",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-05-22",
+   "logo": "https://assets.tcgdex.net/en/me/me04/logo",
+   "symbol": "https://assets.tcgdex.net/univ/me/me04/symbol",
+   "officialCount": 86,
+   "totalCount": 122,
+   "cmExpansion": 6517,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 877296,
+     "name": "Chaos Rising Booster",
+     "price": {
+      "trend": 5.06,
+      "low": 3.45,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 877295,
+     "name": "Chaos Rising Booster Box",
+     "price": {
+      "trend": 185.67,
+      "low": 120,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 877294,
+     "name": "Chaos Rising Elite Trainer Box",
+     "price": {
+      "trend": 61.18,
+      "low": 42,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 877284,
+     "name": "Chaos Rising Booster Bundle",
+     "price": {
+      "trend": 37.92,
+      "low": 25,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "me03",
+   "name": "Perfect Order",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-03-27",
+   "logo": "https://assets.tcgdex.net/en/me/me03/logo",
+   "symbol": "https://assets.tcgdex.net/univ/me/me03/symbol",
+   "officialCount": 88,
+   "totalCount": 124,
+   "cmExpansion": 6443,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 865410,
+     "name": "Perfect Order Booster",
+     "price": {
+      "trend": 4.94,
+      "low": 3,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 865408,
+     "name": "Perfect Order Booster Box",
+     "price": {
+      "trend": 174.82,
+      "low": 129,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 865406,
+     "name": "Perfect Order Elite Trainer Box",
+     "price": {
+      "trend": 59.06,
+      "low": 39.9,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 865404,
+     "name": "Perfect Order Booster Bundle",
+     "price": {
+      "trend": 38.2,
+      "low": 24.95,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "me02.5",
+   "name": "Ascended Heroes",
+   "serie": "Mega Evolution",
+   "releaseDate": "2026-01-30",
+   "logo": "https://assets.tcgdex.net/en/me/me02.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/me/me02.5/symbol",
+   "officialCount": 217,
+   "totalCount": 295,
+   "cmExpansion": 6395,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 860562,
+     "name": "Ascended Heroes Booster",
+     "price": {
+      "trend": 12.74,
+      "low": 5,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 860574,
+     "name": "Ascended Heroes Elite Trainer Box",
+     "price": {
+      "trend": 121.61,
+      "low": 65,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 860578,
+     "name": "Ascended Heroes Booster Bundle",
+     "price": {
+      "trend": 72.61,
+      "low": 41.9,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "me02",
+   "name": "Phantasmal Flames",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-11-14",
+   "logo": "https://assets.tcgdex.net/en/me/me02/logo",
+   "symbol": null,
+   "officialCount": 94,
+   "totalCount": 130,
+   "cmExpansion": 6299,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 846729,
+     "name": "Phantasmal Flames Booster",
+     "price": {
+      "trend": 6.85,
+      "low": 4.75,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 846746,
+     "name": "Phantasmal Flames Booster Box",
+     "price": {
+      "trend": 295.02,
+      "low": 155,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 846744,
+     "name": "Phantasmal Flames Elite Trainer Box",
+     "price": {
+      "trend": 91.61,
+      "low": 59.99,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 846734,
+     "name": "Phantasmal Flames Booster Bundle",
+     "price": {
+      "trend": 58.81,
+      "low": 35,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "mep",
+   "name": "MEP Black Star Promos",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-09-26",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 0,
+   "totalCount": 89,
+   "cmExpansion": 6232,
+   "sealed": []
+  },
+  {
+   "id": "me01",
+   "name": "Mega Evolution",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-09-26",
+   "logo": "https://assets.tcgdex.net/en/me/me01/logo",
+   "symbol": "https://assets.tcgdex.net/univ/me/me01/symbol",
+   "officialCount": 132,
+   "totalCount": 188,
+   "cmExpansion": 6209,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 834829,
+     "name": "Mega Evolution Booster",
+     "price": {
+      "trend": 6.13,
+      "low": 4,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 834827,
+     "name": "Mega Evolution Enhanced Booster Box",
+     "price": {
+      "trend": 324.05,
+      "low": 259.99,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 834830,
+     "name": "Mega Evolution: Mega Lucario Elite Trainer Box",
+     "price": {
+      "trend": 93.3,
+      "low": 59,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 834826,
+     "name": "Mega Evolution Booster Bundle",
+     "price": {
+      "trend": 51.45,
+      "low": 34.9,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "mee",
+   "name": "Mega Evolution Energy",
+   "serie": "Mega Evolution",
+   "releaseDate": "2025-09-25",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 8,
+   "totalCount": 8,
+   "cmExpansion": 6324,
+   "sealed": []
+  },
+  {
+   "id": "sv10.5w",
+   "name": "White Flare",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-07-17",
+   "logo": "https://assets.tcgdex.net/en/sv/sv10.5w/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv10.5w/symbol",
+   "officialCount": 86,
+   "totalCount": 173,
+   "cmExpansion": 6135,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 824087,
+     "name": "White Flare Booster",
+     "price": {
+      "trend": 12.57,
+      "low": 7,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 824089,
+     "name": "White Flare Elite Trainer Box",
+     "price": {
+      "trend": 103.56,
+      "low": 58.98,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 824108,
+     "name": "White Flare Booster Bundle",
+     "price": {
+      "trend": 73,
+      "low": 37,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv10.5b",
+   "name": "Black Bolt",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-07-17",
+   "logo": "https://assets.tcgdex.net/en/sv/sv10.5b/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv10.5b/symbol",
+   "officialCount": 86,
+   "totalCount": 172,
+   "cmExpansion": 6134,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 824086,
+     "name": "Black Bolt Booster",
+     "price": {
+      "trend": 12.72,
+      "low": 6.2,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 824088,
+     "name": "Black Bolt Elite Trainer Box",
+     "price": {
+      "trend": 110.61,
+      "low": 58,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 824107,
+     "name": "Black Bolt Booster Bundle",
+     "price": {
+      "trend": 70.57,
+      "low": 40,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv10",
+   "name": "Destined Rivals",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-05-30",
+   "logo": "https://assets.tcgdex.net/en/sv/sv10/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv10/symbol",
+   "officialCount": 182,
+   "totalCount": 244,
+   "cmExpansion": 6096,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 818570,
+     "name": "Destined Rivals Booster",
+     "price": {
+      "trend": 7.38,
+      "low": 4,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 818574,
+     "name": "Destined Rivals Booster Box",
+     "price": {
+      "trend": 294.14,
+      "low": 175,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 818585,
+     "name": "Destined Rivals Elite Trainer Box",
+     "price": {
+      "trend": 114.51,
+      "low": 105,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 818578,
+     "name": "Destined Rivals Booster Bundle",
+     "price": {
+      "trend": 69.66,
+      "low": 50,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv09",
+   "name": "Journey Together",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-03-28",
+   "logo": "https://assets.tcgdex.net/en/sv/sv09/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv09/symbol",
+   "officialCount": 159,
+   "totalCount": 190,
+   "cmExpansion": 6006,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 805575,
+     "name": "Journey Together Booster",
+     "price": {
+      "trend": 5.79,
+      "low": 3.89,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 805579,
+     "name": "Journey Together Booster Box",
+     "price": {
+      "trend": 186.53,
+      "low": 134,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 805593,
+     "name": "Journey Together Elite Trainer Box",
+     "price": {
+      "trend": 83.66,
+      "low": 54,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 805584,
+     "name": "Journey Together Booster Bundle",
+     "price": {
+      "trend": 44.18,
+      "low": 35,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv08.5",
+   "name": "Prismatic Evolutions",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2025-01-17",
+   "logo": "https://assets.tcgdex.net/en/sv/sv08.5/logo",
+   "symbol": null,
+   "officialCount": 131,
+   "totalCount": 180,
+   "cmExpansion": 5944,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 798923,
+     "name": "Prismatic Evolutions Booster",
+     "price": {
+      "trend": 12.22,
+      "low": 6.5,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 798930,
+     "name": "Prismatic Evolutions Elite Trainer Box",
+     "price": {
+      "trend": 146.67,
+      "low": 80.9,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 798924,
+     "name": "Prismatic Evolutions Booster Bundle",
+     "price": {
+      "trend": 77.42,
+      "low": 40,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv08",
+   "name": "Surging Sparks",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-11-08",
+   "logo": "https://assets.tcgdex.net/en/sv/sv08/logo",
+   "symbol": null,
+   "officialCount": 191,
+   "totalCount": 252,
+   "cmExpansion": 5879,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 784945,
+     "name": "Surging Sparks Booster",
+     "price": {
+      "trend": 7.37,
+      "low": 4,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 784949,
+     "name": "Surging Sparks Booster Box",
+     "price": {
+      "trend": 250.51,
+      "low": 144.95,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 784963,
+     "name": "Surging Sparks Elite Trainer Box",
+     "price": {
+      "trend": 134.43,
+      "low": 95,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 784953,
+     "name": "Surging Sparks Booster Bundle",
+     "price": {
+      "trend": 54.86,
+      "low": 34.95,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv07",
+   "name": "Stellar Crown",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-09-13",
+   "logo": "https://assets.tcgdex.net/en/sv/sv07/logo",
+   "symbol": null,
+   "officialCount": 142,
+   "totalCount": 175,
+   "cmExpansion": 5802,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 776321,
+     "name": "Stellar Crown Booster",
+     "price": {
+      "trend": 7,
+      "low": 3.95,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 776325,
+     "name": "Stellar Crown Booster Box",
+     "price": {
+      "trend": 247.82,
+      "low": 149.9,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 776336,
+     "name": "Stellar Crown Elite Trainer Box",
+     "price": {
+      "trend": 99.38,
+      "low": 59,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 776329,
+     "name": "Stellar Crown Booster Bundle",
+     "price": {
+      "trend": 67.46,
+      "low": 40,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv06.5",
+   "name": "Shrouded Fable",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-08-02",
+   "logo": "https://assets.tcgdex.net/en/sv/sv06.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv06.5/symbol",
+   "officialCount": 64,
+   "totalCount": 99,
+   "cmExpansion": 5760,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 770953,
+     "name": "Shrouded Fable Booster",
+     "price": {
+      "trend": 7.69,
+      "low": 3.5,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 770958,
+     "name": "Shrouded Fable Elite Trainer Box",
+     "price": {
+      "trend": 68.26,
+      "low": 46,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv06",
+   "name": "Twilight Masquerade",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-05-24",
+   "logo": "https://assets.tcgdex.net/en/sv/sv06/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv06/symbol",
+   "officialCount": 167,
+   "totalCount": 226,
+   "cmExpansion": 5691,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 761217,
+     "name": "Twilight Masquerade Booster",
+     "price": {
+      "trend": 7.31,
+      "low": 4,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 761219,
+     "name": "Twilight Masquerade Booster Box",
+     "price": {
+      "trend": 250.85,
+      "low": 175,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 761229,
+     "name": "Twilight Masquerade Elite Trainer Box",
+     "price": {
+      "trend": 70.17,
+      "low": 39.99,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 761221,
+     "name": "Twilight Masquerade Booster Bundle",
+     "price": {
+      "trend": 47.52,
+      "low": 34.95,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv05",
+   "name": "Temporal Forces",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-03-22",
+   "logo": null,
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv05/symbol",
+   "officialCount": 162,
+   "totalCount": 218,
+   "cmExpansion": 5589,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 750399,
+     "name": "Temporal Forces Booster",
+     "price": {
+      "trend": 6.63,
+      "low": 3.49,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 750403,
+     "name": "Temporal Forces Booster Box",
+     "price": {
+      "trend": 248,
+      "low": 149.95,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 750410,
+     "name": "Temporal Forces Iron Leaves Elite Trainer Box",
+     "price": {
+      "trend": 103.15,
+      "low": 55.99,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 750406,
+     "name": "Temporal Forces Booster Bundle",
+     "price": {
+      "trend": 58.15,
+      "low": 34,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv04.5",
+   "name": "Paldean Fates",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2024-01-26",
+   "logo": "https://assets.tcgdex.net/en/sv/sv04.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv04.5/symbol",
+   "officialCount": 91,
+   "totalCount": 245,
+   "cmExpansion": 5546,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 745544,
+     "name": "Paldean Fates Booster",
+     "price": {
+      "trend": 18.53,
+      "low": 9.9,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 745548,
+     "name": "Paldean Fates Elite Trainer Box",
+     "price": {
+      "trend": 201.37,
+      "low": 110,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 745565,
+     "name": "Paldean Fates Booster Bundle",
+     "price": {
+      "trend": 115.29,
+      "low": 60,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv04",
+   "name": "Paradox Rift",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-11-03",
+   "logo": "https://assets.tcgdex.net/en/sv/sv04/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv04/symbol",
+   "officialCount": 182,
+   "totalCount": 266,
+   "cmExpansion": 5444,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 728716,
+     "name": "Paradox Rift Booster",
+     "price": {
+      "trend": 5.77,
+      "low": 3.85,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 728718,
+     "name": "Paradox Rift Booster Box",
+     "price": {
+      "trend": 215.5,
+      "low": 84.99,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 728727,
+     "name": "Paradox Rift Roaring Moon Elite Trainer Box",
+     "price": {
+      "trend": 101.59,
+      "low": 65,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 728731,
+     "name": "Paradox Rift Booster Bundle",
+     "price": {
+      "trend": 42.56,
+      "low": 35,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "mfb",
+   "name": "My First Battle",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-09-29",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 48,
+   "totalCount": 48,
+   "cmExpansion": 5526,
+   "sealed": []
+  },
+  {
+   "id": "sv03.5",
+   "name": "151",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-09-22",
+   "logo": "https://assets.tcgdex.net/en/sv/sv03.5/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv03.5/symbol",
+   "officialCount": 165,
+   "totalCount": 207,
+   "cmExpansion": 5402,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 719694,
+     "name": "151 Booster",
+     "price": {
+      "trend": 24.85,
+      "low": 16.9,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 719691,
+     "name": "151 Elite Trainer Box",
+     "price": {
+      "trend": 387.63,
+      "low": 330,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 719695,
+     "name": "151 Booster Bundle",
+     "price": {
+      "trend": 132.19,
+      "low": 84.99,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv03",
+   "name": "Obsidian Flames",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-08-11",
+   "logo": "https://assets.tcgdex.net/en/sv/sv03/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv03/symbol",
+   "officialCount": 197,
+   "totalCount": 230,
+   "cmExpansion": 5385,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 715466,
+     "name": "Obsidian Flames Booster",
+     "price": {
+      "trend": 6.83,
+      "low": 4.27,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 715465,
+     "name": "Obsidian Flames Booster Box",
+     "price": {
+      "trend": 220.84,
+      "low": 175,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 715464,
+     "name": "Obsidian Flames Elite Trainer Box",
+     "price": {
+      "trend": 225.63,
+      "low": 144.99,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 715781,
+     "name": "Obsidian Flames Booster Bundle",
+     "price": {
+      "trend": 145.77,
+      "low": 150,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "sv02",
+   "name": "Paldea Evolved",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-06-09",
+   "logo": "https://assets.tcgdex.net/en/sv/sv02/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv02/symbol",
+   "officialCount": 193,
+   "totalCount": 279,
+   "cmExpansion": 5318,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 703155,
+     "name": "Paldea Evolved Booster",
+     "price": {
+      "trend": 6.34,
+      "low": 3.4,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 703156,
+     "name": "Paldea Evolved Booster Box",
+     "price": {
+      "trend": 273.44,
+      "low": 158,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 703175,
+     "name": "Paldea Evolved Elite Trainer Box",
+     "price": {
+      "trend": 155.23,
+      "low": 90,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 703164,
+     "name": "Paldea Evolved Booster Bundle",
+     "price": {
+      "trend": 130.64,
+      "low": null,
+      "avg30": null
+     }
+    }
+   ]
+  },
+  {
+   "id": "svp",
+   "name": "SVP Black Star Promos",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-03-31",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 225,
+   "totalCount": 226,
+   "cmExpansion": 5241,
+   "sealed": []
+  },
+  {
+   "id": "sve",
+   "name": "Scarlet & Violet Energy",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-03-31",
+   "logo": null,
+   "symbol": null,
+   "officialCount": 24,
+   "totalCount": 24,
+   "cmExpansion": 5224,
+   "sealed": []
+  },
+  {
+   "id": "sv01",
+   "name": "Scarlet & Violet",
+   "serie": "Scarlet & Violet",
+   "releaseDate": "2023-03-31",
+   "logo": "https://assets.tcgdex.net/en/sv/sv01/logo",
+   "symbol": "https://assets.tcgdex.net/univ/sv/sv01/symbol",
+   "officialCount": 198,
+   "totalCount": 258,
+   "cmExpansion": 5223,
+   "sealed": [
+    {
+     "kind": "pack",
+     "idProduct": 692088,
+     "name": "Scarlet & Violet Booster",
+     "price": {
+      "trend": 6.56,
+      "low": 3.9,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "box",
+     "idProduct": 692092,
+     "name": "Scarlet & Violet Booster Box",
+     "price": {
+      "trend": 205.5,
+      "low": 145,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "etb",
+     "idProduct": 692101,
+     "name": "Scarlet & Violet Koraidon Elite Trainer Box",
+     "price": {
+      "trend": 106.32,
+      "low": 69.9,
+      "avg30": null
+     }
+    },
+    {
+     "kind": "bundle",
+     "idProduct": 692096,
+     "name": "Scarlet & Violet Booster Bundle",
+     "price": {
+      "trend": 99.64,
+      "low": null,
+      "avg30": null
+     }
+    }
+   ]
+  }
+ ]
+}
