@@ -54,6 +54,17 @@ export function rarityLabel(r: string | null, lang: 'es' | 'en') {
   return lang === 'es' ? RARITY_ES[r.trim().toLowerCase()] ?? r : r;
 }
 
+const SHORT: Record<string, string> = {
+  'common': 'C', 'uncommon': 'U', 'rare': 'R', 'double rare': 'DR', 'ultra rare': 'UR', 'illustration rare': 'IR',
+  'special illustration rare': 'SIR', 'hyper rare': 'HR', 'mega hyper rare': 'MHR', 'ace spec rare': 'ACE',
+  'shiny rare': 'SR', 'shiny ultra rare': 'SSR', 'black white rare': 'BWR',
+};
+
+/** Abreviatura de la rareza, como la usan los coleccionistas (SIR, IR, HR...). */
+export function rarityShort(r: string | null) {
+  return r ? SHORT[r.trim().toLowerCase()] ?? r : '-';
+}
+
 /** Clase de color por rareza para las etiquetas. */
 export function rarityTone(r: string | null) {
   const k = (r ?? '').trim().toLowerCase();

@@ -58,7 +58,7 @@ const vatRows = Object.entries(vat.rates)
   .sort((a, b) => a.name.localeCompare(b.name, LOCALE[lang]));
 ---
 <Base lang={lang} route="sources" title={c.title} description={c.description}>
-  <PageHero slot="hero" title={c.title} lede={c.lede} art="lucario">
+  <PageHero slot="hero" title={c.title} lede={c.lede}>
     <p class="small">{c.statusHelp}</p>
   </PageHero>
   <div class="container">

@@ -1,34 +1,15 @@
 ---
-import Poke from './Poke.astro';
-
-interface Props { title: string; lede?: string; art: string; artAlt?: string; tint?: string }
-const { title, lede, art, artAlt } = Astro.props;
+// Cabecera de página sencilla: título, entradilla y una línea de detalle opcional (slot).
+interface Props { title: string; lede?: string; art?: string; artAlt?: string }
+const { title, lede } = Astro.props;
 ---
-<section class="container page-hero">
-  <div class="copy">
-    <h1>{title}</h1>
-    {lede && <p class="lede">{lede}</p>}
-    <slot />
-  </div>
-  <div class="art" aria-hidden="true">
-    <span class="ring"></span>
-    <Poke name={art} size={300} eager class="main" />
-    {artAlt && <Poke name={artAlt} size={150} eager class="side" />}
-  </div>
-</section>
+<header class="container page-head">
+  <h1>{title}</h1>
+  {lede && <p class="lede">{lede}</p>}
+  <div class="extra"><slot /></div>
+</header>
 
 <style>
-  .page-hero { display: grid; gap: 8px; align-items: center; padding-block: 28px 56px; }
-  @media (min-width: 860px) { .page-hero { grid-template-columns: 1fr 340px; padding-block: 40px 64px; } }
-  .copy { max-width: 720px; }
-  .lede { font-size: 1.15rem; color: var(--night-muted); max-width: 60ch; }
-  .copy :global(p.small) { font-size: 0.9rem; color: var(--night-muted); }
-  .art { position: relative; justify-self: center; width: 300px; height: 260px; display: none; }
-  @media (min-width: 860px) { .art { display: block; } }
-  .ring {
-    position: absolute; inset: 10px 20px 0; border-radius: 50%;
-    background: radial-gradient(circle, rgb(255 201 60 / 0.35), rgb(255 201 60 / 0) 68%);
-  }
-  .art :global(.main) { position: absolute; inset: 0; margin: auto; width: 270px; filter: drop-shadow(0 18px 30px rgb(0 0 0 / 0.4)); }
-  .art :global(.side) { position: absolute; left: -36px; bottom: -14px; width: 130px; filter: drop-shadow(0 12px 20px rgb(0 0 0 / 0.4)); }
+  .extra { flex-basis: 100%; }
+  .extra :global(p) { margin: 4px 0 0; font-size: 0.88rem; color: var(--text-muted); }
 </style>

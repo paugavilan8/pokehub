@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import { allSets, marketIndex, rarityLabel, rarityTone } from '../lib/market-data';
+import { allSets, marketIndex, rarityLabel, rarityShort, rarityTone } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
@@ -45,7 +45,7 @@ const c = {
   },
 }[lang];
 ---
-<Base lang={lang} route="sets" title={c.title} description={c.description}>
+<Base lang={lang} route="home" title={c.title} description={c.description}>
   <div class="container page">
     <header class="ph">
       <h1>{c.h1}</h1>
@@ -92,7 +92,7 @@ const c = {
                         <a href={cardmarketUrl(lang, h.cmId, h.name)} rel="noopener" target="_blank">
                           <span class="scan">{h.image && <img src={cardImage(h.image, 'high')} alt={h.name} loading="lazy" decoding="async" width="600" height="825" onerror="this.remove()" />}</span>
                           <span class="cap"><span class="cn">{j + 1}. {h.name}</span><span class="cp">{fmt(h.price.trend)}</span></span>
-                          <span class="cr">{rarityLabel(h.rarity, lang)}</span>
+                          <span class={`cr rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span>
                         </a>
                       </li>
                     ))}
@@ -107,8 +107,8 @@ const c = {
                           <tr>
                             <td class="thumb">{h.image && <img src={cardImage(h.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}</td>
                             <td class="muted num">{h.num}</td>
-                            <td class="cname">{h.name}<span class="rar-sm">{rarityLabel(h.rarity, lang)}</span></td>
-                            <td class="hide-xs"><span class={`rar ${rarityTone(h.rarity)}`}>{rarityLabel(h.rarity, lang)}</span></td>
+                            <td class="cname">{h.name}<span class="rar-sm rar">{rarityShort(h.rarity)}</span></td>
+                            <td class="hide-xs"><span class={`rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span></td>
                             <td class="n muted hide-xs">{fmt(h.price.low)}</td>
                             <td class="n strong">{fmt(h.price.trend)}</td>
                             <td class="n"><a href={cardmarketUrl(lang, h.cmId, h.name)} rel="noopener" target="_blank" aria-label={`${c.see}: ${h.name}`}><Icon name="arrow-up-right" /></a></td>
@@ -130,9 +130,9 @@ const c = {
 </Base>
 
 <style>
-  .page { padding-top: 36px; }
+  .page { padding-top: 32px; }
   .ph { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 24px; margin-bottom: 20px; }
-  .ph h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin: 0; }
+  .ph h1 { margin: 0; }
   .updated { margin: 0; color: var(--text-muted); font-size: 0.92rem; }
   .toolbar { margin-bottom: 16px; }
   .search { display: flex; align-items: center; gap: 8px; max-width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 0 12px; }
@@ -143,7 +143,7 @@ const c = {
   .no-results { color: var(--text-muted); }
 
   .sets { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-  .set { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
+  .set { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); overflow: hidden; }
   .set[hidden] { display: none; }
   .head {
     all: unset; box-sizing: border-box; cursor: pointer; width: 100%;
@@ -156,12 +156,12 @@ const c = {
   .logo-box { height: 56px; display: flex; align-items: center; }
   .logo-box img { max-height: 56px; max-width: 100%; object-fit: contain; }
   .title { display: flex; flex-direction: column; min-width: 0; }
-  .name { font-family: var(--display); font-weight: 750; font-size: 1.15rem; }
+  .name { font-weight: 600; font-size: 1.08rem; }
   .date { font-size: 0.82rem; color: var(--text-muted); }
   .stat { display: flex; flex-direction: column; align-items: flex-end; }
   .k { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
-  .v { font-weight: 700; font-size: 1.05rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .v.ret { color: var(--ember); }
+  .v { font-family: var(--mono); font-weight: 600; font-size: 1.02rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .v.ret { color: var(--accent); }
   .chev { display: grid; place-items: center; color: var(--text-muted); transition: transform 0.2s var(--ease); }
   .chev :global(svg) { width: 20px; height: 20px; }
   .head[aria-expanded='true'] .chev { transform: rotate(180deg); }
@@ -173,20 +173,20 @@ const c = {
     .panel { padding: 14px; }
     .strip { grid-template-columns: repeat(5, 42%); }
     .list td, .list thead th { padding-inline: 8px; }
-    .rar-sm { display: block; font-size: 0.75rem; font-weight: 500; color: var(--text-muted); }
+    .rar-sm { display: block; }
   }
 
   .panel { border-top: 1px solid var(--border); padding: 20px; }
   .strip { list-style: none; margin: 0 0 18px; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(5, minmax(130px, 1fr)); overflow-x: auto; scroll-snap-type: x mandatory; }
   .strip li { scroll-snap-align: start; }
   .strip a { display: flex; flex-direction: column; gap: 6px; color: var(--text); text-decoration: none; }
-  .scan { display: block; aspect-ratio: 600 / 825; border-radius: 8px; background: var(--surface-2); overflow: hidden; box-shadow: 0 6px 16px rgb(16 22 58 / 0.18); transition: transform 0.2s var(--ease); }
+  .scan { display: block; aspect-ratio: 600 / 825; border-radius: 8px; background: var(--surface-2); overflow: hidden; box-shadow: 0 2px 6px rgb(20 24 32 / 0.18); transition: transform 0.2s var(--ease); }
   .strip a:hover .scan { transform: translateY(-3px); }
   .scan img { width: 100%; height: 100%; object-fit: cover; }
   .cap { display: flex; justify-content: space-between; gap: 8px; font-size: 0.9rem; }
   .cn { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .cp { font-weight: 750; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .cr { font-size: 0.75rem; color: var(--text-muted); margin-top: -4px; }
+  .cp { font-family: var(--mono); font-weight: 600; white-space: nowrap; }
+  .cr { margin-top: -4px; }
 
   .note { font-size: 0.85rem; color: var(--text-muted); margin: 0 0 8px; }
   .table-wrap { overflow: auto; max-height: 520px; border: 1px solid var(--border); border-radius: 12px; }
@@ -195,7 +195,8 @@ const c = {
   .list td { padding: 6px 12px; border-top: 1px solid var(--border); white-space: nowrap; }
   .list tbody tr:first-child td { border-top: 0; }
   .list tbody tr:hover td { background: var(--bg); }
-  .list .n, .list thead th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .list .n, .list thead th.n { text-align: right; }
+  .list td.n { font-family: var(--mono); }
   .list .strong { font-weight: 700; }
   .list .cname { white-space: normal; min-width: 150px; font-weight: 550; }
   .thumb { width: 46px; }
@@ -205,13 +206,6 @@ const c = {
   .full :global(svg) { width: 16px; height: 16px; }
   .disclosure { margin-top: 18px; font-size: 0.82rem; color: var(--text-muted); }
 
-  .rar { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--surface-2); color: var(--text-muted); }
-  .rar.sir { background: linear-gradient(90deg, #ffe08a, #ffc0d9, #b9d8ff); color: #3a2a00; }
-  .rar.mhr { background: linear-gradient(90deg, #ff9a7a, #ffcf5c); color: #3a1200; }
-  .rar.hr { background: #ffe9a6; color: #5a4100; }
-  .rar.ir { background: #cdeee6; color: #0f5142; }
-  .rar.ur { background: #e3d9ff; color: #3d2a80; }
-  .rar.dr { background: #d8e6ff; color: #1d3a7a; }
 </style>
 
 <script>

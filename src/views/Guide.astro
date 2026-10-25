@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
-import Poke from '../components/Poke.astro';
 import PageHero from '../components/PageHero.astro';
 import examples from '../data/examples.json';
 import rules from '../data/import-rules.json';
@@ -25,16 +24,10 @@ const worked = examples.items.map((ex) => {
   });
   const withPref = r.regime === 'standard' && ['jp', 'uk', 'ch'].includes(ex.input.origin)
     ? calculate({ ...input, preferential: true }) : null;
-  return { ...ex, r, withPref, href: `${ROUTES.home[lang]}?${params}` };
+  return { ...ex, r, withPref, href: `${ROUTES.calc[lang]}?${params}` };
 });
 
 const L = t.calc.lines;
-const EX_ART: Record<string, { art: string; tint: string }> = {
-  'jp-box': { art: 'pikachu', tint: 'electric' },
-  'jp-two-boxes': { art: 'greninja', tint: 'water' },
-  'us-etb': { art: 'oshawott', tint: 'psychic' },
-  'uk-ioss': { art: 'corviknight', tint: 'fire' },
-};
 const c = {
   es: {
     title: 'Aduanas e IVA al comprar cartas Pokémon fuera de la UE (2026)',
@@ -129,7 +122,7 @@ const jsonLd = {
 };
 ---
 <Base lang={lang} route="guide" title={c.title} description={c.description} jsonLd={jsonLd}>
-  <PageHero slot="hero" title={c.h1} lede={c.lede} art="dragonite" artAlt="psyduck">
+  <PageHero slot="hero" title={c.h1} lede={c.lede}>
     <p class="small">{c.sourcesNote} <a href={ROUTES.sources[lang]}>{c.sourcesLink}</a></p>
   </PageHero>
   <article class="container">
@@ -154,9 +147,8 @@ const jsonLd = {
       <div class="ex-grid">
         {worked.map((ex) => (
           <article class="ex" id={ex.id}>
-            <div class={`ex-head t-${EX_ART[ex.id].tint}`}>
+            <div class="ex-head">
               <h3>{ex.title[lang]}</h3>
-              <Poke name={EX_ART[ex.id].art} size={130} class="ex-art" />
             </div>
             <p class="muted">{ex.summary[lang]}</p>
             <dl class="ex-lines">
@@ -201,32 +193,28 @@ const jsonLd = {
 </Base>
 
 <style>
-  .small { font-size: 0.9rem; }
-  .panel-soft { background: var(--t-electric); border-radius: var(--radius-panel); padding: 26px 30px; margin-top: 8px; max-width: 900px; }
-  .panel-soft h2 { font-size: 1.5rem; }
-  .panel-soft ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; font-size: 1.03rem; }
-  .examples { margin-top: 80px; }
-  .ex-grid { display: grid; gap: 22px; margin-top: 26px; }
+  .small { font-size: 0.88rem; }
+  .panel-soft { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: var(--radius-panel); padding: 20px 24px; max-width: 880px; }
+  .panel-soft h2 { font-size: 1.15rem; }
+  .panel-soft ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+  .examples { margin-top: 56px; }
+  .ex-grid { display: grid; gap: 16px; margin-top: 18px; }
   @media (min-width: 800px) { .ex-grid { grid-template-columns: 1fr 1fr; } }
-  .ex { background: var(--surface); border-radius: var(--radius-panel); box-shadow: var(--shadow); display: flex; flex-direction: column; overflow: hidden; }
-  .ex > :not(.ex-head) { margin-inline: 24px; }
-  .ex-head { position: relative; min-height: 112px; padding: 22px 140px 18px 24px; margin-bottom: 16px; display: flex; align-items: flex-end; }
-  .t-electric { background: var(--t-electric); } .t-water { background: var(--t-water); } .t-psychic { background: var(--t-psychic); } .t-fire { background: var(--t-fire); }
-  .ex-head h3 { font-size: 1.3rem; margin: 0; }
-  .ex-head :global(.ex-art) { position: absolute; right: 8px; bottom: -14px; width: 124px; filter: drop-shadow(0 10px 14px rgb(16 22 58 / 0.25)); }
-  .ex-lines { display: grid; grid-template-columns: 1fr auto; margin: 4px 24px 12px; font-size: 0.95rem; }
-  .ex-lines dt, .ex-lines dd { margin: 0; padding: 6px 0; }
-  .ex-lines dd { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .ex { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); display: flex; flex-direction: column; padding: 20px; }
+  .ex-head h3 { margin: 0 0 6px; }
+  .ex-lines { display: grid; grid-template-columns: 1fr auto; margin: 6px 0 12px; font-size: 0.9rem; }
+  .ex-lines dt, .ex-lines dd { margin: 0; padding: 6px 0; border-top: 1px solid var(--border); }
+  .ex-lines dd { text-align: right; font-family: var(--mono); }
   .ex-lines .sub { color: var(--text-muted); }
-  .ex-lines .tot { border-top: 2px solid var(--text); font-weight: 800; padding-top: 9px; font-size: 1.05rem; }
+  .ex-lines .tot { border-top: 1px solid var(--text); font-weight: 650; }
   .verdict { font-weight: 600; margin-bottom: 6px; }
-  .verdict strong { color: var(--ember); font-variant-numeric: tabular-nums; }
-  .open { margin-top: auto !important; padding: 12px 0 24px; display: inline-flex; align-items: center; gap: 6px; font-weight: 650; }
-  .open :global(svg) { width: 16px; height: 16px; }
+  .verdict strong { color: var(--accent); font-family: var(--mono); }
+  .open { margin-top: auto; padding-top: 10px; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; }
+  .open :global(svg) { width: 15px; height: 15px; }
   .checks { list-style: none; padding: 0 !important; }
-  .checks li { display: grid; grid-template-columns: 26px 1fr; gap: 10px; }
-  .checks :global(svg) { width: 22px; height: 22px; color: var(--ok); margin-top: 2px; }
-  .faq { border-top: 1px solid var(--border); padding: 16px 0; }
-  .faq summary { cursor: pointer; font-weight: 650; font-size: 1.05rem; }
+  .checks li { display: grid; grid-template-columns: 24px 1fr; gap: 8px; }
+  .checks :global(svg) { width: 18px; height: 18px; color: var(--ok); margin-top: 3px; }
+  .faq { border-top: 1px solid var(--border); padding: 14px 0; }
+  .faq summary { cursor: pointer; font-weight: 600; }
   .faq p { margin: 10px 0 0; color: var(--text-muted); }
 </style>

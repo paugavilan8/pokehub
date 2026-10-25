@@ -1,24 +1,19 @@
 # PokeHub (nombre de trabajo)
 
-Herramientas para comprar cartas Pokémon TCG desde España sin sorpresas. Web en español (principal) e inglés.
+Precios de sets de Pokémon TCG (Cardmarket) y calculadora de aduanas para comprar desde España. Web en español (principal) e inglés.
 
-## Temática principal: calculadora de precio final (aduanas + IVA)
+## Estructura
 
-De las cuatro herramientas del plan, la calculadora es la principal y ocupa la portada:
-
-- **Sin datos externos ni riesgo legal**: se puede publicar ya (Fase 1).
-- **Demanda de búsqueda nueva y alta**: el derecho de 3 € (1-jul-2026) y la tasa de 2 € (1-nov-2026) afectan a cualquier compra de fuera de la UE. Casi todo lo que hay está pensado para EE. UU.
-- **Escala en inglés**: la versión en inglés deja elegir cualquier país de la UE (cambia solo el IVA), así sirve a compradores de toda Europa sin perder el enfoque en España.
-- Es la base de las demás: el verificador de tiendas, las alertas y el EV reutilizan el "precio puesto en casa".
-
-Las otras tres herramientas aparecen como "Lo próximo" en la portada, sin páginas propias hasta tener datos revisados (para no publicar contenido flojo).
+- **Portada: precios de sets.** Cada expansión con el precio del sobre y la caja en Cardmarket; al pulsarla se despliegan sus cartas especiales ordenadas por precio. Cada set tiene su página con producto sellado, valor esperado por sobre y caja, y la lista completa de cartas.
+- **Calculadora de aduanas** (`/calculadora-aduanas/`): coste final de importar a España o a la UE (IVA, derecho de 3 €, tasa de 2 €, transportista), con guía y ejemplos.
+- Verificador de tiendas y alertas de stock: pendientes (fases 2 y 3 del plan).
 
 ## Stack
 
 - [Astro 5](https://astro.build) estático, i18n con español sin prefijo (`/`) e inglés en `/en/`, slugs traducidos y `hreflang`.
 - Lógica en `src/lib/calc.ts` (TypeScript puro, probada con Vitest).
 - Datos curados en `src/data/*.json`, con fecha de revisión, estado (`verified` / `secondary` / `pending`) y fuente en cada regla.
-- Ilustraciones: arte oficial de Pokémon descargado de [PokeAPI/sprites](https://github.com/PokeAPI/sprites) a `src/assets/pokemon/` y convertido a WebP en el build. Es material con copyright de Nintendo/Creatures/GAME FREAK/The Pokémon Company: el pie de página lo acredita, pero si la web se monetiza conviene valorar el riesgo (ver "Antes de publicar").
+- Diseño sobrio de herramienta de datos (IBM Plex Sans y Plex Mono, un solo acento rojo). Las imágenes son los escaneos de cartas y logos de set de TCGdex.
 - Sin cookies, sin analítica, sin backend. Tipos de cambio en vivo desde la API pública del BCE (Frankfurter) con entrada manual de respaldo.
 - Pensado para Cloudflare Pages (gratis). Inversión inicial: solo el dominio.
 
@@ -68,5 +63,5 @@ Para regenerar las imágenes sociales tras cambiar el nombre: `NODE_PATH=$(npm r
    - Tasa de gestión de 2 €: pendiente de publicación en el DOUE; confirmar si es por paquete o por tipo de artículo y si lleva IVA.
    - Arancel 2,7 % de la partida 9504 40 00 y el 0 % con origen preferencial: confirmar en TARIC.
    - Tarifas de gestión aduanera de Correos/DHL/FedEx: no hay valor por defecto.
-4. **Imágenes**: el arte oficial de Pokémon es común en webs de fans, pero The Pokémon Company puede pedir su retirada, sobre todo en webs con ingresos. Alternativas con menos riesgo: fotos propias de cartas y productos, o fotos con licencia libre (Unsplash, Pexels).
+4. **Imágenes**: los escaneos de cartas (TCGdex) tienen copyright de The Pokémon Company. Las webs de precios los usan para identificar cada carta, pero si la web gana dinero conviene valorar el riesgo.
 5. Contrastar los tipos de IVA de `vat-rates.json` con la base de datos oficial de la Comisión.

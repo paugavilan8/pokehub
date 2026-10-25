@@ -1,7 +1,5 @@
 ---
 import '../styles/global.css';
-import Icon from '../components/Icon.astro';
-import Poke from '../components/Poke.astro';
 import { ROUTES, SITE_NAME, OG_LOCALE, ui, type Lang, type RouteKey } from '../i18n/ui';
 
 interface Props {
@@ -13,21 +11,22 @@ interface Props {
   noindex?: boolean;
   /** Rutas de cada idioma para páginas dinámicas (por defecto, las de `route`). */
   paths?: Record<Lang, string>;
+  /** Pestaña marcada en la navegación (por defecto, `route`). */
+  active?: RouteKey;
 }
-const { lang, route, title, description, jsonLd, noindex = false, paths: customPaths } = Astro.props;
+const { lang, route, title, description, jsonLd, noindex = false, paths: customPaths, active = route } = Astro.props;
 const paths = customPaths ?? ROUTES[route];
 const t = ui[lang];
 const other: Lang = lang === 'es' ? 'en' : 'es';
 const site = Astro.site!;
 const abs = (path: string) => new URL(path, site).href;
 const canonical = abs(paths[lang]);
-const fullTitle = route === 'home' ? title : `${title} | ${SITE_NAME}`;
+const fullTitle = route === 'home' && !customPaths ? title : `${title} | ${SITE_NAME}`;
 const ogImage = abs(`/og-${lang}.png`);
 const nav: { key: RouteKey; label: string }[] = [
-  { key: 'home', label: t.nav.calculator },
-  { key: 'sets', label: t.nav.sets },
+  { key: 'home', label: t.nav.sets },
+  { key: 'calc', label: t.nav.calculator },
   { key: 'guide', label: t.nav.guide },
-  { key: 'sources', label: t.nav.sources },
 ];
 ---
 <!doctype html>
@@ -55,100 +54,80 @@ const nav: { key: RouteKey; label: string }[] = [
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <meta name="theme-color" content="#16205e" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#121a4c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#181b20" media="(prefers-color-scheme: dark)" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
     <a class="skip" href="#main">{t.skip}</a>
-    <div class="night top">
-      <header class="site-header">
-        <div class="container bar">
-          <a class="brand" href={ROUTES.home[lang]}>
-            <span class="mark" aria-hidden="true"><Icon name="cards" /></span>
-            {SITE_NAME}
-          </a>
-          <nav aria-label={lang === 'es' ? 'Principal' : 'Main'}>
-            <ul>
-              {nav.map((n) => (
-                <li><a href={ROUTES[n.key][lang]} aria-current={n.key === route ? 'page' : undefined}>{n.label}</a></li>
-              ))}
-            </ul>
-          </nav>
-          <a class="lang" href={paths[other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>
-            <Icon name="translate" />{t.langSwitch}
-          </a>
-        </div>
-      </header>
-      <slot name="hero" />
-    </div>
+    <header class="site-header">
+      <div class="container bar">
+        <a class="brand" href={ROUTES.home[lang]}>Poke<span>Hub</span></a>
+        <nav aria-label={lang === 'es' ? 'Principal' : 'Main'}>
+          <ul>
+            {nav.map((n) => (
+              <li><a href={ROUTES[n.key][lang]} aria-current={n.key === active ? 'page' : undefined}>{n.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+        <a class="lang" href={paths[other]} hreflang={other} lang={other} aria-label={t.langSwitchLabel}>{other.toUpperCase()}</a>
+      </div>
+    </header>
     <main id="main">
+      <slot name="hero" />
       <slot />
     </main>
-    <footer class="site-footer night">
-      <Poke name="gengar" size={220} class="foot-art" />
+    <footer class="site-footer">
       <div class="container foot">
-        <div>
-          <p class="brand-foot">{SITE_NAME}</p>
-          <p class="muted">{t.footer.tagline}</p>
+        <div class="foot-top">
+          <p class="brand-foot">Poke<span>Hub</span></p>
+          <ul class="foot-links">
+            <li><a href={ROUTES.sources[lang]}>{t.nav.sources}</a></li>
+            <li><a href={ROUTES.legal[lang]}>{t.footer.legal}</a></li>
+            <li><a href={ROUTES.privacy[lang]}>{t.footer.privacy}</a></li>
+            <li><a href={ROUTES.cookies[lang]}>{t.footer.cookies}</a></li>
+            <li><a href={ROUTES.affiliates[lang]}>{t.footer.affiliates}</a></li>
+          </ul>
         </div>
-        <ul class="foot-links">
-          <li><a href={ROUTES.legal[lang]}>{t.footer.legal}</a></li>
-          <li><a href={ROUTES.privacy[lang]}>{t.footer.privacy}</a></li>
-          <li><a href={ROUTES.cookies[lang]}>{t.footer.cookies}</a></li>
-          <li><a href={ROUTES.affiliates[lang]}>{t.footer.affiliates}</a></li>
-        </ul>
-        <div class="foot-small muted">
-          <p>{t.footer.notAdvice}</p>
-          <p>{t.footer.disclaimer}</p>
-          <p>{t.footer.art}</p>
-        </div>
+        <p>{t.footer.tagline} {t.footer.notAdvice}</p>
+        <p>{t.footer.disclaimer}</p>
       </div>
     </footer>
   </body>
 </html>
 
 <style>
-  .top { padding-bottom: 1px; overflow-x: clip; }
-  .bar { display: flex; align-items: center; gap: 16px; min-height: 72px; flex-wrap: wrap; }
-  .brand {
-    display: inline-flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 1.3rem;
-    letter-spacing: -0.03em; color: var(--night-text) !important; text-decoration: none;
-  }
-  .mark {
-    display: grid; place-items: center; width: 36px; height: 36px; border-radius: 11px;
-    background: var(--sun); color: var(--on-sun); transform: rotate(-6deg);
-  }
-  .mark :global(svg) { width: 22px; height: 22px; }
-  nav { margin-left: auto; }
-  nav ul { display: flex; gap: 2px; list-style: none; margin: 0; padding: 0; }
+  .site-header { background: var(--surface); border-bottom: 1px solid var(--border); }
+  .bar { display: flex; align-items: stretch; gap: 28px; min-height: 60px; }
+  .brand { display: flex; align-items: center; font-weight: 700; font-size: 1.2rem; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+  .brand span, .brand-foot span { color: var(--accent); }
+  nav { display: flex; overflow-x: auto; scrollbar-width: none; }
+  nav ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+  nav li { display: flex; }
   nav a {
-    display: block; padding: 8px 14px; border-radius: 999px;
-    color: var(--night-muted) !important; text-decoration: none; font-size: 0.95rem; font-weight: 550;
+    display: flex; align-items: center; padding: 0 12px; white-space: nowrap;
+    color: var(--text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
   }
-  nav a:hover { color: var(--night-text) !important; background: rgb(255 255 255 / 0.08); }
-  nav a[aria-current='page'] { color: var(--night-text) !important; background: rgb(255 255 255 / 0.12); }
+  nav a:hover { color: var(--text); }
+  nav a[aria-current='page'] { color: var(--text); border-bottom-color: var(--accent); }
   .lang {
-    display: inline-flex; align-items: center; gap: 6px; font-size: 0.9rem; font-weight: 600;
-    text-decoration: none; padding: 7px 14px; border-radius: 999px;
-    border: 1px solid rgb(255 255 255 / 0.3);
+    margin-left: auto; align-self: center; font-family: var(--mono); font-size: 0.82rem; font-weight: 600;
+    color: var(--text-muted); text-decoration: none; padding: 5px 9px; border: 1px solid var(--border); border-radius: 6px;
   }
-  .lang :global(svg) { width: 16px; height: 16px; }
-  .lang:hover { background: rgb(255 255 255 / 0.1); }
-  @media (max-width: 767px) {
-    .bar { padding-block: 12px; gap: 8px 12px; min-height: 0; }
-    nav { order: 3; margin-left: -10px; width: calc(100% + 10px); overflow-x: auto; }
-    nav a { padding: 6px 10px; white-space: nowrap; }
-    .lang { margin-left: auto; }
+  .lang:hover { color: var(--text); border-color: var(--border-strong); }
+  @media (max-width: 640px) {
+    .bar { flex-wrap: wrap; gap: 0 12px; }
+    .brand { min-height: 52px; }
+    nav { order: 3; width: 100%; margin-inline: -12px; border-top: 1px solid var(--border); }
+    nav a { padding: 12px; }
   }
-  .site-footer { margin-top: 140px; padding-block: 64px 64px; font-size: 0.92rem; }
-  .site-footer :global(.foot-art) { position: absolute; right: max(16px, calc(50% - 600px)); top: -96px; width: 200px; z-index: 1; filter: drop-shadow(0 10px 20px rgb(0 0 0 / 0.35)); }
-  .foot { display: grid; gap: 24px; position: relative; }
-  @media (min-width: 768px) { .foot { grid-template-columns: 1.2fr 1fr; } .foot-small { grid-column: 1 / -1; } }
-  @media (max-width: 767px) { .site-footer :global(.foot-art) { width: 130px; top: -60px; } }
-  .brand-foot { font-family: var(--display); font-weight: 800; font-size: 1.25rem; margin-bottom: 4px; }
-  .foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 20px; align-content: start; }
-  .foot-small { font-size: 0.82rem; max-width: 90ch; }
-  .foot-small p { margin-bottom: 0.6em; }
+  .site-footer { margin-top: 80px; border-top: 1px solid var(--border); background: var(--surface); padding-block: 28px 36px; font-size: 0.85rem; color: var(--text-muted); }
+  .foot p { max-width: 95ch; margin-bottom: 0.6em; }
+  .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 24px; margin-bottom: 12px; }
+  .brand-foot { font-weight: 700; color: var(--text); font-size: 1rem; margin: 0 !important; }
+  .foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+  .foot-links a { color: var(--text-muted); }
+  .foot-links a:hover { color: var(--text); }
 </style>

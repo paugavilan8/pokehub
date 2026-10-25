@@ -6,6 +6,8 @@ export const SITE_NAME = 'PokeHub';
 
 export const ROUTES = {
   home: { es: '/', en: '/en/' },
+  calc: { es: '/calculadora-aduanas/', en: '/en/import-calculator/' },
+  /** Prefijo de las páginas de cada set (la lista de sets es la portada). */
   sets: { es: '/expansiones/', en: '/en/sets/' },
   guide: { es: '/guia-aduanas-cartas-pokemon/', en: '/en/pokemon-card-import-tax-eu/' },
   sources: { es: '/reglas-y-fuentes/', en: '/en/rules-and-sources/' },
@@ -32,14 +34,13 @@ export function countryName(code: string, lang: Lang) {
 export const ui = {
   es: {
     skip: 'Saltar al contenido',
-    nav: { calculator: 'Calculadora', sets: 'Expansiones', guide: 'Guía de aduanas', sources: 'Fuentes' },
+    nav: { calculator: 'Calculadora de aduanas', sets: 'Precios de sets', guide: 'Guía de importación', sources: 'Reglas y fuentes' },
     langSwitch: 'English',
     langSwitchLabel: 'Read this page in English',
     footer: {
       tagline: 'Herramientas para comprar cartas Pokémon desde España sin sorpresas.',
       disclaimer:
         'Web independiente de fans. No está afiliada, patrocinada ni aprobada por Nintendo, Creatures, GAME FREAK ni The Pokémon Company. Pokémon y sus nombres son marcas de sus respectivos titulares.',
-      art: 'Ilustraciones de Pokémon © Nintendo, Creatures, GAME FREAK y The Pokémon Company, usadas solo con fines ilustrativos.',
       notAdvice:
         'La información es orientativa y no sustituye el asesoramiento de la Agencia Tributaria ni de un agente de aduanas.',
       legal: 'Aviso legal', privacy: 'Privacidad', cookies: 'Cookies', affiliates: 'Afiliados',
@@ -99,14 +100,13 @@ export const ui = {
   },
   en: {
     skip: 'Skip to content',
-    nav: { calculator: 'Calculator', sets: 'Sets', guide: 'Import guide', sources: 'Sources' },
+    nav: { calculator: 'Import calculator', sets: 'Set prices', guide: 'Import guide', sources: 'Rules and sources' },
     langSwitch: 'Español',
     langSwitchLabel: 'Leer esta página en español',
     footer: {
       tagline: 'Tools for buying Pokémon cards into Spain and the EU without surprises.',
       disclaimer:
         'Independent fan site. Not affiliated with, sponsored or endorsed by Nintendo, Creatures, GAME FREAK or The Pokémon Company. Pokémon and its names are trademarks of their respective owners.',
-      art: 'Pokémon artwork © Nintendo, Creatures, GAME FREAK and The Pokémon Company, used for illustration only.',
       notAdvice:
         'This information is a guide only and is not a substitute for advice from your tax authority or a customs broker.',
       legal: 'Legal notice', privacy: 'Privacy', cookies: 'Cookies', affiliates: 'Affiliates',
