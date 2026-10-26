@@ -81,10 +81,11 @@ npm run build     # genera dist/
 
 Para regenerar las imágenes sociales tras cambiar el nombre: `NODE_PATH=$(npm root -g) node scripts/make-images.mjs` (usa Playwright).
 
-## Despliegue (Cloudflare Pages)
+## Despliegue (Cloudflare)
 
-- Build command: `npm run build` · Output: `dist`
-- Variable de entorno `SITE_URL` con el dominio definitivo (por ejemplo `https://www.tudominio.es`). Se usa en canonical, `hreflang`, Open Graph, sitemap y robots.
+- Publicada como Worker con archivos estáticos en https://pokehub.elpaueto8.workers.dev, conectado al repo: cada push a `main` (también los del robot de precios) vuelve a compilar y publicar.
+- Compilación: `npm run build`, salida `dist`.
+- Al pasar a un dominio propio, definir `SITE_URL` (por ejemplo `https://www.pullradar.es`) en las variables de compilación de Cloudflare, o cambiar el valor por defecto en `astro.config.mjs`. Se usa en canonical, `hreflang`, Open Graph, sitemap y robots.
 
 ## Antes de publicar (pendiente)
 
