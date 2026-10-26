@@ -5,6 +5,7 @@ import owner from '../data/owner.json';
 import rules from '../data/import-rules.json';
 import { SITE_NAME, formatDate, type Lang } from '../i18n/ui';
 import { affiliates, COMMERCIAL } from '../lib/market-data';
+const ADS = !!affiliates.adsense?.client;
 
 type LegalKey = 'legal' | 'privacy' | 'cookies' | 'affiliates';
 interface Props { lang: Lang; page: LegalKey }
@@ -116,7 +117,7 @@ const programs = {
   es: [affiliates.amazon.tag && 'Amazon (Programa de Afiliados de Amazon EU)', affiliates.ebay.campid && 'eBay (eBay Partner Network)', Object.values(affiliates.shops).some(Boolean) && 'algunas tiendas de cartas, en los enlaces de los avisos de stock'].filter(Boolean) as string[],
   en: [affiliates.amazon.tag && 'Amazon (Amazon EU Associates Programme)', affiliates.ebay.campid && 'eBay (eBay Partner Network)', Object.values(affiliates.shops).some(Boolean) && 'some card shops, in stock alert links'].filter(Boolean) as string[],
 };
-if (COMMERCIAL) {
+if (programs.es.length) {
   pages.affiliates.es.blocks[0] = { p: [
     `Esta web contiene enlaces de afiliado de ${programs.es.join(', ')}. Si compras a través de ellos, recibimos una pequeña comisión sin que te cueste más. Los botones de afiliado están marcados en la propia página.`,
     ...(affiliates.amazon.tag ? ['En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.'] : []),
@@ -133,6 +134,31 @@ if (COMMERCIAL || affiliates.kofi.user) {
   pages.privacy.en.blocks[1].p.push(en);
   pages.cookies.es.blocks[0].p.push('Los enlaces de afiliado no instalan cookies en esta web: si haces clic, es la web de destino (Amazon, eBay o la tienda) la que puede instalarlas.');
   pages.cookies.en.blocks[0].p.push('Affiliate links set no cookies on this site: if you click one, the destination site (Amazon, eBay or the shop) may set its own.');
+}
+// Con AdSense: Google pone cookies con tu permiso y la política de cookies lo explica.
+if (ADS) {
+  pages.cookies.es.description = `Qué cookies usa ${SITE_NAME} para los anuncios de Google y cómo cambiar tu consentimiento.`;
+  pages.cookies.en.description = `What cookies ${SITE_NAME} uses for Google ads and how to change your consent.`;
+  pages.cookies.es.blocks = [
+    { p: ['Esta web muestra anuncios de Google AdSense para financiarse. Google y sus socios publicitarios pueden usar cookies e identificadores parecidos para mostrar anuncios, medir cuántas veces se ven y, si lo aceptas, personalizarlos según tus intereses.', 'Al entrar por primera vez te mostramos el aviso de consentimiento de Google, donde puedes aceptar, rechazar o elegir por finalidad. Si rechazas, Google solo puede mostrar anuncios no personalizados, que aun así usan cookies imprescindibles para limitar la frecuencia y detectar fraude.'] },
+    { h: 'Cómo cambiar tu decisión', p: ['Pulsa "Preferencias de cookies" al pie de cualquier página para abrir otra vez el aviso y cambiar o retirar tu consentimiento. También puedes borrar las cookies desde tu navegador.', 'Más información sobre cómo usa Google los datos de las webs que muestran sus anuncios: policies.google.com/technologies/partner-sites.'] },
+    { h: 'Cookies propias', p: ['Esta web no instala cookies propias ni usa el almacenamiento local del navegador. Los enlaces de afiliado no instalan cookies aquí: si haces clic, es la web de destino la que puede instalarlas.'] },
+  ];
+  pages.cookies.en.blocks = [
+    { p: ['This site shows Google AdSense ads to fund itself. Google and its advertising partners may use cookies and similar identifiers to show ads, measure how often they are seen and, if you agree, personalise them based on your interests.', 'On your first visit we show Google\'s consent notice, where you can accept, reject or choose by purpose. If you reject, Google can only show non-personalised ads, which still use essential cookies to cap frequency and detect fraud.'] },
+    { h: 'How to change your choice', p: ['Click "Cookie preferences" at the bottom of any page to open the notice again and change or withdraw your consent. You can also delete cookies in your browser.', 'More on how Google uses data from sites that show its ads: policies.google.com/technologies/partner-sites.'] },
+    { h: 'Our own cookies', p: ['This site sets no cookies of its own and uses no browser local storage. Affiliate links set no cookies here: if you click one, the destination site may set its own.'] },
+  ];
+  pages.privacy.es.blocks.splice(2, 0, { h: 'Publicidad', p: ['Para mostrar anuncios usamos Google AdSense (Google Ireland Limited). Google trata tu dirección IP, identificadores de tu dispositivo y datos de navegación en esta web para servir y medir anuncios y, solo con tu consentimiento, para personalizarlos. Base jurídica: tu consentimiento, que das o rechazas en el aviso de Google y puedes cambiar en "Preferencias de cookies". Google puede transferir datos fuera de la UE con las garantías de su política de privacidad.'] });
+  pages.privacy.en.blocks.splice(2, 0, { h: 'Advertising', p: ['To show ads we use Google AdSense (Google Ireland Limited). Google processes your IP address, device identifiers and browsing data on this site to serve and measure ads and, only with your consent, to personalise them. Legal basis: your consent, which you give or refuse in Google\'s notice and can change under "Cookie preferences". Google may transfer data outside the EU under the safeguards in its privacy policy.'] });
+  pages.privacy.es.blocks[1].p[0] = pages.privacy.es.blocks[1].p[0].replace('no tiene registro, formularios, analítica ni publicidad', 'no tiene registro, formularios ni analítica').replace('no tiene registro, analítica ni publicidad', 'no tiene registro ni analítica');
+  pages.privacy.en.blocks[1].p[0] = pages.privacy.en.blocks[1].p[0].replace('no sign-up, forms, analytics or advertising', 'no sign-up, forms or analytics').replace('no sign-up, analytics or advertising', 'no sign-up or analytics');
+  pages.affiliates.es.blocks[0].p.unshift('Esta web se financia con anuncios de Google AdSense, marcados como "Publicidad".');
+  pages.affiliates.en.blocks[0].p.unshift('This site is funded by Google AdSense ads, labelled "Advertisement".');
+}
+if (ADS && !Object.values(programs.es).length) {
+  pages.affiliates.es.blocks[0].p = pages.affiliates.es.blocks[0].p.filter((x) => !x.startsWith('Ahora mismo'));
+  pages.affiliates.en.blocks[0].p = pages.affiliates.en.blocks[0].p.filter((x) => !x.startsWith('Right now'));
 }
 const content = pages[page][lang];
 ---

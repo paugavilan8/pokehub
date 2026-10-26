@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import CardDrawer from '../components/CardDrawer.astro';
+import AdSlot from '../components/AdSlot.astro';
 import HeroCarousel from '../components/HeroCarousel.astro';
 import { allSets, isJapanese, marketIndex, rarityLabel, rarityShort, rarityTone } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit, weekChange } from '../lib/market';
@@ -110,6 +111,7 @@ const c = {
           ))}
         </div>
       </section>
+      <AdSlot place="home" lang={lang} />
     </div>
   )}
 

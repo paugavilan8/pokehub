@@ -1,13 +1,27 @@
 {
-  "_help": "Rellena los códigos cuando te den de alta en cada programa. Vacío = el botón no aparece. Con cualquier código de afiliado (Amazon, eBay o tiendas) la web pasa a ser comercial y se apagan los precios de gradeadas de PokemonPriceTracker, cuyo plan gratis no permite uso comercial. Ko-fi no cuenta como afiliado.",
-  "amazon": { "tag": "" },
-  "ebay": { "campid": "" },
-  "kofi": { "user": "" },
+  "_help": "Rellena los códigos cuando te den de alta en cada programa. Vacío = el botón no aparece. Con cualquier código de afiliado (Amazon, eBay o tiendas) o de AdSense la web pasa a ser comercial y se apagan los precios de gradeadas de PokemonPriceTracker, cuyo plan gratis no permite uso comercial. Ko-fi no cuenta como afiliado.",
+  "amazon": {
+    "tag": ""
+  },
+  "ebay": {
+    "campid": ""
+  },
+  "kofi": {
+    "user": ""
+  },
   "shops": {
     "pokemillon": "",
     "surcollect": "",
     "metamorph": "",
     "iberian": "",
     "pokeadiccion": ""
+  },
+  "adsense": {
+    "client": "",
+    "slots": {
+      "home": "",
+      "set": "",
+      "pokemon": ""
+    }
   }
 }

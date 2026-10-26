@@ -7,11 +7,30 @@ export interface AffiliateConfig {
   kofi: { user: string };
   /** Id de tienda (el de worker/src/shops.ts) -> parámetros que se añaden a sus enlaces ("ref=pullradar"). */
   shops: Record<string, string>;
+  /** Google AdSense: id de editor ("ca-pub-...") y id de cada bloque de anuncios. Vacíos = sin anuncios. */
+  adsense: { client: string; slots: Record<AdPlace, string> };
 }
 
-/** Hay algún programa de afiliados activo: la web cuenta como comercial. Ko-fi (donaciones) no cuenta. */
+/** Sitios con hueco de anuncio: portada, página de set y página de Pokémon. */
+export type AdPlace = 'home' | 'set' | 'pokemon';
+
+/** Bloque de anuncio de un sitio, o null si AdSense no está configurado o ese hueco no tiene id. */
+export function adSlot(cfg: AffiliateConfig, place: AdPlace): { client: string; slot: string } | null {
+  const client = cfg.adsense?.client;
+  const slot = cfg.adsense?.slots?.[place];
+  return client && slot ? { client, slot } : null;
+}
+
+/** Línea de ads.txt para AdSense ("ca-pub-123" -> "google.com, pub-123, DIRECT, f08c47fec0942fa0"). */
+export function adsTxt(cfg: AffiliateConfig): string {
+  const client = cfg.adsense?.client;
+  if (!client) return '# Esta web todavía no muestra anuncios.\n';
+  return `google.com, ${client.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0\n`;
+}
+
+/** Hay anuncios o algún programa de afiliados activo: la web cuenta como comercial. Ko-fi (donaciones) no cuenta. */
 export function isCommercial(cfg: AffiliateConfig) {
-  return !!(cfg.amazon.tag || cfg.ebay.campid || Object.values(cfg.shops).some(Boolean));
+  return !!(cfg.amazon.tag || cfg.ebay.campid || Object.values(cfg.shops).some(Boolean) || cfg.adsense?.client);
 }
 
 /** Búsqueda en Amazon España con la etiqueta de afiliado, o null si no hay etiqueta. */

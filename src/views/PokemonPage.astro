@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
+import AdSlot from '../components/AdSlot.astro';
 import CardDrawer from '../components/CardDrawer.astro';
 import { marketIndex, pokemonName, rarityLabel, rarityShort, rarityTone, type PokemonEntry } from '../lib/market-data';
 import { cardImage } from '../lib/market';
@@ -55,6 +56,8 @@ const c = {
         <p class="lead">{c.lead}</p>
       </div>
     </section>
+
+    <AdSlot place="pokemon" lang={lang} />
 
     <section class="all" aria-labelledby="all-title">
       <div class="all-head">

@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Icon from '../components/Icon.astro';
 import CardDrawer from '../components/CardDrawer.astro';
+import AdSlot from '../components/AdSlot.astro';
 import PackSim from '../components/PackSim.astro';
 import PriceChart from '../components/PriceChart.astro';
 import { affiliates, gradedOf, historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary, seriesName } from '../lib/market-data';
@@ -193,6 +194,8 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
     </section>
 
     {rates && <PackSim lang={lang} summary={summary} />}
+
+    <AdSlot place="set" lang={lang} />
 
     <section class="block" aria-labelledby="hits-title">
       <h2 id="hits-title">{c.hitsTitle}</h2>

@@ -29,9 +29,11 @@ const canonical = abs(paths[lang]);
 const fullTitle = route === 'home' && !customPaths ? title : `${title} | ${SITE_NAME}`;
 const ogImage = abs(`/og-${lang}.png`);
 const kofi = kofiUrl(affiliates);
+/** Id de editor de AdSense: con él se carga su script (y el aviso de consentimiento de Google) en todas las páginas. */
+const adsClient = affiliates.adsense?.client || null;
 const support = lang === 'es'
-  ? { title: 'Apoya PullRadar', text: 'La web es gratis y sin anuncios. Si te ahorra dinero, puedes invitarnos a un café en Ko-fi.', cta: 'Invitar a un café' }
-  : { title: 'Support PullRadar', text: 'The site is free and ad-free. If it saves you money, you can buy us a coffee on Ko-fi.', cta: 'Buy us a coffee' };
+  ? { title: 'Apoya PullRadar', text: `La web es gratis${adsClient ? '' : ' y sin anuncios'}. Si te ahorra dinero, puedes invitarnos a un café en Ko-fi.`, cta: 'Invitar a un café', consent: 'Preferencias de cookies' }
+  : { title: 'Support PullRadar', text: `The site is free${adsClient ? '' : ' and ad-free'}. If it saves you money, you can buy us a coffee on Ko-fi.`, cta: 'Buy us a coffee', consent: 'Cookie preferences' };
 const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { open: 'Open menu', close: 'Close menu' };
 ---
 <!doctype html>
@@ -64,6 +66,7 @@ const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { 
     <meta name="theme-color" content="#181b20" media="(prefers-color-scheme: dark)" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+    {adsClient && <script is:inline async src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adsClient}`} crossorigin="anonymous"></script>}
   </head>
   <body>
     <a class="skip" href="#main">{t.skip}</a>
@@ -106,12 +109,23 @@ const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { 
             <li><a href={ROUTES.privacy[lang]}>{t.footer.privacy}</a></li>
             <li><a href={ROUTES.cookies[lang]}>{t.footer.cookies}</a></li>
             <li><a href={ROUTES.affiliates[lang]}>{t.footer.affiliates}</a></li>
+            {adsClient && <li><button type="button" class="consent-btn" data-consent>{support.consent}</button></li>}
           </ul>
         </div>
         <p>{t.footer.tagline} {t.footer.notAdvice}</p>
         <p>{t.footer.disclaimer}</p>
       </div>
     </footer>
+    {adsClient && (
+      <script is:inline>
+        // Vuelve a abrir el aviso de consentimiento de Google (Funding Choices) para cambiar o retirar el permiso.
+        document.querySelector('[data-consent]')?.addEventListener('click', function () {
+          window.googlefc = window.googlefc || {};
+          window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+          window.googlefc.callbackQueue.push(function () { window.googlefc.showRevocationMessage(); });
+        });
+      </script>
+    )}
   </body>
 </html>
 
@@ -155,4 +169,7 @@ const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { 
   .foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
   .foot-links a { color: var(--text-muted); }
   .foot-links a:hover { color: var(--text); }
+  .consent-btn { all: unset; cursor: pointer; color: var(--text-muted); text-decoration: underline; text-underline-offset: 0.2em; }
+  .consent-btn:hover { color: var(--text); }
+  .consent-btn:focus-visible { outline: 2px solid var(--focus); }
 </style>

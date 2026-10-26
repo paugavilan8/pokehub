@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { amazonUrl, ebayUrl, isCommercial, kofiUrl, shopUrl, type AffiliateConfig } from './affiliates';
+import { adSlot, adsTxt, amazonUrl, ebayUrl, isCommercial, kofiUrl, shopUrl, type AffiliateConfig } from './affiliates';
 
-const empty: AffiliateConfig = { amazon: { tag: '' }, ebay: { campid: '' }, kofi: { user: '' }, shops: { pokemillon: '' } };
-const full: AffiliateConfig = { amazon: { tag: 'pullradar-21' }, ebay: { campid: '5338' }, kofi: { user: 'pullradar' }, shops: { pokemillon: 'ref=pr&utm_source=pullradar' } };
+const noAds = { client: '', slots: { home: '', set: '', pokemon: '' } };
+const empty: AffiliateConfig = { amazon: { tag: '' }, ebay: { campid: '' }, kofi: { user: '' }, shops: { pokemillon: '' }, adsense: noAds };
+const full: AffiliateConfig = { amazon: { tag: 'pullradar-21' }, ebay: { campid: '5338' }, kofi: { user: 'pullradar' }, shops: { pokemillon: 'ref=pr&utm_source=pullradar' }, adsense: noAds };
 
 describe('afiliados', () => {
   it('sin códigos no hay botones ni uso comercial', () => {
@@ -22,5 +23,14 @@ describe('afiliados', () => {
     expect(shopUrl(full, 'pokemillon', 'https://www.pokemillon.com/p/1?v=2')).toBe('https://www.pokemillon.com/p/1?v=2&ref=pr&utm_source=pullradar');
     expect(kofiUrl(full)).toBe('https://ko-fi.com/pullradar');
     expect(isCommercial(full)).toBe(true);
+  });
+  it('anuncios: huecos, ads.txt y uso comercial', () => {
+    const ads: AffiliateConfig = { ...empty, adsense: { client: 'ca-pub-123', slots: { home: '42', set: '', pokemon: '' } } };
+    expect(adSlot(ads, 'home')).toEqual({ client: 'ca-pub-123', slot: '42' });
+    expect(adSlot(ads, 'set')).toBeNull();
+    expect(adSlot(empty, 'home')).toBeNull();
+    expect(adsTxt(ads)).toBe('google.com, pub-123, DIRECT, f08c47fec0942fa0\n');
+    expect(adsTxt(empty).startsWith('#')).toBe(true);
+    expect(isCommercial(ads)).toBe(true);
   });
 });

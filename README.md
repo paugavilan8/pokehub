@@ -66,7 +66,9 @@ Todo se configura en `src/data/affiliates.json`; un código vacío hace que su b
 - `shops.<tienda>`: parámetros que cada tienda te dé para sus enlaces (por ejemplo `ref=pullradar`). Se añaden a los enlaces de los avisos de stock (web y correos); hay que volver a desplegar el worker.
 - `kofi.user`: tu usuario de Ko-fi. Añade el bloque "Apoya PullRadar" al pie de todas las páginas.
 
-Con cualquier código de Amazon, eBay o tiendas la web pasa a ser comercial: las páginas de afiliados, privacidad y cookies cambian solas (con la frase obligatoria de Amazon), y los precios de gradeadas de PokemonPriceTracker se apagan, porque su plan gratis no permite uso comercial. Ko-fi no cuenta como afiliado.
+- `adsense.client` y `adsense.slots`: id de editor de AdSense (`ca-pub-...`) y el id de los tres bloques de anuncios (portada, página de set y página de Pokémon). Con el id de editor se carga el script de AdSense en todas las páginas (sirve también para que Google verifique la web), se publica `/ads.txt` y aparece "Preferencias de cookies" al pie. El aviso de consentimiento lo pone Google: en AdSense, Privacidad y mensajes, crea y publica el mensaje para la UE (RGPD).
+
+Con cualquier código de Amazon, eBay, tiendas o AdSense la web pasa a ser comercial: las páginas de afiliados, privacidad y cookies cambian solas (con la frase obligatoria de Amazon), y los precios de gradeadas de PokemonPriceTracker se apagan, porque su plan gratis no permite uso comercial. Ko-fi no cuenta como afiliado.
 
 ## Comandos
 
