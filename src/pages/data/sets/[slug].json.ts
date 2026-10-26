@@ -1,6 +1,6 @@
 // Datos de las cartas de un set para la ficha de carta. Se piden solo al abrir una ficha.
 import type { APIRoute } from 'astro';
-import { allSets, historyOf, type SetSummary } from '../../../lib/market-data';
+import { allSets, gradedOf, historyOf, type SetSummary } from '../../../lib/market-data';
 import { normRarity } from '../../../lib/market';
 
 export function getStaticPaths() {
@@ -20,10 +20,11 @@ export const GET: APIRoute = ({ props }) => {
   const body = {
     slug, name: set.name, logo: set.logo, total: set.officialCount,
     dates: history?.dates ?? [],
-    // id -> [nombre, número, rareza, imagen, id de Cardmarket, tendencia, desde, media 1 d, media 7 d, media 30 d, 1 de N sobres, historial]
+    // id -> [nombre, número, rareza, imagen, id de Cardmarket, tendencia, desde, media 1 d, media 7 d, media 30 d, 1 de N sobres, historial,
+    //       gradeadas [nota, euros, ventas][]]
     cards: Object.fromEntries(set.cards.map((c) => [c.id, [
       c.name, c.num, c.rarity, c.image, c.cmId, c.price.trend, c.price.low,
-      c.price.avg1 ?? null, c.price.avg7 ?? null, c.price.avg30, oddsOf(c.rarity), history?.cards[c.id] ?? null,
+      c.price.avg1 ?? null, c.price.avg7 ?? null, c.price.avg30, oddsOf(c.rarity), history?.cards[c.id] ?? null, gradedOf(c.id),
     ]])),
   };
   return new Response(JSON.stringify(body), { headers: { 'Content-Type': 'application/json' } });

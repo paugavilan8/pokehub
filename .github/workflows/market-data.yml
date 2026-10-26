@@ -26,13 +26,20 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node scripts/fetch-market.ts
+      # Precios de gradeadas de las cartas más caras (unas pocas cada día). Sin el secreto PPT_API_KEY no hace nada,
+      # y si la API falla la web se publica igual con los datos anteriores.
+      - run: node scripts/fetch-graded.ts
+        continue-on-error: true
+        env:
+          PPT_API_KEY: ${{ secrets.PPT_API_KEY }}
+          PPT_DAILY_CREDITS: ${{ vars.PPT_DAILY_CREDITS || '100' }}
       - run: npm test
       - run: npm run build
       - name: Subir datos si han cambiado
         run: |
           git config user.name "pokehub-bot"
           git config user.email "pokehub-bot@users.noreply.github.com"
-          git add src/data/market
+          git add src/data/market src/data/graded.json 2>/dev/null || git add src/data/market
           if git diff --cached --quiet; then
             echo "Sin cambios"
           else

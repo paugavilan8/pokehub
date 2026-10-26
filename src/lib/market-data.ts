@@ -1,6 +1,7 @@
 // Acceso a los datos de mercado generados por scripts/fetch-market.ts (pueden no existir todavía).
 import pullRates from '../data/pull-rates.json';
 import pokemonNames from '../data/pokemon-names.json';
+import { GRADES, type Grade, type GradedFile } from './graded';
 import {
   expectedValue, findPullRates, slugify, topHits,
   type ExpectedValue, type MarketCard, type MarketIndex, type MarketSet, type PriceHistory, type SealedItem, type SetPullRates,
@@ -9,6 +10,17 @@ import {
 const indexFiles = import.meta.glob<MarketIndex>('../data/market/index.json', { eager: true, import: 'default' });
 const setFiles = import.meta.glob<MarketSet>('../data/market/sets/*.json', { eager: true, import: 'default' });
 const historyFiles = import.meta.glob<PriceHistory>('../data/market/history/*.json', { eager: true, import: 'default' });
+const gradedFiles = import.meta.glob<GradedFile>('../data/graded.json', { eager: true, import: 'default' });
+const graded: GradedFile | null = Object.values(gradedFiles)[0] ?? null;
+
+/** Precios de gradeadas de una carta en euros (aproximados, desde dólares): [nota, euros, ventas]. null si no hay. */
+export function gradedOf(cardId: string): [Grade, number, number][] | null {
+  const prices = graded?.cards[cardId]?.prices;
+  const rate = graded?.eurPerUsd;
+  if (!prices || !rate) return null;
+  const rows = GRADES.filter((g) => prices[g]).map((g): [Grade, number, number] => [g, Math.round(prices[g]!.usd * rate * 100) / 100, prices[g]!.count]);
+  return rows.length ? rows : null;
+}
 
 export function historyOf(setId: string): PriceHistory | null {
   return historyFiles[`../data/market/history/${setId}.json`] ?? null;

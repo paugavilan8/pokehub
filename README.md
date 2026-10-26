@@ -50,6 +50,13 @@ scripts/make-images.mjs    genera og-es.png, og-en.png y apple-touch-icon.png
 - Condiciones de Cardmarket para sus precios: decir claramente que son suyos (lo hacemos en cada página) y usar su marca solo desde su kit oficial. No tienen programa de afiliados.
 - Primera ejecución: `node scripts/fetch-market.ts` (Node 22.18 o superior). Necesita acceso a `api.tcgdex.net` y `downloads.s3.cardmarket.com`.
 
+## Precios de cartas gradeadas
+
+- `scripts/fetch-graded.ts` pide a [PokemonPriceTracker](https://www.pokemonpricetracker.com/api-docs) los precios PSA 10, PSA 9, CGC 10 y BGS 10 (medianas de ventas en eBay y Fanatics Collect, en dólares) de las cartas más caras, y los guarda en `src/data/graded.json`. La web los muestra en euros (tipo del BCE del día de la descarga) en la ficha de carta y en las cartas top de cada set.
+- Plan gratis: 100 créditos al día. Buscar una carta cuesta 1 crédito por resultado y sus datos gradeados, 2, así que entran unas 20-30 cartas nuevas al día, de la más cara a la más barata, y luego se refrescan por turnos cada 7 días (`gradedQueue` en `src/lib/graded.ts`). Con un plan de pago se sube la variable `PPT_DAILY_CREDITS` en GitHub (Settings → Secrets and variables → Actions → Variables).
+- Para activarlo: crear la clave en pokemonpricetracker.com y guardarla como secreto `PPT_API_KEY` en GitHub (Settings → Secrets and variables → Actions → New repository secret). Sin ella el paso no hace nada.
+- Ojo: el plan gratis solo da 3 días de historial de ventas, así que las medianas se basan en pocas ventas; el plan API (9,99 $/mes) da 6 meses y 20.000 créditos al día. Según sus condiciones, el uso comercial (anuncios, afiliados) necesita el plan Business.
+
 ## Comandos
 
 ```sh

@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import CardDrawer from '../components/CardDrawer.astro';
 import PackSim from '../components/PackSim.astro';
 import PriceChart from '../components/PriceChart.astro';
-import { historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary, seriesName } from '../lib/market-data';
+import { gradedOf, historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary, seriesName } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit, normRarity, type SealedItem } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
@@ -19,6 +19,8 @@ const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.s
 const paths = { es: `${ROUTES.sets.es}${summary.slug}/`, en: `${ROUTES.sets.en}${summary.slug}/` };
 /** Las cajas japonesas traen 10, 20 o 30 sobres según el set: no se calcula el precio por sobre. */
 const ja = set.lang === 'ja';
+/** PSA 10 en euros (aproximado), si la carta tiene precios de gradeadas. */
+const psa10 = (id: string) => gradedOf(id)?.find(([g]) => g === 'psa10')?.[1] ?? null;
 
 const c = {
   es: {
@@ -201,6 +203,7 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
                 <span class={`rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span>
                 <span class="h-price mono">{fmt(h.price.trend)}</span>
                 {odds && <span class="h-odds">{c.specific(oneIn(odds))}</span>}
+                {psa10(h.id) != null && <span class="h-odds">PSA 10: {fmt(psa10(h.id))}</span>}
               </button>
             </li>
           );

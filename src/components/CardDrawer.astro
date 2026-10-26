@@ -12,16 +12,18 @@ const t = {
     close: 'Cerrar', trend: 'Tendencia', low: 'Desde', avg1: 'Media 1 día', avg7: 'Media 7 días', avg30: 'Media 30 días',
     week: 'esta semana', odds: (n: string) => `Te sale en 1 de cada ${n} sobres, según las tasas de aparición del set.`, oddsLabel: 'Probabilidad de que te salga',
     cm: 'Ver en Cardmarket', set: 'Ver el set', source: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
+    graded: 'Gradeada', gradedNote: 'Mediana de ventas recientes en eBay y Fanatics Collect (en dólares, pasada a euros). Datos de PokemonPriceTracker.', sales: (n: number) => `${n} ${n === 1 ? 'venta' : 'ventas'}`,
     noOdds: 'Para esta rareza no tenemos tasa de aparición.', share: 'Copiar enlace', copied: 'Copiado', x30: 'Media 30 d', x7: 'Media 7 d', x1: 'Último día', xNow: 'Hoy', history: 'Evolución del precio', since: 'Historial diario desde el {d}.', early: 'El historial diario empezó el {d}. Hasta tener más días, la línea une las medias de 30 y 7 días de Cardmarket con el precio de hoy.',
   },
   en: {
     close: 'Close', trend: 'Trend', low: 'From', avg1: '1-day average', avg7: '7-day average', avg30: '30-day average',
     week: 'this week', odds: (n: string) => `You pull it in 1 of every ${n} packs, based on the set's pull rates.`, oddsLabel: 'Chance of pulling it',
     cm: 'View on Cardmarket', set: 'View set', source: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
+    graded: 'Graded', gradedNote: 'Median of recent eBay and Fanatics Collect sales (in US dollars, converted to euros). Data from PokemonPriceTracker.', sales: (n: number) => `${n} ${n === 1 ? 'sale' : 'sales'}`,
     noOdds: 'We have no pull rate for this rarity.', share: 'Copy link', copied: 'Copied', x30: '30-day avg', x7: '7-day avg', x1: 'Last day', xNow: 'Today', history: 'Price history', since: 'Daily history since {d}.', early: 'Daily history started on {d}. Until there are more days, the line joins Cardmarket\'s 30 and 7-day averages with today\'s price.',
   },
 }[lang];
-const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rarities: lang === 'es' ? RARITY_ES : {}, t: { ...t, odds: t.odds('{n}') } };
+const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rarities: lang === 'es' ? RARITY_ES : {}, t: { ...t, odds: t.odds('{n}'), sales: t.sales(2).replace('2', '{n}'), sale: t.sales(1).replace('1', '{n}') } };
 ---
 <dialog class="drawer" data-drawer data-config={JSON.stringify(config)} aria-labelledby="drawer-name">
   <div class="inner">
@@ -55,6 +57,11 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
         <div><dt>{t.avg7}</dt><dd data-f="avg7"></dd></div>
         <div><dt>{t.avg30}</dt><dd data-f="avg30"></dd></div>
       </dl>
+      <section class="graded" data-f="graded" hidden aria-labelledby="graded-title">
+        <h3 id="graded-title">{t.graded}</h3>
+        <dl class="rows" data-f="gradedRows"></dl>
+        <p class="chart-note">{t.gradedNote}</p>
+      </section>
       <p class="odds-line" data-f="odds"></p>
 
       <div class="actions">
@@ -112,6 +119,13 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
   .rows dt { color: var(--text-muted); }
   .rows dd { margin: 0; font-weight: 600; }
   .odds-line { margin: 14px 0 0; font-size: 0.92rem; }
+  .graded { margin-top: 22px; }
+  .graded h3 { font-size: 0.95rem; margin: 0 0 4px; }
+  .graded .rows { margin-top: 4px; }
+  .graded :global(dl > div) { display: flex; justify-content: space-between; padding: 8px 0; border-top: 1px solid var(--border); }
+  .graded :global(dt) { color: var(--text-muted); }
+  .graded :global(dd) { margin: 0; font-weight: 600; }
+  .graded :global(.gsales) { font-weight: 400; color: var(--text-muted); font-size: 0.8rem; margin-left: 6px; }
   .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
   .actions [hidden] { display: none; }
   .src { margin: 14px 0 0; font-size: 0.78rem; color: var(--text-muted); }
@@ -190,6 +204,10 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
       wk.textContent = data.wk == null ? '' : `${data.wk > 0 ? '▲' : data.wk < 0 ? '▼' : ''} ${Math.abs(data.wk).toLocaleString(cfg.locale)} % ${cfg.t.week}`;
       for (const k of ['low', 'avg7', 'avg30']) f(k).textContent = fmt(data.p[k]);
       renderHistory(data);
+      const graded: [string, number, number][] | null = data.graded;
+      f('graded').hidden = !graded;
+      f('gradedRows').innerHTML = (graded ?? []).map(([g, eur, n]) =>
+        `<div><dt>${g.replace(/^([a-z]+)(\d+)$/, (_m, c: string, d: string) => `${c.toUpperCase()} ${d}`)}</dt><dd>${fmt(eur)}<span class="gsales">${(n === 1 ? cfg.t.sale : cfg.t.sales).replace('{n}', String(n))}</span></dd></div>`).join('');
       f('odds').textContent = data.odds ? cfg.t.odds.replace('{n}', data.odds.toLocaleString(cfg.locale)) : cfg.t.noOdds;
       (f('cm') as HTMLAnchorElement).href = data.cm;
       const setBtn = f('setBtn') as HTMLAnchorElement;
@@ -217,12 +235,12 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
       const s = await setData(slug);
       const c = s.cards[id];
       if (!c) return;
-      const [name, num, rarity, img, cmId, trend, low, avg1, avg7, avg30, odds, hist] = c;
+      const [name, num, rarity, img, cmId, trend, low, avg1, avg7, avg30, odds, hist, graded] = c;
       const p = { trend, low, avg1, avg7, avg30 };
       const key = (rarity ?? '').trim().toLowerCase();
       open({
         id, name, num, total: s.total, rarity: cfg.rarities[key] ?? rarity ?? '-', img, set: s.name, logo: s.logo,
-        setUrl: `${cfg.setsBase}${slug}/`, p, odds, hist, dates: s.dates,
+        setUrl: `${cfg.setsBase}${slug}/`, p, odds, hist, graded, dates: s.dates,
         wk: avg7 && avg30 ? Math.round(((avg7 - avg30) / avg30) * 1000) / 10 : null,
         cm: cmId ? `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products?idProduct=${cmId}`
           : `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products/Search?searchString=${encodeURIComponent(name)}`,
