@@ -2,6 +2,15 @@
 import pullRates from '../data/pull-rates.json';
 import pokemonNames from '../data/pokemon-names.json';
 import { GRADES, type Grade, type GradedFile } from './graded';
+import affiliateConfig from '../data/affiliates.json';
+import { isCommercial, type AffiliateConfig } from './affiliates';
+
+export const affiliates = affiliateConfig as AffiliateConfig;
+/**
+ * Con afiliados activos la web es comercial, y el plan gratis de PokemonPriceTracker no lo permite: los precios de
+ * gradeadas dejan de mostrarse (y scripts/fetch-graded.ts deja de descargarlos).
+ */
+export const COMMERCIAL = isCommercial(affiliates);
 import {
   expectedValue, findPullRates, slugify, topHits,
   type ExpectedValue, type MarketCard, type MarketIndex, type MarketSet, type PriceHistory, type SealedItem, type SetPullRates,
@@ -15,6 +24,7 @@ const graded: GradedFile | null = Object.values(gradedFiles)[0] ?? null;
 
 /** Precios de gradeadas de una carta en euros (aproximados, desde dólares): [nota, euros, ventas]. null si no hay. */
 export function gradedOf(cardId: string): [Grade, number, number][] | null {
+  if (COMMERCIAL) return null;
   const prices = graded?.cards[cardId]?.prices;
   const rate = graded?.eurPerUsd;
   if (!prices || !rate) return null;

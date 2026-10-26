@@ -1,7 +1,8 @@
 ---
 // Ficha de carta: panel lateral (abajo en móvil) que se abre al pulsar cualquier elemento con data-card.
 import Icon from './Icon.astro';
-import { marketIndex, RARITY_ES } from '../lib/market-data';
+import { affiliates, marketIndex, RARITY_ES } from '../lib/market-data';
+import { ebayUrl } from '../lib/affiliates';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
 interface Props { lang: Lang }
@@ -11,6 +12,7 @@ const t = {
   es: {
     close: 'Cerrar', trend: 'Tendencia', low: 'Desde', avg1: 'Media 1 día', avg7: 'Media 7 días', avg30: 'Media 30 días',
     week: 'esta semana', odds: (n: string) => `Te sale en 1 de cada ${n} sobres, según las tasas de aparición del set.`, oddsLabel: 'Probabilidad de que te salga',
+    ebay: 'Buscar en eBay', ebayNote: 'El botón de eBay es un enlace de afiliado: si compras, nos llevamos una pequeña comisión sin que te cueste más.',
     cm: 'Ver en Cardmarket', set: 'Ver el set', source: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
     graded: 'Gradeada', gradedNote: 'Mediana de ventas recientes en eBay y Fanatics Collect (en dólares, pasada a euros). Datos de PokemonPriceTracker.', sales: (n: number) => `${n} ${n === 1 ? 'venta' : 'ventas'}`,
     noOdds: 'Para esta rareza no tenemos tasa de aparición.', share: 'Copiar enlace', copied: 'Copiado', x30: 'Media 30 d', x7: 'Media 7 d', x1: 'Último día', xNow: 'Hoy', history: 'Evolución del precio', since: 'Historial diario desde el {d}.', early: 'El historial diario empezó el {d}. Hasta tener más días, la línea une las medias de 30 y 7 días de Cardmarket con el precio de hoy.',
@@ -18,12 +20,15 @@ const t = {
   en: {
     close: 'Close', trend: 'Trend', low: 'From', avg1: '1-day average', avg7: '7-day average', avg30: '30-day average',
     week: 'this week', odds: (n: string) => `You pull it in 1 of every ${n} packs, based on the set's pull rates.`, oddsLabel: 'Chance of pulling it',
+    ebay: 'Search on eBay', ebayNote: 'The eBay button is an affiliate link: if you buy, we earn a small commission at no extra cost to you.',
     cm: 'View on Cardmarket', set: 'View set', source: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
     graded: 'Graded', gradedNote: 'Median of recent eBay and Fanatics Collect sales (in US dollars, converted to euros). Data from PokemonPriceTracker.', sales: (n: number) => `${n} ${n === 1 ? 'sale' : 'sales'}`,
     noOdds: 'We have no pull rate for this rarity.', share: 'Copy link', copied: 'Copied', x30: '30-day avg', x7: '7-day avg', x1: 'Last day', xNow: 'Today', history: 'Price history', since: 'Daily history since {d}.', early: 'Daily history started on {d}. Until there are more days, the line joins Cardmarket\'s 30 and 7-day averages with today\'s price.',
   },
 }[lang];
-const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rarities: lang === 'es' ? RARITY_ES : {}, t: { ...t, odds: t.odds('{n}'), sales: t.sales(2).replace('2', '{n}'), sale: t.sales(1).replace('1', '{n}') } };
+/** Búsqueda en eBay con afiliado; "{q}" se cambia en el navegador por la carta. null sin código de eBay. */
+const ebayBase = ebayUrl(affiliates, '{q}', lang);
+const config = { lang, locale: LOCALE[lang], ebay: ebayBase, setsBase: ROUTES.sets[lang], rarities: lang === 'es' ? RARITY_ES : {}, t: { ...t, odds: t.odds('{n}'), sales: t.sales(2).replace('2', '{n}'), sale: t.sales(1).replace('1', '{n}') } };
 ---
 <dialog class="drawer" data-drawer data-config={JSON.stringify(config)} aria-labelledby="drawer-name">
   <div class="inner">
@@ -66,10 +71,11 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
 
       <div class="actions">
         <a class="btn btn-primary" data-f="cm" target="_blank" rel="noopener">{t.cm} <Icon name="arrow-up-right" /></a>
+        {ebayBase && <a class="btn btn-ghost" data-f="ebay" target="_blank" rel="sponsored nofollow noopener">{t.ebay} <Icon name="arrow-up-right" /></a>}
         <a class="btn btn-ghost" data-f="setBtn">{t.set}</a>
         <button class="btn btn-ghost" type="button" data-share><Icon name="link-simple" /><span>{t.share}</span></button>
       </div>
-      <p class="src">{t.source}</p>
+      <p class="src">{t.source}{ebayBase && <><br />{t.ebayNote}</>}</p>
     </div>
   </div>
 </dialog>
@@ -210,6 +216,10 @@ const config = { lang, locale: LOCALE[lang], setsBase: ROUTES.sets[lang], rariti
         `<div><dt>${g.replace(/^([a-z]+)(\d+)$/, (_m, c: string, d: string) => `${c.toUpperCase()} ${d}`)}</dt><dd>${fmt(eur)}<span class="gsales">${(n === 1 ? cfg.t.sale : cfg.t.sales).replace('{n}', String(n))}</span></dd></div>`).join('');
       f('odds').textContent = data.odds ? cfg.t.odds.replace('{n}', data.odds.toLocaleString(cfg.locale)) : cfg.t.noOdds;
       (f('cm') as HTMLAnchorElement).href = data.cm;
+      if (cfg.ebay) {
+        const q = `${data.name} ${data.set.replace(/\s*\(JP\)$/, cfg.lang === 'es' ? ' japonés' : ' Japanese')}${data.num ? ` ${data.num}` : ''}`;
+        (f('ebay') as HTMLAnchorElement).href = cfg.ebay.replace('%7Bq%7D', encodeURIComponent(q));
+      }
       const setBtn = f('setBtn') as HTMLAnchorElement;
       setBtn.href = `${data.setUrl}#c-${data.id}`;
       setBtn.hidden = onSetPage(data.setUrl);

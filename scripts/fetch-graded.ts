@@ -14,6 +14,7 @@ import { existsSync, readdirSync } from 'node:fs';
 import { readFile, writeFile } from 'node:fs/promises';
 import { gradedQueue, parseGraded, pickMatch, type ApiCard, type GradedFile } from '../src/lib/graded.ts';
 import type { MarketSet } from '../src/lib/market.ts';
+import { isCommercial, type AffiliateConfig } from '../src/lib/affiliates.ts';
 
 const API = process.env.PPT_API_URL ?? 'https://www.pokemonpricetracker.com/api/v2';
 const KEY = process.env.PPT_API_KEY;
@@ -26,6 +27,12 @@ const OUT = new URL('../src/data/graded.json', import.meta.url);
 
 if (!KEY) {
   console.log('Sin PPT_API_KEY: no se descargan precios de gradeadas.');
+  process.exit(0);
+}
+const affiliates = JSON.parse(await readFile(new URL('../src/data/affiliates.json', import.meta.url), 'utf8')) as AffiliateConfig;
+if (isCommercial(affiliates)) {
+  // El plan gratis de PokemonPriceTracker no permite uso comercial, y con afiliados la web lo es.
+  console.log('Afiliados activos (src/data/affiliates.json): no se descargan precios de gradeadas.');
   process.exit(0);
 }
 

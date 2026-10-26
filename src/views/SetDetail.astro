@@ -4,9 +4,10 @@ import Icon from '../components/Icon.astro';
 import CardDrawer from '../components/CardDrawer.astro';
 import PackSim from '../components/PackSim.astro';
 import PriceChart from '../components/PriceChart.astro';
-import { gradedOf, historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary, seriesName } from '../lib/market-data';
+import { affiliates, gradedOf, historyOf, marketIndex, PACKS, rarityLabel, rarityShort, rarityTone, type SetSummary, seriesName } from '../lib/market-data';
 import { cardImage, cardmarketUrl, isHit, normRarity, type SealedItem } from '../lib/market';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
+import { amazonUrl } from '../lib/affiliates';
 
 interface Props { lang: Lang; summary: SetSummary }
 const { lang, summary } = Astro.props;
@@ -20,6 +21,8 @@ const paths = { es: `${ROUTES.sets.es}${summary.slug}/`, en: `${ROUTES.sets.en}$
 /** Las cajas japonesas traen 10, 20 o 30 sobres según el set: no se calcula el precio por sobre. */
 const ja = set.lang === 'ja';
 /** PSA 10 en euros (aproximado), si la carta tiene precios de gradeadas. */
+/** Búsqueda en Amazon (afiliado) de un producto sellado; null sin etiqueta de Amazon. */
+const amazon = (product: string) => amazonUrl(affiliates, `${product} Pokémon${ja ? (lang === 'es' ? ' japonés' : ' Japanese') : ''}`);
 const psa10 = (id: string) => gradedOf(id)?.find(([g]) => g === 'psa10')?.[1] ?? null;
 
 const c = {
@@ -27,7 +30,7 @@ const c = {
     title: `${set.name}: precios, cartas top y valor del sobre`,
     description: `Precio de sobres, cajas y ETB de ${set.name} en Cardmarket, sus cartas más caras y cuánto valen de media los hits de un sobre.`,
     back: 'Todas las expansiones', cards: 'cartas', released: (serie: string, d: string, n: number) => `Serie ${serie}. Salió el ${d} con ${n} cartas.`,
-    jaNote: (local: string) => `Edición japonesa (${local}). Precios de la versión japonesa en Cardmarket; los nombres de las cartas, en inglés como los pone Cardmarket.`, jaBox: 'Caja de sobres', cmNote: 'TCGdex no tiene las cartas de este set, así que la lista sale del catálogo de Cardmarket: sin número, rareza ni imagen. Las versiones alternativas de una misma carta se distinguen como allí, (V.1) y (V.2).', prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
+    jaNote: (local: string) => `Edición japonesa (${local}). Precios de la versión japonesa en Cardmarket; los nombres de las cartas, en inglés como los pone Cardmarket.`, jaBox: 'Caja de sobres', amazon: 'Buscar en Amazon', affNote: 'Los botones de Amazon son enlaces de afiliado: si compras, nos llevamos una pequeña comisión sin que te cueste más.', cmNote: 'TCGdex no tiene las cartas de este set, así que la lista sale del catálogo de Cardmarket: sin número, rareza ni imagen. Las versiones alternativas de una misma carta se distinguen como allí, (V.1) y (V.2).', prices: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
     sealedTitle: 'Producto sellado',
     kinds: { pack: 'Sobre', box: 'Caja de 36 sobres', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 sobres)' } as Record<SealedItem['kind'], string>,
     from: 'desde', perPack: 'por sobre', see: 'Ver en Cardmarket', noSealed: 'No hemos encontrado producto sellado de este set en Cardmarket.',
@@ -57,7 +60,7 @@ const c = {
     title: `${set.name}: prices, chase cards and pack value`,
     description: `Cardmarket prices for ${set.name} packs, boxes and ETBs, its most valuable cards and what the hits in a pack are worth on average.`,
     back: 'All sets', cards: 'cards',
-    jaNote: (local: string) => `Japanese edition (${local}). Prices for the Japanese version on Cardmarket; card names in English as Cardmarket lists them.`, jaBox: 'Booster box', cmNote: 'TCGdex does not have the cards for this set, so the list comes from the Cardmarket catalogue: no number, rarity or image. Alternate versions of the same card are labelled as there, (V.1) and (V.2).', released: (serie: string, d: string, n: number) => `${serie} series. Released ${d} with ${n} cards.`, prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
+    jaNote: (local: string) => `Japanese edition (${local}). Prices for the Japanese version on Cardmarket; card names in English as Cardmarket lists them.`, jaBox: 'Booster box', amazon: 'Search on Amazon', affNote: 'Amazon buttons are affiliate links: if you buy, we earn a small commission at no extra cost to you.', cmNote: 'TCGdex does not have the cards for this set, so the list comes from the Cardmarket catalogue: no number, rarity or image. Alternate versions of the same card are labelled as there, (V.1) and (V.2).', released: (serie: string, d: string, n: number) => `${serie} series. Released ${d} with ${n} cards.`, prices: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
     sealedTitle: 'Sealed product',
     kinds: { pack: 'Booster pack', box: 'Booster box (36 packs)', etb: 'Elite Trainer Box', bundle: 'Booster Bundle (6 packs)' } as Record<SealedItem['kind'], string>,
     from: 'from', perPack: 'per pack', see: 'View on Cardmarket', noSealed: 'We found no sealed product for this set on Cardmarket.',
@@ -131,10 +134,12 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
               <small>{c.sealedLine(s.price.low != null ? fmt(s.price.low) : null, !ja && s.kind !== 'pack' && s.price.trend != null ? fmt(s.price.trend / PACKS[s.kind]) : null)}</small>
             </span>
             <span class="pl-price">{fmt(s.price.trend)}</span>
+            {amazon(s.name) && <a class="buy" href={amazon(s.name)} rel="sponsored nofollow noopener" target="_blank" aria-label={`${c.amazon}: ${s.name}`}>Amazon</a>}
             <a class="ext" href={cardmarketUrl(cmLang, s.idProduct)} rel="noopener" target="_blank" aria-label={`${c.see}: ${s.name}`}></a>
           </li>
         ))}
       </ul>
+      {set.sealed.length > 0 && amazon('x') && <p class="aff-note">{c.affNote}</p>}
       {alertsOn && set.sealed.length > 0 && (
         <p class="alert-link">{c.alertText} <a href={`${ROUTES.alerts[lang]}?q=${encodeURIComponent(set.name)}`}>{c.alertCta}</a></p>
       )}
@@ -273,7 +278,11 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
   .block { margin-top: 40px; }
   .block h2 { margin-bottom: 14px; }
   .pricelist { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-panel); }
-  .pricelist li { display: grid; grid-template-columns: 1fr auto 28px; align-items: center; gap: 16px; padding: 14px 18px; }
+  .pricelist li { display: grid; grid-template-columns: 1fr auto auto 28px; align-items: center; gap: 16px; padding: 14px 18px; }
+  .pricelist li:not(:has(.buy)) { grid-template-columns: 1fr auto 28px; }
+  .buy { padding: 6px 12px; border-radius: 8px; border: 1px solid var(--border-strong); color: var(--text); text-decoration: none; font-size: 0.85rem; font-weight: 650; white-space: nowrap; }
+  .buy:hover { background: var(--surface-2); color: var(--text); }
+  .aff-note { margin: 8px 0 0; font-size: 0.8rem; color: var(--text-muted); }
   .pricelist li + li { border-top: 1px solid var(--border); }
   .alert-link { margin: 12px 0 0; font-size: 0.95rem; }
   .pl-name { font-weight: 600; display: flex; flex-direction: column; }

@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import owner from '../data/owner.json';
 import rules from '../data/import-rules.json';
 import { SITE_NAME, formatDate, type Lang } from '../i18n/ui';
+import { affiliates, COMMERCIAL } from '../lib/market-data';
 
 type LegalKey = 'legal' | 'privacy' | 'cookies' | 'affiliates';
 interface Props { lang: Lang; page: LegalKey }
@@ -109,6 +110,29 @@ if (import.meta.env.PUBLIC_ALERTS_API) {
   ] });
   pages.privacy.es.blocks[1].p[0] = 'Esta web no tiene registro, analítica ni publicidad. La calculadora funciona en tu navegador: los importes que escribes no se envían a nuestros servidores. El único formulario es el de avisos de stock (ver más abajo).';
   pages.privacy.en.blocks[1].p[0] = 'This site has no sign-up, analytics or advertising. The calculator runs in your browser: the amounts you type are not sent to our servers. The only form is the stock alert one (see below).';
+}
+// Los textos de afiliados y privacidad siguen a src/data/affiliates.json: qué programas hay activos y Ko-fi.
+const programs = {
+  es: [affiliates.amazon.tag && 'Amazon (Programa de Afiliados de Amazon EU)', affiliates.ebay.campid && 'eBay (eBay Partner Network)', Object.values(affiliates.shops).some(Boolean) && 'algunas tiendas de cartas, en los enlaces de los avisos de stock'].filter(Boolean) as string[],
+  en: [affiliates.amazon.tag && 'Amazon (Amazon EU Associates Programme)', affiliates.ebay.campid && 'eBay (eBay Partner Network)', Object.values(affiliates.shops).some(Boolean) && 'some card shops, in stock alert links'].filter(Boolean) as string[],
+};
+if (COMMERCIAL) {
+  pages.affiliates.es.blocks[0] = { p: [
+    `Esta web contiene enlaces de afiliado de ${programs.es.join(', ')}. Si compras a través de ellos, recibimos una pequeña comisión sin que te cueste más. Los botones de afiliado están marcados en la propia página.`,
+    ...(affiliates.amazon.tag ? ['En calidad de Afiliado de Amazon, obtengo ingresos por las compras adscritas que cumplen los requisitos aplicables.'] : []),
+  ] };
+  pages.affiliates.en.blocks[0] = { p: [
+    `This site contains affiliate links from ${programs.en.join(', ')}. If you buy through them, we earn a small commission at no extra cost to you. Affiliate buttons are marked on the page itself.`,
+    ...(affiliates.amazon.tag ? ['As an Amazon Associate I earn from qualifying purchases.'] : []),
+  ] };
+}
+if (COMMERCIAL || affiliates.kofi.user) {
+  const es = 'Los enlaces a otras webs (Cardmarket, Amazon, eBay, tiendas o Ko-fi) solo te llevan allí si haces clic. Esa web puede instalar sus propias cookies, por ejemplo para atribuir una compra a nuestro enlace de afiliado; eso se rige por su política de privacidad, no por la nuestra.';
+  const en = 'Links to other sites (Cardmarket, Amazon, eBay, shops or Ko-fi) only take you there if you click them. That site may set its own cookies, for example to attribute a purchase to our affiliate link; that is governed by its privacy policy, not ours.';
+  pages.privacy.es.blocks[1].p.push(es);
+  pages.privacy.en.blocks[1].p.push(en);
+  pages.cookies.es.blocks[0].p.push('Los enlaces de afiliado no instalan cookies en esta web: si haces clic, es la web de destino (Amazon, eBay o la tienda) la que puede instalarlas.');
+  pages.cookies.en.blocks[0].p.push('Affiliate links set no cookies on this site: if you click one, the destination site (Amazon, eBay or the shop) may set its own.');
 }
 const content = pages[page][lang];
 ---

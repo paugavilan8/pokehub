@@ -57,6 +57,17 @@ scripts/make-images.mjs    genera og-es.png, og-en.png y apple-touch-icon.png
 - Para activarlo: crear la clave en pokemonpricetracker.com y guardarla como secreto `PPT_API_KEY` en GitHub (Settings → Secrets and variables → Actions → New repository secret). Sin ella el paso no hace nada.
 - Ojo: el plan gratis solo da 3 días de historial de ventas, así que las medianas se basan en pocas ventas; el plan API (9,99 $/mes) da 6 meses y 20.000 créditos al día. Según sus condiciones, el uso comercial (anuncios, afiliados) necesita el plan Business.
 
+## Afiliados y Ko-fi
+
+Todo se configura en `src/data/affiliates.json`; un código vacío hace que su botón no aparezca:
+
+- `amazon.tag`: etiqueta de Amazon Afiliados España (por ejemplo `pullradar-21`). Añade un botón "Amazon" a cada producto sellado de los sets.
+- `ebay.campid`: id de campaña de eBay Partner Network. Añade "Buscar en eBay" en la ficha de cada carta (ebay.es en español, ebay.com en inglés).
+- `shops.<tienda>`: parámetros que cada tienda te dé para sus enlaces (por ejemplo `ref=pullradar`). Se añaden a los enlaces de los avisos de stock (web y correos); hay que volver a desplegar el worker.
+- `kofi.user`: tu usuario de Ko-fi. Añade el bloque "Apoya PullRadar" al pie de todas las páginas.
+
+Con cualquier código de Amazon, eBay o tiendas la web pasa a ser comercial: las páginas de afiliados, privacidad y cookies cambian solas (con la frase obligatoria de Amazon), y los precios de gradeadas de PokemonPriceTracker se apagan, porque su plan gratis no permite uso comercial. Ko-fi no cuenta como afiliado.
+
 ## Comandos
 
 ```sh

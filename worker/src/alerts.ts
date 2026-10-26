@@ -1,6 +1,11 @@
 // Lógica de los avisos sobre la base de datos D1: productos, suscriptores, avisos y envíos.
 import { confirmMail, isValidEmail, restockMail, sendMail, type Lang, type Mail } from './mail.ts';
 import { SHOPS, type ShopProduct } from './shops.ts';
+import affiliates from '../../src/data/affiliates.json';
+import { shopUrl, type AffiliateConfig } from '../../src/lib/affiliates.ts';
+
+/** Enlace a la tienda con su código de afiliado, si lo hay (src/data/affiliates.json). */
+const withRef = (shop: string, url: string) => shopUrl(affiliates as AffiliateConfig, shop, url);
 
 export interface Env {
   DB: D1Database;
@@ -77,7 +82,7 @@ export async function notifyRestocks(env: Env, workerUrl: string, productIds: st
   const mails: Mail[] = [];
   for (const rows of bySubscriber.values()) {
     const { email, lang, token } = rows[0];
-    mails.push(restockMail(email, lang, rows.map((r) => ({ name: r.name, shop: shopName(r.shop), url: r.url, price: r.price, image: r.image })),
+    mails.push(restockMail(email, lang, rows.map((r) => ({ name: r.name, shop: shopName(r.shop), url: withRef(r.shop, r.url), price: r.price, image: r.image })),
       `${workerUrl}/api/unsubscribe?t=${token}`, `${workerUrl}/api/unsubscribe?t=${token}&oneclick=1`));
   }
   await sendMail(mails, env);
@@ -165,5 +170,5 @@ export async function searchProducts(db: D1Database, q: string, limit = 40) {
   const { results } = await db.prepare(`SELECT id, shop, name, url, image, price, available, kind, lang, last_change FROM products
       WHERE ${where} ORDER BY available DESC, last_change DESC LIMIT ?`)
     .bind(...tokens.map((t) => `%${t}%`), Math.min(limit, 60)).all<ProductRow>();
-  return results.map((r) => ({ ...r, available: r.available === 1, shopName: shopName(r.shop) }));
+  return results.map((r) => ({ ...r, url: withRef(r.shop, r.url), available: r.available === 1, shopName: shopName(r.shop) }));
 }

@@ -3,6 +3,8 @@ import '../styles/global.css';
 import SiteSearch from '../components/SiteSearch.astro';
 import MegaNav from '../components/MegaNav.astro';
 import Icon from '../components/Icon.astro';
+import { affiliates } from '../lib/market-data';
+import { kofiUrl } from '../lib/affiliates';
 import { ROUTES, SITE_NAME, OG_LOCALE, ui, type Lang, type RouteKey } from '../i18n/ui';
 
 interface Props {
@@ -26,6 +28,10 @@ const abs = (path: string) => new URL(path, site).href;
 const canonical = abs(paths[lang]);
 const fullTitle = route === 'home' && !customPaths ? title : `${title} | ${SITE_NAME}`;
 const ogImage = abs(`/og-${lang}.png`);
+const kofi = kofiUrl(affiliates);
+const support = lang === 'es'
+  ? { title: 'Apoya PullRadar', text: 'La web es gratis y sin anuncios. Si te ahorra dinero, puedes invitarnos a un café en Ko-fi.', cta: 'Invitar a un café' }
+  : { title: 'Support PullRadar', text: 'The site is free and ad-free. If it saves you money, you can buy us a coffee on Ko-fi.', cta: 'Buy us a coffee' };
 const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { open: 'Open menu', close: 'Close menu' };
 ---
 <!doctype html>
@@ -86,6 +92,12 @@ const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { 
     </main>
     <footer class="site-footer">
       <div class="container foot">
+        {kofi && (
+          <div class="support">
+            <div><p class="support-title">{support.title}</p><p class="support-text">{support.text}</p></div>
+            <a class="kofi" href={kofi} target="_blank" rel="noopener"><Icon name="coffee" />{support.cta}</a>
+          </div>
+        )}
         <div class="foot-top">
           <p class="brand-foot">{SITE_NAME}</p>
           <ul class="foot-links">
@@ -131,6 +143,13 @@ const menu = lang === 'es' ? { open: 'Abrir menú', close: 'Cerrar menú' } : { 
   }
   .site-footer { margin-top: 80px; border-top: 1px solid var(--border); background: var(--surface); padding-block: 28px 36px; font-size: 0.85rem; color: var(--text-muted); }
   .foot p { max-width: 95ch; margin-bottom: 0.6em; }
+  .support { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 16px 20px; margin-bottom: 24px; border: 1px solid var(--border); border-radius: var(--radius-panel); background: var(--bg); }
+  .support p { margin: 0; }
+  .support-title { font-weight: 700; color: var(--text); font-size: 0.98rem; }
+  .support-text { font-size: 0.88rem; }
+  .kofi { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 8px; background: var(--accent); color: var(--on-accent); font-weight: 650; text-decoration: none; font-size: 0.92rem; }
+  .kofi:hover { background: var(--accent-hover); color: var(--on-accent); }
+  .kofi :global(svg) { width: 18px; height: 18px; }
   .foot-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 10px 24px; margin-bottom: 12px; }
   .brand-foot { font-weight: 800; letter-spacing: -0.03em; color: var(--text); font-size: 1rem; margin: 0 !important; }
   .foot-links { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
