@@ -10,37 +10,34 @@ Pokémon en D1 y, cuando algo pasa de agotado a disponible, envía un correo a q
 - Tiendas: catálogo público (Shopify `/products.json`, WooCommerce Store API) a baja frecuencia y con un
   `User-Agent` que nos identifica. Antes de añadir una tienda, revisa sus condiciones y su `robots.txt`.
 
-## Ponerlo en marcha (una vez)
+## Cómo funciona
 
-Desde la raíz del repo:
+- **GitHub Actions** (`.github/workflows/stock-sync.yml`, cada 10 minutos) lee el catálogo de las tiendas con
+  `worker/src/sync-node.ts` y manda al worker solo el producto sellado de Pokémon (`POST /api/sync`). Así el worker no
+  gasta CPU leyendo catálogos grandes, que no caben en el plan gratuito de Workers.
+- **El worker** guarda los cambios en D1, envía los correos con Resend y atiende la web (`/api/products`, `/api/watch`,
+  confirmación y baja). Su cron solo limpia una vez al día los avisos sin confirmar.
 
-```sh
-npx wrangler login
-npx wrangler d1 create pullradar-alerts                 # copia el database_id en worker/wrangler.toml
-npx wrangler d1 execute pullradar-alerts --remote --file=worker/schema.sql --config worker/wrangler.toml
-```
+## Ponerlo en marcha (una vez, sin instalar nada)
 
-Correo con [Resend](https://resend.com) (plan gratuito: 100 correos al día, 3.000 al mes):
+1. En Cloudflare, crea un token de API (Mi perfil → Tokens de API → Crear token → plantilla "Editar Cloudflare
+   Workers") y añádele el permiso **Cuenta → D1 → Editar**.
+2. En GitHub (Settings → Secrets and variables → Actions) crea los secretos `CLOUDFLARE_API_TOKEN` (el token) y
+   `CLOUDFLARE_ACCOUNT_ID` (el id de cuenta, en la portada de Workers y Pages del panel de Cloudflare).
+3. En [Resend](https://resend.com) crea una API key y guárdala como secreto `RESEND_API_KEY`. Sin dominio verificado,
+   Resend solo entrega a tu propio correo (remitente `onboarding@resend.dev`), que sirve para probar.
+4. Con dominio propio: verifícalo en Resend (registros DNS en Cloudflare) y crea la **variable** `MAIL_FROM`, por
+   ejemplo `PullRadar <avisos@tudominio.es>`.
+5. Lanza el workflow "Desplegar avisos de stock" (pestaña Actions → Run workflow). Crea la base de datos, el esquema,
+   publica el worker en `https://pullradar-alerts.<tu-subdominio>.workers.dev` y le pone los secretos.
+6. En la web, `PUBLIC_ALERTS_API` con la dirección del worker (fichero `.env.production` o variable de compilación).
 
-1. Crea la cuenta y verifica tu dominio (te da unos registros DNS para añadir en Cloudflare).
-2. Crea una API key y guárdala como secreto: `npx wrangler secret put RESEND_API_KEY --config worker/wrangler.toml`
-3. En `worker/wrangler.toml`, pon `SITE_URL`, `ALLOWED_ORIGINS`, `MAIL_FROM` (con tu dominio) y `WORKER_URL`.
-
-Publicar:
-
-```sh
-npx wrangler deploy --config worker/wrangler.toml
-```
-
-Por último, en el proyecto de Cloudflare Pages añade la variable `PUBLIC_ALERTS_API` con la dirección del worker
-(la misma que `WORKER_URL`) y vuelve a publicar la web. Sin esa variable, `/avisos/` dice "muy pronto" y la política
-de privacidad no menciona los avisos.
+Desde entonces, cada cambio en `worker/` se vuelve a desplegar solo.
 
 ## Coste y límites
 
-- D1 y los cron del plan gratuito de Workers bastan para empezar. Solo se escribe en D1 lo que cambia.
-- El plan gratuito de Workers limita el tiempo de CPU de cada ejecución. Si en los registros (`npx wrangler tail`)
-  aparece que se supera, pasa al plan Workers Paid (unos 5 $ al mes) o quita la tienda con el catálogo más grande.
+- Todo cabe en los planes gratuitos: Workers y D1 de Cloudflare, Actions de GitHub (repo público) y Resend.
+  Solo se escribe en D1 lo que cambia.
 - Si un día hay más de 100 correos, Resend gratuito deja de enviar hasta el día siguiente.
 
 ## Desarrollo

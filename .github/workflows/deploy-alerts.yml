@@ -1,0 +1,52 @@
+name: Desplegar avisos de stock
+
+# Crea (la primera vez) la base de datos D1, aplica el esquema y publica el worker de avisos con sus secretos.
+# Necesita los secretos CLOUDFLARE_API_TOKEN y CLOUDFLARE_ACCOUNT_ID; RESEND_API_KEY para enviar correos.
+# Opcional: la variable MAIL_FROM ("PullRadar <avisos@tudominio.es>"), con el dominio verificado en Resend.
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - worker/**
+      - .github/workflows/deploy-alerts.yml
+
+concurrency:
+  group: deploy-alerts
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      MAIL_FROM: ${{ vars.MAIL_FROM }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Desplegar
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "Faltan los secretos CLOUDFLARE_API_TOKEN o CLOUDFLARE_ACCOUNT_ID: no se despliega."
+            exit 0
+          fi
+          W="npx wrangler --config worker/wrangler.toml"
+          find_db() { $W d1 list --json | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>{const db=JSON.parse(s).find(d=>d.name==="pullradar-alerts");process.stdout.write(db?db.uuid:"")})'; }
+          ID=$(find_db)
+          if [ -z "$ID" ]; then $W d1 create pullradar-alerts; ID=$(find_db); fi
+          echo "Base de datos D1: $ID"
+          sed -i "s/^database_id = \".*\"/database_id = \"$ID\"/" worker/wrangler.toml
+          $W d1 execute pullradar-alerts --remote --file=worker/schema.sql
+          if [ -n "$MAIL_FROM" ]; then $W deploy --var "MAIL_FROM:$MAIL_FROM"; else $W deploy; fi
+          # Clave para que el workflow de tiendas pueda mandar los catálogos (se deriva del token: no hay que crearla).
+          SYNC_TOKEN=$(printf '%s' "pullradar-sync:$CLOUDFLARE_API_TOKEN" | sha256sum | cut -d' ' -f1)
+          echo "::add-mask::$SYNC_TOKEN"
+          printf '%s' "$SYNC_TOKEN" | $W secret put SYNC_TOKEN
+          if [ -n "$RESEND_API_KEY" ]; then printf '%s' "$RESEND_API_KEY" | $W secret put RESEND_API_KEY; else echo "Sin RESEND_API_KEY: los correos solo se escriben en el registro."; fi

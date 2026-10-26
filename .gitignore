@@ -5,3 +5,5 @@ dist/
 .DS_Store
 .wrangler/
 worker/.wrangler/
+.dev.vars
+worker/.dev.vars

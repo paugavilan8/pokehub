@@ -15,6 +15,8 @@ export interface Env {
   RESEND_API_KEY?: string;
   /** Dirección pública del propio worker (para los enlaces de los correos). Por defecto, la de la petición. */
   WORKER_URL?: string;
+  /** Clave compartida con GitHub Actions para enviar el catálogo de las tiendas a /api/sync. */
+  SYNC_TOKEN?: string;
 }
 
 /** Máximo de productos vigilados por correo, y horas mínimas entre dos avisos del mismo producto. */

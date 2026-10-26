@@ -113,6 +113,32 @@ export async function fetchShop(shop: Shop, fetchFn: Fetch = fetch, pauseMs = 80
   return out;
 }
 
+const KINDS = new Set<string>(['pack', 'box', 'etb', 'bundle', 'blister', 'tin', 'collection']);
+const LANGS = new Set<string>(['es', 'en', 'ja', 'ko', 'zh']);
+
+/**
+ * Comprueba los productos que llegan por /api/sync (los lee GitHub Actions): solo de esa tienda, con enlace a su web
+ * y como mucho 5.000. Devuelve null si algo no cuadra, para no escribir basura en la base de datos.
+ */
+export function validProducts(shop: Shop, list: unknown): ShopProduct[] | null {
+  if (!Array.isArray(list) || list.length > 5000) return null;
+  const host = new URL(shop.url).host.replace(/^www\./, '');
+  const out: ShopProduct[] = [];
+  for (const raw of list) {
+    const p = raw as Partial<ShopProduct>;
+    if (typeof p?.id !== 'string' || !p.id.startsWith(`${shop.id}:`) || p.shop !== shop.id) return null;
+    if (typeof p.name !== 'string' || !p.name || p.name.length > 300) return null;
+    let url: URL;
+    try { url = new URL(String(p.url)); } catch { return null; }
+    if (url.protocol !== 'https:' || url.host.replace(/^www\./, '') !== host) return null;
+    if (p.price != null && (typeof p.price !== 'number' || !Number.isFinite(p.price) || p.price < 0)) return null;
+    if (typeof p.available !== 'boolean' || !KINDS.has(String(p.kind))) return null;
+    const image = typeof p.image === 'string' && p.image.startsWith('https://') ? p.image : null;
+    out.push({ id: p.id, shop: shop.id, name: p.name, url: url.toString(), image, price: p.price ?? null, available: p.available, kind: p.kind!, lang: LANGS.has(String(p.lang)) ? p.lang! : null });
+  }
+  return out;
+}
+
 /** Productos que pasan de agotados a disponibles. */
 export function restocked(previous: Map<string, boolean>, current: ShopProduct[]): ShopProduct[] {
   return current.filter((p) => p.available && previous.get(p.id) === false);

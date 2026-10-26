@@ -6,8 +6,13 @@
 //   GET  /api/unsubscribe?t=TOKEN    baja de todos los avisos y vuelve a la web
 //   POST /api/unsubscribe?t=TOKEN    baja en un clic desde el gestor de correo (List-Unsubscribe)
 //   GET  /api/shops                  estado de la última revisión de cada tienda
+//   POST /api/sync                   { shop, products } o { shop, error }  catálogo de una tienda (lo envía GitHub
+//                                    Actions con la clave SYNC_TOKEN): guarda los cambios y avisa de lo repuesto
+//
+// Las tiendas no se leen desde aquí: sus catálogos pesan demasiado para el tiempo de CPU del plan gratuito de Workers.
+// Las lee worker/src/sync-node.ts en GitHub Actions cada 10 minutos y manda solo el producto sellado de Pokémon.
 import { allow, cleanup, confirm, createWatch, notifyRestocks, searchProducts, syncShop, unsubscribe, type Env } from './alerts.ts';
-import { SHOPS, fetchShop } from './shops.ts';
+import { SHOPS, validProducts } from './shops.ts';
 
 const json = (body: unknown, status = 200, headers: HeadersInit = {}) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...headers } });
@@ -40,6 +45,24 @@ export default {
       if (url.pathname === '/api/shops' && request.method === 'GET') {
         const { results } = await env.DB.prepare('SELECT shop, checked_at, ok, products FROM shop_state').all();
         return json({ shops: SHOPS.map((s) => ({ ...s, ...(results.find((r) => r.shop === s.id) ?? {}) })) }, 200, headers);
+      }
+
+      if (url.pathname === '/api/sync' && request.method === 'POST') {
+        if (!env.SYNC_TOKEN || request.headers.get('Authorization') !== `Bearer ${env.SYNC_TOKEN}`) return json({ ok: false, error: 'unauthorized' }, 401);
+        const body = await request.json().catch(() => null) as { shop?: string; products?: unknown; error?: string } | null;
+        const shop = SHOPS.find((s) => s.id === body?.shop);
+        if (!body || !shop) return json({ ok: false, error: 'bad-request' }, 400);
+        const state = 'INSERT OR REPLACE INTO shop_state (shop, checked_at, ok, error, products) VALUES (?, ?, ?, ?, ?)';
+        if (body.error) {
+          await env.DB.prepare(state).bind(shop.id, now, 0, String(body.error).slice(0, 300), null).run();
+          return json({ ok: true });
+        }
+        const products = validProducts(shop, body.products);
+        if (!products) return json({ ok: false, error: 'bad-products' }, 400);
+        const restocked = await syncShop(env.DB, shop.id, products, now);
+        const sent = await notifyRestocks(env, workerUrl, restocked, now);
+        await env.DB.prepare(state).bind(shop.id, now, 1, null, products.length).run();
+        return json({ ok: true, products: products.length, restocked: restocked.length, sent });
       }
 
       if (url.pathname === '/api/watch' && request.method === 'POST') {
@@ -75,21 +98,7 @@ export default {
   },
 
   async scheduled(event: ScheduledController, env: Env): Promise<void> {
-    // Una tienda por ejecución, por turnos, para repartir la carga y no pasarse del tiempo de CPU.
-    const slot = Math.floor(event.scheduledTime / (5 * 60 * 1000));
-    const shop = SHOPS[slot % SHOPS.length];
-    const now = new Date(event.scheduledTime).toISOString();
-    const workerUrl = env.WORKER_URL ?? '';
-    try {
-      const products = await fetchShop(shop);
-      const restocked = await syncShop(env.DB, shop.id, products, now);
-      const sent = workerUrl ? await notifyRestocks(env, workerUrl, restocked, now) : 0;
-      await env.DB.prepare('INSERT OR REPLACE INTO shop_state (shop, checked_at, ok, error, products) VALUES (?, ?, 1, NULL, ?)').bind(shop.id, now, products.length).run();
-      console.log(`${shop.id}: ${products.length} productos, ${restocked.length} repuestos, ${sent} correos`);
-    } catch (e) {
-      await env.DB.prepare('INSERT OR REPLACE INTO shop_state (shop, checked_at, ok, error, products) VALUES (?, ?, 0, ?, NULL)').bind(shop.id, now, String((e as Error).message).slice(0, 300)).run();
-      console.error(`${shop.id}: ${(e as Error).message}`);
-    }
-    if (slot % SHOPS.length === 0) await cleanup(env.DB, now);
+    // Una vez al día: borrar los avisos sin confirmar de más de 7 días.
+    await cleanup(env.DB, new Date(event.scheduledTime).toISOString());
   },
 };

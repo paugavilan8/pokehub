@@ -3,9 +3,10 @@ name = "pullradar-alerts"
 main = "src/index.ts"
 compatibility_date = "2026-10-01"
 
-# Cada 5 minutos se revisa una tienda (por turnos): cada tienda se mira más o menos cada 25 minutos.
+# Las tiendas las lee GitHub Actions (.github/workflows/stock-sync.yml) y manda los cambios a /api/sync.
+# Aquí solo queda la limpieza diaria de avisos sin confirmar.
 [triggers]
-crons = ["*/5 * * * *"]
+crons = ["23 3 * * *"]
 
 [[d1_databases]]
 binding = "DB"
@@ -17,9 +18,10 @@ database_id = "00000000-0000-0000-0000-000000000000"
 # Dirección pública de la web (sin barra final) y desde qué dominios se acepta el formulario.
 SITE_URL = "https://pokehub.elpaueto8.workers.dev"
 ALLOWED_ORIGINS = "https://pokehub.elpaueto8.workers.dev,http://localhost:4321"
-# Remitente de los correos. El dominio tiene que estar verificado en Resend.
-MAIL_FROM = "PullRadar <avisos@example.com>"
+# Remitente de los correos. El dominio tiene que estar verificado en Resend; con onboarding@resend.dev (sin dominio)
+# Resend solo entrega al correo de tu propia cuenta, para pruebas. En el despliegue se cambia con la variable MAIL_FROM.
+MAIL_FROM = "PullRadar <onboarding@resend.dev>"
 # Dirección pública de este worker (para los enlaces de confirmar y darse de baja en los correos).
-WORKER_URL = "https://pullradar-alerts.example.workers.dev"
+WORKER_URL = "https://pullradar-alerts.elpaueto8.workers.dev"
 
-# Secreto (no va en este fichero): npx wrangler secret put RESEND_API_KEY
+# Secretos (no van en este fichero): RESEND_API_KEY y SYNC_TOKEN. Los pone .github/workflows/deploy-alerts.yml.
