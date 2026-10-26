@@ -6,6 +6,13 @@ on:
   schedule:
     - cron: '37 4 * * *'
   workflow_dispatch:
+  # También al cambiar los scripts de datos o este fichero, para probarlos sin esperar a la madrugada.
+  push:
+    branches: [main]
+    paths:
+      - scripts/fetch-market.ts
+      - scripts/fetch-graded.ts
+      - .github/workflows/market-data.yml
 
 permissions:
   contents: write
