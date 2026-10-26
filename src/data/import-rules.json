@@ -1,12 +1,15 @@
 {
-  "lastReviewed": "2026-10-25",
+  "lastReviewed": "2026-10-26",
   "note": "Reglas para importar cartas Pokémon (TCG) a la UE. Revisar cada entrada contra su fuente oficial antes de publicar y en cada cambio normativo. status: verified = contrastado con fuente oficial; secondary = solo fuentes secundarias coincidentes; pending = sin confirmar.",
   "lowValueThresholdEur": {
     "value": 150,
     "description": "Valor intrínseco del envío (sin transporte) por debajo del cual aplica el régimen de bajo valor.",
     "status": "verified",
-    "reviewed": "2026-10-25",
-    "sources": ["council-2025-12-12", "correos-bajo-valor"]
+    "reviewed": "2026-10-26",
+    "sources": [
+      "council-2025-12-12",
+      "correos-bajo-valor"
+    ]
   },
   "flatDuty": {
     "amountEur": 3,
@@ -16,56 +19,78 @@
     "validUntil": "2028-07-01",
     "legalBasis": "Reglamento (UE) 2026/382 del Consejo",
     "status": "verified",
-    "reviewed": "2026-10-25",
-    "sources": ["correos-bajo-valor", "ec-news-2026-06-29", "ec-guidance-2026-06-08", "council-2025-12-12"]
+    "reviewed": "2026-10-26",
+    "sources": [
+      "ec-guidance-2026-10-07",
+      "correos-bajo-valor",
+      "ec-news-2026-06-29",
+      "ec-guidance-2026-06-08",
+      "council-2025-12-12"
+    ]
   },
   "handlingFee": {
     "amountEur": 2,
     "per": "tariff-line",
     "inVatBase": true,
-    "description": "Tasa de tramitación aduanera de la UE para ventas a distancia desde fuera de la UE, sea cual sea el valor. Prevista desde el 1-nov-2026, sujeta a publicación del acto delegado en el DOUE. Las fuentes discrepan sobre si se cobra por artículo o por paquete y sobre si lleva IVA: la calculadora usa la hipótesis más cara (por tipo de artículo y dentro de la base del IVA).",
+    "description": "Tasa de tramitación aduanera de la UE (Union handling fee) en las ventas a distancia desde fuera de la UE, sea cual sea el valor, también por encima de 150 €. Es de 2 € por artículo, entendido como los productos del envío con la misma clasificación arancelaria y descripción: en la práctica, por línea de la declaración, sin importar cuántas unidades lleve (varias cajas de cartas iguales pagan una sola vez). Forma parte de la base del IVA. La paga quien declara la importación (la tienda, la plataforma o el transportista), que normalmente la repercute al comprador. Solo afecta a compras a tiendas o vendedores profesionales (venta a distancia), no a envíos entre particulares. La Comisión prevé aplicarla desde el 1-nov-2026, diez días después de que se publique el acto delegado en el DOUE.",
     "validFrom": "2026-11-01",
-    "legalBasis": "Art. 20 del nuevo Código Aduanero de la Unión (Reglamento (UE) 2026/2108); acto delegado de la Comisión adoptado el 21-sep-2026 (citado como C(2026) 6694)",
-    "status": "secondary",
-    "reviewed": "2026-10-25",
-    "sources": ["sgs-2026-10-14", "bandcamp-2026-10-20"]
+    "legalBasis": "Art. 20 del Reglamento (UE) 2026/2108 (nuevo Código Aduanero de la Unión) y Reglamento Delegado C(2026) 6694 de la Comisión, de 21-sep-2026 (2 € por artículo)",
+    "status": "verified",
+    "reviewed": "2026-10-26",
+    "sources": [
+      "ec-reform",
+      "ec-guidance-2026-10-07",
+      "ec-c-2026-6694"
+    ]
   },
   "standardDuty": {
     "ratePct": 2.7,
     "hsCode": "9504 40 00",
-    "description": "Arancel convencional orientativo para envíos de más de 150 € (base: valor de la mercancía + transporte hasta la UE). Confirmar en TARIC para la subpartida concreta.",
-    "status": "pending",
-    "reviewed": "2026-10-25",
-    "sources": ["taric-950440"]
+    "description": "Arancel normal para envíos de más de 150 € (base: valor de la mercancía + transporte hasta la UE). Las cartas de juego, incluidas las coleccionables, van en la subpartida 9504 40 00 (\"naipes\"), con un derecho de terceros países del 2,7 %. Los sobres y cajas sellados siguen la misma partida; latas o colecciones con figuras u otros objetos pueden clasificarse distinto.",
+    "status": "secondary",
+    "reviewed": "2026-10-26",
+    "sources": [
+      "taric-950440",
+      "tariffnumber-95044000",
+      "eu-2016-1758"
+    ]
   },
   "preferentialOrigin": {
-    "description": "Con prueba de origen preferencial (por ejemplo, declaración de origen en la factura) el arancel puede ser 0 % en envíos de más de 150 €. Solo si la mercancía es originaria del país de envío según su acuerdo con la UE.",
+    "description": "Con prueba de origen preferencial (por ejemplo, la declaración de origen del exportador en la factura) el arancel baja al 0 % en envíos de más de 150 €, pero solo si las cartas son originarias del país de envío. Las cartas japonesas impresas en Japón tienen 0 % con el acuerdo UE-Japón. Las cartas en inglés que vende una tienda del Reino Unido o de Suiza suelen estar impresas en otros países: sin origen británico o suizo pagan el 2,7 %.",
     "agreements": {
       "jp": "Acuerdo de Asociación Económica UE-Japón",
       "uk": "Acuerdo de Comercio y Cooperación UE-Reino Unido (solo mercancía originaria del Reino Unido)",
       "ch": "Acuerdo de Libre Comercio UE-Suiza"
     },
-    "status": "pending",
-    "reviewed": "2026-10-25",
-    "sources": ["taric-950440"]
+    "status": "secondary",
+    "reviewed": "2026-10-26",
+    "sources": [
+      "tariffnumber-95044000",
+      "taric-950440"
+    ]
   },
   "importVat": {
     "description": "El IVA de importación se calcula sobre mercancía + transporte + derechos de aduana y demás tributos. Si la tienda está acogida al IOSS (envíos de hasta 150 €), el IVA se paga al comprar y no en la entrega.",
     "status": "verified",
-    "reviewed": "2026-10-25",
-    "sources": ["liva-art-83", "aeat-ioss"]
+    "reviewed": "2026-10-26",
+    "sources": [
+      "liva-art-83",
+      "aeat-ioss"
+    ]
   },
   "carrierFee": {
     "description": "Gestión aduanera del transportista (Correos, DHL, FedEx, UPS...). Varía según la empresa y el valor del envío: el usuario la introduce a mano. No se usa un valor por defecto porque no hemos podido verificar las tarifas vigentes.",
     "status": "pending",
-    "reviewed": "2026-10-25",
+    "reviewed": "2026-10-26",
     "sources": []
   },
   "excludedTerritories": {
     "description": "Canarias, Ceuta y Melilla no forman parte del territorio IVA de la UE (IGIC / IPSI). La calculadora no los cubre.",
     "status": "verified",
-    "reviewed": "2026-10-25",
-    "sources": ["liva-art-83"]
+    "reviewed": "2026-10-26",
+    "sources": [
+      "liva-art-83"
+    ]
   },
   "sources": {
     "correos-bajo-valor": {
@@ -92,18 +117,6 @@
       "kind": "official",
       "accessed": "2026-10-25"
     },
-    "sgs-2026-10-14": {
-      "title": "SGS e-Customs: EU takes action to curb influx of small parcels without customs duties",
-      "url": "https://ecustoms.sgs.com/2026/10/14/eu-takes-action-to-curb-influx-of-small-parcels-without-customs-duties/",
-      "kind": "secondary",
-      "accessed": "2026-10-25"
-    },
-    "bandcamp-2026-10-20": {
-      "title": "Bandcamp: EU Customs beginning November 1, a new €2 handling fee",
-      "url": "https://blog.bandcamp.com/2026/10/20/eu-customs-beginning-november-1-a-new-e2-handling-fee-and-product-ids/",
-      "kind": "secondary",
-      "accessed": "2026-10-25"
-    },
     "taric-950440": {
       "title": "TARIC (Comisión Europea): consulta de la subpartida 9504 40 00",
       "url": "https://ec.europa.eu/taxation_customs/dds2/taric/measures.jsp?Lang=es&Taric=9504400000",
@@ -121,6 +134,36 @@
       "url": "https://sede.agenciatributaria.gob.es/Sede/iva/iva-comercio-electronico.html",
       "kind": "official",
       "accessed": "2026-10-25"
+    },
+    "ec-reform": {
+      "title": "Comisión Europea: EU Customs Reform (aplicación de la tasa de 2 € desde el 1-nov-2026)",
+      "url": "https://taxation-customs.ec.europa.eu/customs/eu-customs-reform_en",
+      "kind": "official",
+      "accessed": "2026-10-26"
+    },
+    "ec-guidance-2026-10-07": {
+      "title": "Comisión Europea: Guidance on the EUR 3 customs duty and Union handling fee (actualizada el 7-oct-2026)",
+      "url": "https://taxation-customs.ec.europa.eu/document/download/053e5b4e-f0be-4f20-9a23-3e3b659a6676_en?filename=Customs%20Guidance%20on%20EUR%203%20customs%20duty.pdf",
+      "kind": "official",
+      "accessed": "2026-10-26"
+    },
+    "ec-c-2026-6694": {
+      "title": "Comisión Europea: Reglamento Delegado C(2026) 6694, importe de la tasa de tramitación de la Unión",
+      "url": "https://ec.europa.eu/transparency/documents-register/api/files/C(2026)6694_0/090166e533d2f58a",
+      "kind": "official",
+      "accessed": "2026-10-26"
+    },
+    "tariffnumber-95044000": {
+      "title": "TariffNumber (copia de TARIC): 9504 40 00 Naipes, medidas a 24-oct-2026",
+      "url": "https://www.tariffnumber.com/2026/95044000",
+      "kind": "secondary",
+      "accessed": "2026-10-26"
+    },
+    "eu-2016-1758": {
+      "title": "Reglamento de Ejecución (UE) 2016/1758: los juegos de cartas de todo tipo van en la subpartida 9504 40 00",
+      "url": "https://eur-lex.europa.eu/eli/reg_impl/2016/1758/oj",
+      "kind": "official",
+      "accessed": "2026-10-26"
     }
   }
 }

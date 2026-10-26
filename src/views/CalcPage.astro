@@ -20,8 +20,8 @@ const copy = {
     timelineTitle: 'Qué ha cambiado en 2026',
     timeline: [
       { date: '2026-07-01', title: 'Fin de la exención de 150 €', body: 'Cada envío de fuera de la UE de hasta 150 € paga un derecho fijo de 3 € por tipo de producto. Una caja o diez cajas de cartas cuentan igual.', status: rules.flatDuty.status },
-      { date: '2026-11-01', title: 'Tasa de gestión de 2 €', body: 'Se suma a cualquier compra a distancia de fuera de la UE, valga lo que valga. Pendiente de publicación oficial: puede retrasarse.', status: rules.handlingFee.status },
-      { date: null, title: 'Más de 150 €: arancel normal', body: 'Se paga un porcentaje sobre mercancía y envío (orientativo 2,7 %). Con declaración de origen desde Japón, Reino Unido o Suiza puede quedar en 0 %.', status: rules.standardDuty.status },
+      { date: '2026-11-01', title: 'Tasa de gestión de 2 €', body: 'Se suma a cualquier compra a una tienda de fuera de la UE, valga lo que valga: 2 € por tipo de producto, con IVA. La Comisión la aplica desde el 1 de noviembre.', status: rules.handlingFee.status },
+      { date: null, title: 'Más de 150 €: arancel normal', body: 'Un 2,7 % sobre mercancía y envío (cartas, partida 9504 40 00). Con declaración de origen, las cartas japonesas impresas en Japón quedan en 0 %.', status: rules.standardDuty.status },
     ],
     always: 'Siempre',
     statusLabel: { verified: 'Verificado', secondary: 'Fuentes secundarias', pending: 'Por confirmar' },
@@ -46,8 +46,8 @@ const copy = {
     timelineTitle: 'What changed in 2026',
     timeline: [
       { date: '2026-07-01', title: 'The €150 exemption is gone', body: 'Every order up to €150 from outside the EU pays a flat €3 duty per product type. One box of cards or ten boxes count the same.', status: rules.flatDuty.status },
-      { date: '2026-11-01', title: '€2 handling fee', body: 'Added to any distance sale from outside the EU, whatever its value. Still awaiting official publication, so it may be delayed.', status: rules.handlingFee.status },
-      { date: null, title: 'Over €150: normal duty', body: 'A percentage of goods plus shipping (about 2.7% as a guide). With an origin statement from Japan, the UK or Switzerland it can be 0%.', status: rules.standardDuty.status },
+      { date: '2026-11-01', title: '€2 handling fee', body: 'Added to any purchase from a shop outside the EU, whatever its value: €2 per product type, plus VAT. The Commission applies it from 1 November.', status: rules.handlingFee.status },
+      { date: null, title: 'Over €150: normal duty', body: '2.7% of goods plus shipping (cards, subheading 9504 40 00). With an origin statement, Japanese cards printed in Japan pay 0%.', status: rules.standardDuty.status },
     ],
     always: 'Always',
     statusLabel: { verified: 'Verified', secondary: 'Secondary sources', pending: 'To be confirmed' },

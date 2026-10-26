@@ -89,11 +89,8 @@ Para regenerar las imágenes sociales tras cambiar el nombre: `NODE_PATH=$(npm r
 
 ## Antes de publicar (pendiente)
 
-1. **Rellenar `src/data/owner.json`** (nombre, NIF, domicilio, correo): obligatorio por la LSSI.
-2. **Dominio** para PullRadar. El nombre está en `SITE_NAME` (`src/i18n/ui.ts`); el logo sale de `assets/brand/pullradar-source.webp` con `node scripts/make-logo.mjs` (fondo transparente y versión para tema oscuro) y las imágenes sociales con `scripts/make-images.mjs`. Ojo: la Poké Ball del logo y del favicon es un diseño registrado de Nintendo/The Pokémon Company; para una web de fans sin ánimo de lucro es habitual, pero si la web gana dinero conviene cambiarla.
-3. **Revisar las reglas marcadas como no verificadas** en `src/data/import-rules.json`:
-   - Tasa de gestión de 2 €: pendiente de publicación en el DOUE; confirmar si es por paquete o por tipo de artículo y si lleva IVA.
-   - Arancel 2,7 % de la partida 9504 40 00 y el 0 % con origen preferencial: confirmar en TARIC.
-   - Tarifas de gestión aduanera de Correos/DHL/FedEx: no hay valor por defecto.
+1. **Correo de contacto** en `src/data/owner.json` (el resto de datos del titular ya está).
+2. **Dominio** para PullRadar (ver "Despliegue").
+3. **Reglas de aduanas** revisadas el 26-oct-2026 con la guía oficial de la Comisión: tasa de 2 € por artículo (también por encima de 150 € y dentro de la base del IVA) desde el 1-nov-2026, arancel del 2,7 % para la subpartida 9504 40 00 y 0 % con origen preferencial (las cartas japonesas impresas en Japón). Sigue pendiente la gestión de los transportistas, que varía y la introduce el usuario.
 4. **Imágenes**: los escaneos de cartas (TCGdex) tienen copyright de The Pokémon Company. Las webs de precios los usan para identificar cada carta, pero si la web gana dinero conviene valorar el riesgo.
-5. Contrastar los tipos de IVA de `vat-rates.json` con la base de datos oficial de la Comisión.
+5. Tipos de IVA de `vat-rates.json`: contrastados con varias tablas de 2026 (ningún tipo general cambió este año); falta la consulta en la base oficial de la Comisión.

@@ -1,8 +1,8 @@
 {
   "note": "Datos del titular para el aviso legal (art. 10 LSSI). OBLIGATORIO rellenarlos antes de publicar la web.",
-  "name": "[PENDIENTE: nombre y apellidos o razón social]",
-  "taxId": "[PENDIENTE: NIF]",
-  "address": "[PENDIENTE: domicilio]",
+  "name": "Pau Gavilan Muñoz",
+  "taxId": "47928019K",
+  "address": "Passeig 22 de Juliol, 469, Terrassa (Barcelona)",
   "email": "[PENDIENTE: correo de contacto]",
   "hosting": "Cloudflare, Inc. (Cloudflare Workers)"
 }
