@@ -81,7 +81,7 @@ const c = {
           {topCards.map(({ card, s }, i) => (
             <li>
               <button type="button" class="card-btn" data-card={card.id} data-set={s.slug}>
-                <span class="scan">{card.image && <img src={cardImage(card.image)} alt={card.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}<span class="rank">{i + 1}</span></span>
+                <span class="scan card-slot" data-name={card.name}>{card.image && <img src={cardImage(card.image)} alt={card.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}<span class="rank">{i + 1}</span></span>
                 <span class="cap"><span class="cn">{card.name}</span><span class="cp">{fmt(card.price.trend)}</span></span>
                 <span class="cr">{s.set.name} <span class={`rar ${rarityTone(card.rarity)}`}>{rarityShort(card.rarity)}</span></span>
               </button>
@@ -100,7 +100,7 @@ const c = {
               <ul>
                 {(list as typeof risers).map(({ card, s, wk }) => (
                   <li data-card={card.id} data-set={s.slug} tabindex="0">
-                    {card.image && <img src={cardImage(card.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}
+                    <span class="card-slot mini mov-thumb">{card.image && <img src={cardImage(card.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}</span>
                     <span class="mn"><span>{card.name}</span><span class="ms">{s.set.name}</span></span>
                     <span class="mp">{fmt(card.price.trend)}</span>
                     <span class={`mw ${dir}`}>{wk! > 0 ? '▲' : '▼'} {Math.abs(wk!).toLocaleString(LOCALE[lang])}{lang === 'es' ? ' %' : '%'}</span>
@@ -151,7 +151,7 @@ const c = {
                     {hits.slice(0, 5).map((h, j) => (
                       <li>
                         <button type="button" class="card-btn" data-card={h.id} data-set={s.slug}>
-                          <span class="scan">{h.image && <img src={cardImage(h.image, 'high')} alt={h.name} loading="lazy" decoding="async" width="600" height="825" onerror="this.remove()" />}</span>
+                          <span class="scan card-slot" data-name={h.name}>{h.image && <img src={cardImage(h.image, 'high')} alt={h.name} loading="lazy" decoding="async" width="600" height="825" onerror="this.remove()" />}</span>
                           <span class="cap"><span class="cn">{j + 1}. {h.name}</span><span class="cp">{fmt(h.price.trend)}</span></span>
                           <span class={`cr rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span>
                         </button>
@@ -166,7 +166,7 @@ const c = {
                       <tbody>
                         {hits.slice(0, 15).map((h) => (
                           <tr data-card={h.id} data-set={s.slug} tabindex="0">
-                            <td class="thumb">{h.image && <img src={cardImage(h.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}</td>
+                            <td class="thumb"><span class="card-slot mini thumb-box">{h.image && <img src={cardImage(h.image)} alt="" loading="lazy" decoding="async" width="34" height="47" onerror="this.remove()" />}</span></td>
                             <td class="muted num">{h.num}</td>
                             <td class="cname">{h.name}<span class="rar-sm rar">{rarityShort(h.rarity)}</span></td>
                             <td class="hide-xs"><span class={`rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span></td>
@@ -208,7 +208,8 @@ const c = {
   .mov-col li { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto auto; align-items: center; gap: 12px; padding: 7px 4px; border-top: 1px solid var(--border); cursor: pointer; border-radius: 6px; }
   .mov-col li:first-child { border-top: 0; }
   .mov-col li:hover { background: var(--bg); }
-  .mov-col img { width: 34px; height: 47px; border-radius: 3px; object-fit: cover; background: var(--surface-2); }
+  .mov-thumb { display: block; width: 34px; height: 47px; border-radius: 3px; overflow: hidden; background: var(--surface-2); }
+  .mov-col img { width: 34px; height: 47px; object-fit: cover; }
   .mn { display: flex; flex-direction: column; min-width: 0; font-weight: 600; font-size: 0.92rem; }
   .mn > span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .ms { font-weight: 400; font-size: 0.78rem; color: var(--text-muted); }
@@ -231,7 +232,7 @@ const c = {
   @media (min-width: 900px) { .head { grid-template-columns: 170px minmax(0, 1fr) auto 24px; } }
   .head:hover { background: var(--bg); }
   .head:focus-visible { outline: 3px solid var(--focus); outline-offset: -3px; }
-  .logo-box { height: 56px; display: flex; align-items: center; }
+  .logo-box { height: 56px; display: flex; align-items: center; justify-content: center; }
   .logo-box img { max-height: 56px; max-width: 100%; object-fit: contain; }
   .title { display: flex; flex-direction: column; min-width: 0; }
   .name { font-weight: 600; font-size: 1.08rem; }
@@ -284,7 +285,8 @@ const c = {
   .list .strong { font-weight: 700; }
   .list .cname { white-space: normal; min-width: 150px; font-weight: 550; }
   .thumb { width: 46px; }
-  .thumb img { width: 34px; height: 47px; border-radius: 3px; object-fit: cover; background: var(--surface-2); display: block; }
+  .thumb-box { display: block; width: 34px; height: 47px; border-radius: 3px; overflow: hidden; background: var(--surface-2); }
+  .thumb img { width: 34px; height: 47px; object-fit: cover; display: block; }
   .ext { text-decoration: none; font-weight: 600; }
   .ext::after { content: '↗'; }
   .full { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; font-weight: 650; }

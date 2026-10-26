@@ -206,9 +206,9 @@ const alertsOn = !!import.meta.env.PUBLIC_ALERTS_API;
             <li>
               <button type="button" class="hit" data-card={h.id} data-set={summary.slug}>
                 <span class="rank">{i + 1}</span>
-                <span class="img-wrap">{h.image && <img src={cardImage(h.image)} alt={h.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
+                <span class="img-wrap card-slot" data-name={h.name}>{h.image && <img src={cardImage(h.image)} alt={h.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
                 <span class="h-name">{h.name}</span>
-                <span class={`rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span>
+                {h.rarity && <span class={`rar ${rarityTone(h.rarity)}`} title={rarityLabel(h.rarity, lang)}>{rarityShort(h.rarity)}</span>}
                 <span class="h-price mono">{fmt(h.price.trend)}</span>
                 {odds && <span class="h-odds">{c.specific(oneIn(odds))}</span>}
                 {psa10(h.id) != null && <span class="h-odds">PSA 10: {fmt(psa10(h.id))}</span>}

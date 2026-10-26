@@ -21,10 +21,10 @@ export const GET: APIRoute = ({ props }) => {
     slug, name: set.name, logo: set.logo, total: set.officialCount,
     dates: history?.dates ?? [],
     // id -> [nombre, número, rareza, imagen, id de Cardmarket, tendencia, desde, media 1 d, media 7 d, media 30 d, 1 de N sobres, historial,
-    //       gradeadas [nota, euros, ventas][]]
+    //       gradeadas [nota, euros, ventas][], imagen prestada de la edición internacional (1)]
     cards: Object.fromEntries(set.cards.map((c) => [c.id, [
       c.name, c.num, c.rarity, c.image, c.cmId, c.price.trend, c.price.low,
-      c.price.avg1 ?? null, c.price.avg7 ?? null, c.price.avg30, oddsOf(c.rarity), history?.cards[c.id] ?? null, gradedOf(c.id),
+      c.price.avg1 ?? null, c.price.avg7 ?? null, c.price.avg30, oddsOf(c.rarity), history?.cards[c.id] ?? null, gradedOf(c.id), c.imageFrom ? 1 : 0,
     ]])),
   };
   return new Response(JSON.stringify(body), { headers: { 'Content-Type': 'application/json' } });

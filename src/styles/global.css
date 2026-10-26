@@ -133,3 +133,23 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; }
 }
+
+/*
+  Hueco de carta sin imagen (TCGdex no tiene escaneo, o la imagen falla y se quita con onerror):
+  un dorso sobrio con el nombre de la carta, en vez de un cuadro gris vacío.
+  Se usa con class="card-slot" data-name="..." en el contenedor de la imagen.
+*/
+.card-slot.card-slot:not(:has(img)) {
+  display: grid; place-items: center; padding: 8%;
+  background:
+    radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 14%, transparent) 0 18%, transparent 19%),
+    linear-gradient(160deg, var(--surface-2), color-mix(in srgb, var(--border-strong) 55%, var(--surface-2)));
+  box-shadow: inset 0 0 0 1px var(--border);
+}
+.card-slot.card-slot:not(:has(img))::after {
+  content: attr(data-name); align-self: end; text-align: center; color: var(--text-muted);
+  font-size: 0.78rem; font-weight: 650; line-height: 1.2; overflow-wrap: anywhere;
+}
+/* En miniaturas no cabe el nombre: solo el dorso. */
+.card-slot.mini:not(:has(img))::after { content: none; }
+.card-slot.card-slot.mini:not(:has(img)) { padding: 0; }

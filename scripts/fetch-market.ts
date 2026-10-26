@@ -18,7 +18,7 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import {
-  appendHistory, cardsFromCardmarket, cmCardName, expansionOf, inferRarity, guideDate, japaneseSetName, matchByName, pickSealed, priceFromGuide,
+  appendHistory, borrowImages, cardsFromCardmarket, cmCardName, expansionOf, inferRarity, guideDate, japaneseSetName, matchByName, pickSealed, priceFromGuide,
   type CmGuide, type CmProduct, type MarketCard, type MarketIndex, type MarketSet, type PriceHistory,
 } from '../src/lib/market.ts';
 
@@ -231,6 +231,13 @@ async function main() {
         set.name = en ? `${en} (JP)` : set.nameLocal ?? set.name;
       }
     }
+    // Cartas japonesas sin imagen: la de su versión internacional cuando es inequívoca.
+    const intlCards = sets.filter((s) => s.lang !== 'ja').flatMap((s) => s.cards);
+    let borrowed = 0;
+    for (const set of sets) {
+      if (set.lang === 'ja') borrowed += borrowImages(set.cards, intlCards, (id) => singlesById.get(id)?.idMetacard);
+    }
+    console.log(`Imágenes prestadas a cartas japonesas: ${borrowed}`);
     historyDay = guide.createdAt.slice(0, 10);
     console.log(`Cardmarket: guía del ${guide.createdAt}, ${guide.priceGuides.length} productos`);
   } catch (e) {

@@ -46,7 +46,7 @@ const c = {
 
     <section class="intro">
       {top && (
-        <button type="button" class="feature" data-card={top.card.id} data-set={top.summary.slug} aria-label={`${c.open}: ${top.card.name}`}>
+        <button type="button" class="feature card-slot" data-name={top.card.name} data-card={top.card.id} data-set={top.summary.slug} aria-label={`${c.open}: ${top.card.name}`}>
           {top.card.image && <img src={cardImage(top.card.image, 'high')} alt={top.card.name} width="600" height="825" decoding="async" />}
         </button>
       )}
@@ -74,7 +74,7 @@ const c = {
         {pokemon.cards.map(({ card, summary }, i) => (
           <li data-i={i} data-date={summary.set.releaseDate ?? ''}>
             <button type="button" data-card={card.id} data-set={summary.slug}>
-              <span class="scan">{card.image && <img src={cardImage(card.image)} alt={card.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
+              <span class="scan card-slot" data-name={card.name}>{card.image && <img src={cardImage(card.image)} alt={card.name} loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
               <span class="cn">{card.name}</span>
               <span class="cs">{summary.set.name}, {lang === 'es' ? 'n.º' : 'no.'} {card.num} <span class={`rar ${rarityTone(card.rarity)}`} title={rarityLabel(card.rarity, lang)}>{rarityShort(card.rarity)}</span></span>
               <span class="cp">{fmt(card.price.trend)}</span>
@@ -96,6 +96,7 @@ const c = {
   .feature { all: unset; cursor: pointer; width: min(260px, 70vw); justify-self: center; border-radius: 12px; transition: transform 0.25s var(--ease); }
   .feature:hover { transform: translateY(-4px) rotate(-1deg); }
   .feature:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; }
+  .feature:not(:has(img)) { aspect-ratio: 600 / 825; }
   .feature img { width: 100%; height: auto; border-radius: 12px; box-shadow: 0 16px 36px rgb(20 24 32 / 0.3); display: block; }
   .copy h1 { font-size: clamp(2.2rem, 5vw, 3.2rem); margin-bottom: 4px; }
   .dex { color: var(--text-muted); margin: 0 0 14px; }

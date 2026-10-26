@@ -2,6 +2,7 @@
 // Todas las expansiones, agrupadas por serie: primero las internacionales (de Megaevolución a Base Set), luego las japonesas.
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
 import { allSets, isJapanese, marketIndex, seriesName, setsBySeries } from '../lib/market-data';
 import { ROUTES, LOCALE, formatDate, type Lang } from '../i18n/ui';
 
@@ -73,7 +74,9 @@ const c = {
                     <a href={`${ROUTES.sets[lang]}${s.slug}/`}>
                       <span class="logo">
                         {s.set.logo && <img src={`${s.set.logo}.webp`} alt="" loading="lazy" decoding="async" onerror="this.remove()" />}
-                        <span class="logo-text">{r.id === 'jp' ? s.set.nameLocal ?? name : name}</span>
+                        {r.id === 'jp'
+                          ? <span class="logo-text">{s.set.nameLocal ?? name}</span>
+                          : <span class="logo-text logo-icon"><Icon name="cards" /></span>}
                       </span>
                       <span class="name">{name}{r.id === 'jp' && <span class="jp">JP</span>}</span>
                       <span class="meta">{s.set.releaseDate ? formatDate(s.set.releaseDate, lang) : ''}{s.set.releaseDate ? ', ' : ''}{c.cards(s.set.cards.length)}</span>
@@ -111,6 +114,8 @@ const c = {
   .logo { height: 64px; display: grid; place-items: center; margin-bottom: 10px; }
   .logo img { max-height: 64px; max-width: 90%; object-fit: contain; }
   .logo img + .logo-text { display: none; }
+  .logo-icon { color: var(--border-strong); }
+  .logo-icon :global(svg) { width: 40px; height: 40px; }
   .logo-text { font-size: 0.95rem; font-weight: 800; color: var(--text-muted); text-align: center; line-height: 1.1; }
   .name { font-weight: 650; line-height: 1.25; }
   .meta { font-size: 0.8rem; color: var(--text-muted); }

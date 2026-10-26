@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import {
-  appendHistory, baseName, cardsFromCardmarket, cmCardName, inferRarity, expansionOf, japaneseSetName, expectedValue, matchByName, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
+  appendHistory, baseName, borrowImages, cardsFromCardmarket, cmCardName, inferRarity, expansionOf, japaneseSetName, expectedValue, matchByName, findPullRates, guideDate, pickSealed, priceFromGuide, sealedKind, topHits, weekChange,
   type CmProduct, type MarketCard, type SetPullRates,
 } from './market';
 
@@ -136,6 +136,15 @@ describe('sets japoneses', () => {
       ['ja-S6a-cm9', 'Umbreon VMAX (V.1)', 300, [197]],
       ['ja-S6a-cm12', 'Umbreon VMAX (V.2)', null, [197]],
     ]);
+  });
+  it('presta la imagen internacional solo si la carta es inequívoca', () => {
+    const mk = (id: string, cmId: number, image: string | null = null) => ({ ...card(id, 'Rare', 1), cmId, image });
+    const meta = new Map([[1, 10], [2, 20], [3, 20], [4, 30], [5, 10], [6, 20], [7, 30], [8, 30]]);
+    const ja = [mk('ja-a', 1), mk('ja-b', 2), mk('ja-c', 3), mk('ja-d', 4)];
+    const intl = [mk('en-a', 5, 'img/a'), mk('en-b', 6, 'img/b'), mk('en-c', 7, 'img/c'), mk('en-d', 8, 'img/d')];
+    expect(borrowImages(ja, intl, (id) => meta.get(id))).toBe(1);
+    expect(ja.map((c) => c.image)).toEqual(['img/a', null, null, null]);
+    expect(ja[0].imageFrom).toBe('en-a');
   });
   it('descarta el sellado coreano o chino', () => {
     expect(sealedKind({ name: 'Korean Terastal Festival ex Booster' })).toBeNull();

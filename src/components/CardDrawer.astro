@@ -10,7 +10,7 @@ const { lang } = Astro.props;
 const pricesDate = marketIndex?.pricesDate ? formatDate(marketIndex.pricesDate.slice(0, 10), lang) : null;
 const t = {
   es: {
-    close: 'Cerrar', trend: 'Tendencia', low: 'Desde', avg1: 'Media 1 día', avg7: 'Media 7 días', avg30: 'Media 30 días',
+    close: 'Cerrar', no: 'n.º', noImg: 'Sin imagen de esta carta', imgFrom: 'Imagen de la edición internacional de la carta', trend: 'Tendencia', low: 'Desde', avg1: 'Media 1 día', avg7: 'Media 7 días', avg30: 'Media 30 días',
     week: 'esta semana', odds: (n: string) => `Te sale en 1 de cada ${n} sobres, según las tasas de aparición del set.`, oddsLabel: 'Probabilidad de que te salga',
     ebay: 'Buscar en eBay', ebayNote: 'El botón de eBay es un enlace de afiliado: si compras, nos llevamos una pequeña comisión sin que te cueste más.',
     cm: 'Ver en Cardmarket', set: 'Ver el set', source: pricesDate ? `Precios de Cardmarket del ${pricesDate}` : 'Precios de Cardmarket',
@@ -18,7 +18,7 @@ const t = {
     noOdds: 'Para esta rareza no tenemos tasa de aparición.', share: 'Copiar enlace', copied: 'Copiado', x30: 'Media 30 d', x7: 'Media 7 d', x1: 'Último día', xNow: 'Hoy', history: 'Evolución del precio', since: 'Historial diario desde el {d}.', early: 'El historial diario empezó el {d}. Hasta tener más días, la línea une las medias de 30 y 7 días de Cardmarket con el precio de hoy.',
   },
   en: {
-    close: 'Close', trend: 'Trend', low: 'From', avg1: '1-day average', avg7: '7-day average', avg30: '30-day average',
+    close: 'Close', no: 'no.', noImg: 'No image for this card', imgFrom: 'Image of the international edition of this card', trend: 'Trend', low: 'From', avg1: '1-day average', avg7: '7-day average', avg30: '30-day average',
     week: 'this week', odds: (n: string) => `You pull it in 1 of every ${n} packs, based on the set's pull rates.`, oddsLabel: 'Chance of pulling it',
     ebay: 'Search on eBay', ebayNote: 'The eBay button is an affiliate link: if you buy, we earn a small commission at no extra cost to you.',
     cm: 'View on Cardmarket', set: 'View set', source: pricesDate ? `Cardmarket prices from ${pricesDate}` : 'Cardmarket prices',
@@ -36,8 +36,10 @@ const config = { lang, locale: LOCALE[lang], ebay: ebayBase, setsBase: ROUTES.se
     <div class="art">
       <div class="tilt" data-tilt>
         <img data-f="img" alt="" width="600" height="825" />
+        <span class="ph" data-f="ph" hidden></span>
         <span class="shine" aria-hidden="true"></span>
       </div>
+      <p class="img-note" data-f="imgNote" hidden></p>
     </div>
     <div class="info">
       <a class="set-link" data-f="setUrl">
@@ -45,7 +47,7 @@ const config = { lang, locale: LOCALE[lang], ebay: ebayBase, setsBase: ROUTES.se
         <span data-f="set"></span>
       </a>
       <h2 id="drawer-name" data-f="name"></h2>
-      <p class="meta"><span data-f="rarity"></span>, {lang === 'es' ? 'n.º' : 'no.'} <span data-f="num"></span></p>
+      <p class="meta" data-f="meta"></p>
 
       <div class="price-main">
         <p class="lbl">{t.trend}</p>
@@ -98,6 +100,11 @@ const config = { lang, locale: LOCALE[lang], ebay: ebayBase, setsBase: ROUTES.se
   .close :global(svg) { width: 18px; height: 18px; }
   .art { display: flex; justify-content: center; perspective: 900px; padding-top: 8px; }
   .tilt { position: relative; width: min(300px, 70vw); border-radius: 14px; transform-style: preserve-3d; transition: transform 0.2s ease; will-change: transform; }
+  .ph { display: grid; place-items: end center; aspect-ratio: 600 / 825; padding: 10%; border-radius: 14px; text-align: center; color: var(--text-muted); font-weight: 650; box-shadow: inset 0 0 0 1px var(--border);
+    background: radial-gradient(circle at 50% 38%, color-mix(in srgb, var(--accent) 14%, transparent) 0 18%, transparent 19%), linear-gradient(160deg, var(--surface-2), color-mix(in srgb, var(--border-strong) 55%, var(--surface-2))); }
+  .ph[hidden], .tilt img[hidden] { display: none; }
+  .img-note { margin: 8px 0 0; text-align: center; font-size: 0.78rem; color: var(--text-muted); }
+  .art { flex-direction: column; align-items: center; }
   .tilt img { width: 100%; height: auto; border-radius: 14px; display: block; background: var(--surface-2); box-shadow: 0 18px 40px rgb(0 0 0 / 0.35); aspect-ratio: 600 / 825; }
   .shine { position: absolute; inset: 0; border-radius: 14px; pointer-events: none; mix-blend-mode: color-dodge; opacity: 0; transition: opacity 0.2s ease;
     background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.55), transparent 45%),
@@ -194,16 +201,23 @@ const config = { lang, locale: LOCALE[lang], ebay: ebayBase, setsBase: ROUTES.se
     function open(data: any, push = true) {
       current = data;
       const img = f('img') as HTMLImageElement;
-      img.src = data.img ? `${data.img}/high.webp` : '';
+      img.hidden = !data.img;
+      if (data.img) img.src = `${data.img}/high.webp`; else img.removeAttribute('src');
       img.alt = data.name;
+      img.onerror = () => { img.hidden = true; f('ph').hidden = false; };
+      f('ph').hidden = !!data.img;
+      f('ph').textContent = data.name;
+      f('imgNote').hidden = !data.imgFrom;
+      f('imgNote').textContent = cfg.t.imgFrom;
       const logo = f('logo') as HTMLImageElement;
       logo.hidden = !data.logo;
       if (data.logo) logo.src = `${data.logo}.webp`;
       f('set').textContent = data.set;
       (f('setUrl') as HTMLAnchorElement).href = data.setUrl;
       f('name').textContent = data.name;
-      f('num').textContent = data.total ? `${data.num}/${data.total}` : data.num;
-      f('rarity').textContent = data.rarity;
+      // "Ilustración especial rara, n.º 217/187"; sin número ni rareza (sets solo de Cardmarket) se omite lo que falte.
+      const num = data.num ? `${cfg.t.no} ${data.total ? `${data.num}/${data.total}` : data.num}` : '';
+      f('meta').textContent = [data.rarity !== '-' ? data.rarity : '', num].filter(Boolean).join(', ');
       f('trend').textContent = fmt(data.p.trend);
       const wk = f('wk');
       wk.className = `wk ${data.wk > 0 ? 'up' : data.wk < 0 ? 'down' : ''}`;
@@ -245,12 +259,12 @@ const config = { lang, locale: LOCALE[lang], ebay: ebayBase, setsBase: ROUTES.se
       const s = await setData(slug);
       const c = s.cards[id];
       if (!c) return;
-      const [name, num, rarity, img, cmId, trend, low, avg1, avg7, avg30, odds, hist, graded] = c;
+      const [name, num, rarity, img, cmId, trend, low, avg1, avg7, avg30, odds, hist, graded, imgFrom] = c;
       const p = { trend, low, avg1, avg7, avg30 };
       const key = (rarity ?? '').trim().toLowerCase();
       open({
         id, name, num, total: s.total, rarity: cfg.rarities[key] ?? rarity ?? '-', img, set: s.name, logo: s.logo,
-        setUrl: `${cfg.setsBase}${slug}/`, p, odds, hist, graded, dates: s.dates,
+        setUrl: `${cfg.setsBase}${slug}/`, p, odds, hist, graded, imgFrom, dates: s.dates,
         wk: avg7 && avg30 ? Math.round(((avg7 - avg30) / avg30) * 1000) / 10 : null,
         cm: cmId ? `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products?idProduct=${cmId}`
           : `https://www.cardmarket.com/${cfg.lang}/Pokemon/Products/Search?searchString=${encodeURIComponent(name)}`,

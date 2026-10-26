@@ -49,11 +49,13 @@ const c = {
     <ul class="grid" data-grid>
       {list.map((p, i) => {
         const top = p.cards[0]?.card;
+        // Miniatura: su carta más cara que tenga imagen (algunas japonesas no tienen).
+        const thumb = p.cards.find((x) => x.card.image)?.card ?? top;
         const name = pokemonName(p, lang);
         return (
           <li data-name={`${p.en} ${p.es}`.toLowerCase()} data-dex={p.dex} data-value={top?.price.trend ?? 0} data-count={p.cards.length} data-i={i}>
             <a href={`${ROUTES.pokemon[lang]}${p.slug}/`}>
-              <span class="scan">{top?.image && <img src={cardImage(top.image)} alt="" loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
+              <span class="scan card-slot" data-name={name}>{thumb?.image && <img src={cardImage(thumb.image)} alt="" loading="lazy" decoding="async" width="245" height="342" onerror="this.remove()" />}</span>
               <span class="name">{name}</span>
               <span class="dex">#{String(p.dex).padStart(4, '0')}</span>
               <span class="line">{c.line(p.cards.length, top?.price.trend != null ? money.format(top.price.trend) : '-')}</span>

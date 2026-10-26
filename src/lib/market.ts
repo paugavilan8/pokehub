@@ -53,6 +53,8 @@ export interface MarketCard {
   price: Price;
   /** Números de Pokédex del Pokémon (o Pokémon) de la carta; vacío en entrenadores y energías. */
   dex?: number[] | null;
+  /** La imagen es la de esta carta internacional (la japonesa no tiene imagen en TCGdex). */
+  imageFrom?: string;
 }
 
 export type SealedKind = 'pack' | 'box' | 'etb' | 'bundle';
@@ -142,6 +144,36 @@ export function inferRarity(card: Pick<MarketCard, 'num' | 'rarity'>, officialCo
   const missing = !card.rarity || card.rarity.toLowerCase() === 'none';
   if (missing && officialCount && /^\d+$/.test(card.num) && Number(card.num) > officialCount) return 'Secret Rare';
   return card.rarity;
+}
+
+/**
+ * Imagen prestada para las cartas japonesas sin imagen: la de su versión internacional, que Cardmarket reconoce como
+ * la misma carta (mismo idMetacard). Solo si no hay duda: la carta es la única con ese idMetacard en su set y hay una
+ * única carta internacional con imagen que lo comparte. Con dos versiones (la normal y la alternativa) no se elige
+ * ninguna, para no enseñar la ilustración equivocada. Devuelve cuántas cartas ha completado.
+ */
+export function borrowImages(jaCards: MarketCard[], intlCards: MarketCard[], metacardOf: (cmId: number) => number | undefined): number {
+  const count = (cards: MarketCard[]) => {
+    const m = new Map<number, MarketCard[]>();
+    for (const c of cards) {
+      const meta = c.cmId != null ? metacardOf(c.cmId) : undefined;
+      if (meta != null) m.set(meta, [...(m.get(meta) ?? []), c]);
+    }
+    return m;
+  };
+  const intl = count(intlCards.filter((c) => c.image));
+  const ja = count(jaCards);
+  let done = 0;
+  for (const [meta, group] of ja) {
+    const source = intl.get(meta);
+    if (group.length !== 1 || source?.length !== 1) continue;
+    const card = group[0];
+    if (card.image && !card.imageFrom) continue;
+    card.image = source[0].image;
+    card.imageFrom = source[0].id;
+    done++;
+  }
+  return done;
 }
 
 /** Nombre de una carta en Cardmarket sin los ataques: "Budew [Itchy Pollen]" -> "Budew". */
