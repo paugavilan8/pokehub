@@ -4,5 +4,5 @@
   "taxId": "[PENDIENTE: NIF]",
   "address": "[PENDIENTE: domicilio]",
   "email": "[PENDIENTE: correo de contacto]",
-  "hosting": "Cloudflare, Inc. (Cloudflare Pages)"
+  "hosting": "Cloudflare, Inc. (Cloudflare Workers)"
 }
