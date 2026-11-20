@@ -1,6 +1,6 @@
 {
- "pricesDate": "2026-11-19T01:48:38.000Z",
- "generatedAt": "2026-11-19T13:51:46.572Z",
+ "pricesDate": "2026-11-20T01:43:56.000Z",
+ "generatedAt": "2026-11-20T13:32:59.696Z",
  "sets": [
   {
    "id": "me06",
@@ -18,8 +18,8 @@
      "idProduct": 903958,
      "name": "Delta Reign Booster",
      "price": {
-      "trend": 4.84,
-      "low": 4,
+      "trend": 4.73,
+      "low": 4.1,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -31,7 +31,7 @@
      "name": "Delta Reign Booster Box",
      "price": {
       "trend": 172.86,
-      "low": 150,
+      "low": 130,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -42,8 +42,8 @@
      "idProduct": 903955,
      "name": "Delta Reign Elite Trainer Box",
      "price": {
-      "trend": 67.49,
-      "low": 53,
+      "trend": 66.62,
+      "low": 51,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -54,8 +54,8 @@
      "idProduct": 903945,
      "name": "Delta Reign Booster Bundle",
      "price": {
-      "trend": 34.4,
-      "low": 27.99,
+      "trend": 33.63,
+      "low": 27,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -80,7 +80,7 @@
      "name": "30th Celebration Booster",
      "price": {
       "trend": 8.83,
-      "low": 6.99,
+      "low": 6.98,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -91,7 +91,7 @@
      "idProduct": 895551,
      "name": "30th Celebration Elite Trainer Box",
      "price": {
-      "trend": 117.05,
+      "trend": 115.71,
       "low": 90,
       "avg30": null,
       "avg7": null,
@@ -103,8 +103,8 @@
      "idProduct": 895561,
      "name": "30th Celebration Booster Bundle",
      "price": {
-      "trend": 64,
-      "low": 46.44,
+      "trend": 63.87,
+      "low": 44.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -130,8 +130,8 @@
      "idProduct": 895656,
      "name": "Storm Emeralda Booster",
      "price": {
-      "trend": 1.88,
-      "low": 1.7,
+      "trend": 1.97,
+      "low": 1.78,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -142,7 +142,7 @@
      "idProduct": 895668,
      "name": "Storm Emeralda Booster Box",
      "price": {
-      "trend": 65.78,
+      "trend": 65.3,
       "low": 55.49,
       "avg30": null,
       "avg7": null,
@@ -167,8 +167,8 @@
      "idProduct": 885547,
      "name": "Pitch Black Booster",
      "price": {
-      "trend": 5.08,
-      "low": 3.8,
+      "trend": 5.11,
+      "low": 3.9,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -179,8 +179,8 @@
      "idProduct": 885545,
      "name": "Pitch Black Booster Box",
      "price": {
-      "trend": 172.1,
-      "low": 105,
+      "trend": 172.48,
+      "low": 120,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -191,7 +191,7 @@
      "idProduct": 885542,
      "name": "Pitch Black Elite Trainer Box",
      "price": {
-      "trend": 66.47,
+      "trend": 66.05,
       "low": 44.9,
       "avg30": null,
       "avg7": null,
@@ -203,7 +203,7 @@
      "idProduct": 885539,
      "name": "Pitch Black Booster Bundle",
      "price": {
-      "trend": 35.73,
+      "trend": 35.81,
       "low": 27,
       "avg30": null,
       "avg7": null,
@@ -240,8 +240,8 @@
      "idProduct": 877295,
      "name": "Chaos Rising Booster Box",
      "price": {
-      "trend": 177.52,
-      "low": 125,
+      "trend": 177.58,
+      "low": 120,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -264,7 +264,7 @@
      "idProduct": 877284,
      "name": "Chaos Rising Booster Bundle",
      "price": {
-      "trend": 36.75,
+      "trend": 36.39,
       "low": 25,
       "avg30": null,
       "avg7": null,
@@ -291,8 +291,8 @@
      "idProduct": 883956,
      "name": "Abyss Eye Booster",
      "price": {
-      "trend": 1.69,
-      "low": 0.02,
+      "trend": 1.68,
+      "low": 1.29,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -303,7 +303,7 @@
      "idProduct": 883955,
      "name": "Abyss Eye Booster Box",
      "price": {
-      "trend": 52.78,
+      "trend": 53.2,
       "low": 44.9,
       "avg30": null,
       "avg7": null,
@@ -328,7 +328,7 @@
      "idProduct": 865410,
      "name": "Perfect Order Booster",
      "price": {
-      "trend": 5.38,
+      "trend": 5.28,
       "low": 3.5,
       "avg30": null,
       "avg7": null,
@@ -340,7 +340,7 @@
      "idProduct": 865408,
      "name": "Perfect Order Booster Box",
      "price": {
-      "trend": 175.64,
+      "trend": 176.25,
       "low": 125,
       "avg30": null,
       "avg7": null,
@@ -352,7 +352,7 @@
      "idProduct": 865406,
      "name": "Perfect Order Elite Trainer Box",
      "price": {
-      "trend": 64.92,
+      "trend": 64.69,
       "low": 36.99,
       "avg30": null,
       "avg7": null,
@@ -364,7 +364,7 @@
      "idProduct": 865404,
      "name": "Perfect Order Booster Bundle",
      "price": {
-      "trend": 37.42,
+      "trend": 37.9,
       "low": 28,
       "avg30": null,
       "avg7": null,
@@ -391,7 +391,7 @@
      "idProduct": 873179,
      "name": "Ninja Spinner Booster",
      "price": {
-      "trend": 1.77,
+      "trend": 1.75,
       "low": 1.25,
       "avg30": null,
       "avg7": null,
@@ -403,8 +403,8 @@
      "idProduct": 873182,
      "name": "Ninja Spinner Booster Box",
      "price": {
-      "trend": 55.84,
-      "low": 39.9,
+      "trend": 54.2,
+      "low": 40.45,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -428,7 +428,7 @@
      "idProduct": 860562,
      "name": "Ascended Heroes Booster",
      "price": {
-      "trend": 10.05,
+      "trend": 10.12,
       "low": 6.9,
       "avg30": null,
       "avg7": null,
@@ -441,7 +441,7 @@
      "name": "Ascended Heroes Elite Trainer Box",
      "price": {
       "trend": 126.37,
-      "low": 69.5,
+      "low": 69.9,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -452,8 +452,8 @@
      "idProduct": 860578,
      "name": "Ascended Heroes Booster Bundle",
      "price": {
-      "trend": 67.81,
-      "low": 42.9,
+      "trend": 67.38,
+      "low": 41.9,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -479,7 +479,7 @@
      "idProduct": 864284,
      "name": "Nihil Zero Booster",
      "price": {
-      "trend": 1.66,
+      "trend": 1.81,
       "low": 1.2,
       "avg30": null,
       "avg7": null,
@@ -491,8 +491,8 @@
      "idProduct": 864283,
      "name": "Nihil Zero Booster Box",
      "price": {
-      "trend": 56.11,
-      "low": 37,
+      "trend": 54.94,
+      "low": 36.95,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -530,8 +530,8 @@
      "idProduct": 858380,
      "name": "MEGA Dream ex Booster Box",
      "price": {
-      "trend": 79.03,
-      "low": 67.5,
+      "trend": 79.07,
+      "low": 69.5,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -555,7 +555,7 @@
      "idProduct": 846729,
      "name": "Phantasmal Flames Booster",
      "price": {
-      "trend": 6.97,
+      "trend": 6.66,
       "low": 2.9,
       "avg30": null,
       "avg7": null,
@@ -567,7 +567,7 @@
      "idProduct": 846746,
      "name": "Phantasmal Flames Booster Box",
      "price": {
-      "trend": 295.63,
+      "trend": 285.17,
       "low": 149,
       "avg30": null,
       "avg7": null,
@@ -579,8 +579,8 @@
      "idProduct": 846744,
      "name": "Phantasmal Flames Elite Trainer Box",
      "price": {
-      "trend": 92.55,
-      "low": 59.5,
+      "trend": 91.79,
+      "low": 50,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -591,7 +591,7 @@
      "idProduct": 846734,
      "name": "Phantasmal Flames Booster Bundle",
      "price": {
-      "trend": 54.7,
+      "trend": 54.4,
       "low": 35,
       "avg30": null,
       "avg7": null,
@@ -616,7 +616,7 @@
      "idProduct": 834829,
      "name": "Mega Evolution Booster",
      "price": {
-      "trend": 5.92,
+      "trend": 5.95,
       "low": 3.99,
       "avg30": null,
       "avg7": null,
@@ -691,8 +691,8 @@
      "idProduct": 845911,
      "name": "Inferno X Booster",
      "price": {
-      "trend": 1.97,
-      "low": 1.65,
+      "trend": 1.95,
+      "low": 1.59,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -703,8 +703,8 @@
      "idProduct": 845910,
      "name": "Inferno X Booster Box",
      "price": {
-      "trend": 70.06,
-      "low": 49.9,
+      "trend": 71.1,
+      "low": 51.49,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -742,7 +742,7 @@
      "idProduct": 831326,
      "name": "Mega Brave Booster Box",
      "price": {
-      "trend": 53.55,
+      "trend": 54.38,
       "low": 44.95,
       "avg30": null,
       "avg7": null,
@@ -769,7 +769,7 @@
      "idProduct": 831333,
      "name": "Mega Symphonia Booster",
      "price": {
-      "trend": 1.63,
+      "trend": 1.61,
       "low": 1.25,
       "avg30": null,
       "avg7": null,
@@ -781,7 +781,7 @@
      "idProduct": 831328,
      "name": "Mega Symphonia Booster Box",
      "price": {
-      "trend": 53.08,
+      "trend": 53.34,
       "low": 43.99,
       "avg30": null,
       "avg7": null,
@@ -832,7 +832,7 @@
      "idProduct": 824088,
      "name": "Black Bolt Elite Trainer Box",
      "price": {
-      "trend": 119.6,
+      "trend": 119.76,
       "low": 61,
       "avg30": null,
       "avg7": null,
@@ -844,7 +844,7 @@
      "idProduct": 824107,
      "name": "Black Bolt Booster Bundle",
      "price": {
-      "trend": 80.36,
+      "trend": 81.02,
       "low": 41.9,
       "avg30": null,
       "avg7": null,
@@ -869,7 +869,7 @@
      "idProduct": 824087,
      "name": "White Flare Booster",
      "price": {
-      "trend": 12.3,
+      "trend": 12.21,
       "low": 7.49,
       "avg30": null,
       "avg7": null,
@@ -881,7 +881,7 @@
      "idProduct": 824089,
      "name": "White Flare Elite Trainer Box",
      "price": {
-      "trend": 110.36,
+      "trend": 109.99,
       "low": 55,
       "avg30": null,
       "avg7": null,
@@ -893,7 +893,7 @@
      "idProduct": 824108,
      "name": "White Flare Booster Bundle",
      "price": {
-      "trend": 74.91,
+      "trend": 72.77,
       "low": 39,
       "avg30": null,
       "avg7": null,
@@ -932,7 +932,7 @@
      "idProduct": 823793,
      "name": "White Flare JP Booster Box",
      "price": {
-      "trend": 78.66,
+      "trend": 76.54,
       "low": 55.95,
       "avg30": null,
       "avg7": null,
@@ -996,7 +996,7 @@
      "idProduct": 818570,
      "name": "Destined Rivals Booster",
      "price": {
-      "trend": 6.95,
+      "trend": 6.76,
       "low": 4,
       "avg30": null,
       "avg7": null,
@@ -1008,7 +1008,7 @@
      "idProduct": 818574,
      "name": "Destined Rivals Booster Box",
      "price": {
-      "trend": 286.07,
+      "trend": 288.39,
       "low": 175,
       "avg30": null,
       "avg7": null,
@@ -1020,7 +1020,7 @@
      "idProduct": 818585,
      "name": "Destined Rivals Elite Trainer Box",
      "price": {
-      "trend": 111.29,
+      "trend": 110.55,
       "low": 99,
       "avg30": null,
       "avg7": null,
@@ -1032,7 +1032,7 @@
      "idProduct": 818578,
      "name": "Destined Rivals Booster Bundle",
      "price": {
-      "trend": 65.7,
+      "trend": 65.62,
       "low": 55,
       "avg30": null,
       "avg7": null,
@@ -1059,7 +1059,7 @@
      "idProduct": 818037,
      "name": "The Glory of Team Rocket Booster",
      "price": {
-      "trend": 1.91,
+      "trend": 1.89,
       "low": 1.3,
       "avg30": null,
       "avg7": null,
@@ -1071,7 +1071,7 @@
      "idProduct": 818039,
      "name": "The Glory of Team Rocket Booster Box",
      "price": {
-      "trend": 65.32,
+      "trend": 62.99,
       "low": 48,
       "avg30": null,
       "avg7": null,
@@ -1096,7 +1096,7 @@
      "idProduct": 805575,
      "name": "Journey Together Booster",
      "price": {
-      "trend": 5.59,
+      "trend": 5.49,
       "low": 3.6,
       "avg30": null,
       "avg7": null,
@@ -1108,7 +1108,7 @@
      "idProduct": 805579,
      "name": "Journey Together Booster Box",
      "price": {
-      "trend": 186.77,
+      "trend": 185.48,
       "low": 133.98,
       "avg30": null,
       "avg7": null,
@@ -1132,7 +1132,7 @@
      "idProduct": 805584,
      "name": "Journey Together Booster Bundle",
      "price": {
-      "trend": 44.73,
+      "trend": 45.24,
       "low": 35,
       "avg30": null,
       "avg7": null,
@@ -1157,7 +1157,7 @@
      "idProduct": 810651,
      "name": "Heat Wave Arena Booster",
      "price": {
-      "trend": 2.58,
+      "trend": 2.35,
       "low": 1,
       "avg30": null,
       "avg7": null,
@@ -1210,7 +1210,7 @@
      "idProduct": 804827,
      "name": "Battle Partners Booster Box",
      "price": {
-      "trend": 50.39,
+      "trend": 49.32,
       "low": 43.9,
       "avg30": null,
       "avg7": null,
@@ -1235,7 +1235,7 @@
      "idProduct": 798923,
      "name": "Prismatic Evolutions Booster",
      "price": {
-      "trend": 13.04,
+      "trend": 13.2,
       "low": 7.99,
       "avg30": null,
       "avg7": null,
@@ -1247,7 +1247,7 @@
      "idProduct": 798930,
      "name": "Prismatic Evolutions Elite Trainer Box",
      "price": {
-      "trend": 141.47,
+      "trend": 140.31,
       "low": 85,
       "avg30": null,
       "avg7": null,
@@ -1259,7 +1259,7 @@
      "idProduct": 798924,
      "name": "Prismatic Evolutions Booster Bundle",
      "price": {
-      "trend": 80.11,
+      "trend": 81.02,
       "low": 39,
       "avg30": null,
       "avg7": null,
@@ -1286,7 +1286,7 @@
      "idProduct": 794933,
      "name": "Terastal Festival ex Booster",
      "price": {
-      "trend": 7.64,
+      "trend": 7.66,
       "low": 6,
       "avg30": null,
       "avg7": null,
@@ -1298,7 +1298,7 @@
      "idProduct": 794934,
      "name": "Terastal Festival ex Booster Box",
      "price": {
-      "trend": 84.16,
+      "trend": 83.85,
       "low": 64.99,
       "avg30": null,
       "avg7": null,
@@ -1348,7 +1348,7 @@
      "idProduct": 784945,
      "name": "Surging Sparks Booster",
      "price": {
-      "trend": 6.88,
+      "trend": 6.89,
       "low": 4,
       "avg30": null,
       "avg7": null,
@@ -1360,7 +1360,7 @@
      "idProduct": 784949,
      "name": "Surging Sparks Booster Box",
      "price": {
-      "trend": 230.74,
+      "trend": 227.79,
       "low": 144.95,
       "avg30": null,
       "avg7": null,
@@ -1384,7 +1384,7 @@
      "idProduct": 784953,
      "name": "Surging Sparks Booster Bundle",
      "price": {
-      "trend": 50.56,
+      "trend": 51.34,
       "low": 35.7,
       "avg30": null,
       "avg7": null,
@@ -1411,7 +1411,7 @@
      "idProduct": 789975,
      "name": "Super Electric Breaker Booster",
      "price": {
-      "trend": 2.84,
+      "trend": 2.95,
       "low": 1.5,
       "avg30": null,
       "avg7": null,
@@ -1423,7 +1423,7 @@
      "idProduct": 789976,
      "name": "Super Electric Breaker Booster Box",
      "price": {
-      "trend": 51.43,
+      "trend": 50.39,
       "low": 49.9,
       "avg30": null,
       "avg7": null,
@@ -1448,7 +1448,7 @@
      "idProduct": 776321,
      "name": "Stellar Crown Booster",
      "price": {
-      "trend": 7.56,
+      "trend": 7.53,
       "low": 3.95,
       "avg30": null,
       "avg7": null,
@@ -1460,7 +1460,7 @@
      "idProduct": 776325,
      "name": "Stellar Crown Booster Box",
      "price": {
-      "trend": 226.84,
+      "trend": 229.2,
       "low": 150,
       "avg30": null,
       "avg7": null,
@@ -1472,7 +1472,7 @@
      "idProduct": 776336,
      "name": "Stellar Crown Elite Trainer Box",
      "price": {
-      "trend": 90.85,
+      "trend": 88.92,
       "low": 60,
       "avg30": null,
       "avg7": null,
@@ -1548,7 +1548,7 @@
      "idProduct": 770953,
      "name": "Shrouded Fable Booster",
      "price": {
-      "trend": 7.19,
+      "trend": 7.18,
       "low": 4.49,
       "avg30": null,
       "avg7": null,
@@ -1560,7 +1560,7 @@
      "idProduct": 770958,
      "name": "Shrouded Fable Elite Trainer Box",
      "price": {
-      "trend": 72.61,
+      "trend": 71.98,
       "low": 44,
       "avg30": null,
       "avg7": null,
@@ -1587,7 +1587,7 @@
      "idProduct": 773317,
      "name": "Stellar Miracle Booster",
      "price": {
-      "trend": 2.17,
+      "trend": 2.16,
       "low": 1.5,
       "avg30": null,
       "avg7": null,
@@ -1599,7 +1599,7 @@
      "idProduct": 773318,
      "name": "Stellar Miracle Booster Box",
      "price": {
-      "trend": 57.21,
+      "trend": 54.91,
       "low": 41.35,
       "avg30": null,
       "avg7": null,
@@ -1626,7 +1626,7 @@
      "idProduct": 769157,
      "name": "Night Wanderer Booster",
      "price": {
-      "trend": 2.07,
+      "trend": 1.98,
       "low": 1.4,
       "avg30": null,
       "avg7": null,
@@ -1663,7 +1663,7 @@
      "idProduct": 761217,
      "name": "Twilight Masquerade Booster",
      "price": {
-      "trend": 6.45,
+      "trend": 6.58,
       "low": 4,
       "avg30": null,
       "avg7": null,
@@ -1675,7 +1675,7 @@
      "idProduct": 761219,
      "name": "Twilight Masquerade Booster Box",
      "price": {
-      "trend": 262.42,
+      "trend": 249.58,
       "low": 175,
       "avg30": null,
       "avg7": null,
@@ -1687,7 +1687,7 @@
      "idProduct": 761229,
      "name": "Twilight Masquerade Elite Trainer Box",
      "price": {
-      "trend": 69.6,
+      "trend": 70.65,
       "low": 45,
       "avg30": null,
       "avg7": null,
@@ -1699,7 +1699,7 @@
      "idProduct": 761221,
      "name": "Twilight Masquerade Booster Bundle",
      "price": {
-      "trend": 46.46,
+      "trend": 45.64,
       "low": 34.95,
       "avg30": null,
       "avg7": null,
@@ -1738,7 +1738,7 @@
      "idProduct": 761216,
      "name": "Mask of Change Booster Box",
      "price": {
-      "trend": 58.12,
+      "trend": 57.33,
       "low": 43.99,
       "avg30": null,
       "avg7": null,
@@ -1763,7 +1763,7 @@
      "idProduct": 750399,
      "name": "Temporal Forces Booster",
      "price": {
-      "trend": 7.06,
+      "trend": 7.34,
       "low": 3.9,
       "avg30": null,
       "avg7": null,
@@ -1775,7 +1775,7 @@
      "idProduct": 750403,
      "name": "Temporal Forces Booster Box",
      "price": {
-      "trend": 232.51,
+      "trend": 234.99,
       "low": 155,
       "avg30": null,
       "avg7": null,
@@ -1787,7 +1787,7 @@
      "idProduct": 750410,
      "name": "Temporal Forces Iron Leaves Elite Trainer Box",
      "price": {
-      "trend": 96.52,
+      "trend": 92.65,
       "low": 60,
       "avg30": null,
       "avg7": null,
@@ -1863,7 +1863,7 @@
      "idProduct": 745544,
      "name": "Paldean Fates Booster",
      "price": {
-      "trend": 19.85,
+      "trend": 19.58,
       "low": 9.9,
       "avg30": null,
       "avg7": null,
@@ -1875,7 +1875,7 @@
      "idProduct": 745548,
      "name": "Paldean Fates Elite Trainer Box",
      "price": {
-      "trend": 205.74,
+      "trend": 202.57,
       "low": 110,
       "avg30": null,
       "avg7": null,
@@ -1887,7 +1887,7 @@
      "idProduct": 745565,
      "name": "Paldean Fates Booster Bundle",
      "price": {
-      "trend": 115.06,
+      "trend": 111.28,
       "low": 60,
       "avg30": null,
       "avg7": null,
@@ -1953,7 +1953,7 @@
      "idProduct": 749454,
      "name": "Cyber Judge Booster",
      "price": {
-      "trend": 1.89,
+      "trend": 1.91,
       "low": 1.5,
       "avg30": null,
       "avg7": null,
@@ -1965,7 +1965,7 @@
      "idProduct": 749456,
      "name": "Cyber Judge Booster Box",
      "price": {
-      "trend": 57.59,
+      "trend": 57.11,
       "low": 42.99,
       "avg30": null,
       "avg7": null,
@@ -2004,7 +2004,7 @@
      "idProduct": 740461,
      "name": "Shiny Treasure ex Booster Box",
      "price": {
-      "trend": 92.77,
+      "trend": 90.87,
       "low": 85,
       "avg30": null,
       "avg7": null,
@@ -2029,7 +2029,7 @@
      "idProduct": 728716,
      "name": "Paradox Rift Booster",
      "price": {
-      "trend": 5.67,
+      "trend": 5.51,
       "low": 3.85,
       "avg30": null,
       "avg7": null,
@@ -2041,7 +2041,7 @@
      "idProduct": 728718,
      "name": "Paradox Rift Booster Box",
      "price": {
-      "trend": 213.45,
+      "trend": 215.54,
       "low": 84.99,
       "avg30": null,
       "avg7": null,
@@ -2092,7 +2092,7 @@
      "idProduct": 732594,
      "name": "Future Flash Booster",
      "price": {
-      "trend": 2.21,
+      "trend": 2.28,
       "low": 1.25,
       "avg30": null,
       "avg7": null,
@@ -2104,7 +2104,7 @@
      "idProduct": 732596,
      "name": "Future Flash Booster Box",
      "price": {
-      "trend": 63.57,
+      "trend": 62.17,
       "low": 42,
       "avg30": null,
       "avg7": null,
@@ -2131,7 +2131,7 @@
      "idProduct": 732593,
      "name": "Ancient Roar Booster",
      "price": {
-      "trend": 2.24,
+      "trend": 2.26,
       "low": 1.49,
       "avg30": null,
       "avg7": null,
@@ -2180,7 +2180,7 @@
      "idProduct": 719694,
      "name": "151 Booster",
      "price": {
-      "trend": 23.89,
+      "trend": 23.87,
       "low": 17.88,
       "avg30": null,
       "avg7": null,
@@ -2192,7 +2192,7 @@
      "idProduct": 719691,
      "name": "151 Elite Trainer Box",
      "price": {
-      "trend": 389.87,
+      "trend": 379.2,
       "low": 345,
       "avg30": null,
       "avg7": null,
@@ -2204,7 +2204,7 @@
      "idProduct": 719695,
      "name": "151 Booster Bundle",
      "price": {
-      "trend": 132.78,
+      "trend": 132.32,
       "low": 79.95,
       "avg30": null,
       "avg7": null,
@@ -2395,7 +2395,7 @@
      "idProduct": 704498,
      "name": "Pokémon Card 151 Booster",
      "price": {
-      "trend": 11.91,
+      "trend": 11.84,
       "low": 8.6,
       "avg30": null,
       "avg7": null,
@@ -2407,7 +2407,7 @@
      "idProduct": 718514,
      "name": "Pokémon Card 151 Booster Box",
      "price": {
-      "trend": 224.39,
+      "trend": 223.83,
       "low": 120,
       "avg30": null,
       "avg7": null,
@@ -2432,7 +2432,7 @@
      "idProduct": 703155,
      "name": "Paldea Evolved Booster",
      "price": {
-      "trend": 8.08,
+      "trend": 7.94,
       "low": 3.5,
       "avg30": null,
       "avg7": null,
@@ -2444,7 +2444,7 @@
      "idProduct": 703156,
      "name": "Paldea Evolved Booster Box",
      "price": {
-      "trend": 302.22,
+      "trend": 300.17,
       "low": 158,
       "avg30": null,
       "avg7": null,
@@ -2456,7 +2456,7 @@
      "idProduct": 703175,
      "name": "Paldea Evolved Elite Trainer Box",
      "price": {
-      "trend": 143.24,
+      "trend": 144.87,
       "low": 90,
       "avg30": null,
       "avg7": null,
@@ -2495,7 +2495,7 @@
      "idProduct": 702931,
      "name": "Clay Burst Booster",
      "price": {
-      "trend": 2.38,
+      "trend": 2.47,
       "low": 1.45,
       "avg30": null,
       "avg7": null,
@@ -2583,7 +2583,7 @@
      "idProduct": 692088,
      "name": "Scarlet & Violet Booster",
      "price": {
-      "trend": 6.56,
+      "trend": 6.57,
       "low": 3.9,
       "avg30": null,
       "avg7": null,
@@ -2608,7 +2608,7 @@
      "name": "Scarlet & Violet Koraidon Elite Trainer Box",
      "price": {
       "trend": 101.59,
-      "low": 69.9,
+      "low": 70,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2683,8 +2683,8 @@
      "idProduct": 683006,
      "name": "Crown Zenith Booster",
      "price": {
-      "trend": 21.65,
-      "low": 14,
+      "trend": 21.79,
+      "low": 14.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -2695,7 +2695,7 @@
      "idProduct": 683009,
      "name": "Crown Zenith Elite Trainer Box",
      "price": {
-      "trend": 249.25,
+      "trend": 252.61,
       "low": 170,
       "avg30": null,
       "avg7": null,
@@ -2773,7 +2773,7 @@
      "idProduct": 689086,
      "name": "Violet ex Booster",
      "price": {
-      "trend": 2.48,
+      "trend": 2.46,
       "low": 1.49,
       "avg30": null,
       "avg7": null,
@@ -2824,7 +2824,7 @@
      "idProduct": 681796,
      "name": "VSTAR Universe Booster Box",
      "price": {
-      "trend": 149.57,
+      "trend": 147.77,
       "low": 119,
       "avg30": null,
       "avg7": null,
@@ -2876,7 +2876,7 @@
      "idProduct": 672323,
      "name": "Silver Tempest Booster",
      "price": {
-      "trend": 10.36,
+      "trend": 10.41,
       "low": 4.95,
       "avg30": null,
       "avg7": null,
@@ -2888,7 +2888,7 @@
      "idProduct": 672333,
      "name": "Silver Tempest Booster Box",
      "price": {
-      "trend": 396.93,
+      "trend": 396.53,
       "low": 195,
       "avg30": null,
       "avg7": null,
@@ -2900,7 +2900,7 @@
      "idProduct": 672338,
      "name": "Silver Tempest Elite Trainer Box",
      "price": {
-      "trend": 150.98,
+      "trend": 147.79,
       "low": 130,
       "avg30": null,
       "avg7": null,
@@ -2951,7 +2951,7 @@
      "idProduct": 675864,
      "name": "Paradigm Trigger Booster Box",
      "price": {
-      "trend": 137.56,
+      "trend": 134.71,
       "low": 94.99,
       "avg30": null,
       "avg7": null,
@@ -2976,7 +2976,7 @@
      "idProduct": 665527,
      "name": "Lost Origin Booster",
      "price": {
-      "trend": 11.57,
+      "trend": 11.15,
       "low": 7.49,
       "avg30": null,
       "avg7": null,
@@ -2988,7 +2988,7 @@
      "idProduct": 665526,
      "name": "Lost Origin Booster Box",
      "price": {
-      "trend": 440.59,
+      "trend": 457.24,
       "low": 270,
       "avg30": null,
       "avg7": null,
@@ -3000,7 +3000,7 @@
      "idProduct": 666150,
      "name": "Lost Origin Elite Trainer Box",
      "price": {
-      "trend": 191.93,
+      "trend": 190.18,
       "low": 180,
       "avg30": null,
       "avg7": null,
@@ -3076,7 +3076,7 @@
      "idProduct": 670465,
      "name": "McDonald's Match Battle 2022 Booster",
      "price": {
-      "trend": 3.84,
+      "trend": 3.68,
       "low": 1.5,
       "avg30": null,
       "avg7": null,
@@ -3140,7 +3140,7 @@
      "idProduct": 653699,
      "name": "Pokémon GO Booster",
      "price": {
-      "trend": 10.15,
+      "trend": 10.28,
       "low": 7,
       "avg30": null,
       "avg7": null,
@@ -3153,7 +3153,7 @@
      "name": "Pokémon GO Elite Trainer Box",
      "price": {
       "trend": 125.06,
-      "low": 79.9,
+      "low": 70,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -3216,7 +3216,7 @@
      "idProduct": 611350,
      "name": "Astral Radiance Booster",
      "price": {
-      "trend": 8.54,
+      "trend": 8.27,
       "low": 5.4,
       "avg30": null,
       "avg7": null,
@@ -3228,7 +3228,7 @@
      "idProduct": 611352,
      "name": "Astral Radiance Booster Box",
      "price": {
-      "trend": 318.35,
+      "trend": 316.79,
       "low": 180,
       "avg30": null,
       "avg7": null,
@@ -3240,7 +3240,7 @@
      "idProduct": 611359,
      "name": "Astral Radiance Elite Trainer Box",
      "price": {
-      "trend": 113.23,
+      "trend": 113.53,
       "low": 90,
       "avg30": null,
       "avg7": null,
@@ -3306,7 +3306,7 @@
      "idProduct": 611245,
      "name": "Space Juggler Booster",
      "price": {
-      "trend": 4.29,
+      "trend": 4.31,
       "low": 2.5,
       "avg30": null,
       "avg7": null,
@@ -3382,7 +3382,7 @@
      "idProduct": 583513,
      "name": "Brilliant Stars Booster",
      "price": {
-      "trend": 8.45,
+      "trend": 8.59,
       "low": 5,
       "avg30": null,
       "avg7": null,
@@ -3394,7 +3394,7 @@
      "idProduct": 583512,
      "name": "Brilliant Stars Booster Box",
      "price": {
-      "trend": 420.94,
+      "trend": 418.75,
       "low": 315,
       "avg30": null,
       "avg7": null,
@@ -3406,7 +3406,7 @@
      "idProduct": 583510,
      "name": "Brilliant Stars Elite Trainer Box",
      "price": {
-      "trend": 124.87,
+      "trend": 114.58,
       "low": 148,
       "avg30": null,
       "avg7": null,
@@ -3523,7 +3523,7 @@
      "idProduct": 576800,
      "name": "VMAX Climax Booster Box",
      "price": {
-      "trend": 112.96,
+      "trend": 118.81,
       "low": 83.9,
       "avg30": null,
       "avg7": null,
@@ -3548,7 +3548,7 @@
      "idProduct": 574591,
      "name": "Fusion Strike Booster",
      "price": {
-      "trend": 12.73,
+      "trend": 12.5,
       "low": 9.85,
       "avg30": null,
       "avg7": null,
@@ -3560,7 +3560,7 @@
      "idProduct": 574592,
      "name": "Fusion Strike Booster Box",
      "price": {
-      "trend": 773.41,
+      "trend": 758.8,
       "low": 499,
       "avg30": null,
       "avg7": null,
@@ -3573,7 +3573,7 @@
      "name": "Fusion Strike Elite Trainer Box",
      "price": {
       "trend": 302.77,
-      "low": 280,
+      "low": 259,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -3597,7 +3597,7 @@
      "idProduct": 570886,
      "name": "25th Anniversary Collection Booster",
      "price": {
-      "trend": 15.85,
+      "trend": 15.94,
       "low": 9,
       "avg30": null,
       "avg7": null,
@@ -3609,8 +3609,8 @@
      "idProduct": 579346,
      "name": "25th Anniversary Collection Booster Box",
      "price": {
-      "trend": 208.79,
-      "low": 114.99,
+      "trend": 212.29,
+      "low": 127.5,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -3636,7 +3636,7 @@
      "idProduct": 570888,
      "name": "Celebrations Booster",
      "price": {
-      "trend": 25.73,
+      "trend": 26.97,
       "low": 22,
       "avg30": null,
       "avg7": null,
@@ -3648,7 +3648,7 @@
      "idProduct": 570895,
      "name": "Celebrations Elite Trainer Box",
      "price": {
-      "trend": 279.49,
+      "trend": 280.41,
       "low": 249.99,
       "avg30": null,
       "avg7": null,
@@ -3712,7 +3712,7 @@
      "idProduct": 568764,
      "name": "Evolving Skies Booster",
      "price": {
-      "trend": 28.26,
+      "trend": 29.06,
       "low": 16.49,
       "avg30": null,
       "avg7": null,
@@ -3724,7 +3724,7 @@
      "idProduct": 568765,
      "name": "Evolving Skies Booster Box",
      "price": {
-      "trend": 2059.12,
+      "trend": 2034.2,
       "low": 950,
       "avg30": null,
       "avg7": null,
@@ -3761,8 +3761,8 @@
      "idProduct": 568813,
      "name": "Blue Sky Stream Booster Box",
      "price": {
-      "trend": 353.41,
-      "low": 100,
+      "trend": 327.95,
+      "low": 102,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -3827,7 +3827,7 @@
      "idProduct": 557969,
      "name": "Chilling Reign Booster",
      "price": {
-      "trend": 8.87,
+      "trend": 8.84,
       "low": 5.5,
       "avg30": null,
       "avg7": null,
@@ -3839,7 +3839,7 @@
      "idProduct": 557968,
      "name": "Chilling Reign Booster Box",
      "price": {
-      "trend": 376.55,
+      "trend": 387.24,
       "low": 279,
       "avg30": null,
       "avg7": null,
@@ -3851,7 +3851,7 @@
      "idProduct": 557971,
      "name": "Chilling Reign Ice Rider Calyrex Elite Trainer Box",
      "price": {
-      "trend": 139.81,
+      "trend": 137.87,
       "low": 96.9,
       "avg30": null,
       "avg7": null,
@@ -3876,7 +3876,7 @@
      "idProduct": 564172,
      "name": "Eevee Heroes Booster",
      "price": {
-      "trend": 5.19,
+      "trend": 4.96,
       "low": 3.5,
       "avg30": null,
       "avg7": null,
@@ -3888,7 +3888,7 @@
      "idProduct": 564175,
      "name": "Eevee Heroes Booster Box",
      "price": {
-      "trend": 487.53,
+      "trend": 669.99,
       "low": 155,
       "avg30": null,
       "avg7": null,
@@ -4069,7 +4069,7 @@
      "idProduct": 526125,
      "name": "Shining Fates Booster",
      "price": {
-      "trend": 13.57,
+      "trend": 14.58,
       "low": 8.95,
       "avg30": null,
       "avg7": null,
@@ -4081,8 +4081,8 @@
      "idProduct": 526120,
      "name": "Shining Fates Elite Trainer Box",
      "price": {
-      "trend": 139.2,
-      "low": 109.99,
+      "trend": 134.04,
+      "low": 110,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -4106,7 +4106,7 @@
      "idProduct": 550931,
      "name": "McDonald's Collection 25th Anniversary Booster",
      "price": {
-      "trend": 4.89,
+      "trend": 4.97,
       "low": 3.49,
       "avg30": null,
       "avg7": null,
@@ -4172,7 +4172,7 @@
      "idProduct": 534147,
      "name": "Single Strike Master Booster",
      "price": {
-      "trend": 6.3,
+      "trend": 6.1,
       "low": 2.5,
       "avg30": null,
       "avg7": null,
@@ -4222,7 +4222,7 @@
      "name": "Shiny Star V Booster Box",
      "price": {
       "trend": 113.2,
-      "low": 110,
+      "low": 105,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -4248,7 +4248,7 @@
      "idProduct": 494514,
      "name": "Vivid Voltage Booster",
      "price": {
-      "trend": 9.67,
+      "trend": 9.62,
       "low": 6.5,
       "avg30": null,
       "avg7": null,
@@ -4260,7 +4260,7 @@
      "idProduct": 494509,
      "name": "Vivid Voltage Booster Box",
      "price": {
-      "trend": 282.39,
+      "trend": 281.15,
       "low": 149.99,
       "avg30": null,
       "avg7": null,
@@ -4385,7 +4385,7 @@
      "idProduct": 462244,
      "name": "Darkness Ablaze Booster",
      "price": {
-      "trend": 9.49,
+      "trend": 10.1,
       "low": 6.5,
       "avg30": null,
       "avg7": null,
@@ -4397,7 +4397,7 @@
      "idProduct": 462239,
      "name": "Darkness Ablaze Booster Box",
      "price": {
-      "trend": 369.65,
+      "trend": 363.37,
       "low": 280,
       "avg30": null,
       "avg7": null,
@@ -4410,7 +4410,7 @@
      "name": "Darkness Ablaze Elite Trainer Box",
      "price": {
       "trend": 113.43,
-      "low": 88,
+      "low": 85,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -4920,7 +4920,7 @@
      "name": "Alter Genesis Booster Box",
      "price": {
       "trend": 497.33,
-      "low": 450,
+      "low": 489.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -4944,8 +4944,8 @@
      "idProduct": 381201,
      "name": "Hidden Fates Booster",
      "price": {
-      "trend": 28.26,
-      "low": 28.99,
+      "trend": 28.31,
+      "low": 29.49,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -4956,7 +4956,7 @@
      "idProduct": 381198,
      "name": "Hidden Fates Elite Trainer Box",
      "price": {
-      "trend": 367.96,
+      "trend": 376.74,
       "low": 300,
       "avg30": null,
       "avg7": null,
@@ -5045,7 +5045,7 @@
      "name": "Dream League Booster Box",
      "price": {
       "trend": 727.12,
-      "low": 829,
+      "low": 815,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -5084,7 +5084,7 @@
      "name": "Remix Bout Booster Box",
      "price": {
       "trend": 577.24,
-      "low": 440,
+      "low": 435,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -5147,7 +5147,7 @@
      "idProduct": 370621,
      "name": "Unbroken Bonds Booster",
      "price": {
-      "trend": 78.51,
+      "trend": 70.35,
       "low": 34.99,
       "avg30": null,
       "avg7": null,
@@ -5313,7 +5313,7 @@
      "idProduct": 370625,
      "name": "Detective Pikachu Booster",
      "price": {
-      "trend": 28.8,
+      "trend": 28.16,
       "low": 13.95,
       "avg30": null,
       "avg7": null,
@@ -5416,7 +5416,7 @@
      "idProduct": 366887,
      "name": "Team Up Booster",
      "price": {
-      "trend": 206.69,
+      "trend": 250.78,
       "low": 49.99,
       "avg30": null,
       "avg7": null,
@@ -5519,7 +5519,7 @@
      "name": "Tag Bolt Booster Box",
      "price": {
       "trend": 1856.85,
-      "low": 2298.99,
+      "low": 2199.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -5810,7 +5810,7 @@
      "name": "Fairy Rise Booster",
      "price": {
       "trend": 14.14,
-      "low": 11,
+      "low": 10.79,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -5822,7 +5822,7 @@
      "name": "Fairy Rise Booster Box",
      "price": {
       "trend": 267.39,
-      "low": 449.99,
+      "low": 448.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -6090,7 +6090,7 @@
      "idProduct": 315122,
      "name": "Ultra Prism Booster",
      "price": {
-      "trend": 28.85,
+      "trend": 27.6,
       "low": 15,
       "avg30": null,
       "avg7": null,
@@ -6142,7 +6142,7 @@
      "name": "Ultra Force Booster Box",
      "price": {
       "trend": 291,
-      "low": 324.99,
+      "low": 375,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -6244,7 +6244,7 @@
      "idProduct": 301170,
      "name": "Crimson Invasion Booster",
      "price": {
-      "trend": 16.78,
+      "trend": 16.36,
       "low": 9,
       "avg30": null,
       "avg7": null,
@@ -6268,7 +6268,7 @@
      "idProduct": 301168,
      "name": "Crimson Invasion Elite Trainer Box",
      "price": {
-      "trend": 262.96,
+      "trend": 263.36,
       "low": 230,
       "avg30": null,
       "avg7": null,
@@ -6447,8 +6447,8 @@
      "idProduct": 298777,
      "name": "Burning Shadows Booster",
      "price": {
-      "trend": 23.2,
-      "low": 12.9,
+      "trend": 25.91,
+      "low": 12.5,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -6815,8 +6815,8 @@
      "idProduct": 294124,
      "name": "Sun & Moon Booster Box",
      "price": {
-      "trend": 927.25,
-      "low": 950,
+      "trend": 924.36,
+      "low": 690,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -6969,7 +6969,7 @@
      "idProduct": 293332,
      "name": "Evolutions Booster Box",
      "price": {
-      "trend": 4074.46,
+      "trend": 4069.83,
       "low": 2999.95,
       "avg30": null,
       "avg7": null,
@@ -7104,7 +7104,7 @@
      "idProduct": 293301,
      "name": "Generations Booster",
      "price": {
-      "trend": 322.89,
+      "trend": 353.19,
       "low": 130,
       "avg30": null,
       "avg7": null,
@@ -7141,7 +7141,7 @@
      "idProduct": 287243,
      "name": "BREAKpoint Booster",
      "price": {
-      "trend": 91.89,
+      "trend": 90.23,
       "low": 33.33,
       "avg30": null,
       "avg7": null,
@@ -7239,7 +7239,7 @@
      "idProduct": 283942,
      "name": "Ancient Origins Booster",
      "price": {
-      "trend": 117.57,
+      "trend": 120.78,
       "low": 80,
       "avg30": null,
       "avg7": null,
@@ -7399,7 +7399,7 @@
      "idProduct": 271439,
      "name": "Phantom Forces Booster",
      "price": {
-      "trend": 203.11,
+      "trend": 199.31,
       "low": 150,
       "avg30": null,
       "avg7": null,
@@ -8026,7 +8026,7 @@
      "name": "Emerging Powers Booster Box",
      "price": {
       "trend": 5955.41,
-      "low": 9850,
+      "low": 10900,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -8075,7 +8075,7 @@
      "name": "Black & White Booster",
      "price": {
       "trend": 126.5,
-      "low": 44.9,
+      "low": 44.99,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -8149,7 +8149,7 @@
      "name": "Triumphant Booster",
      "price": {
       "trend": 304.72,
-      "low": 119.89,
+      "low": 110,
       "avg30": null,
       "avg7": null,
       "avg1": null
@@ -10134,7 +10134,7 @@
      "idProduct": 271823,
      "name": "Base Set Booster",
      "price": {
-      "trend": 1023.87,
+      "trend": 926.07,
       "low": 333.33,
       "avg30": null,
       "avg7": null,
